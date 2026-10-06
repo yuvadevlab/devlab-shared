@@ -1,17 +1,16 @@
 /**
  * OrchestrAI Theme — Lovable UI Blue/Teal Palette
- *
- * Derived from orchestrai-src/src/styles.css (the official Lovable-sourced design).
- * Uses OKLCH color space with both light and dark mode support.
- * Hue axis: ~195–250 (blue-teal spectrum), primary at hue 205 (light) / 195 (dark).
- * Fonts are intentionally NOT set here; they are managed by the consuming app
- * (Manrope / Sora / JetBrains Mono for the robotic-technical feel).
+ * Modern OKLCH color spaces optimized for AI intelligence, autonomous agents, and telemetry workflows.
+ * High-specificity scoped tokens for OrchestrAI applications.
  */
 
-/* ── Light Mode ────────────────────────────────────────────────────────── */
-:root,
+/* ── OrchestrAI Theme — Light Mode ─────────────────────────────────────── */
 [data-brand="orchestrai"],
-[data-theme="orchestrai"] {
+[data-theme="orchestrai"],
+[data-theme="orchestrai-light"],
+:root[data-brand="orchestrai"],
+:root[data-theme="orchestrai"],
+:root[data-theme="orchestrai-light"] {
   --radius: 0.75rem;
 
   /* Surfaces */
@@ -34,7 +33,7 @@
   --accent: oklch(0.93 0.035 200);
   --accent-foreground: oklch(0.28 0.04 220);
 
-  /* Status (Feedback tokens: success #47c58c, destructive #f3625d, warning #f0b648, info #6fa7ee) */
+  /* Status */
   --destructive: oklch(68% 0.18 25);
   --destructive-foreground: oklch(0.99 0.005 200);
   --success: oklch(74% 0.14 160);
@@ -49,19 +48,12 @@
   --input: oklch(0.9 0.01 230);
   --ring: oklch(0.58 0.126 205);
 
-  /* Glass surfaces */
+  /* Glass / Surface Tokens */
   --surface: oklch(1 0 0 / 70%);
   --surface-2: oklch(0.975 0.006 220);
   --overlay: oklch(0.985 0.004 210 / 80%);
 
-  /* Charts */
-  --chart-1: oklch(0.58 0.126 205);
-  --chart-2: oklch(0.62 0.13 158);
-  --chart-3: oklch(0.6 0.12 250);
-  --chart-4: oklch(0.75 0.14 75);
-  --chart-5: oklch(0.6 0.16 15);
-
-  /* Sidebar */
+  /* Navigation & Sidebar */
   --sidebar: oklch(0.99 0.004 220);
   --sidebar-foreground: oklch(0.21 0.02 245);
   --sidebar-primary: oklch(0.58 0.126 205);
@@ -70,6 +62,13 @@
   --sidebar-accent-foreground: oklch(0.24 0.02 245);
   --sidebar-border: oklch(0.9 0.01 230);
   --sidebar-ring: oklch(0.58 0.126 205);
+
+  /* Visual Data Telemetry (Charts) */
+  --chart-1: oklch(0.58 0.126 205);
+  --chart-2: oklch(0.62 0.13 158);
+  --chart-3: oklch(0.6 0.12 250);
+  --chart-4: oklch(0.75 0.14 75);
+  --chart-5: oklch(0.6 0.16 15);
 
   /* ── Sizing, Spacing & Layout Tokens ────────────────────────────── */
   --control-height-xs: 1.75rem;
@@ -101,12 +100,21 @@
   --table-row-padding-y: var(--space-3);
 }
 
-/* ── Dark Mode ────────────────────────────────────────────────────────── */
-.dark,
-[data-theme="dark"],
-[data-brand="orchestrai"].dark,
+/* ── OrchestrAI Theme — Dark Mode ──────────────────────────────────────── */
+[data-theme="orchestrai-dark"],
 [data-brand="orchestrai"][data-theme="dark"],
-[data-theme="orchestrai-dark"] {
+[data-brand="orchestrai"][data-theme="orchestrai-dark"],
+[data-brand="orchestrai"].dark,
+[data-brand="orchestrai"] .dark,
+[data-theme="orchestrai"] .dark,
+.dark [data-brand="orchestrai"],
+.dark [data-theme="orchestrai"],
+:root[data-theme="orchestrai-dark"],
+:root[data-brand="orchestrai"].dark,
+:root[data-brand="orchestrai"][data-theme="dark"],
+:root[data-brand="orchestrai"][data-theme="orchestrai-dark"],
+:root.dark[data-brand="orchestrai"],
+:root.dark[data-theme="orchestrai"] {
   --radius: 0.75rem;
 
   /* Surfaces */
@@ -129,7 +137,7 @@
   --accent: oklch(0.31 0.035 210);
   --accent-foreground: oklch(0.95 0.01 210);
 
-  /* Status (Feedback tokens: success #47c58c, destructive #f3625d, warning #f0b648, info #6fa7ee) */
+  /* Status */
   --destructive: oklch(68% 0.18 25);
   --destructive-foreground: oklch(0.18 0.02 240);
   --success: oklch(74% 0.14 160);
@@ -149,14 +157,7 @@
   --surface-2: oklch(0.235 0.018 250);
   --overlay: oklch(0.11 0.008 250 / 80%);
 
-  /* Charts */
-  --chart-1: oklch(0.76 0.115 195);
-  --chart-2: oklch(0.74 0.14 160);
-  --chart-3: oklch(0.72 0.12 255);
-  --chart-4: oklch(0.81 0.14 80);
-  --chart-5: oklch(0.7 0.16 15);
-
-  /* Sidebar */
+  /* Navigation & Sidebar */
   --sidebar: oklch(0.195 0.016 250);
   --sidebar-foreground: oklch(0.955 0.006 230);
   --sidebar-primary: oklch(0.76 0.115 195);
@@ -165,6 +166,13 @@
   --sidebar-accent-foreground: oklch(0.95 0.006 230);
   --sidebar-border: oklch(1 0 0 / 11%);
   --sidebar-ring: oklch(0.76 0.115 195);
+
+  /* Visual Data Telemetry (Charts) */
+  --chart-1: oklch(0.76 0.115 195);
+  --chart-2: oklch(0.74 0.14 160);
+  --chart-3: oklch(0.72 0.12 255);
+  --chart-4: oklch(0.81 0.14 80);
+  --chart-5: oklch(0.7 0.16 15);
 
   /* ── Sizing, Spacing & Layout Tokens ────────────────────────────── */
   --control-height-xs: 1.75rem;
