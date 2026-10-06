@@ -2,9 +2,163 @@
  * Yuva DevLab Design System — Tailwind CSS 4 Preset Bridge
  *
  * Maps standard design tokens and CSS custom properties to Tailwind utility classes.
- * Can be consumed by downstream applications via:
- * `@import "@yuva-devlab/ui/preset.css";`
+ * Acts as the universal preset and neutral baseline when no brands are mapped.
+ * Zero individual brand tokens are declared here.
+ * Can be consumed downstream via: `@import "@yuva-devlab/tokens/preset.css";`
  */
+
+/* ── Neutral Fallback Baseline (Active when no brands are mapped) ─────────── */
+:root {
+  --radius: 0.75rem;
+
+  /* Surfaces */
+  --background: oklch(0.985 0 0);
+  --foreground: oklch(0.18 0.01 260);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.18 0.01 260);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.18 0.01 260);
+
+  /* Core Neutral Action */
+  --primary: oklch(0.35 0.04 260);
+  --primary-foreground: oklch(0.99 0 0);
+  --secondary: oklch(0.96 0.005 260);
+  --secondary-foreground: oklch(0.2 0.01 260);
+
+  /* Muted / Accent */
+  --muted: oklch(0.96 0.005 260);
+  --muted-foreground: oklch(0.5 0.01 260);
+  --accent: oklch(0.94 0.01 260);
+  --accent-foreground: oklch(0.2 0.01 260);
+
+  /* System Status Feedback */
+  --destructive: oklch(0.6 0.22 25);
+  --destructive-foreground: oklch(0.99 0 0);
+  --warning: oklch(0.75 0.14 80);
+  --warning-foreground: oklch(0.2 0.02 80);
+  --success: oklch(0.65 0.15 150);
+  --success-foreground: oklch(0.99 0 0);
+  --info: oklch(0.68 0.13 245);
+  --info-foreground: oklch(0.99 0 0);
+
+  /* Form & Interactive */
+  --border: oklch(0.92 0.005 260);
+  --input: oklch(0.92 0.005 260);
+  --ring: oklch(0.35 0.04 260);
+
+  /* Surfaces & Overlay */
+  --surface: oklch(1 0 0 / 70%);
+  --surface-2: oklch(0.975 0.005 260);
+  --overlay: oklch(0.985 0 0 / 80%);
+
+  /* Navigation & Sidebar */
+  --sidebar: oklch(1 0 0);
+  --sidebar-foreground: oklch(0.18 0.01 260);
+  --sidebar-primary: oklch(0.35 0.04 260);
+  --sidebar-primary-foreground: oklch(0.99 0 0);
+  --sidebar-accent: oklch(0.95 0.01 260);
+  --sidebar-accent-foreground: oklch(0.2 0.01 260);
+  --sidebar-border: oklch(0.92 0.005 260);
+  --sidebar-ring: oklch(0.35 0.04 260);
+
+  /* Charts */
+  --chart-1: oklch(0.6 0.15 250);
+  --chart-2: oklch(0.65 0.15 150);
+  --chart-3: oklch(0.7 0.12 70);
+  --chart-4: oklch(0.75 0.14 80);
+  --chart-5: oklch(0.6 0.18 25);
+
+  /* Sizing, Spacing & Layout */
+  --control-height-xs: 1.75rem;
+  --control-height-sm: 2rem;
+  --control-height-md: 2.25rem;
+  --control-height-lg: 2.5rem;
+  --control-height-xl: 3rem;
+
+  --icon-xs: 0.875rem;
+  --icon-sm: 1rem;
+  --icon-md: 1.25rem;
+  --icon-lg: 1.5rem;
+  --icon-xl: 2rem;
+
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.25rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --space-10: 2.5rem;
+
+  --card-padding: var(--space-4);
+  --dialog-padding: var(--space-5);
+  --form-field-gap: var(--space-3);
+  --section-gap: var(--space-5);
+  --table-row-padding-x: var(--space-4);
+  --table-row-padding-y: var(--space-3);
+}
+
+.dark,
+[data-theme="dark"] {
+  --radius: 0.75rem;
+
+  /* Surfaces */
+  --background: oklch(0.16 0.01 260);
+  --foreground: oklch(0.97 0.003 260);
+  --card: oklch(0.2 0.01 260);
+  --card-foreground: oklch(0.97 0.003 260);
+  --popover: oklch(0.2 0.01 260);
+  --popover-foreground: oklch(0.97 0.003 260);
+
+  /* Core Neutral Action */
+  --primary: oklch(0.75 0.05 260);
+  --primary-foreground: oklch(0.15 0.01 260);
+  --secondary: oklch(0.25 0.01 260);
+  --secondary-foreground: oklch(0.97 0.003 260);
+
+  /* Muted / Accent */
+  --muted: oklch(0.25 0.01 260);
+  --muted-foreground: oklch(0.7 0.01 260);
+  --accent: oklch(0.3 0.02 260);
+  --accent-foreground: oklch(0.95 0.005 260);
+
+  /* System Status Feedback */
+  --destructive: oklch(0.65 0.2 25);
+  --destructive-foreground: oklch(0.97 0.003 0);
+  --warning: oklch(0.75 0.14 80);
+  --warning-foreground: oklch(0.15 0.02 80);
+  --success: oklch(0.7 0.15 150);
+  --success-foreground: oklch(0.15 0.01 260);
+  --info: oklch(0.72 0.12 245);
+  --info-foreground: oklch(0.15 0.01 260);
+
+  /* Form & Interactive */
+  --border: oklch(1 0 0 / 10%);
+  --input: oklch(1 0 0 / 14%);
+  --ring: oklch(0.75 0.05 260);
+
+  /* Surfaces & Overlay */
+  --surface: oklch(0.22 0.01 260 / 70%);
+  --surface-2: oklch(0.235 0.01 260);
+  --overlay: oklch(0.11 0.01 260 / 80%);
+
+  /* Navigation & Sidebar */
+  --sidebar: oklch(0.18 0.01 260);
+  --sidebar-foreground: oklch(0.97 0.003 260);
+  --sidebar-primary: oklch(0.75 0.05 260);
+  --sidebar-primary-foreground: oklch(0.15 0.01 260);
+  --sidebar-accent: oklch(0.26 0.01 260);
+  --sidebar-accent-foreground: oklch(0.97 0.003 260);
+  --sidebar-border: oklch(1 0 0 / 10%);
+  --sidebar-ring: oklch(0.75 0.05 260);
+
+  /* Charts */
+  --chart-1: oklch(0.7 0.15 250);
+  --chart-2: oklch(0.72 0.15 150);
+  --chart-3: oklch(0.75 0.12 70);
+  --chart-4: oklch(0.8 0.14 80);
+  --chart-5: oklch(0.65 0.18 25);
+}
 
 @theme inline {
   /* ── Radii Mappings ─────────────────────────────────────────────── */
