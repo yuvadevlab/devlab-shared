@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
 
 export type Theme = "dark" | "light" | "system" | string;
+export type ThemeMode = "light" | "dark" | "system";
 export type Brand = "finai" | "orchestrai" | string;
 
 export interface ThemeProviderProps {
