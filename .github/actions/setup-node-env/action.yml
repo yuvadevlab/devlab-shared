@@ -1,5 +1,11 @@
 name: "Setup Node Environment"
 description: "Sets up Node.js, pnpm, installs dependencies, and configures Turborepo caching."
+inputs:
+  node-version:
+    description: "Node.js version to use"
+    required: false
+    default: "22"
+
 runs:
   using: "composite"
   steps:
@@ -9,7 +15,7 @@ runs:
     - name: Setup Node.js
       uses: actions/setup-node@v4
       with:
-        node-version: 22
+        node-version: ${{ inputs.node-version }}
         cache: "pnpm"
 
     - name: Install Dependencies
