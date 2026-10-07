@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+  workflow_dispatch:
 
 permissions:
   contents: write
@@ -13,20 +14,45 @@ jobs:
   sync-main-to-dev:
     name: Create Sync PR to dev
     runs-on: ubuntu-latest
+    if: >-
+      github.event_name == 'workflow_dispatch' ||
+      contains(github.event.head_commit.message, 'chore(release): version packages') ||
+      contains(github.event.head_commit.message, 'changeset-release/')
 
     steps:
       - name: 📦 Checkout Repository
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
-          token: ${{ secrets.AUTO_PR_PAT || secrets.PAT_TOKEN || secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.AUTO_PR_PAT }}
 
       - name: 🔀 Create or Update Sync PR
         env:
-          GH_TOKEN: ${{ secrets.AUTO_PR_PAT || secrets.PAT_TOKEN || secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.AUTO_PR_PAT }}
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          # Verify that the push to main was triggered by merging the release PR
+          if [ "${{ github.event_name }}" != "workflow_dispatch" ]; then
+            COMMIT_MSG=$(git log -1 --pretty=%B)
+            echo "Latest commit on main:"
+            echo "$COMMIT_MSG"
+
+            if [[ "$COMMIT_MSG" != *"chore(release): version packages"* && "$COMMIT_MSG" != *"changeset-release/"* ]]; then
+              echo "⏸️ Latest commit on 'main' is not the release PR merge ('chore(release): version packages 🚀')."
+              echo "⏩ Reverse sync will only be created after the release PR is merged into main. Skipping."
+              exit 0
+            fi
+          fi
+
+          # Safety check: Ensure no open release PR is pending
+          OPEN_RELEASE_PR=$(gh pr list --base main --state open --json headRefName,title --jq '.[] | select((.title | test("chore\\(release\\): version packages")) or (.headRefName | startswith("changeset-release/"))) | .title' 2>/dev/null | head -n 1)
+          if [ -n "$OPEN_RELEASE_PR" ]; then
+            echo "⏳ Found pending release PR: '$OPEN_RELEASE_PR'."
+            echo "⏸️ Reverse sync will not be created until this release PR is merged into main. Skipping."
+            exit 0
+          fi
 
           git fetch origin dev main
 
