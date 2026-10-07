@@ -1,5 +1,11 @@
 # @yuva-devlab/ui
 
+## 1.3.2
+
+### Patch Changes
+
+- 38c75f1: Synchronize Sonner Toaster with document dark/light theme, bind design token variables, and export shared ThemeMode type.
+
 ## 1.3.1
 
 ### Patch Changes
