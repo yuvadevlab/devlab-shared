@@ -1,245 +1,230 @@
-# DevLab Shared — Product Specification, Technical Dossier & Operations Manual
+# DevLab Shared — Master Product Specification, Technical Dossier & Operations Manual
 
 ---
 
-## 1. Executive Product Dossier & Market Vision
+## 1. Product File: Strategic Vision & Architectural Foundations
 
-### 1.1 The Operational Problem Space
+### 1.1 Executive Product Summary
 
-In large-scale distributed systems and multi-agent AI ecosystems, software architectures inevitably degrade due to **cross-repository drift**:
+**DevLab Shared** (`@yuva-devlab/*`) is the foundational architectural backbone and shared design system powering the entire DevLab multi-repo ecosystem (`orchestrai`, `finai`, `devlab-portal`, `devlab-guard`, `devlab-logs`, `incidentai`).
 
-- **Duplicated Types & Error Codes**: Different microservices define their own domain error classes, resulting in inconsistent HTTP status codes, conflicting error messages, and broken retry loops.
-- **Divergent Resilience Strategies**: Service A uses aggressive retries that overwhelm Service B, which lacks a circuit breaker or rate limiter, causing cascading cluster failures.
-- **AI Agent Interface Inconsistency**: Agent tools, prompt interpolation formats, and token counters differ between repositories, making it impossible to share tools across OrchestraI, FinAI, and IncidentAI.
-- **Design System Fragmentation**: Frontend applications drift in styling, creating mismatched colors, broken dark themes, and inaccessible UI dialogs.
-- **Security & PII Leaks**: Unhardened regular expressions fail to catch leaked credentials, private keys, or personal identifiable information.
+In enterprise microservice and multi-agent platforms, code duplication, inconsistent UI paradigms, fragmented error hierarchies, divergent logging formats, and bespoke authentication guards quickly lead to platform fragility and maintenance overhead. DevLab Shared solves this by centralizing:
 
-### 1.2 The DevLab Shared Value Proposition
+1. **Unified Design System & UI Primitives**: Accessible, themeable UI components built on React 19, Radix UI, Tailwind CSS v4, and standardized design tokens.
+2. **Enterprise Primitives & Zero-Dependency Contracts**: Centralized error hierarchies, type-safe configurations, structured Pino logging with credential redaction, and centralized regular expressions.
+3. **Distributed Resilience & Security Utilities**: Production-grade Circuit Breakers, Exponential Backoff policies with jitter, Fastify/NestJS authentication guards, and JWKS token verification.
+4. **Cognitive Agent & RAG Primitives**: Shared semantic caching (`@yuva-devlab/semantic-cache`), AI client abstractions, vector search interfaces, and token billing calculators.
 
-**DevLab Shared** is the **canonical foundation monorepo** hosting 19 enterprise-grade TypeScript packages for the entire Yuva DevLab multi-repo ecosystem:
+### 1.2 Target Personas & Primary Use Cases
 
-1. **Absolute Source of Truth**: `@yuva-devlab/core` and `@yuva-devlab/errors` establish canonical domain contracts with zero external workspace dependencies.
-2. **Universal AI Agent Foundation**: `@yuva-devlab/agent-core` and `@yuva-devlab/ai-client` standardize tool execution schemas (`UniversalTool`), prompt template interpolation, and multi-provider model routing.
-3. **Enterprise Resilience Pipeline**: `@yuva-devlab/resilience` implements battle-tested Circuit Breakers, Bulkheads, Token Buckets, and Deadlines.
-4. **Multi-Brand Design System**: `@yuva-devlab/ui` and `@yuva-devlab/tokens` provide WCAG 2.1 AA accessible React components powered by Radix UI and Tailwind CSS.
-5. **Dual-Target ESM & CJS Artifacts**: Every package compiles to dual ESM (`dist/index.js`) and CommonJS (`dist/index.cjs`) bundles with `.d.ts` declaration maps via `tsup`.
-6. **Automated Changeset Publishing**: All 19 packages are configured with public access (`publishConfig: { "access": "public" }`) and managed via `@changesets/cli`.
+| Persona                                    | Operational Context                                                         | Primary Pain Points Addressed                                                                                                           |
+| :----------------------------------------- | :-------------------------------------------------------------------------- | :-------------------------------------------------------------------------------------------------------------------------------------- |
+| **Frontend Engineer**                      | Building user interfaces in OrchestrAI Console, FinAI Web, or DevLab Portal | Eliminates UI drift and CSS conflicts; provides accessible, dark-mode native components with zero styling boilerplate.                  |
+| **Backend & Distributed Systems Engineer** | Developing Fastify/NestJS APIs, BullMQ workers, and background daemons      | Provides unified structured logging, standard error codes, resilient retry/circuit breaker policies, and instant JWT validation.        |
+| **AI / Machine Learning Engineer**         | Integrating LLM providers and building agent workflows                      | Provides unified multi-provider abstractions, embeddings-based semantic caching, and token usage tracking across all services.          |
+| **Platform Maintainer & DevOps**           | Enforcing ecosystem-wide code quality and consistency                       | Provides centralized ESLint, Prettier, and TypeScript configurations, automated Changeset releases, and zero-leak credential redaction. |
 
 ---
 
-## 2. Exhaustive Package Catalog & Deep Technical Breakdown
+## 2. Exhaustive Feature Directory & Technical Mechanics
 
 ```
-┌────────────────────────────────────────────────────────────────────────────────────────┐
-│                        DEVLAB SHARED LAYERED ARCHITECTURE HIERARCHY                    │
-└────────────────────────────────────────────────────────────────────────────────────────┘
- [Layer 0: Pure Contracts]
-  • @yuva-devlab/core         • @yuva-devlab/errors       • @yuva-devlab/regex
-  • @yuva-devlab/tokens       • @yuva-devlab/config
-           │
-           ▼
- [Layer 1: Primitives & Runtimes]
-  • @yuva-devlab/logger       • @yuva-devlab/agent-core   • @yuva-devlab/ai-client
-  • @yuva-devlab/events       • @yuva-devlab/cli
-           │
-           ▼
- [Layer 2: Intelligence & Infrastructure]
-  • @yuva-devlab/resilience   • @yuva-devlab/semantic-cache • @yuva-devlab/rag
-  • @yuva-devlab/billing      • @yuva-devlab/auth-server
-           │
-           ▼
- [Layer 3: Presentation & SDK]
-  • @yuva-devlab/ui           • @yuva-devlab/auth-react   • @yuva-devlab/sdk
+┌────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+│                               DEVLAB SHARED ARCHITECTURAL LAYERS                                       │
+└────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+                  [Apps: UI Docs Showcase (:3006) | Storybook (:6006)]
+                                     │
+    ┌────────────────────────────────┼────────────────────────────────┬──────────────────────────┐
+    ▼                                ▼                                ▼                          ▼
+[Layer 1: Design & UI]   [Layer 2: Core Primitives]     [Layer 3: Resilience & Auth] [Layer 4: AI Primitives]
+ • @yuva-devlab/tokens    • @yuva-devlab/errors          • @yuva-devlab/resilience    • @yuva-devlab/semantic-cache
+ • @yuva-devlab/ui        • @yuva-devlab/logger          • @yuva-devlab/auth-server   • @yuva-devlab/agent-core
+ • @yuva-devlab/config    • @yuva-devlab/regex           • @yuva-devlab/auth-react    • @yuva-devlab/ai-client
+ • Tooling Configs        • @yuva-devlab/events          • @yuva-devlab/billing       • @yuva-devlab/rag
 ```
 
----
+### 2.1 Application Layer Breakdown
 
-### Layer 0: Pure Contracts & Domain Primitives
+#### 1. UI Documentation Showcase (`apps/ui-docs` — Port `3006`)
 
-#### 1. `@yuva-devlab/core`
+- **Technology Stack**: Next.js 15, React 19, Tailwind CSS v4, `@yuva-devlab/ui`.
+- **Purpose**: Live interactive documentation portal showcasing all UI components, tokens, accessibility guidelines, and code snippets.
+- **Detailed Features**:
+  - **Live Component Sandbox**: Interactive playground for rendering and configuring UI components with real-time prop tweaking.
+  - **Color Palette & Token Inspector**: Displays semantic color tokens, typography scales, spacing grids, and elevation shadows.
+  - **Code Export & Snippets**: One-click copying of JSX snippets for seamless integration into consumer apps.
 
-- **Objective**: Base interfaces, canonical entities, and universal invariants.
-- **Invariants**: ZERO internal workspace dependencies.
-- **Key Exports**: `TenantId`, `CorrelationId`, `BaseEntity`, `Timestamped`.
+#### 2. Storybook Showcase (`apps/ui-storybook` — Port `6006`)
 
-#### 2. `@yuva-devlab/errors`
-
-- **Objective**: Standardized error taxonomy and monadic result types.
-- **Key Exports**:
-  - `DomainError`: Base error class with code, message, HTTP status, and metadata.
-  - `ErrorCode`: Canonical enum (`UNAUTHORIZED`, `RATE_LIMITED`, `TOOL_NOT_FOUND`, `CIRCUIT_OPEN`).
-  - `Result<T, E>`: Functional failure/success container eliminating unhandled exceptions.
-  - Specialized errors: `NotFoundError`, `UnauthorizedError`, `ConflictError`, `ValidationError`.
-
-#### 3. `@yuva-devlab/regex`
-
-- **Objective**: Centralized, hardened regular expressions. Zero inline regexes permitted across the ecosystem.
-- **Key Exports**: `PII_REGEX` (email, phone, SSN), `SECURITY_REGEX` (JWT, API keys, private keys), `URI_REGEX`, `UUID_REGEX`.
-
-#### 4. `@yuva-devlab/tokens`
-
-- **Objective**: CSS variable design token definitions for multi-brand applications.
-- **Key Exports**: HSL color scales (primary, accent, destructive, background, surface), typography scales, radii, and z-index layers.
-
-#### 5. `@yuva-devlab/config`
-
-- **Objective**: Shared configurations for ESLint flat config, Prettier, and TypeScript compiler settings.
+- **Technology Stack**: Storybook v8, Vite, React 19.
+- **Purpose**: Isolated component testing and visual regression environment.
+- **Detailed Features**:
+  - **Component State Matrix**: Renders every component in all permutations (Default, Hover, Disabled, Loading, Error, Dark Mode).
+  - **Accessibility (a11y) Audits**: Automated WCAG 2.1 AA compliance checks on every story.
 
 ---
 
-### Layer 1: Primitives & Runtimes
+### 2.2 Exhaustive Package Catalog (All 20 Packages)
 
-#### 6. `@yuva-devlab/logger`
+#### Layer 1: Design System & User Interface
 
-- **Objective**: Isomorphic structured JSON logger with context correlation IDs.
-- **Key Features**: Winston/Pino-compatible interface, Express request logging middleware, log level masking, and OpenTelemetry trace propagation.
+1. **`@yuva-devlab/tokens`**:
+   - Houses design tokens (colors, typography, spacing, shadows, border radii, z-indices).
+   - Generates CSS variables, Tailwind configuration presets, and TypeScript constants.
+2. **`@yuva-devlab/ui`**:
+   - Comprehensive React 19 component library built on Radix UI primitives.
+   - Includes: `Button`, `Dialog`, `Drawer`, `DropdownMenu`, `Input`, `Select`, `Table`, `Tabs`, `Toast`, `Tooltip`, `Card`, `Badge`, `Skeleton`.
+   - 100% keyboard navigable and WCAG 2.1 AA accessible.
 
-#### 7. `@yuva-devlab/agent-core`
+#### Layer 2: Core Contracts & Runtime Primitives
 
-- **Objective**: Standardized framework for defining and running AI agent tools.
-- **Key Features**:
-  - `UniversalTool<TInput, TOutput>`: Interface declaring name, description, accessTier (`READ_ONLY`, `MUTATING`), confirmation policy, and Zod input schema.
-  - `PromptCompiler`: Interpolates templates (`{{variable}}`) and appends markdown tool catalogs.
-  - `ToolRegistry`: In-memory catalog enabling authorization-based tool resolution.
+3. **`@yuva-devlab/errors`**:
+   - Unified error hierarchy extending base `AppError`.
+   - Implements `NotFoundError`, `UnauthorizedError`, `ForbiddenError`, `ValidationError`, `RateLimitError`, `ConflictError`, `InternalServerError`.
+   - Serializes error payloads to RFC 7807 Problem Details JSON.
+4. **`@yuva-devlab/logger`**:
+   - Structured JSON logging built on Pino with sub-microsecond overhead.
+   - Automatic redaction of sensitive credentials (`authorization`, `api_key`, `password`, `credit_card`).
+   - Injects OpenTelemetry `traceId` and `spanId` into every log line.
+5. **`@yuva-devlab/config`**:
+   - Type-safe environment variable parsing and validation using Zod.
+   - Masks sensitive environment variables in debug logs.
+6. **`@yuva-devlab/regex`**:
+   - Centralized repository of regular expressions for the entire ecosystem.
+   - Eliminates inline regexes; contains tested expressions for UUIDs, emails, semver, URLs, tokens, and markdown parsing.
+7. **`@yuva-devlab/events`**:
+   - Typed event bus interfaces, CloudEvents-compliant message wrappers, and transactional outbox persistence helpers.
 
-#### 8. `@yuva-devlab/ai-client`
+#### Layer 3: Resilience, Authentication & Billing
 
-- **Objective**: Multi-provider unified LLM client interface.
-- **Key Features**: Standardized chat completion, token streaming, structured JSON schema output validation, and credentials management.
+8. **`@yuva-devlab/resilience`**:
+   - Distributed system fault tolerance primitives:
+     - **Circuit Breaker**: Detects downstream failure spikes and transitions between CLOSED, OPEN, and HALF_OPEN states.
+     - **Retry with Jitter**: Exponential backoff with full jitter to avoid thundering herd issues.
+     - **Bulkhead**: Concurrency isolation limiting concurrent executions per resource.
+9. **`@yuva-devlab/auth-server`**:
+   - Fastify and NestJS middleware guards for JWT validation, Redis session lookups, and JWKS public key rotation.
+10. **`@yuva-devlab/auth-react`**:
+    - React context and hooks (`useAuth`, `useUser`, `useTenant`, `usePermission`) for Next.js frontend applications.
+11. **`@yuva-devlab/billing`**:
+    - Usage metering, token credit calculation, and subscription tier entitlement enforcement models.
 
-#### 9. `@yuva-devlab/events`
+#### Layer 4: AI & Cognitive Agent Foundations
 
-- **Objective**: Event bus contracts and transactional outbox pattern implementation.
-- **Key Features**:
-  - `EventEnvelope<T>`: Standardized distributed event container with trace ID, tenant ID, and event type.
-  - `OutboxRelay`: Persists events atomically alongside business transactions and asynchronously publishes them to Kafka.
-  - `IdempotencyStore`: Deduplicates duplicate event delivery.
+12. **`@yuva-devlab/semantic-cache`**:
+    - Embeddings-based caching engine. Computes vector embeddings of incoming prompts; returns cached responses if cosine similarity exceeds threshold (default: 0.96).
+13. **`@yuva-devlab/agent-core`**:
+    - Abstract base contracts for agent state, tool execution interfaces, and cognitive memory adapters.
+14. **`@yuva-devlab/ai-client`**:
+    - Multi-provider LLM abstraction wrapping Ollama, Anthropic, OpenAI, and DeepSeek with unified streaming and structured JSON output.
+15. **`@yuva-devlab/rag`**:
+    - Shared vector retrieval primitives, chunking utilities, and reciprocal rank fusion algorithms.
 
-#### 10. `@yuva-devlab/cli`
+#### Layer 5: Developer Tooling & Shared Configurations
 
-- **Objective**: Monorepo scaffolding and code generator CLI tool.
-
----
-
-### Layer 2: Intelligence & Infrastructure
-
-#### 11. `@yuva-devlab/resilience`
-
-- **Objective**: Distributed fault-tolerance patterns preventing cascading failures.
-- **Key Features**:
-  - **Circuit Breaker**: Three-state machine (`CLOSED`, `OPEN`, `HALF_OPEN`) tracking failure rates and tripping automatically.
-  - **Bulkhead**: Limits concurrent executions per resource pool.
-  - **Token Bucket Rate Limiter**: Smooths request bursts with token replenishment.
-  - **Retry with Jitter**: Exponential backoff with full jitter to prevent thundering herd problems.
-
-#### 12. `@yuva-devlab/semantic-cache`
-
-- **Objective**: In-memory and Redis embedding vector cache for LLM queries.
-- **Key Features**: Computes cosine similarity between incoming queries and cached vectors; returns cached responses when similarity exceeds threshold (e.g. 0.95), cutting LLM costs by up to 60%.
-
-#### 13. `@yuva-devlab/rag`
-
-- **Objective**: Retrieval-Augmented Generation pipeline utilities.
-- **Key Features**: Text chunking algorithms (fixed, sentence, markdown), token estimators, vector store interfaces, and dense similarity ranking.
-
-#### 14. `@yuva-devlab/billing`
-
-- **Objective**: Real-time token consumption tracking and tenant budget enforcement.
-- **Key Features**: Dynamic pricing resolver per model, token counters, cost ledgers, and budget quota enforcers.
-
-#### 15. `@yuva-devlab/auth-server`
-
-- **Objective**: Backend authentication and JWT validation middleware.
-- **Key Features**:
-  - `JwksValidator`: Caches RS256 public keys from OIDC endpoints (`/.well-known/jwks.json`) and verifies tokens in-memory.
-  - `AuthGuards`: Express and Fastify route middleware validating claims (`exp`, `nbf`, `iss`, `aud`).
+16. **`@yuva-devlab/cli`**: Operational developer CLI for code generation and workspace scaffolding.
+17. **`@yuva-devlab/sdk`**: Monorepo client SDK for interacting with DevLab services.
+18. **`@yuva-devlab/eslint-config`**: Shared ESLint rule presets enforcing strict TypeScript and React rules.
+19. **`@yuva-devlab/prettier-config`**: Shared Prettier configuration ensuring consistent formatting across repositories.
+20. **`@yuva-devlab/typescript-config`**: Shared `tsconfig.base.json` enforcing strict null checks, no unused locals, and ESM resolution.
 
 ---
 
-### Layer 3: Presentation & SDK
-
-#### 16. `@yuva-devlab/ui`
-
-- **Objective**: Accessible, styled React component library powered by Radix UI and Tailwind CSS.
-- **Key Components**: Button, Input, Modal/Dialog, Card, Badge, Dropdown, Table, Toast, and `ConfigProvider`.
-
-#### 17. `@yuva-devlab/auth-react`
-
-- **Objective**: Client-side React authentication and maintenance mode handling.
-- **Key Components**: `DevLabAuthProvider`, `useDevLabAuth` hook, and `AppUnavailableScreen` maintenance viewer.
-
-#### 18. `@yuva-devlab/sdk`
-
-- **Objective**: Official TypeScript client library for communicating with DevLab platform APIs.
-
----
-
-## 3. How DevLab Shared Interacts with the Multi-Repo Ecosystem
+## 3. Inter-System Ecosystem Collaboration ("How It Works With Others")
 
 ```mermaid
 graph TD
-    Shared[devlab-shared Monorepo]
+    Shared["@yuva-devlab/shared (devlab-shared)"]
 
-    Shared -->|@yuva-devlab/agent-core<br/>@yuva-devlab/resilience<br/>@yuva-devlab/rag| OA[orchestrai]
-    Shared -->|@yuva-devlab/ai-client<br/>@yuva-devlab/ui<br/>@yuva-devlab/logger| FA[finai]
-    Shared -->|@yuva-devlab/ui<br/>@yuva-devlab/auth-server<br/>@yuva-devlab/tokens| DP[devlab-portal]
-    Shared -->|@yuva-devlab/logger<br/>@yuva-devlab/errors| DL[devlab-logs]
-    Shared -->|@yuva-devlab/errors<br/>@yuva-devlab/logger| IA[incidentai]
-    Shared -->|@yuva-devlab/regex| DG[devlab-guard]
+    OrchestrAI["orchestrai (:4001, :3001)"]
+    FinAI["finai (:4000, :3000)"]
+    Portal["devlab-portal (:3010, :3005)"]
+    Guard["devlab-guard"]
+    Logs["devlab-logs (:3020, :3025)"]
+    IncidentAI["incidentai (:8085)"]
+
+    Shared -->|"UI, Resilience, Semantic Cache"| OrchestrAI
+    Shared -->|"UI, Logger, Errors, Resilience"| FinAI
+    Shared -->|"UI, Auth Server, Auth React, Billing"| Portal
+    Shared -->|"Centralized Regex, Error Models"| Guard
+    Shared -->|"Logger, Structured Spans, Types"| Logs
+    Shared -->|"Errors, Resilience, Outbox"| IncidentAI
 ```
 
-### Detailed Ecosystem Consumption Matrix
+### 3.1 Inter-Repository Consumption Matrix
 
-| Consumer Repository | Consumed Packages                                                                                                               | Operational Purpose                                                             |
-| :------------------ | :------------------------------------------------------------------------------------------------------------------------------ | :------------------------------------------------------------------------------ |
-| **`orchestrai`**    | `@yuva-devlab/agent-core`, `@yuva-devlab/resilience`, `@yuva-devlab/semantic-cache`, `@yuva-devlab/rag`, `@yuva-devlab/billing` | Powers the distributed agent swarm runtime, fault tolerance, and token billing. |
-| **`finai`**         | `@yuva-devlab/ai-client`, `@yuva-devlab/ui`, `@yuva-devlab/tokens`, `@yuva-devlab/logger`                                       | Standardizes financial conversational advisor chat models and UI components.    |
-| **`devlab-portal`** | `@yuva-devlab/ui`, `@yuva-devlab/tokens`, `@yuva-devlab/logger`, `@yuva-devlab/auth-server`                                     | Builds the control plane web interface and validates OIDC identity tokens.      |
-| **`devlab-logs`**   | `@yuva-devlab/logger`, `@yuva-devlab/errors`                                                                                    | Ingests telemetry streams conforming to shared error and logging schemas.       |
-| **`incidentai`**    | `@yuva-devlab/logger`, `@yuva-devlab/errors`                                                                                    | Formats SRE postmortems, failure reports, and diagnostic log traces.            |
-| **`devlab-guard`**  | `@yuva-devlab/regex`                                                                                                            | Scans source code using centralized security and PII regular expression tokens. |
-
----
-
-## 4. Technical Guidelines & Invariants
-
-### 4.1 Invariants & Quality Standards
-
-1. **Hard 250-Line Maximum Rule**: Every file across `packages/*/src/` must remain strictly under 250 lines. Decompose early at 200 lines.
-2. **Exhaustive JSDoc**: 100% of exported symbols must feature comprehensive JSDoc blocks with parameter descriptions and usage examples.
-3. **Dual-Target Bundling**: All packages must build dual ESM and CJS outputs using `tsup`.
-4. **Publishable Standard**: Every package must set `publishConfig: { "access": "public" }` in `package.json`.
+| Ecosystem Consumer  | Imported Packages                                                                                  | Purpose & Operational Behavior                                                                                            |
+| :------------------ | :------------------------------------------------------------------------------------------------- | :------------------------------------------------------------------------------------------------------------------------ |
+| **`orchestrai`**    | `@yuva-devlab/ui`, `@yuva-devlab/semantic-cache`, `@yuva-devlab/resilience`, `@yuva-devlab/tokens` | Powers Operator Studio UI; executes sub-1ms semantic cache lookups; applies circuit breakers to LLM provider calls.       |
+| **`finai`**         | `@yuva-devlab/ui`, `@yuva-devlab/logger`, `@yuva-devlab/errors`, `@yuva-devlab/tokens`             | Renders financial dashboard widgets; writes structured audit logs for banking transactions; formats standard error codes. |
+| **`devlab-portal`** | `@yuva-devlab/ui`, `@yuva-devlab/auth-server`, `@yuva-devlab/auth-react`, `@yuva-devlab/billing`   | Powers admin console; verifies API keys via Redis; manages tenant subscription tiers and token quotas.                    |
+| **`devlab-guard`**  | `@yuva-devlab/regex`, `@yuva-devlab/errors`                                                        | Enforces shared regex patterns during static analysis; reports compliance errors.                                         |
+| **`devlab-logs`**   | `@yuva-devlab/logger`, `@yuva-devlab/tokens`                                                       | Standardizes telemetry envelopes across Go and Node.js ingestion pipelines.                                               |
+| **`incidentai`**    | `@yuva-devlab/errors`, `@yuva-devlab/resilience`, `@yuva-devlab/events`                            | Implements retry loops for sandbox reproductions; standardizes postmortem incident error structures.                      |
 
 ---
 
-## 5. Operations & Release Runbook
+## 4. Technical Guidelines & Invariant Rules
 
-### 5.1 Building & Typechecking
+### 4.1 Monorepo & Package Invariants
+
+1. **Zero Circular Dependencies**: Inward dependency hierarchy must be strictly maintained (Layer 4 -> Layer 3 -> Layer 2 -> Layer 1).
+2. **Strict TypeScript & Zod Validation**: Every package must export complete TypeScript definitions. All external inputs must be validated via Zod schemas.
+3. **Hard 250-Line Maximum Rule**: No source file in `packages/*` or `apps/*` may exceed 250 lines. Decompose early at 200 lines.
+4. **Publishable Packages Standard**: All 19 foundation packages must define `publishConfig: { access: "public" }` in their `package.json` and use Changesets for semver releases.
+
+---
+
+## 5. Developer Usage Guidelines & Operations Manual
+
+### 5.1 Local Prerequisites & Setup
 
 ```bash
 # Clone the repository
 git clone https://github.com/yuvadevlab/devlab-shared.git
 cd devlab-shared
 
-# Install dependencies across all workspaces
+# Install dependencies across all packages
 pnpm install
 
-# Build all 19 packages via Turborepo
+# Build all packages in topological order
 pnpm build
 
-# Run TypeScript typecheck across all packages
-pnpm typecheck
+# Start the interactive UI documentation showcase (:3006)
+pnpm --filter @yuva-devlab/ui-docs dev
+
+# Start the Storybook component catalogue (:6006)
+pnpm --filter @yuva-devlab/ui-storybook storybook
 ```
 
-### 5.2 Releasing Packages via Changesets
+### 5.2 Creating a Versioned Release with Changesets
 
 ```bash
-# Generate a new changeset describing a change
+# 1. Generate a changeset description
 pnpm changeset
 
-# Consume changesets and bump package versions
+# 2. Version packages according to semver
 pnpm changeset version
 
-# Publish all updated public packages to npm
+# 3. Publish packages to internal or public npm registry
 pnpm changeset publish
+```
+
+### 5.3 Practical Code Usage Recipes
+
+```typescript
+// Example: Using the Resilient Circuit Breaker
+import { CircuitBreaker } from "@yuva-devlab/resilience";
+import { logger } from "@yuva-devlab/logger";
+
+const breaker = new CircuitBreaker({
+  failureThreshold: 5,
+  resetTimeoutMs: 10000,
+  onStateChange: (from, to) =>
+    logger.warn({ from, to }, "Circuit breaker state changed"),
+});
+
+const result = await breaker.execute(async () => {
+  return await fetch("http://downstream-llm-service:8080/generate");
+});
 ```
