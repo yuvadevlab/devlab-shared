@@ -138,7 +138,7 @@ graph TD
 
     OrchestrAI["orchestrai (:4001, :3001)"]
     FinAI["finai (:4000, :3000)"]
-    Portal["devlab-portal (:3010, :3005)"]
+    Portal["devlab-portal (:3015, :3005)"]
     Guard["devlab-guard"]
     Logs["devlab-logs (:3020, :3025)"]
     IncidentAI["incidentai (:8085)"]
