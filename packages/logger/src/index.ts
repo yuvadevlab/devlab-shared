@@ -244,3 +244,6 @@ export function requestLogger(loggerInstance: Logger = new Logger("HTTP")) {
     next();
   };
 }
+
+/** Default singleton logger instance */
+export const logger = createLogger();
