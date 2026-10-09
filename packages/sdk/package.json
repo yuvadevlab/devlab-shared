@@ -1,6 +1,6 @@
 {
   "name": "@yuva-devlab/sdk",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Unified Master DevLab Platform Client combining AI inference, RAG, swarms, billing, caching, and events",
   "type": "module",
   "main": "./dist/index.cjs",
