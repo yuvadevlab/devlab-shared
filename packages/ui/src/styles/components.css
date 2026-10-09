@@ -894,6 +894,7 @@
     flex-direction: column;
     width: calc(100% - 2rem);
     max-width: var(--dl-dialog-max-width, 32rem);
+    height: auto;
     max-height: calc(100dvh - 3rem);
     border: 1px solid var(--border);
     background-color: var(--background);
@@ -921,25 +922,25 @@
   .dl-dialog--lg {
     width: 90vw;
     max-width: 44rem;
-    height: 80vh;
+    height: auto;
     max-height: 80vh;
   }
   .dl-dialog--xl {
     width: 92vw;
     max-width: 56rem;
-    height: 85vh;
+    height: auto;
     max-height: 85vh;
   }
   .dl-dialog--2xl {
     width: 94vw;
     max-width: 72rem;
-    height: 85vh;
+    height: auto;
     max-height: 85vh;
   }
   .dl-dialog--full {
     width: calc(100vw - 2rem);
     max-width: calc(100vw - 2rem);
-    height: calc(100dvh - 2rem);
+    height: auto;
     max-height: calc(100dvh - 2rem);
   }
 
