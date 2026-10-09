@@ -1,0 +1,60 @@
+{
+  "name": "@yuva-devlab/sdk",
+  "version": "0.1.0",
+  "description": "Unified Master DevLab Platform Client combining AI inference, RAG, swarms, billing, caching, and events",
+  "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": {
+        "import": "./dist/index.d.ts",
+        "require": "./dist/index.d.cts"
+      },
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    },
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "license": "MIT",
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "lint": "eslint src",
+    "lint:fix": "eslint src --fix",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "typecheck": "tsc --noEmit",
+    "clean": "rm -rf dist node_modules .turbo"
+  },
+  "dependencies": {
+    "@yuva-devlab/agent-core": "workspace:*",
+    "@yuva-devlab/ai-client": "workspace:*",
+    "@yuva-devlab/auth-server": "workspace:*",
+    "@yuva-devlab/billing": "workspace:*",
+    "@yuva-devlab/errors": "workspace:*",
+    "@yuva-devlab/events": "workspace:*",
+    "@yuva-devlab/logger": "workspace:*",
+    "@yuva-devlab/rag": "workspace:*",
+    "@yuva-devlab/resilience": "workspace:*",
+    "@yuva-devlab/semantic-cache": "workspace:*",
+    "zod": "^3.25.76"
+  },
+  "devDependencies": {
+    "@types/node": "^24.10.1",
+    "@yuva-devlab/eslint-config": "workspace:*",
+    "@yuva-devlab/prettier-config": "workspace:*",
+    "@yuva-devlab/typescript-config": "workspace:*",
+    "eslint": "^9.39.1",
+    "prettier": "^3.9.8",
+    "tsup": "^8.5.1",
+    "typescript": "^6.0.3"
+  }
+}

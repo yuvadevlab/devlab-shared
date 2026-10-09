@@ -1,0 +1,60 @@
+{
+  "name": "@yuva-devlab/auth-react",
+  "version": "0.1.0",
+  "description": "Client-side React authentication provider, hooks, and automatic platform kill-switch screen for DevLab",
+  "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": {
+        "import": "./dist/index.d.ts",
+        "require": "./dist/index.d.cts"
+      },
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    },
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "license": "MIT",
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "lint": "eslint src",
+    "lint:fix": "eslint src --fix",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "typecheck": "tsc --noEmit",
+    "clean": "rm -rf dist node_modules .turbo"
+  },
+  "dependencies": {
+    "@yuva-devlab/errors": "workspace:*",
+    "@yuva-devlab/logger": "workspace:*",
+    "lucide-react": "^0.575.0"
+  },
+  "peerDependencies": {
+    "react": "^18.0.0 || ^19.0.0",
+    "react-dom": "^18.0.0 || ^19.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^24.10.1",
+    "@types/react": "^19.2.6",
+    "@types/react-dom": "^19.2.6",
+    "@yuva-devlab/eslint-config": "workspace:*",
+    "@yuva-devlab/prettier-config": "workspace:*",
+    "@yuva-devlab/typescript-config": "workspace:*",
+    "eslint": "^9.39.1",
+    "prettier": "^3.9.8",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "tsup": "^8.5.1",
+    "typescript": "^6.0.3"
+  }
+}

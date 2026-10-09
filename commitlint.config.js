@@ -22,6 +22,18 @@ export default {
       2,
       "always",
       [
+        "core",
+        "agent-core",
+        "ai-client",
+        "auth-server",
+        "billing",
+        "errors",
+        "events",
+        "rag",
+        "regex",
+        "resilience",
+        "sdk",
+        "semantic-cache",
         "ui",
         "tokens",
         "logger",
@@ -47,5 +59,3 @@ export default {
     "header-max-length": [2, "always", 100],
   },
 };
-
-// git commit -m "feat(ui): verify commitlint config"
