@@ -1,6 +1,6 @@
 {
   "name": "@yuva-devlab/ai-client",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Unified multi-provider AI client, streaming adapters, cascade fallback, and self-healing structured outputs for DevLab",
   "type": "module",
   "main": "./dist/index.cjs",

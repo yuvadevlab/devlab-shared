@@ -1,5 +1,11 @@
 # @yuva-devlab/logger
 
+## 1.2.0
+
+### Minor Changes
+
+- e2e07f9: feat(core): release foundation shared packages for DevLab Platform ecosystem
+
 ## 1.1.0
 
 ### Minor Changes
