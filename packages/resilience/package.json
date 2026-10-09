@@ -1,6 +1,6 @@
 {
   "name": "@yuva-devlab/resilience",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Enterprise-grade reliability engineering, circuit breakers, timeouts, retries with jitter, bulkheads, and chaos injection for DevLab",
   "type": "module",
   "main": "./dist/index.cjs",

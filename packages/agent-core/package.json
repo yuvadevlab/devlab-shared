@@ -1,6 +1,6 @@
 {
   "name": "@yuva-devlab/agent-core",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Universal tool contracts, type-safe tool definition factory, and dynamic prompt compiler for DevLab",
   "type": "module",
   "main": "./dist/index.cjs",
