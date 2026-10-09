@@ -1,9 +1,13 @@
 .dl-label {
-  font-size: 0.875rem;
+  font-size: 0.75rem;
   font-weight: 500;
   line-height: 1;
   color: var(--foreground);
 }
 .dl-label--error {
   color: var(--destructive);
+}
+.dl-label-required {
+  color: var(--destructive);
+  margin-inline-start: 0.25rem;
 }
