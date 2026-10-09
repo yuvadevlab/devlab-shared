@@ -1,0 +1,32 @@
+.dl-copy-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.375rem;
+  font-size: 0.75rem;
+  font-weight: 500;
+  border-radius: var(--radius, 0.375rem);
+  border: 1px solid var(--border);
+  background: var(--card);
+  color: var(--foreground);
+  padding: 0.25rem 0.625rem;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  user-select: none;
+}
+
+.dl-copy-button:hover {
+  background: var(--secondary);
+  border-color: var(--muted-foreground);
+}
+
+.dl-copy-button--copied {
+  border-color: var(--success);
+  color: var(--success);
+}
+
+.dl-copy-button__icon {
+  width: 0.875rem;
+  height: 0.875rem;
+  flex-shrink: 0;
+}
