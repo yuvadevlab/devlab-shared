@@ -471,7 +471,7 @@
   }
   .dl-btn--ghost {
     background-color: transparent;
-    color: var(--foreground);
+    color: inherit;
   }
   .dl-btn--ghost:hover {
     background-color: var(--accent);
@@ -804,6 +804,40 @@
     animation: dl-fade-out 100ms ease;
   }
 
+  /* ── copy-button ── */
+  .dl-copy-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.375rem;
+    font-size: 0.75rem;
+    font-weight: 500;
+    border-radius: var(--radius, 0.375rem);
+    border: 1px solid var(--border);
+    background: var(--card);
+    color: var(--foreground);
+    padding: 0.25rem 0.625rem;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    user-select: none;
+  }
+
+  .dl-copy-button:hover {
+    background: var(--secondary);
+    border-color: var(--muted-foreground);
+  }
+
+  .dl-copy-button--copied {
+    border-color: var(--success);
+    color: var(--success);
+  }
+
+  .dl-copy-button__icon {
+    width: 0.875rem;
+    height: 0.875rem;
+    flex-shrink: 0;
+  }
+
   /* ── date-picker ── */
   .dl-date-picker-trigger {
     width: 100%;
@@ -860,6 +894,7 @@
     flex-direction: column;
     width: calc(100% - 2rem);
     max-width: var(--dl-dialog-max-width, 32rem);
+    height: auto;
     max-height: calc(100dvh - 3rem);
     border: 1px solid var(--border);
     background-color: var(--background);
@@ -887,25 +922,25 @@
   .dl-dialog--lg {
     width: 90vw;
     max-width: 44rem;
-    height: 80vh;
+    height: auto;
     max-height: 80vh;
   }
   .dl-dialog--xl {
     width: 92vw;
     max-width: 56rem;
-    height: 85vh;
+    height: auto;
     max-height: 85vh;
   }
   .dl-dialog--2xl {
     width: 94vw;
     max-width: 72rem;
-    height: 85vh;
+    height: auto;
     max-height: 85vh;
   }
   .dl-dialog--full {
     width: calc(100vw - 2rem);
     max-width: calc(100vw - 2rem);
-    height: calc(100dvh - 2rem);
+    height: auto;
     max-height: calc(100dvh - 2rem);
   }
 
@@ -1218,7 +1253,7 @@
     background-color: transparent;
     padding-block: 0.25rem;
     padding-inline: 0.75rem;
-    font-size: 0.875rem;
+    font-size: 0.75rem;
     line-height: 1.25rem;
     font-family: inherit;
     color: var(--foreground);
@@ -1256,7 +1291,7 @@
   .dl-input::file-selector-button {
     border: 0;
     background: transparent;
-    font-size: 0.875rem;
+    font-size: 0.75rem;
     font-weight: 500;
     color: var(--foreground);
     cursor: pointer;
@@ -1342,13 +1377,17 @@
 
   /* ── label ── */
   .dl-label {
-    font-size: 0.875rem;
+    font-size: 0.75rem;
     font-weight: 500;
     line-height: 1;
     color: var(--foreground);
   }
   .dl-label--error {
     color: var(--destructive);
+  }
+  .dl-label-required {
+    color: var(--destructive);
+    margin-inline-start: 0.25rem;
   }
 
   /* ── loading-state ── */
@@ -1415,6 +1454,76 @@
   .dl-menubar-trigger[data-state="open"] {
     background-color: var(--accent);
     color: var(--accent-foreground);
+  }
+
+  /* ── metric-card ── */
+  .dl-metrics-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    border: 1px solid var(--border);
+    border-radius: var(--radius, 0.5rem);
+    background: var(--card);
+    overflow: hidden;
+  }
+
+  .dl-metric-card {
+    display: flex;
+    flex-direction: column;
+    padding: 1.25rem;
+    border-right: 1px solid var(--border);
+    position: relative;
+    transition: background-color 0.15s ease;
+  }
+
+  .dl-metric-card:last-child {
+    border-right: none;
+  }
+
+  .dl-metric-card__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 0.5rem;
+  }
+
+  .dl-metric-card__label {
+    font-size: 0.6875rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--muted-foreground);
+  }
+
+  .dl-metric-card__icon {
+    color: var(--muted-foreground);
+    display: inline-flex;
+  }
+
+  .dl-metric-card__value-row {
+    display: flex;
+    align-items: baseline;
+    gap: 0.5rem;
+  }
+
+  .dl-metric-card__value {
+    font-size: 1.75rem;
+    font-weight: 600;
+    line-height: 1.2;
+    color: var(--foreground);
+  }
+
+  .dl-metric-card__note {
+    margin-top: 0.375rem;
+    font-size: 0.6875rem;
+    color: var(--muted-foreground);
+  }
+
+  .dl-metric-card__note--positive {
+    color: var(--success);
+  }
+
+  .dl-metric-card__note--negative {
+    color: var(--destructive);
   }
 
   /* ── navigation-menu ── */
@@ -1933,6 +2042,45 @@
 
   .dl-searchable-select-add-btn:hover {
     background-color: color-mix(in oklch, var(--primary) 10%, transparent);
+  }
+
+  /* ── secret-reveal-card ── */
+  .dl-secret-reveal {
+    border-radius: var(--radius, 0.5rem);
+    border: 1px solid var(--border);
+    background: var(--card);
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .dl-secret-reveal__warning {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.75rem;
+    color: var(--warning);
+    line-height: 1.4;
+  }
+
+  .dl-secret-reveal__code-wrap {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    background: var(--background);
+    border: 1px solid var(--border);
+    border-radius: calc(var(--radius, 0.5rem) - 2px);
+    padding: 0.5rem 0.75rem;
+  }
+
+  .dl-secret-reveal__code {
+    font-family: var(--font-mono, ui-monospace, monospace);
+    font-size: 0.8125rem;
+    color: var(--primary);
+    word-break: break-all;
+    user-select: all;
   }
 
   /* ── select ── */
@@ -2511,7 +2659,7 @@
     background-color: transparent;
     padding-block: 0.5rem;
     padding-inline: 0.75rem;
-    font-size: 0.875rem;
+    font-size: 0.75rem;
     font-family: inherit;
     color: var(--foreground);
     box-shadow: 0 1px 2px rgb(0 0 0/0.05);

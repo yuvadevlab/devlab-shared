@@ -10,3 +10,5 @@
 /* ── Brand Scoped Themes ─────────────────────────────────────────────────── */
 @import "./themes/finai.css";
 @import "./themes/orchestrai.css";
+@import "./themes/portal.css";
+@import "./themes/logs.css";

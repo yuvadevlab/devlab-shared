@@ -8,7 +8,14 @@ const labelVariants = cva("dl-label");
 export interface LabelProps
   extends
     React.ComponentPropsWithoutRef<typeof LabelPrimitive.Root>,
-    VariantProps<typeof labelVariants> {}
+    VariantProps<typeof labelVariants> {
+  /**
+   * If true, displays a red required asterisk indicator next to the label.
+   * By default, required is false and no asterisk is rendered.
+   * @default false
+   */
+  required?: boolean;
+}
 
 /**
  * Accessible label component associated with input controls, checkboxes, or form fields.
@@ -27,12 +34,17 @@ export interface LabelProps
 const Label = React.forwardRef<
   React.ComponentRef<typeof LabelPrimitive.Root>,
   LabelProps
->(({ className, ...props }, ref) => (
+>(({ className, children, required = false, ...props }, ref) => (
   <LabelPrimitive.Root
     ref={ref}
     className={cn(labelVariants(), className)}
     {...props}
-  />
+  >
+    {children}
+    {required && (
+      <span className="dl-label-required text-destructive ml-0.5">*</span>
+    )}
+  </LabelPrimitive.Root>
 ));
 Label.displayName = LabelPrimitive.Root.displayName;
 
