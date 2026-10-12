@@ -1,7 +1,7 @@
 {
-  "name": "@yuva-devlab/auth-react",
+  "name": "@yuva-devlab/auth-client",
   "version": "0.2.0",
-  "description": "Client-side React authentication provider, hooks, and automatic platform kill-switch screen for DevLab",
+  "description": "Client-side authentication SDK, hooks, prebuilt UI components, and platform kill-switch screen for DevLab",
   "type": "module",
   "main": "./dist/index.cjs",
   "module": "./dist/index.js",

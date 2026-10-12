@@ -3,7 +3,7 @@
  * @description Yuva DevLab Design System — Design Tokens & Theme Definitions.
  */
 
-export const THEMES = ["orchestrai", "finai", "portal"] as const;
+export const THEMES = ["orchestrai", "finai", "portal", "logs"] as const;
 export type ThemeName = (typeof THEMES)[number];
 
 export const BRAND_MODES = ["light", "dark"] as const;
@@ -30,5 +30,10 @@ export const THEME_CONFIGS: Record<ThemeName, ThemeConfig> = {
     name: "portal",
     defaultMode: "dark",
     label: "DevLab Portal",
+  },
+  logs: {
+    name: "logs",
+    defaultMode: "dark",
+    label: "DevLab Logs",
   },
 } as const;
