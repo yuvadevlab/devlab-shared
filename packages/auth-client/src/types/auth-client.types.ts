@@ -1,7 +1,7 @@
 /**
- * @file packages/auth-react/src/types/auth-react.types.ts
- * @description Types and context contracts for React authentication and app lifecycle.
- * @module @yuva-devlab/auth-react
+ * @file packages/auth-client/src/types/auth-client.types.ts
+ * @description Types and context contracts for DevLab client authentication and app lifecycle.
+ * @module @yuva-devlab/auth-client
  */
 
 import type { ReactNode } from "react";
@@ -32,6 +32,10 @@ export interface AuthUser {
   readonly roles: readonly string[];
   /** Tenant isolation partition ID */
   readonly tenantId?: string;
+  /** Tenant human-readable slug identifier */
+  readonly tenantSlug?: string;
+  /** Tenant organization display name */
+  readonly tenantName?: string;
   /** User profile picture URL */
   readonly avatarUrl?: string;
 }

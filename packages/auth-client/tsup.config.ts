@@ -16,4 +16,9 @@ export default defineConfig({
   target: "es2022",
   outDir: "dist",
   external: ["react", "react-dom"],
+  esbuildOptions(options) {
+    options.banner = {
+      js: '"use client";',
+    };
+  },
 });

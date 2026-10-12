@@ -24,6 +24,8 @@
     "./root.css": "./styles/root.css",
     "./themes/finai.css": "./styles/themes/finai.css",
     "./themes/orchestrai.css": "./styles/themes/orchestrai.css",
+    "./themes/portal.css": "./styles/themes/portal.css",
+    "./themes/logs.css": "./styles/themes/logs.css",
     "./package.json": "./package.json"
   },
   "files": [

@@ -90,7 +90,7 @@
 }
 .dl-btn--ghost {
   background-color: transparent;
-  color: var(--foreground);
+  color: inherit;
 }
 .dl-btn--ghost:hover {
   background-color: var(--accent);

@@ -110,6 +110,13 @@ export const DevLabAuthProvider: React.FC<DevLabAuthProviderProps> = ({
     setUser(newUser);
     try {
       localStorage.setItem(STORAGE_KEY_TOKEN, newToken);
+      localStorage.setItem("devlab_access_token", newToken);
+      if (typeof document !== "undefined") {
+        document.cookie =
+          "devlab_access_token=" +
+          encodeURIComponent(newToken) +
+          "; path=/; max-age=604800; SameSite=Lax";
+      }
       localStorage.setItem(STORAGE_KEY_USER, JSON.stringify(newUser));
       localStorage.setItem(STORAGE_SYNC_EVENT, String(Date.now()));
     } catch {
@@ -122,6 +129,11 @@ export const DevLabAuthProvider: React.FC<DevLabAuthProviderProps> = ({
     setUser(null);
     try {
       localStorage.removeItem(STORAGE_KEY_TOKEN);
+      localStorage.removeItem("devlab_access_token");
+      if (typeof document !== "undefined") {
+        document.cookie =
+          "devlab_access_token=; path=/; max-age=0; SameSite=Lax";
+      }
       localStorage.removeItem(STORAGE_KEY_USER);
       localStorage.setItem(STORAGE_SYNC_EVENT, "");
     } catch {
