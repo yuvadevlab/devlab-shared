@@ -1,6 +1,6 @@
 /**
  * @file packages/auth-client/src/components/auth-input.tsx
- * @description Styled form input field with icon and password visibility toggle.
+ * @description Styled form input field with icon, token theming, and password visibility toggle.
  * @module @yuva-devlab/auth-client
  */
 
@@ -28,71 +28,37 @@ export const AuthInput: React.FC<AuthInputProps> = ({
   icon,
   isPassword = false,
   type = "text",
-  style,
+  className = "",
   ...props
 }) => {
   const [showPassword, setShowPassword] = useState(false);
   const inputType = isPassword ? (showPassword ? "text" : "password") : type;
 
+  const inputClass = [
+    "dl-auth-input",
+    icon ? "dl-auth-input--has-icon" : "",
+    isPassword ? "dl-auth-input--has-eye" : "",
+    className,
+  ]
+    .filter(Boolean)
+    .join(" ");
+
   return (
-    <div style={{ display: "flex", flexDirection: "column", gap: "6px" }}>
-      <label
-        htmlFor={id}
-        style={{ fontSize: "13px", fontWeight: 500, color: "#d4d4d8" }}
-      >
+    <div className="dl-auth-input-group">
+      <label htmlFor={id} className="dl-auth-label">
         {label}
       </label>
-      <div style={{ position: "relative" }}>
-        {icon && (
-          <span
-            style={{
-              position: "absolute",
-              left: "12px",
-              top: "50%",
-              transform: "translateY(-50%)",
-              color: "#71717a",
-              display: "flex",
-            }}
-          >
-            {icon}
-          </span>
-        )}
-        <input
-          id={id}
-          type={inputType}
-          style={{
-            width: "100%",
-            padding: icon ? "10px 38px 10px 38px" : "10px 12px",
-            backgroundColor: "#18181b",
-            border: "1px solid #3f3f46",
-            borderRadius: "8px",
-            color: "#fafafa",
-            fontSize: "14px",
-            outline: "none",
-            boxSizing: "border-box",
-            ...style,
-          }}
-          {...props}
-        />
+      <div className="dl-auth-input-wrapper">
+        {icon && <span className="dl-auth-input-icon">{icon}</span>}
+        <input id={id} type={inputType} className={inputClass} {...props} />
         {isPassword && (
           <button
             type="button"
+            className="dl-auth-eye-btn"
             onClick={() => setShowPassword((prev) => !prev)}
-            style={{
-              position: "absolute",
-              right: "12px",
-              top: "50%",
-              transform: "translateY(-50%)",
-              background: "none",
-              border: "none",
-              color: "#71717a",
-              cursor: "pointer",
-              padding: 0,
-              display: "flex",
-            }}
             aria-label={showPassword ? "Hide password" : "Show password"}
           >
-            {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
+            {showPassword ? <EyeOff /> : <Eye />}
           </button>
         )}
       </div>

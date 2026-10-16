@@ -1,7 +1,7 @@
 /**
- * @file packages/auth-react/src/hooks/index.ts
+ * @file packages/auth-client/src/hooks/index.ts
  * @description Barrel export for DevLab React authentication hooks.
- * @module @yuva-devlab/auth-react
+ * @module @yuva-devlab/auth-client
  */
 
 export * from "./use-devlab-auth";

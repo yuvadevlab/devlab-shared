@@ -1,15 +1,20 @@
 /**
  * @file packages/auth-client/src/components/sign-up.tsx
- * @description Universal user registration form for DevLab tenants and ecosystem apps.
+ * @description Theme-adaptive universal user registration form for DevLab tenants and ecosystem apps.
  * @module @yuva-devlab/auth-client
  */
 
 import React, { useState, useContext, type FormEvent } from "react";
 import { Lock, Mail, User, Loader2, CheckCircle2 } from "lucide-react";
 import { DevLabAuthContext } from "../provider/auth-context";
+import {
+  executeAuthRequest,
+  persistSession,
+  toAuthUser,
+} from "../provider/auth-helpers";
 import { AuthCard } from "./auth-card";
 import { AuthInput } from "./auth-input";
-import type { SignUpProps, AuthUser } from "../types";
+import type { SignUpProps } from "../types";
 
 export const SignUp: React.FC<SignUpProps> = ({
   onSuccess,
@@ -18,6 +23,8 @@ export const SignUp: React.FC<SignUpProps> = ({
   signInUrl = "/login",
   tenantId,
   apiBaseUrl = "",
+  brand,
+  theme,
   className = "",
 }) => {
   const auth = useContext(DevLabAuthContext);
@@ -31,11 +38,13 @@ export const SignUp: React.FC<SignUpProps> = ({
     e.preventDefault();
     setErrorMsg(null);
 
+    // Guard: validate required inputs
     if (!name.trim() || !email.trim() || !password) {
       setErrorMsg("Please fill in all required fields.");
       return;
     }
 
+    // Guard: enforce minimum password complexity requirement
     if (password.length < 8) {
       setErrorMsg("Password must be at least 8 characters long.");
       return;
@@ -44,62 +53,15 @@ export const SignUp: React.FC<SignUpProps> = ({
     setLoading(true);
 
     try {
-      const endpoint = `${apiBaseUrl}/auth/register`;
-      const res = await fetch(endpoint, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          name: name.trim(),
-          email: email.trim(),
-          password,
-          tenantId,
-        }),
+      const data = await executeAuthRequest(`${apiBaseUrl}/auth/register`, {
+        name: name.trim(),
+        email: email.trim(),
+        password,
+        tenantId,
       });
 
-      if (!res.ok) {
-        const errorData = await res.json().catch(() => ({}));
-        const message =
-          errorData.message || `Registration failed with status ${res.status}`;
-        throw new Error(message);
-      }
-
-      const data = (await res.json()) as {
-        accessToken: string;
-        user: {
-          id: string;
-          email: string;
-          name: string;
-          role: string;
-          tenantId?: string;
-          tenantSlug?: string;
-          tenantName?: string;
-          avatarUrl?: string;
-        };
-      };
-
-      const authUser: AuthUser = {
-        id: data.user.id,
-        email: data.user.email,
-        name: data.user.name,
-        roles: [data.user.role],
-        tenantId: data.user.tenantId,
-        tenantSlug: data.user.tenantSlug,
-        tenantName: data.user.tenantName,
-        avatarUrl: data.user.avatarUrl,
-      };
-
-      if (typeof window !== "undefined") {
-        try {
-          localStorage.setItem("devlab_access_token", data.accessToken);
-          localStorage.setItem("devlab_auth_token", data.accessToken);
-          document.cookie =
-            "devlab_access_token=" +
-            encodeURIComponent(data.accessToken) +
-            "; path=/; max-age=604800; SameSite=Lax";
-        } catch {
-          // Ignore storage errors
-        }
-      }
+      const authUser = toAuthUser(data.user, email);
+      persistSession(data.accessToken, authUser);
 
       if (auth?.login) {
         auth.login(data.accessToken, authUser);
@@ -107,6 +69,7 @@ export const SignUp: React.FC<SignUpProps> = ({
 
       onSuccess?.(authUser, data.accessToken);
 
+      // Perform navigation to specified or root destination
       if (redirectTo) {
         window.location.href = redirectTo;
       } else {
@@ -124,10 +87,7 @@ export const SignUp: React.FC<SignUpProps> = ({
   const footer = signInUrl ? (
     <>
       Already have an account?{" "}
-      <a
-        href={signInUrl}
-        style={{ color: "#60a5fa", textDecoration: "none", fontWeight: 500 }}
-      >
+      <a href={signInUrl} className="dl-auth-link">
         Sign in
       </a>
     </>
@@ -139,12 +99,11 @@ export const SignUp: React.FC<SignUpProps> = ({
       subtitle="Join your organization on DevLab"
       errorMsg={errorMsg}
       footer={footer}
+      brand={brand}
+      theme={theme}
       className={className}
     >
-      <form
-        onSubmit={handleSubmit}
-        style={{ display: "flex", flexDirection: "column", gap: "16px" }}
-      >
+      <form onSubmit={handleSubmit} className="dl-auth-form">
         <AuthInput
           id="devlab-signup-name"
           label="Full name"
@@ -154,7 +113,7 @@ export const SignUp: React.FC<SignUpProps> = ({
           value={name}
           onChange={(e) => setName(e.target.value)}
           placeholder="Alex Chen"
-          icon={<User size={16} />}
+          icon={<User />}
         />
 
         <AuthInput
@@ -166,7 +125,7 @@ export const SignUp: React.FC<SignUpProps> = ({
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           placeholder="alex@company.com"
-          icon={<Mail size={16} />}
+          icon={<Mail />}
         />
 
         <AuthInput
@@ -178,39 +137,18 @@ export const SignUp: React.FC<SignUpProps> = ({
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           placeholder="••••••••••••"
-          icon={<Lock size={16} />}
+          icon={<Lock />}
         />
 
-        <button
-          type="submit"
-          disabled={loading}
-          style={{
-            marginTop: "8px",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            gap: "8px",
-            width: "100%",
-            padding: "11px 16px",
-            backgroundColor: "#2563eb",
-            color: "#ffffff",
-            fontWeight: 600,
-            fontSize: "14px",
-            border: "none",
-            borderRadius: "8px",
-            cursor: loading ? "not-allowed" : "pointer",
-            opacity: loading ? 0.75 : 1,
-            transition: "background-color 0.2s ease",
-          }}
-        >
+        <button type="submit" disabled={loading} className="dl-auth-submit-btn">
           {loading ? (
             <>
-              <Loader2 size={16} className="animate-spin" />
+              <Loader2 className="animate-spin" />
               <span>Creating account…</span>
             </>
           ) : (
             <>
-              <CheckCircle2 size={16} />
+              <CheckCircle2 />
               <span>Create account</span>
             </>
           )}
