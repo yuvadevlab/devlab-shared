@@ -1,5 +1,12 @@
 # @yuva-devlab/ui
 
+## 1.4.1
+
+### Patch Changes
+
+- Updated dependencies [d36a44b]
+  - @yuva-devlab/tokens@1.3.0
+
 ## 1.4.0
 
 ### Minor Changes

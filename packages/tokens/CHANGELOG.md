@@ -1,5 +1,11 @@
 # @yuva-devlab/tokens
 
+## 1.3.0
+
+### Minor Changes
+
+- d36a44b: Add VitalAI clinical porcelain & bioluminescent teal brand theme (`vitalai.css`), telemetry tokens for macros and biomarkers (calories, protein, carbs, fats, water, vital), and register VitalAI in the design tokens index.
+
 ## 1.2.0
 
 ### Minor Changes
