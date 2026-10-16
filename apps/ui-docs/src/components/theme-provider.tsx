@@ -1,8 +1,9 @@
 "use client";
 
 import React, { createContext, useContext, useEffect, useState } from "react";
+import type { ThemeName } from "@yuva-devlab/tokens";
 
-export type Brand = "orchestrai" | "finai";
+export type Brand = ThemeName;
 export type Mode = "light" | "dark";
 
 interface ThemeContextType {
