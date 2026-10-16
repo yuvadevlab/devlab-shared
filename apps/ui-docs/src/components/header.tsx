@@ -13,6 +13,34 @@ import {
   SelectItem,
 } from "@yuva-devlab/ui";
 
+interface BrandOption {
+  value: Brand;
+  label: string;
+}
+
+const BRANDS: readonly BrandOption[] = [
+  {
+    value: "orchestrai",
+    label: "🤖 OrchestrAI (Cyber Cyan)",
+  },
+  {
+    value: "finai",
+    label: "📊 FinAI (Emerald Green)",
+  },
+  {
+    value: "portal",
+    label: "🛡️ DevLab Portal (Mint Obsidian)",
+  },
+  {
+    value: "logs",
+    label: "⚡ DevLab Logs (Matrix Amber)",
+  },
+  {
+    value: "vitalai",
+    label: "🧬 VitalAI (Clinical Teal)",
+  },
+] as const;
+
 export function Header() {
   const { brand, setBrand, mode, toggleMode } = useTheme();
 
@@ -40,14 +68,15 @@ export function Header() {
         <div className="flex items-center gap-1.5 text-xs font-medium">
           <span className="text-muted-foreground hidden sm:inline">Brand:</span>
           <Select value={brand} onValueChange={(val) => setBrand(val as Brand)}>
-            <SelectTrigger className="h-8 w-44 text-xs font-medium">
+            <SelectTrigger className="h-8 w-58 text-xs font-medium">
               <SelectValue placeholder="Select Brand" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="orchestrai">
-                🤖 OrchestrAI (Teal/Blue)
-              </SelectItem>
-              <SelectItem value="finai">🌿 FinAI (Emerald Green)</SelectItem>
+              {BRANDS.map((item) => (
+                <SelectItem key={item.value} value={item.value}>
+                  {item.label}
+                </SelectItem>
+              ))}
             </SelectContent>
           </Select>
         </div>

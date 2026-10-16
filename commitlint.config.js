@@ -22,6 +22,8 @@ export default {
       2,
       "always",
       [
+        "apps",
+        "packages",
         "core",
         "agent-core",
         "ai-client",

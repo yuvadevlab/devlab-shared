@@ -26,6 +26,7 @@
     "./themes/orchestrai.css": "./styles/themes/orchestrai.css",
     "./themes/portal.css": "./styles/themes/portal.css",
     "./themes/logs.css": "./styles/themes/logs.css",
+    "./themes/vitalai.css": "./styles/themes/vitalai.css",
     "./package.json": "./package.json"
   },
   "files": [

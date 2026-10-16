@@ -28,14 +28,34 @@ const preview: Preview = {
         items: [
           {
             value: "orchestrai",
-            title: "OrchestrAI (Blue / Teal)",
+            title: "OrchestrAI (Cyber Cyan)",
             right: "🤖",
           },
-          { value: "finai", title: "FinAI (Emerald Green)", right: "🌿" },
+          {
+            value: "finai",
+            title: "FinAI (Emerald Green)",
+            right: "📊",
+          },
+          {
+            value: "portal",
+            title: "DevLab Portal (Mint Obsidian)",
+            right: "🛡️",
+          },
+          {
+            value: "logs",
+            title: "DevLab Logs (Matrix Amber)",
+            right: "⚡",
+          },
+          {
+            value: "vitalai",
+            title: "VitalAI (Clinical Teal)",
+            right: "🧬",
+          },
         ],
         dynamicTitle: true,
       },
     },
+
     themeMode: {
       name: "Theme Mode",
       description: "Light or Dark mode appearance",
