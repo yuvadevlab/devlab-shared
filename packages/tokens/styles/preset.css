@@ -221,6 +221,17 @@
   --color-chart-4: var(--chart-4);
   --color-chart-5: var(--chart-5);
 
+  /* ── VitalAI Clinical & Performance Telemetry Tokens ───────────── */
+  --color-vital: var(--vital);
+  --color-vital-foreground: var(--vital-foreground);
+  --color-calories: var(--calories);
+  --color-protein: var(--protein);
+  --color-carbs: var(--carbs);
+  --color-fats: var(--fats);
+  --color-water: var(--water);
+  --color-glass: var(--glass);
+  --color-glass-border: var(--glass-border);
+
   /* ── Component Control Dimensions ─────────────────────────────────── */
   --height-control-xs: var(--control-height-xs, 1.75rem);
   --height-control-sm: var(--control-height-sm, 2rem);
