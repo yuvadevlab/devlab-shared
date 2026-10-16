@@ -22,6 +22,10 @@ export interface SignInProps {
   readonly forgotPasswordUrl?: string;
   /** Optional base API URL */
   readonly apiBaseUrl?: string;
+  /** Optional brand theme preset (e.g. "finai", "orchestrai", "logs", "portal") */
+  readonly brand?: string;
+  /** Optional theme override */
+  readonly theme?: string;
   /** Optional custom CSS class name for container styling */
   readonly className?: string;
 }
@@ -42,6 +46,10 @@ export interface SignUpProps {
   readonly tenantId?: string;
   /** Optional base API URL */
   readonly apiBaseUrl?: string;
+  /** Optional brand theme preset (e.g. "finai", "orchestrai", "logs", "portal") */
+  readonly brand?: string;
+  /** Optional theme override */
+  readonly theme?: string;
   /** Optional custom CSS class name */
   readonly className?: string;
 }
@@ -58,6 +66,10 @@ export interface ForgotPasswordProps {
   readonly signInUrl?: string;
   /** Optional base API URL */
   readonly apiBaseUrl?: string;
+  /** Optional brand theme preset (e.g. "finai", "orchestrai", "logs", "portal") */
+  readonly brand?: string;
+  /** Optional theme override */
+  readonly theme?: string;
   /** Optional custom CSS class name */
   readonly className?: string;
 }

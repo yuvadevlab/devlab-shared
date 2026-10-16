@@ -39,7 +39,7 @@ In enterprise microservice and multi-agent platforms, code duplication, inconsis
 [Layer 1: Design & UI]   [Layer 2: Core Primitives]     [Layer 3: Resilience & Auth] [Layer 4: AI Primitives]
  • @yuva-devlab/tokens    • @yuva-devlab/errors          • @yuva-devlab/resilience    • @yuva-devlab/semantic-cache
  • @yuva-devlab/ui        • @yuva-devlab/logger          • @yuva-devlab/auth-server   • @yuva-devlab/agent-core
- • @yuva-devlab/config    • @yuva-devlab/regex           • @yuva-devlab/auth-react    • @yuva-devlab/ai-client
+ • @yuva-devlab/config    • @yuva-devlab/regex           • @yuva-devlab/auth-client    • @yuva-devlab/ai-client
  • Tooling Configs        • @yuva-devlab/events          • @yuva-devlab/billing       • @yuva-devlab/rag
 ```
 
@@ -104,7 +104,7 @@ In enterprise microservice and multi-agent platforms, code duplication, inconsis
      - **Bulkhead**: Concurrency isolation limiting concurrent executions per resource.
 9. **`@yuva-devlab/auth-server`**:
    - Fastify and NestJS middleware guards for JWT validation, Redis session lookups, and JWKS public key rotation.
-10. **`@yuva-devlab/auth-react`**:
+10. **`@yuva-devlab/auth-client`**:
     - React context and hooks (`useAuth`, `useUser`, `useTenant`, `usePermission`) for Next.js frontend applications.
 11. **`@yuva-devlab/billing`**:
     - Usage metering, token credit calculation, and subscription tier entitlement enforcement models.
@@ -157,7 +157,7 @@ graph TD
 | :------------------ | :------------------------------------------------------------------------------------------------- | :------------------------------------------------------------------------------------------------------------------------ |
 | **`orchestrai`**    | `@yuva-devlab/ui`, `@yuva-devlab/semantic-cache`, `@yuva-devlab/resilience`, `@yuva-devlab/tokens` | Powers Operator Studio UI; executes sub-1ms semantic cache lookups; applies circuit breakers to LLM provider calls.       |
 | **`finai`**         | `@yuva-devlab/ui`, `@yuva-devlab/logger`, `@yuva-devlab/errors`, `@yuva-devlab/tokens`             | Renders financial dashboard widgets; writes structured audit logs for banking transactions; formats standard error codes. |
-| **`devlab-portal`** | `@yuva-devlab/ui`, `@yuva-devlab/auth-server`, `@yuva-devlab/auth-react`, `@yuva-devlab/billing`   | Powers admin console; verifies API keys via Redis; manages tenant subscription tiers and token quotas.                    |
+| **`devlab-portal`** | `@yuva-devlab/ui`, `@yuva-devlab/auth-server`, `@yuva-devlab/auth-client`, `@yuva-devlab/billing`  | Powers admin console; verifies API keys via Redis; manages tenant subscription tiers and token quotas.                    |
 | **`devlab-guard`**  | `@yuva-devlab/regex`, `@yuva-devlab/errors`                                                        | Enforces shared regex patterns during static analysis; reports compliance errors.                                         |
 | **`devlab-logs`**   | `@yuva-devlab/logger`, `@yuva-devlab/tokens`                                                       | Standardizes telemetry envelopes across Go and Node.js ingestion pipelines.                                               |
 | **`incidentai`**    | `@yuva-devlab/errors`, `@yuva-devlab/resilience`, `@yuva-devlab/events`                            | Implements retry loops for sandbox reproductions; standardizes postmortem incident error structures.                      |

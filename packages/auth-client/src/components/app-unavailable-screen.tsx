@@ -1,7 +1,7 @@
 /**
- * @file packages/auth-react/src/components/app-unavailable-screen.tsx
+ * @file packages/auth-client/src/components/app-unavailable-screen.tsx
  * @description Full-screen overlay presented when an application has been deactivated by the platform kill-switch.
- * @module @yuva-devlab/auth-react
+ * @module @yuva-devlab/auth-client
  */
 
 import React from "react";
@@ -39,8 +39,8 @@ export const AppUnavailableScreen: React.FC<AppUnavailableScreenProps> = ({
         justifyContent: "center",
         minHeight: "100vh",
         width: "100%",
-        backgroundColor: "#09090b",
-        color: "#f4f4f5",
+        backgroundColor: "var(--background, #09090b)",
+        color: "var(--foreground, #f4f4f5)",
         fontFamily: "system-ui, -apple-system, sans-serif",
         padding: "24px",
         boxSizing: "border-box",
@@ -84,7 +84,7 @@ export const AppUnavailableScreen: React.FC<AppUnavailableScreenProps> = ({
       <p
         style={{
           fontSize: "15px",
-          color: "#a1a1aa",
+          color: "var(--muted-foreground, #a1a1aa)",
           maxWidth: "480px",
           lineHeight: 1.6,
           margin: "0 0 32px 0",
@@ -103,10 +103,10 @@ export const AppUnavailableScreen: React.FC<AppUnavailableScreenProps> = ({
             display: "inline-flex",
             alignItems: "center",
             gap: "8px",
-            backgroundColor: "#27272a",
-            color: "#fafafa",
-            border: "1px solid #3f3f46",
-            borderRadius: "6px",
+            backgroundColor: "var(--secondary, #27272a)",
+            color: "var(--secondary-foreground, #fafafa)",
+            border: "1px solid var(--border, #3f3f46)",
+            borderRadius: "calc(var(--radius, 12px) * 0.5)",
             padding: "10px 20px",
             fontSize: "14px",
             fontWeight: 500,
@@ -114,10 +114,11 @@ export const AppUnavailableScreen: React.FC<AppUnavailableScreenProps> = ({
             transition: "background-color 0.15s ease",
           }}
           onMouseOver={(e) =>
-            (e.currentTarget.style.backgroundColor = "#3f3f46")
+            (e.currentTarget.style.backgroundColor = "var(--border, #3f3f46)")
           }
           onMouseOut={(e) =>
-            (e.currentTarget.style.backgroundColor = "#27272a")
+            (e.currentTarget.style.backgroundColor =
+              "var(--secondary, #27272a)")
           }
         >
           <RefreshCw size={16} />

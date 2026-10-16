@@ -38,7 +38,7 @@
 | :----------------------------- | :------------------------------------------------------------------------------ |
 | **`@yuva-devlab/resilience`**  | Circuit Breaker, Bulkhead, Token Bucket rate limiting, and Retry policies.      |
 | **`@yuva-devlab/auth-server`** | RS256 JWKS token validation and authorization guards for backend services.      |
-| **`@yuva-devlab/auth-react`**  | React hooks and provider for tenant authentication and user session management. |
+| **`@yuva-devlab/auth-client`** | React hooks and provider for tenant authentication and user session management. |
 | **`@yuva-devlab/billing`**     | Dynamic token counter, cost ledgers, and tenant budget enforcers.               |
 | **`@yuva-devlab/events`**      | Event bus interface, transactional outbox pattern, and idempotency stores.      |
 

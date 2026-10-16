@@ -1,7 +1,7 @@
 /**
- * @file packages/auth-react/src/hooks/use-devlab-auth.ts
+ * @file packages/auth-client/src/hooks/use-devlab-auth.ts
  * @description Hook providing access to user profile, session token, and auth actions.
- * @module @yuva-devlab/auth-react
+ * @module @yuva-devlab/auth-client
  */
 
 import { useContext } from "react";

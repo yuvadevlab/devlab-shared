@@ -1,4 +1,4 @@
-# @yuva-devlab/auth-react
+# @yuva-devlab/auth-client
 
 ## 0.2.0
 

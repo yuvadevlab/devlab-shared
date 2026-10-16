@@ -1,7 +1,7 @@
 /**
- * @file packages/auth-react/src/provider/auth-context.ts
+ * @file packages/auth-client/src/provider/auth-context.ts
  * @description React Context instance for DevLab authentication.
- * @module @yuva-devlab/auth-react
+ * @module @yuva-devlab/auth-client
  */
 
 import { createContext } from "react";

@@ -1,23 +1,31 @@
 /**
  * @file packages/auth-client/src/components/sign-in.tsx
- * @description Drop-in enterprise authentication login screen for DevLab tenants and ecosystem apps.
+ * @description Theme-adaptive enterprise authentication login screen for DevLab tenants and ecosystem apps.
  * @module @yuva-devlab/auth-client
  */
 
 import React, { useState, useContext, type FormEvent } from "react";
 import { Lock, Mail, Loader2, ArrowRight } from "lucide-react";
 import { DevLabAuthContext } from "../provider/auth-context";
+import {
+  executeAuthRequest,
+  persistSession,
+  resolveForgotPasswordUrl,
+  toAuthUser,
+} from "../provider/auth-helpers";
 import { AuthCard } from "./auth-card";
 import { AuthInput } from "./auth-input";
-import type { SignInProps, AuthUser } from "../types";
+import type { SignInProps } from "../types";
 
 export const SignIn: React.FC<SignInProps> = ({
   onSuccess,
   onError,
   redirectTo,
   signUpUrl = "/signup",
-  forgotPasswordUrl = "/forgot-password",
+  forgotPasswordUrl,
   apiBaseUrl = "",
+  brand,
+  theme,
   className = "",
 }) => {
   const auth = useContext(DevLabAuthContext);
@@ -26,10 +34,17 @@ export const SignIn: React.FC<SignInProps> = ({
   const [loading, setLoading] = useState(false);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
 
+  const effectiveForgotUrl = resolveForgotPasswordUrl(
+    forgotPasswordUrl,
+    auth?.authUrl,
+    auth?.clientId,
+  );
+
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setErrorMsg(null);
 
+    // Guard: ensure both mandatory credentials are provided
     if (!email.trim() || !password) {
       setErrorMsg("Please enter both email and password.");
       return;
@@ -38,57 +53,13 @@ export const SignIn: React.FC<SignInProps> = ({
     setLoading(true);
 
     try {
-      const endpoint = `${apiBaseUrl}/auth/login`;
-      const res = await fetch(endpoint, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email: email.trim(), password }),
+      const data = await executeAuthRequest(`${apiBaseUrl}/auth/login`, {
+        email: email.trim(),
+        password,
       });
 
-      if (!res.ok) {
-        const errorData = await res.json().catch(() => ({}));
-        const message =
-          errorData.message || `Login failed with status ${res.status}`;
-        throw new Error(message);
-      }
-
-      const data = (await res.json()) as {
-        accessToken: string;
-        user: {
-          id: string;
-          email: string;
-          name: string;
-          role: string;
-          tenantId?: string;
-          tenantSlug?: string;
-          tenantName?: string;
-          avatarUrl?: string;
-        };
-      };
-
-      const authUser: AuthUser = {
-        id: data.user.id,
-        email: data.user.email,
-        name: data.user.name,
-        roles: [data.user.role],
-        tenantId: data.user.tenantId,
-        tenantSlug: data.user.tenantSlug,
-        tenantName: data.user.tenantName,
-        avatarUrl: data.user.avatarUrl,
-      };
-
-      if (typeof window !== "undefined") {
-        try {
-          localStorage.setItem("devlab_access_token", data.accessToken);
-          localStorage.setItem("devlab_auth_token", data.accessToken);
-          document.cookie =
-            "devlab_access_token=" +
-            encodeURIComponent(data.accessToken) +
-            "; path=/; max-age=604800; SameSite=Lax";
-        } catch {
-          // Ignore storage errors
-        }
-      }
+      const authUser = toAuthUser(data.user, email);
+      persistSession(data.accessToken, authUser);
 
       if (auth?.login) {
         auth.login(data.accessToken, authUser);
@@ -96,6 +67,7 @@ export const SignIn: React.FC<SignInProps> = ({
 
       onSuccess?.(authUser, data.accessToken);
 
+      // Perform navigation to specified or root destination
       if (redirectTo) {
         window.location.href = redirectTo;
       } else {
@@ -113,15 +85,12 @@ export const SignIn: React.FC<SignInProps> = ({
   const footer = signUpUrl ? (
     <>
       Don't have an account?{" "}
-      <a
-        href={signUpUrl}
-        style={{ color: "#60a5fa", textDecoration: "none", fontWeight: 500 }}
-      >
+      <a href={signUpUrl} className="dl-auth-link">
         Sign up
       </a>
     </>
   ) : (
-    <span style={{ color: "#71717a", fontSize: "12px" }}>
+    <span style={{ color: "var(--muted-foreground, #71717a)" }}>
       Need access? Contact your workspace administrator for an invite.
     </span>
   );
@@ -132,12 +101,11 @@ export const SignIn: React.FC<SignInProps> = ({
       subtitle="Enter your credentials to access DevLab applications"
       errorMsg={errorMsg}
       footer={footer}
+      brand={brand}
+      theme={theme}
       className={className}
     >
-      <form
-        onSubmit={handleSubmit}
-        style={{ display: "flex", flexDirection: "column", gap: "16px" }}
-      >
+      <form onSubmit={handleSubmit} className="dl-auth-form">
         <AuthInput
           id="devlab-signin-email"
           label="Email address"
@@ -147,19 +115,22 @@ export const SignIn: React.FC<SignInProps> = ({
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           placeholder="name@company.com"
-          icon={<Mail size={16} />}
+          icon={<Mail />}
         />
 
-        <div style={{ display: "flex", flexDirection: "column", gap: "4px" }}>
-          {forgotPasswordUrl && (
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            gap: "var(--space-1, 0.25rem)",
+          }}
+        >
+          {effectiveForgotUrl && (
             <div style={{ display: "flex", justifyContent: "flex-end" }}>
               <a
-                href={forgotPasswordUrl}
-                style={{
-                  fontSize: "12px",
-                  color: "#60a5fa",
-                  textDecoration: "none",
-                }}
+                href={effectiveForgotUrl}
+                className="dl-auth-link"
+                style={{ fontSize: "var(--label-font-size, 0.8125rem)" }}
               >
                 Forgot password?
               </a>
@@ -174,41 +145,20 @@ export const SignIn: React.FC<SignInProps> = ({
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             placeholder="••••••••••••"
-            icon={<Lock size={16} />}
+            icon={<Lock />}
           />
         </div>
 
-        <button
-          type="submit"
-          disabled={loading}
-          style={{
-            marginTop: "8px",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            gap: "8px",
-            width: "100%",
-            padding: "11px 16px",
-            backgroundColor: "#2563eb",
-            color: "#ffffff",
-            fontWeight: 600,
-            fontSize: "14px",
-            border: "none",
-            borderRadius: "8px",
-            cursor: loading ? "not-allowed" : "pointer",
-            opacity: loading ? 0.75 : 1,
-            transition: "background-color 0.2s ease",
-          }}
-        >
+        <button type="submit" disabled={loading} className="dl-auth-submit-btn">
           {loading ? (
             <>
-              <Loader2 size={16} className="animate-spin" />
+              <Loader2 className="animate-spin" />
               <span>Signing in…</span>
             </>
           ) : (
             <>
               <span>Sign in</span>
-              <ArrowRight size={16} />
+              <ArrowRight />
             </>
           )}
         </button>

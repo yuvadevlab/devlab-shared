@@ -1,11 +1,12 @@
 /**
  * @file packages/auth-client/src/components/auth-card.tsx
- * @description Standardized card wrapper and error banner for auth forms.
+ * @description Standardized card wrapper and error banner adopting consumer app theme tokens.
  * @module @yuva-devlab/auth-client
  */
 
 import React, { type ReactNode } from "react";
 import { AlertCircle } from "lucide-react";
+import { AUTH_STYLES } from "./auth-styles";
 
 export interface AuthCardProps {
   /** Primary card heading */
@@ -18,6 +19,10 @@ export interface AuthCardProps {
   readonly children: ReactNode;
   /** Optional navigation or switch-mode footer */
   readonly footer?: ReactNode;
+  /** Optional brand theme preset (e.g. "finai", "orchestrai", "logs") */
+  readonly brand?: string;
+  /** Optional theme override */
+  readonly theme?: string;
   /** Optional custom CSS class */
   readonly className?: string;
 }
@@ -28,76 +33,49 @@ export const AuthCard: React.FC<AuthCardProps> = ({
   errorMsg,
   children,
   footer,
+  brand,
+  theme,
   className = "",
 }) => {
   return (
-    <div
-      className={className}
-      style={{
-        maxWidth: "420px",
-        width: "100%",
-        margin: "0 auto",
-        padding: "32px",
-        backgroundColor: "#111113",
-        border: "1px solid #27272a",
-        borderRadius: "12px",
-        boxShadow:
-          "0 20px 25px -5px rgba(0, 0, 0, 0.5), 0 8px 10px -6px rgba(0, 0, 0, 0.5)",
-        fontFamily: "inherit",
-        color: "#f4f4f5",
-      }}
-    >
-      <div style={{ marginBottom: "24px", textAlign: "center" }}>
-        <h2
-          style={{
-            fontSize: "22px",
-            fontWeight: 700,
-            margin: "0 0 8px 0",
-            color: "#fafafa",
-          }}
-        >
-          {title}
-        </h2>
-        <p style={{ fontSize: "14px", color: "#a1a1aa", margin: 0 }}>
-          {subtitle}
-        </p>
+    <>
+      <style dangerouslySetInnerHTML={{ __html: AUTH_STYLES }} />
+      <div
+        data-brand={brand}
+        data-theme={theme || brand}
+        className={`dl-auth-card ${className}`.trim()}
+      >
+        <div className="dl-auth-header">
+          <h2 className="dl-auth-title">{title}</h2>
+          <p className="dl-auth-subtitle">{subtitle}</p>
+        </div>
+
+        {errorMsg && (
+          <div
+            role="alert"
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: "var(--space-2, 0.5rem)",
+              padding: "var(--space-3, 0.75rem)",
+              marginBottom: "var(--space-4, 1rem)",
+              backgroundColor: "rgba(239, 68, 68, 0.12)",
+              border: "1px solid rgba(239, 68, 68, 0.35)",
+              borderRadius:
+                "var(--radius-md, calc(var(--radius, 0.75rem) * 0.75))",
+              color: "var(--destructive, #fca5a5)",
+              fontSize: "var(--label-font-size, 0.8125rem)",
+            }}
+          >
+            <AlertCircle size={16} style={{ flexShrink: 0 }} />
+            <span>{errorMsg}</span>
+          </div>
+        )}
+
+        {children}
+
+        {footer && <div className="dl-auth-footer">{footer}</div>}
       </div>
-
-      {errorMsg && (
-        <div
-          role="alert"
-          style={{
-            display: "flex",
-            alignItems: "center",
-            gap: "10px",
-            padding: "12px 14px",
-            marginBottom: "20px",
-            backgroundColor: "rgba(239, 68, 68, 0.12)",
-            border: "1px solid rgba(239, 68, 68, 0.35)",
-            borderRadius: "8px",
-            color: "#fca5a5",
-            fontSize: "13px",
-          }}
-        >
-          <AlertCircle size={16} style={{ flexShrink: 0 }} />
-          <span>{errorMsg}</span>
-        </div>
-      )}
-
-      {children}
-
-      {footer && (
-        <div
-          style={{
-            marginTop: "24px",
-            textAlign: "center",
-            fontSize: "13px",
-            color: "#a1a1aa",
-          }}
-        >
-          {footer}
-        </div>
-      )}
-    </div>
+    </>
   );
 };
