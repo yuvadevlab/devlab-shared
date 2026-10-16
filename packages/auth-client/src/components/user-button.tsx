@@ -1,7 +1,7 @@
 /**
- * @file packages/auth-react/src/components/user-button.tsx
- * @description Compact user avatar and profile dropdown trigger button.
- * @module @yuva-devlab/auth-react
+ * @file packages/auth-client/src/components/user-button.tsx
+ * @description Compact user avatar and profile dropdown trigger button adopting theme tokens.
+ * @module @yuva-devlab/auth-client
  */
 
 import React, { useContext } from "react";
@@ -34,8 +34,8 @@ export const UserButton: React.FC = () => {
         display: "inline-flex",
         alignItems: "center",
         gap: "12px",
-        backgroundColor: "#18181b",
-        border: "1px solid #27272a",
+        backgroundColor: "var(--card, #18181b)",
+        border: "1px solid var(--border, #27272a)",
         borderRadius: "9999px",
         padding: "4px 12px 4px 4px",
       }}
@@ -45,13 +45,13 @@ export const UserButton: React.FC = () => {
           width: "28px",
           height: "28px",
           borderRadius: "50%",
-          backgroundColor: "#3f3f46",
+          backgroundColor: "var(--secondary, #3f3f46)",
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
           fontSize: "12px",
           fontWeight: 600,
-          color: "#fafafa",
+          color: "var(--secondary-foreground, #fafafa)",
         }}
       >
         {user.avatarUrl ? (
@@ -70,7 +70,7 @@ export const UserButton: React.FC = () => {
       <span
         style={{
           fontSize: "13px",
-          color: "#f4f4f5",
+          color: "var(--foreground, #f4f4f5)",
           fontWeight: 500,
           maxWidth: "140px",
           overflow: "hidden",
@@ -88,14 +88,16 @@ export const UserButton: React.FC = () => {
         style={{
           background: "none",
           border: "none",
-          color: "#71717a",
+          color: "var(--muted-foreground, #71717a)",
           cursor: "pointer",
           padding: "2px",
           display: "flex",
           alignItems: "center",
         }}
         onMouseOver={(e) => (e.currentTarget.style.color = "#ef4444")}
-        onMouseOut={(e) => (e.currentTarget.style.color = "#71717a")}
+        onMouseOut={(e) =>
+          (e.currentTarget.style.color = "var(--muted-foreground, #71717a)")
+        }
       >
         <LogOut size={14} />
       </button>

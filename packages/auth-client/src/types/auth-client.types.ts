@@ -66,16 +66,30 @@ export interface DevLabAuthContextValue extends AuthState {
   logout(): void;
   /** Re-evaluates platform application lifecycle status */
   refreshAppStatus(): Promise<void>;
+  /** Updates current application operational status (e.g. from an API error interceptor) */
+  setAppStatus?(status: AppStatus): void;
+  /** Base URL of the identity provider */
+  readonly authUrl?: string;
+  /** Registered client or application identifier */
+  readonly clientId?: string;
+  /** Triggers browser redirect to central SSO login */
+  redirectToLogin?(): void;
 }
 
 /**
  * Properties accepted by the DevLabAuthProvider wrapper component.
  */
 export interface DevLabAuthProviderProps {
-  /** Unique platform application slug (e.g. "finai", "orchestrai") */
-  readonly appId: string;
+  /** Registered client or application identifier */
+  readonly clientId?: string;
+  /** Application identifier (alias for clientId) */
+  readonly appId?: string;
+  /** Base URL of the central identity / authentication provider */
+  readonly authUrl?: string;
   /** Optional gateway base URL for fetching app status */
   readonly gatewayUrl?: string;
+  /** Optional identity provider base URL (alias for authUrl) */
+  readonly portalUrl?: string;
   /** Child component subtree to render when app is active */
   readonly children: ReactNode;
   /** Optional custom replacement component when app is deactivated */

@@ -1,14 +1,15 @@
 /**
  * @file packages/auth-client/src/components/forgot-password.tsx
- * @description Self-service password reset request form for DevLab.
+ * @description Theme-adaptive self-service password reset request form for DevLab.
  * Displays direct reset link in local dev mode when email delivery is not configured.
  * @module @yuva-devlab/auth-client
  */
 
 import React, { useState, type FormEvent } from "react";
-import { Mail, Loader2, CheckCircle2, ArrowLeft } from "lucide-react";
+import { Mail, Loader2, ArrowLeft } from "lucide-react";
 import { AuthCard } from "./auth-card";
 import { AuthInput } from "./auth-input";
+import { ForgotPasswordSuccess } from "./forgot-password-success";
 import type { ForgotPasswordProps } from "../types";
 
 export const ForgotPassword: React.FC<ForgotPasswordProps> = ({
@@ -16,6 +17,8 @@ export const ForgotPassword: React.FC<ForgotPasswordProps> = ({
   onError,
   signInUrl = "/login",
   apiBaseUrl = "",
+  brand,
+  theme,
   className = "",
 }) => {
   const [email, setEmail] = useState("");
@@ -28,6 +31,7 @@ export const ForgotPassword: React.FC<ForgotPasswordProps> = ({
     e.preventDefault();
     setErrorMsg(null);
 
+    // Guard: validate email address input
     if (!email.trim()) {
       setErrorMsg("Please enter your email address.");
       return;
@@ -50,11 +54,20 @@ export const ForgotPassword: React.FC<ForgotPasswordProps> = ({
         throw new Error(message);
       }
 
-      const data = (await res.json().catch(() => ({}))) as {
+      const json = (await res.json().catch(() => ({}))) as Record<
+        string,
+        unknown
+      >;
+      const raw =
+        json && typeof json === "object" && "data" in json && json.data
+          ? json.data
+          : json;
+      const data = raw as {
         resetUrl?: string;
         resetToken?: string;
       };
 
+      // Surface dev reset link if email provider is mocked in development
       if (data.resetUrl) {
         setDevResetUrl(data.resetUrl);
       } else if (data.resetToken) {
@@ -75,13 +88,11 @@ export const ForgotPassword: React.FC<ForgotPasswordProps> = ({
   const footer = signInUrl ? (
     <a
       href={signInUrl}
+      className="dl-auth-link"
       style={{
         display: "inline-flex",
         alignItems: "center",
-        gap: "6px",
-        fontSize: "13px",
-        color: "#a1a1aa",
-        textDecoration: "none",
+        gap: "var(--space-1-5, 0.375rem)",
       }}
     >
       <ArrowLeft size={14} />
@@ -99,70 +110,14 @@ export const ForgotPassword: React.FC<ForgotPasswordProps> = ({
       }
       errorMsg={errorMsg}
       footer={footer}
+      brand={brand}
+      theme={theme}
       className={className}
     >
       {isSubmitted ? (
-        <div style={{ textAlign: "center", padding: "16px 0" }}>
-          <div
-            style={{
-              width: "48px",
-              height: "48px",
-              borderRadius: "50%",
-              backgroundColor: "rgba(34, 197, 94, 0.15)",
-              color: "#4ade80",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              margin: "0 auto 16px auto",
-            }}
-          >
-            <CheckCircle2 size={24} />
-          </div>
-          <p style={{ fontSize: "14px", color: "#e4e4e7", margin: 0 }}>
-            If an account exists for <strong>{email}</strong>, you will receive
-            an email shortly with instructions.
-          </p>
-
-          {devResetUrl && (
-            <div
-              style={{
-                marginTop: "16px",
-                padding: "12px",
-                borderRadius: "8px",
-                backgroundColor: "rgba(255, 255, 255, 0.05)",
-                border: "1px solid rgba(255, 255, 255, 0.1)",
-                textAlign: "left",
-              }}
-            >
-              <p
-                style={{
-                  fontSize: "12px",
-                  color: "#93c5fd",
-                  fontWeight: 600,
-                  margin: "0 0 6px 0",
-                }}
-              >
-                🛠 Dev mode — use this link to reset your password:
-              </p>
-              <a
-                href={devResetUrl}
-                style={{
-                  fontSize: "12px",
-                  color: "#60a5fa",
-                  fontFamily: "monospace",
-                  wordBreak: "break-all",
-                }}
-              >
-                {devResetUrl}
-              </a>
-            </div>
-          )}
-        </div>
+        <ForgotPasswordSuccess email={email} devResetUrl={devResetUrl} />
       ) : (
-        <form
-          onSubmit={handleSubmit}
-          style={{ display: "flex", flexDirection: "column", gap: "16px" }}
-        >
+        <form onSubmit={handleSubmit} className="dl-auth-form">
           <AuthInput
             id="devlab-forgot-email"
             label="Email address"
@@ -172,33 +127,17 @@ export const ForgotPassword: React.FC<ForgotPasswordProps> = ({
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             placeholder="name@company.com"
-            icon={<Mail size={16} />}
+            icon={<Mail />}
           />
 
           <button
             type="submit"
             disabled={loading}
-            style={{
-              marginTop: "8px",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              gap: "8px",
-              width: "100%",
-              padding: "11px 16px",
-              backgroundColor: "#2563eb",
-              color: "#ffffff",
-              fontWeight: 600,
-              fontSize: "14px",
-              border: "none",
-              borderRadius: "8px",
-              cursor: loading ? "not-allowed" : "pointer",
-              opacity: loading ? 0.75 : 1,
-            }}
+            className="dl-auth-submit-btn"
           >
             {loading ? (
               <>
-                <Loader2 size={16} className="animate-spin" />
+                <Loader2 className="animate-spin" />
                 <span>Sending reset link…</span>
               </>
             ) : (

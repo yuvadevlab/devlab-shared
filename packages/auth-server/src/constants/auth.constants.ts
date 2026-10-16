@@ -16,6 +16,9 @@ export const DEFAULT_BEARER_PREFIX = "Bearer ";
 /** Default cache time-to-live for fetched RS256 JWKS public keys (1 hour) */
 export const DEFAULT_JWKS_CACHE_TTL_MS = 3_600_000;
 
+/** Default cache time-to-live for validated M2M API keys (5 minutes) */
+export const DEFAULT_API_KEY_CACHE_TTL_MS = 300_000;
+
 /** Default public endpoints bypassing mandatory authentication */
 export const DEFAULT_PUBLIC_PATHS = Object.freeze([
   "/health",

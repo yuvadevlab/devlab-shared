@@ -89,6 +89,47 @@ export interface JwksConfig {
 /**
  * Decoded JWT claims payload.
  */
+
+/**
+ * Result of validating a Machine-to-Machine API key against the DevLab Portal.
+ */
+export interface ApiKeyValidationResult {
+  /** Whether the API key is active, valid, and unexpired */
+  readonly valid: boolean;
+  /** Primary API key UUID */
+  readonly keyId?: string;
+  /** Name assigned to this machine key */
+  readonly name?: string;
+  /** Target application slug this key belongs to */
+  readonly appId?: string;
+  /** Target application display name */
+  readonly appName?: string;
+  /** Scopes and permissions granted to this key */
+  readonly scopes?: readonly string[];
+  /** Allowed requests per minute limit */
+  readonly rateLimitRpm?: number;
+  /** Human-readable rejection reason if invalid */
+  readonly reason?: string;
+}
+
+/**
+ * Configuration options for Machine-to-Machine API key validation.
+ */
+export interface M2mConfig {
+  /** Base URL of the authentication server / identity provider */
+  readonly authUrl?: string;
+  /** Legacy alias for authUrl */
+  readonly portalUrl?: string;
+  /** In-memory cache duration for validated API keys in milliseconds */
+  readonly cacheTtlMs?: number;
+  /** Expected client or application identifier */
+  readonly requiredClientId?: string;
+  /** Legacy alias for requiredClientId */
+  readonly requiredAppId?: string;
+  /** Required operational scopes that must be granted to the API key */
+  readonly requiredScopes?: readonly string[];
+}
+
 export interface JwtPayload {
   readonly sub: string;
   readonly iss?: string;
@@ -97,7 +138,14 @@ export interface JwtPayload {
   readonly nbf?: number;
   readonly iat?: number;
   readonly email?: string;
+  readonly name?: string;
+  readonly role?: string;
   readonly roles?: readonly string[];
   readonly tenantId?: string;
+  readonly tenant_id?: string;
+  readonly tenant_slug?: string;
+  readonly tenant_name?: string;
+  readonly apps?: readonly string[];
+  readonly appId?: string;
   readonly [key: string]: unknown;
 }

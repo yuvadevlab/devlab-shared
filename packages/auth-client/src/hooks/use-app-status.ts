@@ -1,7 +1,7 @@
 /**
- * @file packages/auth-react/src/hooks/use-app-status.ts
+ * @file packages/auth-client/src/hooks/use-app-status.ts
  * @description Hook inspecting host application platform lifecycle status.
- * @module @yuva-devlab/auth-react
+ * @module @yuva-devlab/auth-client
  */
 
 import { useDevLabAuth } from "./use-devlab-auth";
