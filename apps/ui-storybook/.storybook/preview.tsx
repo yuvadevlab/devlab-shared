@@ -28,28 +28,23 @@ const preview: Preview = {
         items: [
           {
             value: "orchestrai",
-            title: "OrchestrAI (Cyber Cyan)",
-            right: "🤖",
+            title: "OrchestrAI",
           },
           {
             value: "finai",
-            title: "FinAI (Emerald Green)",
-            right: "📊",
+            title: "FinAI",
           },
           {
             value: "portal",
-            title: "DevLab Portal (Mint Obsidian)",
-            right: "🛡️",
+            title: "DevLab Portal",
           },
           {
             value: "logs",
-            title: "DevLab Logs (Matrix Amber)",
-            right: "💻",
+            title: "DevLab Logs",
           },
           {
             value: "vitalai",
-            title: "VitalAI (Volt Kinetic)",
-            right: "💪",
+            title: "VitalAI",
           },
         ],
         dynamicTitle: true,

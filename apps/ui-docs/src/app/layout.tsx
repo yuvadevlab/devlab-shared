@@ -22,6 +22,7 @@ export default function RootLayout({
       className="dark"
       data-brand="orchestrai"
       data-theme="orchestrai"
+      data-full-theme="false"
       suppressHydrationWarning
     >
       <body className="bg-background text-foreground h-screen flex flex-col overflow-hidden antialiased">

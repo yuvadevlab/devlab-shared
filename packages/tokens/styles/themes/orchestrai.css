@@ -98,6 +98,19 @@
   --section-gap: var(--space-5);
   --table-row-padding-x: var(--space-4);
   --table-row-padding-y: var(--space-3);
+
+  /* ── OrchestrAI Typography Tokens ─────────────────────────────────────── */
+  --theme-font-sans:
+    "Manrope", ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --theme-font-display: "Sora", ui-sans-serif, system-ui, sans-serif;
+  --theme-font-mono: "JetBrains Mono", ui-monospace, monospace;
+  --font-sans: var(--theme-font-sans);
+  --font-display: var(--theme-font-display);
+  --font-mono: var(--theme-font-mono);
+
+  /* ── Balanced Cybernetic Scaling ─────────────────────────────────────── */
+  --theme-font-size-root: 16px;
+  --theme-spacing: 0.25rem;
 }
 
 /* ── OrchestrAI Theme — Dark Mode ──────────────────────────────────────── */
@@ -202,4 +215,17 @@
   --section-gap: var(--space-5);
   --table-row-padding-x: var(--space-4);
   --table-row-padding-y: var(--space-3);
+
+  /* ── OrchestrAI Typography Tokens ─────────────────────────────────────── */
+  --theme-font-sans:
+    "Manrope", ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --theme-font-display: "Sora", ui-sans-serif, system-ui, sans-serif;
+  --theme-font-mono: "JetBrains Mono", ui-monospace, monospace;
+  --font-sans: var(--theme-font-sans);
+  --font-display: var(--theme-font-display);
+  --font-mono: var(--theme-font-mono);
+
+  /* ── Balanced Cybernetic Scaling ─────────────────────────────────────── */
+  --theme-font-size-root: 16px;
+  --theme-spacing: 0.25rem;
 }

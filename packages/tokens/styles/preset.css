@@ -96,6 +96,19 @@
   --section-gap: var(--space-5);
   --table-row-padding-x: var(--space-4);
   --table-row-padding-y: var(--space-3);
+
+  /* ── Typography Fallback Baseline ───────────────────────────────────── */
+  --theme-font-sans:
+    system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --theme-font-display: var(--theme-font-sans);
+  --theme-font-mono:
+    ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  --font-sans: var(--theme-font-sans);
+  --font-display: var(--theme-font-display);
+  --font-mono: var(--theme-font-mono);
+
+  --theme-font-size-root: 16px;
+  --theme-spacing: 0.25rem;
 }
 
 .dark,
@@ -158,9 +171,28 @@
   --chart-3: oklch(0.75 0.12 70);
   --chart-4: oklch(0.8 0.14 80);
   --chart-5: oklch(0.65 0.18 25);
+
+  /* ── Typography Fallback Baseline ───────────────────────────────────── */
+  --theme-font-sans:
+    system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --theme-font-display: var(--theme-font-sans);
+  --theme-font-mono:
+    ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  --font-sans: var(--theme-font-sans);
+  --font-display: var(--theme-font-display);
+  --font-mono: var(--theme-font-mono);
+
+  --theme-font-size-root: 16px;
+  --theme-spacing: 0.25rem;
 }
 
 @theme inline {
+  /* ── Typography & Spacing Tokens ────────────────────────────────── */
+  --font-sans: var(--font-sans);
+  --font-display: var(--font-display);
+  --font-mono: var(--font-mono);
+  --spacing: var(--theme-spacing, 0.25rem);
+
   /* ── Radii Mappings ─────────────────────────────────────────────── */
   --radius-sm: calc(var(--radius, 0.5rem) - 4px);
   --radius-md: calc(var(--radius, 0.5rem) - 2px);

@@ -28,15 +28,16 @@
   transition: background-color 0.1s;
 }
 .dl-table__head-cell {
-  height: 2.5rem;
-  padding: 0 0.5rem;
+  height: var(--control-height-lg, 2.5rem);
+  padding: 0 var(--table-row-padding-x, 0.5rem);
   text-align: left;
   font-weight: 500;
   color: var(--muted-foreground);
   white-space: nowrap;
 }
 .dl-table__cell {
-  padding: 0.75rem 0.5rem;
+  padding: var(--table-row-padding-y, 0.75rem)
+    var(--table-row-padding-x, 0.5rem);
   vertical-align: middle;
 }
 .dl-table__caption {

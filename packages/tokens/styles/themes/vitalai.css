@@ -82,6 +82,47 @@
   --chart-3: var(--ember);
   --chart-4: oklch(0.65 0.18 290);
   --chart-5: oklch(0.72 0.16 75);
+
+  /* ── VitalAI Typography Tokens ───────────────────────────────────────── */
+  --theme-font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --theme-font-display: "Barlow Condensed", "Inter", sans-serif;
+  --theme-font-mono: "JetBrains Mono", ui-monospace, monospace;
+  --font-sans: var(--theme-font-sans);
+  --font-display: var(--theme-font-display);
+  --font-mono: var(--theme-font-mono);
+
+  /* ── Athletic Density & Scaling ──────────────────────────────────────── */
+  --theme-font-size-root: 16.5px;
+  --theme-spacing: 0.285rem;
+
+  /* ── Sizing, Spacing & Layout Tokens ─────────────────────────────────── */
+  --control-height-xs: 2rem;
+  --control-height-sm: 2.25rem;
+  --control-height-md: 2.625rem;
+  --control-height-lg: 3rem;
+  --control-height-xl: 3.5rem;
+
+  --icon-xs: 0.875rem;
+  --icon-sm: 1rem;
+  --icon-md: 1.25rem;
+  --icon-lg: 1.5rem;
+  --icon-xl: 2rem;
+
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.875rem;
+  --space-4: 1.125rem;
+  --space-5: 1.5rem;
+  --space-6: 1.875rem;
+  --space-8: 2.5rem;
+  --space-10: 3rem;
+
+  --card-padding: var(--space-5);
+  --dialog-padding: var(--space-6);
+  --form-field-gap: var(--space-4);
+  --section-gap: var(--space-6);
+  --table-row-padding-x: var(--space-5);
+  --table-row-padding-y: var(--space-4);
 }
 
 /* ── VitalAI Theme — Dark Mode (Signature Muscle Monster Aesthetic) ───── */
@@ -169,4 +210,45 @@
   --chart-3: var(--ember);
   --chart-4: oklch(0.75 0.18 290);
   --chart-5: oklch(0.85 0.15 85);
+
+  /* ── VitalAI Typography Tokens ───────────────────────────────────────── */
+  --theme-font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --theme-font-display: "Barlow Condensed", "Inter", sans-serif;
+  --theme-font-mono: "JetBrains Mono", ui-monospace, monospace;
+  --font-sans: var(--theme-font-sans);
+  --font-display: var(--theme-font-display);
+  --font-mono: var(--theme-font-mono);
+
+  /* ── Athletic Density & Scaling ──────────────────────────────────────── */
+  --theme-font-size-root: 16.5px;
+  --theme-spacing: 0.285rem;
+
+  /* ── Sizing, Spacing & Layout Tokens ─────────────────────────────────── */
+  --control-height-xs: 2rem;
+  --control-height-sm: 2.25rem;
+  --control-height-md: 2.625rem;
+  --control-height-lg: 3rem;
+  --control-height-xl: 3.5rem;
+
+  --icon-xs: 0.875rem;
+  --icon-sm: 1rem;
+  --icon-md: 1.25rem;
+  --icon-lg: 1.5rem;
+  --icon-xl: 2rem;
+
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.875rem;
+  --space-4: 1.125rem;
+  --space-5: 1.5rem;
+  --space-6: 1.875rem;
+  --space-8: 2.5rem;
+  --space-10: 3rem;
+
+  --card-padding: var(--space-5);
+  --dialog-padding: var(--space-6);
+  --form-field-gap: var(--space-4);
+  --section-gap: var(--space-6);
+  --table-row-padding-x: var(--space-5);
+  --table-row-padding-y: var(--space-4);
 }
