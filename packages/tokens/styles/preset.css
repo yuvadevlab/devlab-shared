@@ -221,14 +221,11 @@
   --color-chart-4: var(--chart-4);
   --color-chart-5: var(--chart-5);
 
-  /* ── VitalAI Clinical & Performance Telemetry Tokens ───────────── */
-  --color-vital: var(--vital);
-  --color-vital-foreground: var(--vital-foreground);
-  --color-calories: var(--calories);
-  --color-protein: var(--protein);
-  --color-carbs: var(--carbs);
-  --color-fats: var(--fats);
-  --color-water: var(--water);
+  /* ── VitalAI High-Performance Athletic & Kinetic Tokens ────────── */
+  --color-volt: var(--volt);
+  --color-cyan: var(--cyan);
+  --color-ember: var(--ember);
+  --color-slate-muscle: var(--slate-muscle);
   --color-glass: var(--glass);
   --color-glass-border: var(--glass-border);
 

@@ -48,8 +48,8 @@ const preview: Preview = {
           },
           {
             value: "vitalai",
-            title: "VitalAI (Clinical Teal)",
-            right: "🧬",
+            title: "VitalAI (Volt Kinetic)",
+            right: "⚡",
           },
         ],
         dynamicTitle: true,

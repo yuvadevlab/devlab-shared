@@ -1,6 +1,6 @@
 /**
- * VitalAI Theme Preset — Clinical Porcelain & Bioluminescent Teal Palette
- * Modern OKLCH color spaces optimized for high performance, clinical nutrition, and fitness intelligence.
+ * VitalAI Theme Preset — High-Performance Athletic & Kinetic Palette
+ * Modern OKLCH color spaces optimized for bodybuilding, calisthenics, and AI fitness coaching.
  * High-specificity scoped tokens for VitalAI applications.
  */
 
@@ -14,80 +14,77 @@
   --radius: 1rem;
 
   /* Surfaces */
-  --background: oklch(0.975 0.006 190);
-  --foreground: oklch(0.2 0.03 220);
-  --card: oklch(1 0 0 / 72%);
-  --card-foreground: oklch(0.2 0.03 220);
-  --popover: oklch(0.995 0.003 190);
-  --popover-foreground: oklch(0.2 0.03 220);
+  --background: oklch(0.98 0.005 265);
+  --foreground: oklch(0.14 0.02 265);
+  --card: oklch(1 0 0 / 85%);
+  --card-foreground: oklch(0.14 0.02 265);
+  --popover: oklch(0.99 0.003 265);
+  --popover-foreground: oklch(0.14 0.02 265);
 
-  /* Brand Action */
-  --primary: oklch(0.52 0.11 185);
-  --primary-foreground: oklch(0.99 0.01 185);
-  --secondary: oklch(0.94 0.015 190);
-  --secondary-foreground: oklch(0.25 0.04 210);
+  /* Brand Action — Athletic Volt Accent */
+  --primary: oklch(0.72 0.22 128);
+  --primary-foreground: oklch(0.12 0.02 128);
+  --secondary: oklch(0.93 0.015 265);
+  --secondary-foreground: oklch(0.2 0.03 265);
 
   /* Muted / Accent */
-  --muted: oklch(0.945 0.01 200);
-  --muted-foreground: oklch(0.5 0.025 220);
-  --accent: oklch(0.93 0.035 180);
-  --accent-foreground: oklch(0.3 0.07 185);
+  --muted: oklch(0.94 0.01 265);
+  --muted-foreground: oklch(0.48 0.025 265);
+  --accent: oklch(0.92 0.025 265);
+  --accent-foreground: oklch(0.2 0.03 265);
 
   /* Status & Clinical Feedback */
   --destructive: oklch(0.58 0.2 25);
   --destructive-foreground: oklch(0.99 0 0);
   --warning: oklch(0.72 0.16 70);
   --warning-foreground: oklch(0.2 0.02 70);
-  --success: oklch(0.62 0.15 155);
+  --success: oklch(0.65 0.2 140);
   --success-foreground: oklch(0.99 0 0);
-  --info: oklch(0.62 0.13 235);
+  --info: oklch(0.62 0.15 210);
   --info-foreground: oklch(0.99 0 0);
 
   /* Form & Interactive */
-  --border: oklch(0.2 0.03 220 / 9%);
-  --input: oklch(0.2 0.03 220 / 12%);
-  --ring: oklch(0.52 0.11 185);
+  --border: oklch(0.14 0.02 265 / 10%);
+  --input: oklch(0.14 0.02 265 / 12%);
+  --ring: oklch(0.72 0.22 128);
 
   /* Glassmorphism & Ambient Glow */
-  --glass: oklch(1 0 0 / 62%);
-  --glass-border: oklch(1 0 0 / 80%);
-  --glow: oklch(0.7 0.14 180 / 25%);
-  --glow-2: oklch(0.75 0.12 150 / 18%);
+  --glass: oklch(1 0 0 / 70%);
+  --glass-border: oklch(0.14 0.02 265 / 8%);
+  --glow: oklch(0.72 0.22 128 / 25%);
+  --glow-2: oklch(0.68 0.16 200 / 18%);
   --shadow-glass:
-    0 1px 0 0 oklch(1 0 0 / 70%) inset,
-    0 10px 40px -12px oklch(0.3 0.05 210 / 18%);
-  --surface: oklch(1 0 0 / 70%);
-  --surface-2: oklch(0.975 0.005 190);
-  --overlay: oklch(0.975 0.006 190 / 80%);
+    0 1px 0 0 oklch(1 0 0 / 80%) inset,
+    0 10px 40px -12px oklch(0.14 0.02 265 / 12%);
+  --surface: oklch(1 0 0 / 75%);
+  --surface-2: oklch(0.96 0.008 265);
+  --overlay: oklch(0.98 0.005 265 / 80%);
 
   /* Navigation & Sidebar */
-  --sidebar: oklch(0.99 0.004 190 / 70%);
-  --sidebar-foreground: oklch(0.25 0.03 220);
-  --sidebar-primary: oklch(0.52 0.11 185);
-  --sidebar-primary-foreground: oklch(0.99 0 0);
-  --sidebar-accent: oklch(0.93 0.035 180);
-  --sidebar-accent-foreground: oklch(0.3 0.07 185);
-  --sidebar-border: oklch(0.2 0.03 220 / 8%);
-  --sidebar-ring: oklch(0.52 0.11 185);
+  --sidebar: oklch(0.99 0.003 265 / 80%);
+  --sidebar-foreground: oklch(0.2 0.02 265);
+  --sidebar-primary: oklch(0.72 0.22 128);
+  --sidebar-primary-foreground: oklch(0.12 0.02 128);
+  --sidebar-accent: oklch(0.93 0.02 265);
+  --sidebar-accent-foreground: oklch(0.2 0.03 265);
+  --sidebar-border: oklch(0.14 0.02 265 / 8%);
+  --sidebar-ring: oklch(0.72 0.22 128);
 
-  /* ── VitalAI Clinical Telemetry & Macro Tokens ───────────────────────── */
-  --vital: oklch(0.62 0.15 160);
-  --vital-foreground: oklch(0.99 0 0);
-  --calories: oklch(0.66 0.17 45);
-  --protein: oklch(0.55 0.13 185);
-  --carbs: oklch(0.7 0.15 85);
-  --fats: oklch(0.6 0.16 350);
-  --water: oklch(0.62 0.13 235);
+  /* ── VitalAI Kinetic Athletic Tokens ─────────────────────────────────── */
+  --volt: oklch(0.72 0.22 128);
+  --cyan: oklch(0.68 0.16 200);
+  --ember: oklch(0.65 0.21 40);
+  --slate-muscle: oklch(0.3 0.02 265);
 
   /* Visual Data Charts */
-  --chart-1: var(--protein);
-  --chart-2: var(--carbs);
-  --chart-3: var(--fats);
-  --chart-4: var(--calories);
-  --chart-5: var(--water);
+  --chart-1: var(--volt);
+  --chart-2: var(--cyan);
+  --chart-3: var(--ember);
+  --chart-4: oklch(0.65 0.18 290);
+  --chart-5: oklch(0.72 0.16 75);
 }
 
-/* ── VitalAI Theme — Dark Mode ────────────────────────────────────────── */
+/* ── VitalAI Theme — Dark Mode (Signature Muscle Monster Aesthetic) ───── */
 [data-theme="vitalai-dark"],
 [data-brand="vitalai"][data-theme="dark"],
 [data-brand="vitalai"][data-theme="vitalai-dark"],
@@ -104,75 +101,72 @@
 :root.dark[data-theme="vitalai"] {
   --radius: 1rem;
 
-  /* Surfaces */
-  --background: oklch(0.155 0.018 230);
-  --foreground: oklch(0.95 0.01 200);
-  --card: oklch(0.22 0.02 225 / 60%);
-  --card-foreground: oklch(0.95 0.01 200);
-  --popover: oklch(0.2 0.02 225);
-  --popover-foreground: oklch(0.95 0.01 200);
+  /* Surfaces — Obsidian Carbon */
+  --background: oklch(0.12 0.006 265);
+  --foreground: oklch(0.97 0.005 265);
+  --card: oklch(0.16 0.01 265 / 75%);
+  --card-foreground: oklch(0.97 0.005 265);
+  --popover: oklch(0.17 0.01 265);
+  --popover-foreground: oklch(0.97 0.005 265);
 
-  /* Brand Action */
-  --primary: oklch(0.8 0.13 180);
-  --primary-foreground: oklch(0.18 0.03 210);
-  --secondary: oklch(0.26 0.02 225);
-  --secondary-foreground: oklch(0.92 0.01 200);
+  /* Brand Action — High-Voltage Neon Volt Green */
+  --primary: oklch(0.93 0.23 125);
+  --primary-foreground: oklch(0.14 0.02 125);
+  --secondary: oklch(0.22 0.012 265);
+  --secondary-foreground: oklch(0.92 0.008 265);
 
   /* Muted / Accent */
-  --muted: oklch(0.25 0.018 225);
-  --muted-foreground: oklch(0.68 0.02 210);
-  --accent: oklch(0.3 0.05 190);
-  --accent-foreground: oklch(0.88 0.1 180);
+  --muted: oklch(0.2 0.01 265);
+  --muted-foreground: oklch(0.65 0.015 265);
+  --accent: oklch(0.24 0.018 265);
+  --accent-foreground: oklch(0.93 0.23 125);
 
   /* Status & Clinical Feedback */
-  --destructive: oklch(0.68 0.19 22);
+  --destructive: oklch(0.68 0.2 25);
   --destructive-foreground: oklch(0.99 0 0);
-  --warning: oklch(0.8 0.15 75);
+  --warning: oklch(0.8 0.16 75);
   --warning-foreground: oklch(0.15 0.02 75);
-  --success: oklch(0.78 0.16 155);
-  --success-foreground: oklch(0.15 0.02 230);
-  --info: oklch(0.74 0.13 235);
+  --success: oklch(0.88 0.22 135);
+  --success-foreground: oklch(0.14 0.02 125);
+  --info: oklch(0.82 0.15 205);
   --info-foreground: oklch(0.15 0.02 230);
 
   /* Form & Interactive */
   --border: oklch(1 0 0 / 8%);
   --input: oklch(1 0 0 / 12%);
-  --ring: oklch(0.8 0.13 180);
+  --ring: oklch(0.93 0.23 125);
 
   /* Glassmorphism & Ambient Glow */
-  --glass: oklch(0.24 0.02 225 / 55%);
-  --glass-border: oklch(1 0 0 / 9%);
-  --glow: oklch(0.7 0.14 180 / 22%);
-  --glow-2: oklch(0.6 0.14 260 / 16%);
+  --glass: oklch(0.16 0.01 265 / 75%);
+  --glass-border: oklch(1 0 0 / 8%);
+  --glow: oklch(0.93 0.23 125 / 25%);
+  --glow-2: oklch(0.87 0.15 200 / 20%);
   --shadow-glass:
-    0 1px 0 0 oklch(1 0 0 / 5%) inset, 0 20px 50px -20px oklch(0 0 0 / 60%);
-  --surface: oklch(0.22 0.02 225 / 70%);
-  --surface-2: oklch(0.25 0.02 225);
-  --overlay: oklch(0.12 0.018 230 / 80%);
+    0 1px 0 0 oklch(1 0 0 / 8%) inset, 0 20px 50px -20px oklch(0 0 0 / 80%);
+  --surface: oklch(0.16 0.01 265);
+  --surface-2: oklch(0.2 0.012 265);
+  --overlay: oklch(0.1 0.006 265 / 85%);
 
   /* Navigation & Sidebar */
-  --sidebar: oklch(0.18 0.02 228 / 70%);
-  --sidebar-foreground: oklch(0.9 0.01 200);
-  --sidebar-primary: oklch(0.8 0.13 180);
-  --sidebar-primary-foreground: oklch(0.18 0.03 210);
-  --sidebar-accent: oklch(0.28 0.04 195);
-  --sidebar-accent-foreground: oklch(0.9 0.1 180);
-  --sidebar-border: oklch(1 0 0 / 6%);
-  --sidebar-ring: oklch(0.8 0.13 180);
+  --sidebar: oklch(0.14 0.008 265 / 80%);
+  --sidebar-foreground: oklch(0.9 0.005 265);
+  --sidebar-primary: oklch(0.93 0.23 125);
+  --sidebar-primary-foreground: oklch(0.14 0.02 125);
+  --sidebar-accent: oklch(0.22 0.015 265);
+  --sidebar-accent-foreground: oklch(0.93 0.23 125);
+  --sidebar-border: oklch(1 0 0 / 7%);
+  --sidebar-ring: oklch(0.93 0.23 125);
 
-  /* ── VitalAI Clinical Telemetry & Macro Tokens ───────────────────────── */
-  --vital: oklch(0.82 0.16 160);
-  --vital-foreground: oklch(0.18 0.03 210);
-  --calories: oklch(0.76 0.16 50);
-  --protein: oklch(0.8 0.13 180);
-  --carbs: oklch(0.85 0.14 90);
-  --fats: oklch(0.74 0.16 350);
-  --water: oklch(0.74 0.13 235);
+  /* ── VitalAI Kinetic Athletic Tokens ─────────────────────────────────── */
+  --volt: oklch(0.93 0.23 125);
+  --cyan: oklch(0.87 0.15 200);
+  --ember: oklch(0.7 0.21 45);
+  --slate-muscle: oklch(0.27 0.015 265);
 
   /* Visual Data Charts */
-  --chart-1: var(--protein);
-  --chart-2: var(--carbs);
-  --chart-3: var(--fats);
-  --chart-4: var(--calories);
-  --chart-5: var(--water);
+  --chart-1: var(--volt);
+  --chart-2: var(--cyan);
+  --chart-3: var(--ember);
+  --chart-4: oklch(0.75 0.18 290);
+  --chart-5: oklch(0.85 0.15 85);
 }

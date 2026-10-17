@@ -37,7 +37,7 @@ const BRANDS: readonly BrandOption[] = [
   },
   {
     value: "vitalai",
-    label: "🧬 VitalAI (Clinical Teal)",
+    label: "⚡ VitalAI (Volt Kinetic)",
   },
 ] as const;
 
