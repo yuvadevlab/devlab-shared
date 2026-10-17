@@ -92,8 +92,8 @@
   --font-mono: var(--theme-font-mono);
 
   /* ── Athletic Density & Scaling ──────────────────────────────────────── */
-  --theme-font-size-root: 16.5px;
-  --theme-spacing: 0.285rem;
+  --theme-font-size-root: 16px;
+  --theme-spacing: 0.25rem;
 
   /* ── Sizing, Spacing & Layout Tokens ─────────────────────────────────── */
   --control-height-xs: 2rem;
@@ -220,8 +220,8 @@
   --font-mono: var(--theme-font-mono);
 
   /* ── Athletic Density & Scaling ──────────────────────────────────────── */
-  --theme-font-size-root: 16.5px;
-  --theme-spacing: 0.285rem;
+  --theme-font-size-root: 16px;
+  --theme-spacing: 0.25rem;
 
   /* ── Sizing, Spacing & Layout Tokens ─────────────────────────────────── */
   --control-height-xs: 2rem;
