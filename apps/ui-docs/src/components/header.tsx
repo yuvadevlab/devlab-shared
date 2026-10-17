@@ -33,11 +33,11 @@ const BRANDS: readonly BrandOption[] = [
   },
   {
     value: "logs",
-    label: "⚡ DevLab Logs (Matrix Amber)",
+    label: "💻 DevLab Logs (Matrix Amber)",
   },
   {
     value: "vitalai",
-    label: "⚡ VitalAI (Volt Kinetic)",
+    label: "💪 VitalAI (Volt Kinetic)",
   },
 ] as const;
 
