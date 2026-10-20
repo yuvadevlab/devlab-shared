@@ -27,6 +27,9 @@ export const SignIn: React.FC<SignInProps> = ({
   brand,
   theme,
   className = "",
+  logo,
+  icon,
+  fullPage,
 }) => {
   const auth = useContext(DevLabAuthContext);
   const [email, setEmail] = useState("");
@@ -104,6 +107,9 @@ export const SignIn: React.FC<SignInProps> = ({
       brand={brand}
       theme={theme}
       className={className}
+      logo={logo}
+      icon={icon}
+      fullPage={fullPage}
     >
       <form onSubmit={handleSubmit} className="dl-auth-form">
         <AuthInput

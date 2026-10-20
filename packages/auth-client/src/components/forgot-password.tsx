@@ -20,6 +20,9 @@ export const ForgotPassword: React.FC<ForgotPasswordProps> = ({
   brand,
   theme,
   className = "",
+  logo,
+  icon,
+  fullPage,
 }) => {
   const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(false);
@@ -113,6 +116,9 @@ export const ForgotPassword: React.FC<ForgotPasswordProps> = ({
       brand={brand}
       theme={theme}
       className={className}
+      logo={logo}
+      icon={icon}
+      fullPage={fullPage}
     >
       {isSubmitted ? (
         <ForgotPasswordSuccess email={email} devResetUrl={devResetUrl} />

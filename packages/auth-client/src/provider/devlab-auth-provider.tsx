@@ -44,7 +44,9 @@ export const DevLabAuthProvider: React.FC<DevLabAuthProviderProps> = ({
     portalUrl ||
     gatewayUrl ||
     (typeof process !== "undefined"
-      ? process.env?.NEXT_PUBLIC_DEVLAB_AUTH_URL ||
+      ? process.env?.NEXT_PUBLIC_DEVLAB_PORTAL_WEB_URL ||
+        process.env?.DEVLAB_PORTAL_WEB_URL ||
+        process.env?.NEXT_PUBLIC_DEVLAB_AUTH_URL ||
         process.env?.NEXT_PUBLIC_DEVLAB_PORTAL_URL
       : undefined);
 

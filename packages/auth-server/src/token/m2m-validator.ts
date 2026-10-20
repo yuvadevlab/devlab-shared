@@ -103,12 +103,19 @@ export class M2mApiKeyValidator {
       result.appId &&
       result.appId !== this.requiredClientId
     ) {
-      throw new ForbiddenError(
-        "API key assigned to " +
-          result.appId +
-          ", required " +
-          this.requiredClientId,
-      );
+      const keyScopes = result.scopes ?? [];
+      const hasWildcard =
+        keyScopes.includes("*") ||
+        keyScopes.includes(`${this.requiredClientId}:*`) ||
+        keyScopes.includes(this.requiredClientId);
+      if (!hasWildcard) {
+        throw new ForbiddenError(
+          "API key assigned to " +
+            result.appId +
+            ", required " +
+            this.requiredClientId,
+        );
+      }
     }
 
     if (this.requiredScopes && this.requiredScopes.length > 0) {

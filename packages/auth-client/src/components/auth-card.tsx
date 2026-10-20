@@ -25,6 +25,12 @@ export interface AuthCardProps {
   readonly theme?: string;
   /** Optional custom CSS class */
   readonly className?: string;
+  /** Optional logo node placed above the card title */
+  readonly logo?: ReactNode;
+  /** Optional icon node placed above the card title (alias for logo) */
+  readonly icon?: ReactNode;
+  /** Whether to render within a full-viewport vertically centered page shell */
+  readonly fullPage?: boolean;
 }
 
 export const AuthCard: React.FC<AuthCardProps> = ({
@@ -36,46 +42,66 @@ export const AuthCard: React.FC<AuthCardProps> = ({
   brand,
   theme,
   className = "",
+  logo,
+  icon,
+  fullPage = false,
 }) => {
+  const cardElement = (
+    <div
+      data-brand={brand}
+      data-theme={theme || brand}
+      className={`dl-auth-card ${className}`.trim()}
+    >
+      <div className="dl-auth-header">
+        {(logo || icon) && (
+          <div className="dl-auth-icon-wrapper">{logo || icon}</div>
+        )}
+        <h2 className="dl-auth-title">{title}</h2>
+        <p className="dl-auth-subtitle">{subtitle}</p>
+      </div>
+
+      {errorMsg && (
+        <div
+          role="alert"
+          style={{
+            display: "flex",
+            alignItems: "center",
+            gap: "var(--space-2, 0.5rem)",
+            padding: "var(--space-3, 0.75rem)",
+            marginBottom: "var(--space-4, 1rem)",
+            backgroundColor: "rgba(239, 68, 68, 0.12)",
+            border: "1px solid rgba(239, 68, 68, 0.35)",
+            borderRadius:
+              "var(--radius-md, calc(var(--radius, 0.75rem) * 0.75))",
+            color: "var(--destructive, #fca5a5)",
+            fontSize: "var(--label-font-size, 0.8125rem)",
+          }}
+        >
+          <AlertCircle size={16} style={{ flexShrink: 0 }} />
+          <span>{errorMsg}</span>
+        </div>
+      )}
+
+      {children}
+
+      {footer && <div className="dl-auth-footer">{footer}</div>}
+    </div>
+  );
+
   return (
     <>
       <style dangerouslySetInnerHTML={{ __html: AUTH_STYLES }} />
-      <div
-        data-brand={brand}
-        data-theme={theme || brand}
-        className={`dl-auth-card ${className}`.trim()}
-      >
-        <div className="dl-auth-header">
-          <h2 className="dl-auth-title">{title}</h2>
-          <p className="dl-auth-subtitle">{subtitle}</p>
+      {fullPage ? (
+        <div
+          data-brand={brand}
+          data-theme={theme || brand}
+          className="dl-auth-page"
+        >
+          {cardElement}
         </div>
-
-        {errorMsg && (
-          <div
-            role="alert"
-            style={{
-              display: "flex",
-              alignItems: "center",
-              gap: "var(--space-2, 0.5rem)",
-              padding: "var(--space-3, 0.75rem)",
-              marginBottom: "var(--space-4, 1rem)",
-              backgroundColor: "rgba(239, 68, 68, 0.12)",
-              border: "1px solid rgba(239, 68, 68, 0.35)",
-              borderRadius:
-                "var(--radius-md, calc(var(--radius, 0.75rem) * 0.75))",
-              color: "var(--destructive, #fca5a5)",
-              fontSize: "var(--label-font-size, 0.8125rem)",
-            }}
-          >
-            <AlertCircle size={16} style={{ flexShrink: 0 }} />
-            <span>{errorMsg}</span>
-          </div>
-        )}
-
-        {children}
-
-        {footer && <div className="dl-auth-footer">{footer}</div>}
-      </div>
+      ) : (
+        cardElement
+      )}
     </>
   );
 };

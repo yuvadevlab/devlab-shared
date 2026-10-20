@@ -41,7 +41,9 @@ export function redirectToPortalLogin(
   const baseUrl =
     authUrl ||
     (typeof process !== "undefined"
-      ? process.env?.NEXT_PUBLIC_DEVLAB_AUTH_URL ||
+      ? process.env?.NEXT_PUBLIC_DEVLAB_PORTAL_WEB_URL ||
+        process.env?.DEVLAB_PORTAL_WEB_URL ||
+        process.env?.NEXT_PUBLIC_DEVLAB_AUTH_URL ||
         process.env?.NEXT_PUBLIC_DEVLAB_PORTAL_URL
       : undefined);
 
@@ -116,7 +118,9 @@ export function resolveForgotPasswordUrl(
   const centralAuth =
     authUrl ||
     (typeof process !== "undefined"
-      ? process.env?.NEXT_PUBLIC_DEVLAB_AUTH_URL ||
+      ? process.env?.NEXT_PUBLIC_DEVLAB_PORTAL_WEB_URL ||
+        process.env?.DEVLAB_PORTAL_WEB_URL ||
+        process.env?.NEXT_PUBLIC_DEVLAB_AUTH_URL ||
         process.env?.NEXT_PUBLIC_DEVLAB_PORTAL_URL
       : undefined);
 
