@@ -1,5 +1,11 @@
 # @yuva-devlab/auth-server
 
+## 1.0.0
+
+### Major Changes
+
+- 216e0c4: Remove legacy Portal URL environment aliases. Configure the canonical `DEVLAB_PORTAL_API_URL` for JWKS and machine-to-machine API-key validation.
+
 ## 0.3.0
 
 ### Minor Changes

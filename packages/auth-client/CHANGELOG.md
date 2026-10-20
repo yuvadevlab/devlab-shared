@@ -1,5 +1,11 @@
 # @yuva-devlab/auth-client
 
+## 1.0.0
+
+### Major Changes
+
+- 216e0c4: Remove legacy SSO URL environment aliases and use `NEXT_PUBLIC_DEVLAB_PORTAL_WEB_URL` as the single environment variable for Portal web redirects. Auth cards also support optional logo/icon content and full-page layout.
+
 ## 0.3.0
 
 ### Minor Changes
