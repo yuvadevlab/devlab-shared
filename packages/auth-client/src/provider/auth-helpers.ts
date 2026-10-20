@@ -41,13 +41,12 @@ export function redirectToPortalLogin(
   const baseUrl =
     authUrl ||
     (typeof process !== "undefined"
-      ? process.env?.NEXT_PUBLIC_DEVLAB_AUTH_URL ||
-        process.env?.NEXT_PUBLIC_DEVLAB_PORTAL_URL
+      ? process.env?.NEXT_PUBLIC_DEVLAB_PORTAL_WEB_URL
       : undefined);
 
   if (!baseUrl) {
     throw new Error(
-      "DevLabAuth: authUrl or NEXT_PUBLIC_DEVLAB_AUTH_URL must be configured to trigger SSO redirects",
+      "DevLabAuth: authUrl or NEXT_PUBLIC_DEVLAB_PORTAL_WEB_URL must be configured to trigger SSO redirects",
     );
   }
 
@@ -116,8 +115,7 @@ export function resolveForgotPasswordUrl(
   const centralAuth =
     authUrl ||
     (typeof process !== "undefined"
-      ? process.env?.NEXT_PUBLIC_DEVLAB_AUTH_URL ||
-        process.env?.NEXT_PUBLIC_DEVLAB_PORTAL_URL
+      ? process.env?.NEXT_PUBLIC_DEVLAB_PORTAL_WEB_URL
       : undefined);
 
   // If central auth provider URL is known and running in browser, build central SSO recovery link
