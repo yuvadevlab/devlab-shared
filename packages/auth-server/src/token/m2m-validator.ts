@@ -28,10 +28,7 @@ export class M2mApiKeyValidator {
 
   public constructor(config: Partial<M2mConfig> = {}) {
     this.authUrl =
-      config.authUrl ??
-      config.portalUrl ??
-      process.env.DEVLAB_AUTH_URL ??
-      process.env.DEVLAB_PORTAL_URL;
+      config.authUrl ?? config.portalUrl ?? process.env.DEVLAB_PORTAL_API_URL;
     this.cacheTtlMs = config.cacheTtlMs ?? DEFAULT_API_KEY_CACHE_TTL_MS;
     this.requiredClientId = config.requiredClientId ?? config.requiredAppId;
     this.requiredScopes = config.requiredScopes;
@@ -45,7 +42,7 @@ export class M2mApiKeyValidator {
 
     if (!this.authUrl) {
       throw new UnauthorizedError(
-        "M2mApiKeyValidator: authUrl or DEVLAB_AUTH_URL must be configured for validation",
+        "M2mApiKeyValidator: authUrl or DEVLAB_PORTAL_API_URL must be configured for validation",
       );
     }
 

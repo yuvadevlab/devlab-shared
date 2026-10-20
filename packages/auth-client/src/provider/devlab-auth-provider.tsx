@@ -44,10 +44,7 @@ export const DevLabAuthProvider: React.FC<DevLabAuthProviderProps> = ({
     portalUrl ||
     gatewayUrl ||
     (typeof process !== "undefined"
-      ? process.env?.NEXT_PUBLIC_DEVLAB_PORTAL_WEB_URL ||
-        process.env?.DEVLAB_PORTAL_WEB_URL ||
-        process.env?.NEXT_PUBLIC_DEVLAB_AUTH_URL ||
-        process.env?.NEXT_PUBLIC_DEVLAB_PORTAL_URL
+      ? process.env?.NEXT_PUBLIC_DEVLAB_PORTAL_WEB_URL
       : undefined);
 
   const [token, setToken] = useState<string | null>(null);

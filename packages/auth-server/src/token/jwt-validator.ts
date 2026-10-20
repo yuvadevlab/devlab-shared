@@ -44,10 +44,9 @@ export class JwksValidator {
       config.jwksUri ??
       (config.issuer ? `${config.issuer}/.well-known/jwks.json` : undefined) ??
       (typeof process !== "undefined"
-        ? (process.env?.DEVLAB_JWKS_URI ??
-          (process.env?.DEVLAB_AUTH_URL
-            ? `${process.env.DEVLAB_AUTH_URL}/.well-known/jwks.json`
-            : undefined))
+        ? process.env?.DEVLAB_PORTAL_API_URL
+          ? `${process.env.DEVLAB_PORTAL_API_URL}/.well-known/jwks.json`
+          : undefined
         : undefined) ??
       "";
     this.audience = config.audience;
@@ -91,7 +90,7 @@ export class JwksValidator {
   private async fetchJwks(): Promise<readonly JwkRecord[]> {
     if (!this.jwksUri) {
       throw new UnauthorizedError(
-        "JwksValidator: jwksUri, issuer, or DEVLAB_AUTH_URL must be configured",
+        "JwksValidator: jwksUri, issuer, or DEVLAB_PORTAL_API_URL must be configured",
       );
     }
     const now = Date.now();
