@@ -29,6 +29,6 @@
     "@yuva-devlab/eslint-config": "workspace:*",
     "@yuva-devlab/prettier-config": "workspace:*",
     "@yuva-devlab/typescript-config": "workspace:*",
-    "vite": "^7.2.4"
+    "vite": "^7.3.7"
   }
 }

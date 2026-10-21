@@ -65,7 +65,7 @@
     "@types/node": "^24.10.1",
     "@yuva-devlab/typescript-config": "workspace:*",
     "eslint": "^9.39.1",
-    "vite": "^7.2.4",
+    "vite": "^7.3.7",
     "vite-plugin-dts": "^4.5.4"
   },
   "peerDependencies": {
