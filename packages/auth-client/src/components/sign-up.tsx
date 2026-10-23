@@ -75,7 +75,7 @@ export const SignUp: React.FC<SignUpProps> = ({
       // Perform navigation to specified or root destination
       if (redirectTo) {
         window.location.href = redirectTo;
-      } else {
+      } else if (!onSuccess) {
         window.location.href = "/";
       }
     } catch (err: unknown) {
