@@ -1,5 +1,11 @@
 # @yuva-devlab/auth-client
 
+## 1.0.1
+
+### Patch Changes
+
+- 7860d23: Prevent forced root navigation in SignIn and SignUp components when a custom onSuccess handler is provided, allowing custom SSO redirects to execute cleanly.
+
 ## 1.0.0
 
 ### Major Changes
