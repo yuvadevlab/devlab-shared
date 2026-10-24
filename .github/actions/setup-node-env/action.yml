@@ -1,5 +1,5 @@
-name: "Setup Node Environment"
-description: "Sets up Node.js, pnpm, installs dependencies, and configures Turborepo caching."
+name: "Setup Node & Python Environment"
+description: "Sets up Node.js, pnpm, Python uv, installs dependencies, and configures Turborepo caching."
 inputs:
   node-version:
     description: "Node.js version to use"
@@ -17,6 +17,11 @@ runs:
       with:
         node-version: ${{ inputs.node-version }}
         cache: "pnpm"
+
+    - name: Setup uv (Python)
+      uses: astral-sh/setup-uv@v5
+      with:
+        enable-cache: true
 
     - name: Install Dependencies
       shell: bash

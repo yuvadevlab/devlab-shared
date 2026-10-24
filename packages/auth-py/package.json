@@ -1,0 +1,16 @@
+{
+  "name": "@yuva-devlab/auth-py",
+  "version": "0.1.0",
+  "description": "Universal DevLab Authentication SDK for Python",
+  "private": true,
+  "scripts": {
+    "build": "uv build",
+    "lint": "uv run --with ruff ruff check .",
+    "lint:fix": "uv run --with ruff ruff check --fix .",
+    "format": "uv run --with ruff ruff format .",
+    "format:check": "uv run --with ruff ruff format --check .",
+    "typecheck": "uv run --with mypy --with pydantic --with httpx --with fastapi mypy src tests",
+    "test": "uv run pytest",
+    "clean": "rm -rf dist .venv .ruff_cache .mypy_cache .pytest_cache"
+  }
+}
