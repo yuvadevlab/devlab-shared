@@ -293,6 +293,8 @@ importers:
         specifier: ^6.0.3
         version: 6.0.3
 
+  packages/auth-py: {}
+
   packages/auth-server:
     dependencies:
       '@yuva-devlab/errors':

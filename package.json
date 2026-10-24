@@ -10,10 +10,10 @@
     "dev:ui-storybook": "pnpm --filter @yuva-devlab/ui-storybook storybook",
     "storybook": "turbo run storybook",
     "build-storybook": "turbo run build-storybook",
-    "lint": "eslint . --max-warnings=0",
-    "lint:fix": "eslint . --fix",
-    "format": "prettier --write .",
-    "format:check": "prettier --check .",
+    "lint": "eslint . --max-warnings=0 && pnpm --filter @yuva-devlab/auth-py lint",
+    "lint:fix": "eslint . --fix && pnpm --filter @yuva-devlab/auth-py lint:fix",
+    "format": "prettier --write . && pnpm --filter @yuva-devlab/auth-py format",
+    "format:check": "prettier --check . && pnpm --filter @yuva-devlab/auth-py format:check",
     "typecheck": "turbo run typecheck --filter=!//",
     "test": "turbo run test --filter=!//",
     "test:coverage": "turbo run test --filter=!// -- --coverage",
@@ -22,9 +22,10 @@
     "validate": "pnpm run format:check && pnpm run lint && pnpm run typecheck && pnpm run build && pnpm run test",
     "fix": "pnpm run format && pnpm run lint:fix",
     "changeset": "changeset",
-    "version-packages": "changeset version",
+    "version-packages": "changeset version && node scripts/sync-py-version.mjs",
     "release": "turbo run build && changeset publish",
-    "prepare": "husky"
+    "prepare": "husky",
+    "release:py": "node scripts/publish-py.mjs"
   },
   "packageManager": "pnpm@11.13.0",
   "devDependencies": {
@@ -52,6 +53,10 @@
     ],
     "*.{json,md,yml,yaml,css,scss}": [
       "prettier --write"
+    ],
+    "*.py": [
+      "uv run --with ruff ruff check --fix",
+      "uv run --with ruff ruff format"
     ]
   }
 }
