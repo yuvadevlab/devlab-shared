@@ -43,20 +43,8 @@ export interface BaseAuthSessionProps extends BaseAuthFormProps {
  * Properties for the pre-built SignIn authentication form component.
  */
 export interface SignInProps extends BaseAuthSessionProps {
-  /** URL for the sign up navigation link */
-  readonly signUpUrl?: string;
   /** URL for the forgot password navigation link */
   readonly forgotPasswordUrl?: string;
-}
-
-/**
- * Properties for the pre-built SignUp registration form component.
- */
-export interface SignUpProps extends BaseAuthSessionProps {
-  /** URL for the sign in navigation link */
-  readonly signInUrl?: string;
-  /** Target tenant UUID or slug to bind new user to */
-  readonly tenantId?: string;
 }
 
 /**

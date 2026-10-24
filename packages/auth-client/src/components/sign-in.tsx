@@ -21,7 +21,6 @@ export const SignIn: React.FC<SignInProps> = ({
   onSuccess,
   onError,
   redirectTo,
-  signUpUrl = "/signup",
   forgotPasswordUrl,
   apiBaseUrl = "",
   brand,
@@ -85,15 +84,13 @@ export const SignIn: React.FC<SignInProps> = ({
     }
   };
 
-  const footer = signUpUrl ? (
-    <>
-      Don't have an account?{" "}
-      <a href={signUpUrl} className="dl-auth-link">
-        Sign up
-      </a>
-    </>
-  ) : (
-    <span style={{ color: "var(--muted-foreground, #71717a)" }}>
+  const footer = (
+    <span
+      style={{
+        color: "var(--muted-foreground, #71717a)",
+        fontSize: "var(--label-font-size, 0.8125rem)",
+      }}
+    >
       Need access? Contact your workspace administrator for an invite.
     </span>
   );
