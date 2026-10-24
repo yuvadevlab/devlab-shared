@@ -1,5 +1,11 @@
 # @yuva-devlab/ui
 
+## 1.4.2
+
+### Patch Changes
+
+- 088c5a1: Standardize Select dropdown trigger width to 100% and bind popover to Radix trigger width variable; remove legacy self-signup from auth-client in favor of centralized SSO workspace invitations.
+
 ## 1.4.1
 
 ### Patch Changes
