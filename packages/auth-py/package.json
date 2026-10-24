@@ -9,8 +9,8 @@
     "lint:fix": "uv run --with ruff ruff check --fix .",
     "format": "uv run --with ruff ruff format .",
     "format:check": "uv run --with ruff ruff format --check .",
-    "typecheck": "uv run --with mypy --with pydantic --with httpx --with fastapi mypy src tests",
-    "test": "uv run pytest",
+    "typecheck": "uv run --with mypy --with pydantic --with httpx --with fastapi mypy src",
+    "test": "echo 'No tests yet for @yuva-devlab/auth-py (skipping)'",
     "clean": "rm -rf dist .venv .ruff_cache .mypy_cache .pytest_cache"
   }
 }

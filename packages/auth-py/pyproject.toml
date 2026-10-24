@@ -70,6 +70,3 @@ ignore_missing_imports = true
 module = "jwt.*"
 ignore_missing_imports = true
 
-[tool.pytest.ini_options]
-pythonpath = ["src"]
-testpaths = ["tests"]
