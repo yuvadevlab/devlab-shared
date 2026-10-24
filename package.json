@@ -27,7 +27,7 @@
     "prepare": "husky",
     "release:py": "node scripts/publish-py.mjs"
   },
-  "packageManager": "pnpm@11.13.0",
+  "packageManager": "pnpm@12.5.1",
   "devDependencies": {
     "@changesets/cli": "^2.29.8",
     "@commitlint/cli": "^21.2.1",
