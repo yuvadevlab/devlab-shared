@@ -26,8 +26,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 2.25rem;
-  height: 2.25rem;
+  width: var(--control-height-md, 2.25rem);
+  height: var(--control-height-md, 2.25rem);
   border-top: 1px solid var(--input);
   border-bottom: 1px solid var(--input);
   border-right: 1px solid var(--input);
