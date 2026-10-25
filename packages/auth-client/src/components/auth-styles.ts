@@ -29,7 +29,7 @@ export const AUTH_STYLES = `
 
 /* ── Auth Card Wrapper ──────────────────────────────────────────────── */
 .dl-auth-card {
-  max-width: min(100%, var(--auth-card-max-width, 420px));
+  max-width: min(100%, var(--auth-card-max-width, 450px));
   width: 100%;
   margin: 0 auto;
   padding: var(--card-padding, var(--space-8, 2rem));
