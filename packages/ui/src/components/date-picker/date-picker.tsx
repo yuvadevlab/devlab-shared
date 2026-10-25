@@ -97,7 +97,7 @@ export function DatePicker({
           onSelect={(selectedDate) =>
             onChange?.(selectedDate ? format(selectedDate, "yyyy-MM-dd") : "")
           }
-          initialFocus
+          autoFocus
         />
       </PopoverContent>
     </Popover>
