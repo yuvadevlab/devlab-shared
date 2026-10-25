@@ -17,13 +17,19 @@ export default tseslint.config(
   {
     ignores: [
       "**/node_modules/**",
+      "**/.venv/**",
       "**/dist/**",
       "**/.turbo/**",
       "**/coverage/**",
       "**/build/**",
       "**/.output/**",
       "**/*.d.ts",
-      "**/tsup.config.bundled*",
+      "**/tsup.config.*",
+      "**/vite.config.*",
+      "**/vitest.config.*",
+      "**/test/setup.ts",
+      "**/next.config.*",
+      "**/postcss.config.*",
       "**/storybook-static/**",
       "**/.next/**",
     ],
@@ -49,12 +55,17 @@ export default tseslint.config(
     files: ["**/*.{ts,tsx}"],
     languageOptions: {
       ecmaVersion: 2022,
+      parserOptions: {
+        projectService: true,
+        tsconfigRootDir: rootDir,
+      },
       globals: {
         ...globals.browser,
         ...globals.node,
       },
     },
     rules: {
+      "@typescript-eslint/no-deprecated": "warn",
       "no-console": "warn",
       "@typescript-eslint/no-unused-vars": [
         "error",
