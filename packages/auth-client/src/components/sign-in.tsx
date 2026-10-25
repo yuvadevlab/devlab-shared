@@ -91,7 +91,7 @@ export const SignIn: React.FC<SignInProps> = ({
         fontSize: "var(--label-font-size, 0.8125rem)",
       }}
     >
-      Need access? Contact your workspace administrator for an invite.
+      Need access? Contact your workspace administrator.
     </span>
   );
 
