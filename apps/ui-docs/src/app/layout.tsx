@@ -1,18 +1,21 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import { ThemeProvider } from "../components/theme-provider";
-import { SearchProvider } from "../components/search-provider";
-import { Header } from "../components/header";
-import { Sidebar } from "../components/sidebar";
-import { ScrollToTop } from "../components/scroll-to-top";
-import { Toaster } from "@yuva-devlab/ui";
+import { DocProviders } from "../components/doc-providers";
+import { DocShell } from "../components/doc-shell";
 
 export const metadata: Metadata = {
+  metadataBase: new URL(
+    process.env.NEXT_PUBLIC_SITE_URL || "https://ui.devlab.dev",
+  ),
   title: "DevLab UI — Enterprise Design System & Component Showcase",
   description:
     "Pure CSS, multi-brand design system with zero Tailwind collisions, accessible Radix primitives, and comprehensive API reference.",
 };
 
+/**
+ * Ultra-thin Root Layout for DevLab UI Documentation.
+ * Encapsulates global styling and delegates provider and shell composition.
+ */
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -27,22 +30,9 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <body className="bg-background text-foreground h-screen flex flex-col overflow-hidden antialiased">
-        <ThemeProvider>
-          <SearchProvider>
-            <ScrollToTop />
-            <Header />
-            <div className="flex flex-1 min-h-0 overflow-hidden">
-              <Sidebar />
-              <main
-                id="main-content"
-                className="min-w-0 flex-1 overflow-y-auto px-6 py-8 md:px-12 md:py-10"
-              >
-                <div className="mx-auto max-w-5xl">{children}</div>
-              </main>
-            </div>
-            <Toaster />
-          </SearchProvider>
-        </ThemeProvider>
+        <DocProviders>
+          <DocShell>{children}</DocShell>
+        </DocProviders>
       </body>
     </html>
   );
