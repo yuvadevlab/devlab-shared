@@ -100,14 +100,14 @@ const TYPOGRAPHY: TypographyToken[] = [
     value: "Inter, system-ui, sans-serif",
   },
   {
-    token: "--font-mono",
-    role: "Code & Stats",
-    value: "JetBrains Mono, monospace",
+    token: "--font-display",
+    role: "Brand & VitalAI Condensed Display",
+    value: '"Barlow Condensed", "Sora", sans-serif',
   },
   {
-    token: "--font-brand",
-    role: "Hero Display",
-    value: "Plus Jakarta Sans, sans-serif",
+    token: "--font-mono",
+    role: "Code & Logs Matrix",
+    value: "JetBrains Mono, monospace",
   },
 ];
 
