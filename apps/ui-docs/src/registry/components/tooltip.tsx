@@ -1,0 +1,176 @@
+"use client";
+
+import React from "react";
+import {
+  Tooltip,
+  TooltipTrigger,
+  TooltipContent,
+  TooltipProvider,
+  HoverCard,
+  HoverCardTrigger,
+  HoverCardContent,
+  Popover,
+  PopoverTrigger,
+  PopoverContent,
+  Button,
+} from "@yuva-devlab/ui";
+import { Sparkles, Info, MessageSquare } from "lucide-react";
+import {
+  ComponentView,
+  type ComponentVariant,
+} from "@/components/component-view";
+
+export default function TooltipDocPage() {
+  const variants: ComponentVariant[] = [
+    {
+      id: "tooltip",
+      title: "Basic Hover Tooltip",
+      description:
+        "Fast contextual assistive text displayed when hovering or focusing an interactive button.",
+      preview: (
+        <TooltipProvider>
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <Button variant="outline" className="gap-2">
+                <Sparkles className="size-4 text-primary" />
+                <span>Hover for Insights</span>
+              </Button>
+            </TooltipTrigger>
+            <TooltipContent side="top">
+              <p className="text-xs">
+                Autonomous self-healing enabled on this node cluster.
+              </p>
+            </TooltipContent>
+          </Tooltip>
+        </TooltipProvider>
+      ),
+      codeSnippet: `<TooltipProvider>
+  <Tooltip>
+    <TooltipTrigger asChild><Button>Hover me</Button></TooltipTrigger>
+    <TooltipContent side="top"><p>Contextual hint text.</p></TooltipContent>
+  </Tooltip>
+</TooltipProvider>`,
+    },
+    {
+      id: "hover-card",
+      title: "Rich Hover Card Preview",
+      description:
+        "AntD-inspired rich hover preview card for inspecting user profiles or metadata.",
+      preview: (
+        <HoverCard>
+          <HoverCardTrigger asChild>
+            <Button variant="ghost" className="gap-2 text-primary underline">
+              <Info className="size-4" />
+              <span>@orchestrai-agent</span>
+            </Button>
+          </HoverCardTrigger>
+          <HoverCardContent className="w-72">
+            <div className="space-y-2">
+              <h4 className="text-xs font-bold text-foreground">
+                OrchestrAI Core Worker
+              </h4>
+              <p className="text-xs text-muted-foreground">
+                Multi-agent coordinator managing distributed task delegation.
+              </p>
+              <div className="text-[10px] text-muted-foreground font-mono">
+                Cluster: us-east4 | Health: 100%
+              </div>
+            </div>
+          </HoverCardContent>
+        </HoverCard>
+      ),
+      codeSnippet: `import { HoverCard, HoverCardTrigger, HoverCardContent } from "@yuva-devlab/ui";
+
+<HoverCard>
+  <HoverCardTrigger asChild>
+    <Button variant="ghost">@orchestrai-agent</Button>
+  </HoverCardTrigger>
+  <HoverCardContent className="w-72">
+    <h4>OrchestrAI Core Worker</h4>
+    <p>Multi-agent coordinator.</p>
+  </HoverCardContent>
+</HoverCard>`,
+    },
+    {
+      id: "popover",
+      title: "Clickable Popover Flyout",
+      description:
+        "Click-triggered floating panel for filter adjustments, details, and interactive inputs.",
+      preview: (
+        <Popover>
+          <PopoverTrigger asChild>
+            <Button variant="secondary" className="gap-2">
+              <MessageSquare className="size-4" />
+              <span>Open Popover</span>
+            </Button>
+          </PopoverTrigger>
+          <PopoverContent className="w-64">
+            <div className="space-y-2 text-xs">
+              <div className="font-semibold text-foreground">
+                Quick Annotations
+              </div>
+              <p className="text-muted-foreground">
+                Add runtime comments to this trace execution span.
+              </p>
+            </div>
+          </PopoverContent>
+        </Popover>
+      ),
+      codeSnippet: `import { Popover, PopoverTrigger, PopoverContent } from "@yuva-devlab/ui";
+
+<Popover>
+  <PopoverTrigger asChild><Button>Open</Button></PopoverTrigger>
+  <PopoverContent className="w-64">
+    <h4>Quick Annotations</h4>
+  </PopoverContent>
+</Popover>`,
+    },
+  ];
+
+  const propsList = [
+    {
+      name: "TooltipProvider",
+      type: "React.Component",
+      default: "—",
+      description: "Context provider managing global hover delay timers.",
+    },
+    {
+      name: "side",
+      type: '"top" | "right" | "bottom" | "left"',
+      default: '"top"',
+      description: "Placement side for the floating tooltip bubble.",
+    },
+    {
+      name: "sideOffset",
+      type: "number",
+      default: "4",
+      description: "Pixel distance separating trigger element and tooltip.",
+    },
+  ];
+
+  const cssClasses = [
+    {
+      name: ".dl-tooltip",
+      description: "Floating hint bubble with popover background.",
+    },
+    {
+      name: ".dl-hover-card",
+      description: "Rich content surface appearing on cursor hover.",
+    },
+    {
+      name: ".dl-popover",
+      description: "Floating panel content triggered on click.",
+    },
+  ];
+
+  return (
+    <ComponentView
+      title="Tooltip & Popovers"
+      description="Contextual floating indicators supporting basic hover tooltips, rich hover cards (HoverCard), and clickable flyout popovers (Popover)."
+      category="Data Display"
+      variants={variants}
+      propsList={propsList}
+      cssClasses={cssClasses}
+    />
+  );
+}
