@@ -4,7 +4,7 @@ import {
   BasicDatePickerDemo,
   InlineCalendarDatePickerDemo,
   ClearableDatePickerDemo,
-} from "./date-picker-interactive-demos";
+} from "@/registry/components/date-picker-interactive-demos";
 import type { ComponentVariant } from "@/components/demo-card";
 import type {
   PropDefinition,

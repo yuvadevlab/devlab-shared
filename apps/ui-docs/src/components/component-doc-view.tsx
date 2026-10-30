@@ -1,8 +1,8 @@
 import React from "react";
-import type { ComponentDoc } from "../types/component-doc";
-import { ComponentHeader } from "./component-header";
-import { ComponentApiSection } from "./component-api-section";
-import { InteractiveVariantsSection } from "./interactive-variants-section";
+import type { ComponentDoc } from "@/types/component-doc";
+import { ComponentHeader } from "@/components/component-header";
+import { ComponentApiSection } from "@/components/component-api-section";
+import { InteractiveVariantsSection } from "@/components/interactive-variants-section";
 
 export interface ComponentDocViewProps {
   component: ComponentDoc;

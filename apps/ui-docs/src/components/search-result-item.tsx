@@ -3,7 +3,7 @@
 import React from "react";
 import { CornerDownLeft } from "lucide-react";
 import { Badge } from "@yuva-devlab/ui";
-import type { ComponentMeta } from "../config/components-meta";
+import type { ComponentMeta } from "@/config/components-meta";
 
 export interface SearchResultItemProps {
   item: ComponentMeta;

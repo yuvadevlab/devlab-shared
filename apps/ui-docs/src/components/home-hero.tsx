@@ -2,7 +2,7 @@ import React from "react";
 import Link from "next/link";
 import { Sparkles, ArrowRight } from "lucide-react";
 import { Button, Badge } from "@yuva-devlab/ui";
-import { SearchTrigger } from "./search-trigger";
+import { SearchTrigger } from "@/components/search-trigger";
 
 export interface HomeHeroProps {
   totalComponents: number;

@@ -1,4 +1,4 @@
-import type { ComponentMeta } from "./meta-types";
+import type { ComponentMeta } from "@/config/meta-types";
 
 export const DATA_ENTRY_UTILITY_COMPONENTS: ComponentMeta[] = [
   // Data Entry

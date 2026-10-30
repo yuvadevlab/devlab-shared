@@ -1,5 +1,5 @@
 import type { MetadataRoute } from "next";
-import { getAllComponentSlugs } from "../services/components-service";
+import { getAllComponentSlugs } from "@/services/components-service";
 
 /**
  * Server-generated sitemap indexing all 56 components and docs routes.

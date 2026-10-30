@@ -1,6 +1,6 @@
 import React from "react";
 import { Badge } from "@yuva-devlab/ui";
-import type { ComponentCategory } from "../config/meta-types";
+import type { ComponentCategory } from "@/config/meta-types";
 
 export interface ComponentHeaderProps {
   title: string;

@@ -1,5 +1,5 @@
 import "server-only";
-import { highlightCode } from "./highlight-service";
+import { highlightCode } from "@/services/highlight-service";
 
 export interface InstallationStep {
   id: string;

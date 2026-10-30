@@ -1,6 +1,6 @@
 import "server-only";
-import { COMPONENTS_LIST, type ComponentMeta } from "../config/components-meta";
-import type { ComponentCategory } from "../config/meta-types";
+import { COMPONENTS_LIST, type ComponentMeta } from "@/config/components-meta";
+import type { ComponentCategory } from "@/config/meta-types";
 
 /**
  * Server-only service providing component catalog queries, category indexing,

@@ -3,8 +3,8 @@
 import React from "react";
 import Link from "next/link";
 import { Sun, Moon, ExternalLink, BookOpen, Layers } from "lucide-react";
-import { useTheme, type Brand } from "./theme-provider";
-import { SearchTrigger } from "./search-trigger";
+import { useTheme, type Brand } from "@/components/theme-provider";
+import { SearchTrigger } from "@/components/search-trigger";
 import {
   Button,
   Select,

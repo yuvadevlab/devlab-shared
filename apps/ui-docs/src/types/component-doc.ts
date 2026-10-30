@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import type { ComponentCategory } from "../config/meta-types";
+import type { ComponentCategory } from "@/config/meta-types";
 
 /**
  * Specification for a single component property in the API reference table.

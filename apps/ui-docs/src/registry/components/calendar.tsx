@@ -6,7 +6,7 @@ import {
   CALENDAR_VARIANTS,
   CALENDAR_PROPS,
   CALENDAR_CSS,
-} from "./calendar-doc-data";
+} from "@/registry/components/calendar-doc-data";
 
 export const metadata: Metadata = getComponentMetadata("calendar");
 

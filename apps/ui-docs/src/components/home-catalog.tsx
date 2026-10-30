@@ -1,7 +1,7 @@
 import React from "react";
 import Link from "next/link";
 import { Badge } from "@yuva-devlab/ui";
-import type { ComponentMeta, ComponentCategory } from "../config/meta-types";
+import type { ComponentMeta, ComponentCategory } from "@/config/meta-types";
 
 export interface HomeCatalogProps {
   totalComponents: number;

@@ -1,7 +1,7 @@
 import React from "react";
-import { Header } from "./header";
-import { Sidebar } from "./sidebar";
-import { ScrollToTop } from "./scroll-to-top";
+import { Header } from "@/components/header";
+import { Sidebar } from "@/components/sidebar";
+import { ScrollToTop } from "@/components/scroll-to-top";
 import { Toaster } from "@yuva-devlab/ui";
 
 export interface DocShellProps {

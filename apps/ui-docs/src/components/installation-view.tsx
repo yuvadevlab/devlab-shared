@@ -1,7 +1,7 @@
 import React from "react";
 import { Badge } from "@yuva-devlab/ui";
-import { CopyCodeButton } from "./copy-code-button";
-import type { InstallationStep } from "../services/docs-service";
+import { CopyCodeButton } from "@/components/copy-code-button";
+import type { InstallationStep } from "@/services/docs-service";
 
 export interface InstallationViewProps {
   steps: InstallationStep[];

@@ -1,9 +1,9 @@
 import React from "react";
-import type { ComponentMeta, ComponentCategory } from "../config/meta-types";
-import { HomeHero } from "./home-hero";
-import { HomePillars } from "./home-pillars";
-import { HomeCatalog } from "./home-catalog";
-import { HomeQuickstart } from "./home-quickstart";
+import type { ComponentMeta, ComponentCategory } from "@/config/meta-types";
+import { HomeHero } from "@/components/home-hero";
+import { HomePillars } from "@/components/home-pillars";
+import { HomeCatalog } from "@/components/home-catalog";
+import { HomeQuickstart } from "@/components/home-quickstart";
 
 export interface HomeViewProps {
   stats: {

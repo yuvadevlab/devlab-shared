@@ -3,8 +3,8 @@
 import React, { useState, useEffect, useRef, useMemo } from "react";
 import { useRouter } from "next/navigation";
 import { Search, X, Sparkles } from "lucide-react";
-import { COMPONENTS_LIST, ALL_CATEGORIES } from "../config/components-meta";
-import { SearchResultItem } from "./search-result-item";
+import { COMPONENTS_LIST, ALL_CATEGORIES } from "@/config/components-meta";
+import { SearchResultItem } from "@/components/search-result-item";
 
 export interface SearchDialogProps {
   open: boolean;

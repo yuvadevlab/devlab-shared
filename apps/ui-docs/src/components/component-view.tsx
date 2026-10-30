@@ -2,12 +2,12 @@
 
 import React, { useState } from "react";
 import { Badge, Button } from "@yuva-devlab/ui";
-import { DemoCard, type ComponentVariant } from "./demo-card";
+import { DemoCard, type ComponentVariant } from "@/components/demo-card";
 import {
   ApiTable,
   type PropDefinition,
   type CssClassDefinition,
-} from "./api-table";
+} from "@/components/api-table";
 
 export type { ComponentVariant, PropDefinition, CssClassDefinition };
 

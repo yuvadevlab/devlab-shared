@@ -1,9 +1,9 @@
 "use client";
 
 import React, { useState } from "react";
-import type { ComponentVariant } from "../types/component-doc";
-import { VariantFilterBar } from "./variant-filter-bar";
-import { DemoCard } from "./demo-card";
+import type { ComponentVariant } from "@/types/component-doc";
+import { VariantFilterBar } from "@/components/variant-filter-bar";
+import { DemoCard } from "@/components/demo-card";
 
 export interface InteractiveVariantsSectionProps {
   variants: ComponentVariant[];

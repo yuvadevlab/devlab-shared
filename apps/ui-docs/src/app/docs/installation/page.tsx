@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
-import { getInstallationSteps } from "../../../services/docs-service";
-import { InstallationView } from "../../../components/installation-view";
+import { getInstallationSteps } from "@/services/docs-service";
+import { InstallationView } from "@/components/installation-view";
 
 export const metadata: Metadata = {
   title: "Installation & Setup — DevLab UI",

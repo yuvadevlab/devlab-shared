@@ -4,7 +4,7 @@ import type {
   SemanticColorToken,
   RadiusToken,
   TypographyToken,
-} from "../services/tokens-service";
+} from "@/services/tokens-service";
 
 export interface TokensViewProps {
   semanticColors: SemanticColorToken[];

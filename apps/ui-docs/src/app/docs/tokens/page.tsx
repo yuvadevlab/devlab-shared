@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
-import { getTokensCatalog } from "../../../services/tokens-service";
-import { TokensView } from "../../../components/tokens-view";
+import { getTokensCatalog } from "@/services/tokens-service";
+import { TokensView } from "@/components/tokens-view";
 
 export const metadata: Metadata = {
   title: "Design Tokens & Palette — DevLab UI",

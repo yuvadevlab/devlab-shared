@@ -1,6 +1,6 @@
 import React from "react";
 import { Calendar } from "@yuva-devlab/ui";
-import { CalendarInteractiveDemo } from "./calendar-interactive-demo";
+import { CalendarInteractiveDemo } from "@/registry/components/calendar-interactive-demo";
 import type { ComponentVariant } from "@/components/demo-card";
 import type {
   PropDefinition,

@@ -1,7 +1,7 @@
 "use client";
 
 import React, { createContext, useContext, useState, useEffect } from "react";
-import { SearchDialog } from "./search-dialog";
+import { SearchDialog } from "@/components/search-dialog";
 
 interface SearchContextValue {
   open: boolean;

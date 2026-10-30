@@ -1,8 +1,8 @@
 "use client";
 
 import React from "react";
-import { ThemeProvider } from "./theme-provider";
-import { SearchProvider } from "./search-provider";
+import { ThemeProvider } from "@/components/theme-provider";
+import { SearchProvider } from "@/components/search-provider";
 
 export interface DocProvidersProps {
   children: React.ReactNode;

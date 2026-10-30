@@ -1,7 +1,7 @@
 import React from "react";
 import { Code2 } from "lucide-react";
-import type { ComponentVariant } from "../types/component-doc";
-import { CopyCodeButton } from "./copy-code-button";
+import type { ComponentVariant } from "@/types/component-doc";
+import { CopyCodeButton } from "@/components/copy-code-button";
 
 export type { ComponentVariant };
 

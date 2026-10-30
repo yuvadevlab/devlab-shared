@@ -3,8 +3,8 @@ import type { Metadata } from "next";
 import {
   getCatalogStats,
   getComponentsByCategory,
-} from "../services/components-service";
-import { HomeView } from "../components/home-view";
+} from "@/services/components-service";
+import { HomeView } from "@/components/home-view";
 
 export const metadata: Metadata = {
   title: "DevLab UI — Enterprise Design System & Component Showcase",

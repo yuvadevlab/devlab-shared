@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import { DocProviders } from "../components/doc-providers";
-import { DocShell } from "../components/doc-shell";
+import { DocProviders } from "@/components/doc-providers";
+import { DocShell } from "@/components/doc-shell";
 
 export const metadata: Metadata = {
   metadataBase: new URL(

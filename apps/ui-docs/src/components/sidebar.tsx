@@ -4,8 +4,8 @@ import React from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { cn } from "@yuva-devlab/ui";
-import { COMPONENTS_LIST, ALL_CATEGORIES } from "../config/components-meta";
-import { SearchTrigger } from "./search-trigger";
+import { COMPONENTS_LIST, ALL_CATEGORIES } from "@/config/components-meta";
+import { SearchTrigger } from "@/components/search-trigger";
 
 const gettingStartedLinks = [
   { name: "Overview", href: "/" },

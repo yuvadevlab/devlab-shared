@@ -2,7 +2,11 @@ import type { Metadata } from "next";
 import { getComponentMetadata } from "@/services/metadata-service";
 import { highlightCode } from "@/services/highlight-service";
 import { ComponentDocView } from "@/components/component-doc-view";
-import { BUTTON_VARIANTS, BUTTON_PROPS, BUTTON_CSS } from "./button-doc-data";
+import {
+  BUTTON_VARIANTS,
+  BUTTON_PROPS,
+  BUTTON_CSS,
+} from "@/registry/components/button-doc-data";
 
 export const metadata: Metadata = getComponentMetadata("button");
 

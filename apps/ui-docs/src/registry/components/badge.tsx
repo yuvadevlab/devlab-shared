@@ -2,7 +2,11 @@ import type { Metadata } from "next";
 import { getComponentMetadata } from "@/services/metadata-service";
 import { highlightCode } from "@/services/highlight-service";
 import { ComponentDocView } from "@/components/component-doc-view";
-import { BADGE_VARIANTS, BADGE_PROPS, BADGE_CSS } from "./badge-doc-data";
+import {
+  BADGE_VARIANTS,
+  BADGE_PROPS,
+  BADGE_CSS,
+} from "@/registry/components/badge-doc-data";
 
 export const metadata: Metadata = getComponentMetadata("badge");
 

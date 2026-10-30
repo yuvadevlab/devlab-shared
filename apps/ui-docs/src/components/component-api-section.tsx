@@ -1,8 +1,5 @@
 import React from "react";
-import type {
-  PropDefinition,
-  CssClassDefinition,
-} from "../types/component-doc";
+import type { PropDefinition, CssClassDefinition } from "@/types/component-doc";
 
 export interface ComponentApiSectionProps {
   propsList: PropDefinition[];

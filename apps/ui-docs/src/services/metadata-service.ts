@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { COMPONENTS_LIST } from "../config/components-meta";
+import { COMPONENTS_LIST } from "@/config/components-meta";
 
 /**
  * Generates SEO and social graph metadata for a component documentation page.

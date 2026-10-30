@@ -2,7 +2,7 @@
 
 import React from "react";
 import { Search } from "lucide-react";
-import { useSearch } from "./search-provider";
+import { useSearch } from "@/components/search-provider";
 
 export interface SearchTriggerProps {
   className?: string;

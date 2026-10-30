@@ -6,7 +6,7 @@ import {
   DATE_PICKER_VARIANTS,
   DATE_PICKER_PROPS,
   DATE_PICKER_CSS,
-} from "./date-picker-doc-data";
+} from "@/registry/components/date-picker-doc-data";
 
 export const metadata: Metadata = getComponentMetadata("date-picker");
 

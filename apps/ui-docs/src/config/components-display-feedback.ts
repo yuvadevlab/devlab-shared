@@ -1,4 +1,4 @@
-import type { ComponentMeta } from "./meta-types";
+import type { ComponentMeta } from "@/config/meta-types";
 
 export const DISPLAY_FEEDBACK_COMPONENTS: ComponentMeta[] = [
   // Data Display
