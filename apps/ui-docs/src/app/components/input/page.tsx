@@ -1,169 +1,205 @@
 "use client";
 
 import React, { useState } from "react";
-import { Search, Eye } from "lucide-react";
-import { Input, Switch } from "@yuva-devlab/ui";
-import { ComponentView } from "../../../components/component-view";
+import { Search, Mail, Eye, EyeOff } from "lucide-react";
+import {
+  Input,
+  InputOTP,
+  InputOTPGroup,
+  InputOTPSlot,
+  Button,
+} from "@yuva-devlab/ui";
+import {
+  ComponentView,
+  type ComponentVariant,
+} from "../../../components/component-view";
 
 export default function InputDocPage() {
-  const [withStartIcon, setWithStartIcon] = useState(true);
-  const [withEndIcon, setWithEndIcon] = useState(false);
-  const [disabled, setDisabled] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+  const [otpVal, setOtpVal] = useState("482910");
 
-  const preview = (
-    <div className="flex flex-col items-center gap-6 w-full max-w-sm">
-      {/* Interactive Controls Bar */}
-      <div className="flex flex-wrap items-center justify-center gap-4 text-xs bg-muted/40 p-3 rounded-lg border border-border w-full">
-        <div className="flex items-center gap-2">
-          <Switch
-            id="input-start-icon-toggle"
-            checked={withStartIcon}
-            onCheckedChange={setWithStartIcon}
-          />
-          <label
-            htmlFor="input-start-icon-toggle"
-            className="text-muted-foreground font-medium cursor-pointer text-xs"
-          >
-            Start Icon
-          </label>
+  const variants: ComponentVariant[] = [
+    {
+      id: "basic",
+      title: "Basic Text Input",
+      description:
+        "Standard text input field with placeholder and focus states.",
+      preview: (
+        <div className="w-full max-w-sm">
+          <Input placeholder="Enter username or email address..." />
         </div>
-
-        <div className="flex items-center gap-2">
-          <Switch
-            id="input-end-icon-toggle"
-            checked={withEndIcon}
-            onCheckedChange={setWithEndIcon}
+      ),
+      codeSnippet: `<Input placeholder="Enter username or email address..." />`,
+    },
+    {
+      id: "icons",
+      title: "Prefix & Suffix Icons",
+      description:
+        "AntD-inspired startIcon and endIcon slots for inline indicators and quick actions.",
+      preview: (
+        <div className="w-full max-w-sm space-y-3">
+          <Input
+            startIcon={<Search className="size-4 opacity-60" />}
+            placeholder="Search agents, workspaces..."
           />
-          <label
-            htmlFor="input-end-icon-toggle"
-            className="text-muted-foreground font-medium cursor-pointer text-xs"
-          >
-            End Icon
-          </label>
-        </div>
-
-        <div className="flex items-center gap-2">
-          <Switch
-            id="input-disabled-toggle"
-            checked={disabled}
-            onCheckedChange={setDisabled}
+          <Input
+            startIcon={<Mail className="size-4 opacity-60" />}
+            placeholder="user@devlab.io"
+            defaultValue="alex@devlab.io"
           />
-          <label
-            htmlFor="input-disabled-toggle"
-            className="text-muted-foreground font-medium cursor-pointer text-xs"
-          >
-            Disabled
-          </label>
         </div>
-      </div>
-
-      <div className="w-full">
-        <Input
-          placeholder="Search agents, workspaces..."
-          disabled={disabled}
-          startIcon={
-            withStartIcon ? <Search className="size-4 opacity-50" /> : undefined
-          }
-          endIcon={
-            withEndIcon ? (
-              <Eye className="size-4 opacity-50 cursor-pointer" />
-            ) : undefined
-          }
-        />
-      </div>
-    </div>
-  );
-
-  const propLines = ['placeholder="Search agents, workspaces..."'];
-  if (withStartIcon) {
-    propLines.push('startIcon={<Search className="size-4" />}');
+      ),
+      codeSnippet: `<Input
+  startIcon={<Search className="size-4" />}
+  placeholder="Search agents..."
+/>
+<Input
+  startIcon={<Mail className="size-4" />}
+  placeholder="user@devlab.io"
+/>`,
+    },
+    {
+      id: "password",
+      title: "Password with Visibility Toggle",
+      description:
+        "End-icon action allowing users to toggle secret password visibility safely.",
+      preview: (
+        <div className="w-full max-w-sm">
+          <Input
+            type={showPassword ? "text" : "password"}
+            defaultValue="devlab_secret_token_#9284"
+            placeholder="Enter password..."
+            endIcon={
+              <Button
+                variant="ghost"
+                size="icon"
+                type="button"
+                onClick={() => setShowPassword(!showPassword)}
+                className="size-6 text-muted-foreground hover:text-foreground pointer-events-auto"
+                aria-label="Toggle password visibility"
+              >
+                {showPassword ? (
+                  <EyeOff className="size-3.5" />
+                ) : (
+                  <Eye className="size-3.5" />
+                )}
+              </Button>
+            }
+          />
+        </div>
+      ),
+      codeSnippet: `<Input
+  type={showPassword ? "text" : "password"}
+  placeholder="Enter password..."
+  endIcon={
+    <button type="button" onClick={() => setShowPassword(!showPassword)}>
+      {showPassword ? <EyeOff /> : <Eye />}
+    </button>
   }
-  if (withEndIcon) {
-    propLines.push('endIcon={<Eye className="size-4" />}');
-  }
-  if (disabled) {
-    propLines.push("disabled");
-  }
+/>`,
+    },
+    {
+      id: "otp",
+      title: "One-Time Password (OTP) Input",
+      description:
+        "Segmented OTP digit slots for two-factor authentication and SMS verification.",
+      preview: (
+        <div className="flex flex-col items-center gap-2">
+          <InputOTP maxLength={6} value={otpVal} onChange={setOtpVal}>
+            <InputOTPGroup>
+              <InputOTPSlot index={0} />
+              <InputOTPSlot index={1} />
+              <InputOTPSlot index={2} />
+              <InputOTPSlot index={3} />
+              <InputOTPSlot index={4} />
+              <InputOTPSlot index={5} />
+            </InputOTPGroup>
+          </InputOTP>
+        </div>
+      ),
+      codeSnippet: `import { InputOTP, InputOTPGroup, InputOTPSlot } from "@yuva-devlab/ui";
 
-  const iconsUsed = [
-    withStartIcon ? "Search" : null,
-    withEndIcon ? "Eye" : null,
-  ].filter(Boolean);
-
-  const iconImportLine =
-    iconsUsed.length > 0
-      ? `import { ${iconsUsed.join(", ")} } from "lucide-react";\n`
-      : "";
-
-  const codeSnippet = `import { Input } from "@yuva-devlab/ui";
-${iconImportLine}export function SearchBox() {
-  return (
-    <Input
-      ${propLines.join("\n      ")}
-    />
-  );
-}`.replace(/\n\n\n+/g, "\n\n");
+<InputOTP maxLength={6} value={otp} onChange={setOtp}>
+  <InputOTPGroup>
+    <InputOTPSlot index={0} />
+    <InputOTPSlot index={1} />
+    <InputOTPSlot index={2} />
+    <InputOTPSlot index={3} />
+    <InputOTPSlot index={4} />
+    <InputOTPSlot index={5} />
+  </InputOTPGroup>
+</InputOTP>`,
+    },
+    {
+      id: "disabled",
+      title: "Disabled State",
+      description:
+        "Input in read-only disabled state with subdued background and not-allowed cursor.",
+      preview: (
+        <div className="w-full max-w-sm">
+          <Input
+            disabled
+            defaultValue="api_key_live_permanent_locked"
+            placeholder="Disabled input"
+          />
+        </div>
+      ),
+      codeSnippet: `<Input disabled defaultValue="api_key_live_permanent_locked" />`,
+    },
+  ];
 
   const propsList = [
     {
       name: "startIcon",
       type: "React.ReactNode",
       default: "undefined",
-      description:
-        "Leading decorative or interactive icon automatically padded inside .dl-input-wrapper.",
+      description: "Leading decorative or interactive icon.",
     },
     {
       name: "endIcon",
       type: "React.ReactNode",
       default: "undefined",
-      description:
-        "Trailing interactive action or icon element (e.g. password visibility toggle).",
+      description: "Trailing interactive action or icon element.",
     },
     {
       name: "disabled",
       type: "boolean",
       default: "false",
-      description:
-        "Disables user input and adds opacity reduction with not-allowed cursor.",
+      description: "Disables user input and renders with reduced opacity.",
     },
     {
       name: "type",
       type: "string",
       default: '"text"',
-      description:
-        "Standard HTML input type (text, password, email, number, search).",
+      description: "HTML input type (text, password, email, search).",
     },
   ];
 
   const cssClasses = [
     {
       name: ".dl-input",
-      description:
-        "Base input control establishing height, padding, border, and focus ring.",
+      description: "Base input control establishing height, border, and focus.",
     },
     {
       name: ".dl-input-wrapper",
-      description:
-        "Relative wrapper container for positioning startIcon and endIcon without layout shifts.",
+      description: "Relative wrapper container for positioning icons.",
     },
     {
       name: ".dl-input-icon--start",
-      description:
-        "Left-aligned absolute icon container with pointer-events pass-through.",
+      description: "Left-aligned absolute icon container.",
     },
     {
       name: ".dl-input-icon--end",
-      description: "Right-aligned absolute icon container for action buttons.",
+      description: "Right-aligned absolute icon container.",
     },
   ];
 
   return (
     <ComponentView
       title="Input"
-      description="Textual form input control styled with design system tokens and scoped CSS with zero collision risk."
-      category="Form Elements"
-      preview={preview}
-      codeSnippet={codeSnippet}
+      description="Textual form input control styled with design system tokens and scoped CSS. Showcasing basic inputs, prefix/suffix icons, password toggle, OTP verification, and disabled states."
+      category="Data Entry"
+      variants={variants}
       propsList={propsList}
       cssClasses={cssClasses}
     />

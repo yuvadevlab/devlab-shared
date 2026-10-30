@@ -15,19 +15,21 @@ import {
   CardTitle,
   CardDescription,
 } from "@yuva-devlab/ui";
+import { COMPONENTS_LIST, ALL_CATEGORIES } from "../config/components-meta";
+import { SearchTrigger } from "../components/search-trigger";
 
 export default function HomePage() {
   return (
-    <div className="space-y-12">
+    <div className="space-y-14">
       {/* Hero Section */}
-      <section className="space-y-4">
-        <div className="flex items-center gap-2">
+      <section className="space-y-5">
+        <div className="flex flex-wrap items-center gap-2">
           <Badge variant="secondary" className="gap-1.5 py-1 text-xs">
             <Sparkles className="size-3 text-primary" />
-            <span>Architecture v1.1.0 Released</span>
+            <span>Complete 56 Components Showcase</span>
           </Badge>
           <Badge variant="outline" className="text-xs">
-            Pure CSS • Zero Collision
+            Pure CSS • Zero Tailwind Collisions
           </Badge>
         </div>
         <h1 className="text-foreground text-4xl font-extrabold tracking-tight sm:text-5xl">
@@ -43,23 +45,15 @@ export default function HomePage() {
         <div className="flex flex-wrap items-center gap-3 pt-2">
           <Button asChild size="lg" className="gap-2">
             <Link href="/components/button">
-              <span>Explore Components</span>
+              <span>Explore All 56 Components</span>
               <ArrowRight className="size-4" />
             </Link>
           </Button>
+          <div className="w-auto">
+            <SearchTrigger variant="header" className="h-10 sm:w-64" />
+          </div>
           <Button asChild variant="outline" size="lg">
-            <Link href="/docs/tokens">Inspect Design Tokens</Link>
-          </Button>
-          <Button asChild variant="ghost" size="lg">
-            <a
-              href="http://localhost:6006"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="gap-1.5"
-            >
-              <span>Open Storybook</span>
-              <Terminal className="size-4 opacity-60" />
-            </a>
+            <Link href="/docs/tokens">Design Tokens</Link>
           </Button>
         </div>
       </section>
@@ -89,9 +83,9 @@ export default function HomePage() {
             </div>
             <CardTitle className="text-base">Multi-Brand & OKLCH</CardTitle>
             <CardDescription className="text-xs">
-              Switch seamlessly between OrchestrAI (Robotic Blue/Teal) and FinAI
-              (Emerald Forest) with perceptual OKLCH color palettes and dark
-              mode support.
+              Switch seamlessly between OrchestrAI (Robotic Blue/Teal), FinAI
+              (Emerald Forest), DevLab Portal, DevLab Logs, and VitalAI with
+              perceptual OKLCH color palettes and dark mode support.
             </CardDescription>
           </CardHeader>
         </Card>
@@ -109,6 +103,58 @@ export default function HomePage() {
             </CardDescription>
           </CardHeader>
         </Card>
+      </section>
+
+      {/* Ant Design Inspired Component Directory */}
+      <section className="space-y-6">
+        <div className="flex items-center justify-between border-b border-border pb-3">
+          <div>
+            <h2 className="text-2xl font-bold tracking-tight text-foreground">
+              Component Directory
+            </h2>
+            <p className="text-xs text-muted-foreground mt-0.5">
+              Explore all {COMPONENTS_LIST.length} primitives grouped by
+              functional domain.
+            </p>
+          </div>
+          <Badge variant="outline" className="font-mono text-xs">
+            {COMPONENTS_LIST.length} Components
+          </Badge>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {ALL_CATEGORIES.map((category) => {
+            const comps = COMPONENTS_LIST.filter(
+              (c) => c.category === category,
+            );
+            return (
+              <div
+                key={category}
+                className="border border-border/80 rounded-xl p-5 bg-card/40 space-y-3"
+              >
+                <div className="flex items-center justify-between border-b border-border/60 pb-2">
+                  <h3 className="font-semibold text-sm text-foreground">
+                    {category}
+                  </h3>
+                  <span className="text-[11px] font-mono text-muted-foreground">
+                    {comps.length}
+                  </span>
+                </div>
+                <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
+                  {comps.map((c) => (
+                    <Link
+                      key={c.slug}
+                      href={c.href}
+                      className="p-2 rounded-lg bg-muted/30 hover:bg-primary/10 border border-transparent hover:border-primary/30 transition text-xs font-medium text-foreground hover:text-primary truncate block"
+                    >
+                      {c.name}
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            );
+          })}
+        </div>
       </section>
 
       {/* Quickstart Installation Block */}

@@ -1,135 +1,124 @@
 "use client";
 
-import React, { useState } from "react";
-import { Sparkles } from "lucide-react";
+import React from "react";
+import { Sparkles, ArrowRight, Trash2, Send } from "lucide-react";
+import { Button } from "@yuva-devlab/ui";
 import {
-  Button,
-  Select,
-  SelectTrigger,
-  SelectValue,
-  SelectContent,
-  SelectItem,
-  Switch,
-} from "@yuva-devlab/ui";
-import { ComponentView } from "../../../components/component-view";
-
-type ButtonVariant =
-  "default" | "secondary" | "outline" | "ghost" | "destructive" | "link";
-type ButtonSize = "default" | "sm" | "lg" | "icon";
+  ComponentView,
+  type ComponentVariant,
+} from "../../../components/component-view";
 
 export default function ButtonDocPage() {
-  const [variant, setVariant] = useState<ButtonVariant>("default");
-  const [size, setSize] = useState<ButtonSize>("default");
-  const [disabled, setDisabled] = useState(false);
-
-  const preview = (
-    <div className="flex flex-col items-center gap-6">
-      {/* Interactive Controls Bar */}
-      <div className="flex flex-wrap items-center justify-center gap-4 text-xs bg-muted/40 p-3 rounded-lg border border-border">
-        <div className="flex items-center gap-2">
-          <span className="text-muted-foreground font-medium">Variant:</span>
-          <Select
-            value={variant}
-            onValueChange={(val) => setVariant(val as ButtonVariant)}
-          >
-            <SelectTrigger className="h-8 w-32 text-xs">
-              <SelectValue />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="default">Default</SelectItem>
-              <SelectItem value="secondary">Secondary</SelectItem>
-              <SelectItem value="outline">Outline</SelectItem>
-              <SelectItem value="ghost">Ghost</SelectItem>
-              <SelectItem value="destructive">Destructive</SelectItem>
-              <SelectItem value="link">Link</SelectItem>
-            </SelectContent>
-          </Select>
+  const variants: ComponentVariant[] = [
+    {
+      id: "styles",
+      title: "Style Variants",
+      description:
+        "AntD-inspired style taxonomy: Default (Primary), Secondary, Outline, Ghost, Destructive, and Link.",
+      preview: (
+        <div className="flex flex-wrap items-center justify-center gap-3">
+          <Button variant="default">Primary</Button>
+          <Button variant="secondary">Secondary</Button>
+          <Button variant="outline">Outline</Button>
+          <Button variant="ghost">Ghost</Button>
+          <Button variant="destructive">Destructive</Button>
+          <Button variant="link">Link Style</Button>
         </div>
-
-        <div className="flex items-center gap-2">
-          <span className="text-muted-foreground font-medium">Size:</span>
-          <Select
-            value={size}
-            onValueChange={(val) => setSize(val as ButtonSize)}
-          >
-            <SelectTrigger className="h-8 w-32 text-xs">
-              <SelectValue />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="default">Medium</SelectItem>
-              <SelectItem value="sm">Small</SelectItem>
-              <SelectItem value="lg">Large</SelectItem>
-              <SelectItem value="icon">Icon Only</SelectItem>
-            </SelectContent>
-          </Select>
-        </div>
-
-        <div className="flex items-center gap-2">
-          <Switch
-            id="btn-disabled-toggle"
-            checked={disabled}
-            onCheckedChange={setDisabled}
-          />
-          <label
-            htmlFor="btn-disabled-toggle"
-            className="text-muted-foreground font-medium cursor-pointer text-xs"
-          >
-            Disabled
-          </label>
-        </div>
-      </div>
-
-      {/* Target Render */}
-      <div className="flex items-center justify-center min-h-12.5">
-        {size === "icon" ? (
-          <Button
-            variant={variant}
-            size={size}
-            disabled={disabled}
-            aria-label="Sparkles Action"
-          >
+      ),
+      codeSnippet: `<Button variant="default">Primary</Button>
+<Button variant="secondary">Secondary</Button>
+<Button variant="outline">Outline</Button>
+<Button variant="ghost">Ghost</Button>
+<Button variant="destructive">Destructive</Button>
+<Button variant="link">Link Style</Button>`,
+    },
+    {
+      id: "sizes",
+      title: "Sizes (Small, Default, Large, Icon)",
+      description:
+        "Consistent standard sizes across all layouts: sm (2rem), default (2.25rem), lg (2.5rem), and square icon.",
+      preview: (
+        <div className="flex flex-wrap items-center justify-center gap-3">
+          <Button size="sm">Small (sm)</Button>
+          <Button size="default">Default (md)</Button>
+          <Button size="lg">Large (lg)</Button>
+          <Button size="icon" variant="outline" aria-label="Sparkles Action">
             <Sparkles className="size-4" />
           </Button>
-        ) : (
-          <Button
-            variant={variant}
-            size={size}
-            disabled={disabled}
-            className="gap-2"
-          >
+        </div>
+      ),
+      codeSnippet: `<Button size="sm">Small (sm)</Button>
+<Button size="default">Default (md)</Button>
+<Button size="lg">Large (lg)</Button>
+<Button size="icon" variant="outline"><Sparkles className="size-4" /></Button>`,
+    },
+    {
+      id: "icons",
+      title: "With Icons & Actions",
+      description:
+        "Buttons enriched with leading, trailing, or standalone action icons.",
+      preview: (
+        <div className="flex flex-wrap items-center justify-center gap-3">
+          <Button className="gap-2">
             <Sparkles className="size-4" />
-            <span>Interactive Button</span>
+            <span>Generate with AI</span>
           </Button>
-        )}
-      </div>
-    </div>
-  );
-
-  const propList: string[] = [];
-  if (variant !== "default") propList.push(`variant="${variant}"`);
-  if (size !== "default") propList.push(`size="${size}"`);
-  if (disabled) propList.push("disabled");
-  const propsStr = propList.length > 0 ? " " + propList.join(" ") : "";
-
-  const codeSnippet = `import { Button } from "@yuva-devlab/ui";
-import { Sparkles } from "lucide-react";
-
-export function ActionButton() {
-  return (
-    <Button${propsStr} className="gap-2">
-      <Sparkles className="size-4" />
-      <span>Interactive Button</span>
-    </Button>
-  );
-}`;
+          <Button variant="secondary" className="gap-2">
+            <span>Continue</span>
+            <ArrowRight className="size-4" />
+          </Button>
+          <Button variant="outline" className="gap-2">
+            <Send className="size-4" />
+            <span>Send Email</span>
+          </Button>
+          <Button variant="destructive" className="gap-2">
+            <Trash2 className="size-4" />
+            <span>Delete</span>
+          </Button>
+        </div>
+      ),
+      codeSnippet: `<Button className="gap-2">
+  <Sparkles className="size-4" />
+  <span>Generate with AI</span>
+</Button>
+<Button variant="secondary" className="gap-2">
+  <span>Continue</span>
+  <ArrowRight className="size-4" />
+</Button>`,
+    },
+    {
+      id: "disabled",
+      title: "Disabled State",
+      description:
+        "Non-interactive state with 50% opacity and disabled cursor preventing click handlers.",
+      preview: (
+        <div className="flex flex-wrap items-center justify-center gap-3">
+          <Button disabled variant="default">
+            Disabled Primary
+          </Button>
+          <Button disabled variant="secondary">
+            Disabled Secondary
+          </Button>
+          <Button disabled variant="outline">
+            Disabled Outline
+          </Button>
+          <Button disabled size="icon" variant="outline">
+            <Sparkles className="size-4" />
+          </Button>
+        </div>
+      ),
+      codeSnippet: `<Button disabled variant="default">Disabled Primary</Button>
+<Button disabled variant="secondary">Disabled Secondary</Button>
+<Button disabled variant="outline">Disabled Outline</Button>`,
+    },
+  ];
 
   const propsList = [
     {
       name: "variant",
       type: '"default" | "destructive" | "outline" | "secondary" | "ghost" | "link"',
       default: '"default"',
-      description:
-        "Visual style variant mapped directly to scoped .dl-btn--* pure CSS rules.",
+      description: "Visual style variant mapped to scoped dl-btn--* rules.",
     },
     {
       name: "size",
@@ -142,57 +131,49 @@ export function ActionButton() {
       type: "boolean",
       default: "false",
       description:
-        "Delegates rendering to direct child element via Radix Slot (e.g. Next.js Link).",
+        "Delegates rendering to child element via Radix Slot (e.g. Next.js Link).",
     },
     {
       name: "disabled",
       type: "boolean",
       default: "false",
-      description:
-        "When true, disables user interaction and renders cursor: not-allowed.",
+      description: "Disables interaction and displays cursor: not-allowed.",
     },
   ];
 
   const cssClasses = [
     {
       name: ".dl-btn",
-      description:
-        "Base button container establishing focus ring, inline flex, and typography.",
+      description: "Base button container establishing focus ring and flexbox.",
     },
     {
       name: ".dl-btn--default",
-      description:
-        "Primary background (var(--primary)) and text (var(--primary-foreground)).",
+      description: "Primary theme background and text.",
     },
     {
       name: ".dl-btn--secondary",
-      description:
-        "Secondary background (var(--secondary)) and surface contrast.",
+      description: "Secondary background and surface contrast.",
     },
     {
       name: ".dl-btn--outline",
-      description:
-        "Transparent background with 1px border using var(--border).",
+      description: "Transparent background with 1px border.",
     },
     {
       name: ".dl-btn--destructive",
-      description:
-        "Destructive error status background using var(--destructive).",
+      description: "Destructive error status background.",
     },
     {
       name: ".dl-btn--ghost",
-      description:
-        "Transparent background, displaying surface hover background on hover.",
+      description: "Transparent surface displaying background on hover.",
     },
   ];
 
   return (
     <ComponentView
       title="Button"
-      description="Primary interactive trigger for forms, dialogs, and actions. Pure CSS with zero runtime Tailwind dependencies."
-      category="Form Elements"
-      preview={preview}
-      codeSnippet={codeSnippet}
+      description="Primary interactive trigger for forms, dialogs, and actions. Showcasing all style variants, sizes, icon compositions, and disabled states."
+      category="General"
+      variants={variants}
       propsList={propsList}
       cssClasses={cssClasses}
     />

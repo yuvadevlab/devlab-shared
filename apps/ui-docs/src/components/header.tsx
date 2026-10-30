@@ -4,6 +4,7 @@ import React from "react";
 import Link from "next/link";
 import { Sun, Moon, ExternalLink, BookOpen, Layers } from "lucide-react";
 import { useTheme, type Brand } from "./theme-provider";
+import { SearchTrigger } from "./search-trigger";
 import {
   Button,
   Select,
@@ -12,6 +13,7 @@ import {
   SelectContent,
   SelectItem,
 } from "@yuva-devlab/ui";
+import uiPackage from "@yuva-devlab/ui/package.json";
 
 interface BrandOption {
   value: Brand;
@@ -57,13 +59,23 @@ export function Header() {
           </div>
           <span className="text-foreground text-base">DevLab UI</span>
           <span className="border-border text-muted-foreground rounded-full border px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider">
-            v1.1.0
+            v{uiPackage.version}
           </span>
         </Link>
       </div>
 
+      {/* Global Search Bar (Ant Design Inspired) */}
+      <div className="hidden sm:flex items-center justify-center flex-1 max-w-md px-4">
+        <SearchTrigger variant="header" className="w-full" />
+      </div>
+
       {/* Center/Right Toolbar */}
       <div className="flex items-center gap-3">
+        {/* Mobile Search Button */}
+        <div className="sm:hidden">
+          <SearchTrigger variant="header" className="w-auto px-2" />
+        </div>
+
         {/* Brand Switcher */}
         <div className="flex items-center gap-1.5 text-xs font-medium">
           <span className="text-muted-foreground hidden sm:inline">Brand:</span>

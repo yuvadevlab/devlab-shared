@@ -10,82 +10,164 @@ import {
   SelectGroup,
   SelectLabel,
   SelectSeparator,
-  Switch,
+  SearchableSelect,
+  type SearchableSelectOption,
 } from "@yuva-devlab/ui";
-import { ComponentView } from "../../../components/component-view";
+import {
+  ComponentView,
+  type ComponentVariant,
+} from "../../../components/component-view";
+
+const AI_OPTIONS: SearchableSelectOption[] = [
+  { label: "Gemini 2.5 Pro", value: "gemini-2.5-pro", group: "Google" },
+  { label: "Gemini 2.5 Flash", value: "gemini-2.5-flash", group: "Google" },
+  {
+    label: "Claude 3.7 Sonnet",
+    value: "claude-3-7-sonnet",
+    group: "Anthropic",
+  },
+  { label: "Claude 3.5 Haiku", value: "claude-3-5-haiku", group: "Anthropic" },
+  { label: "GPT-4o", value: "gpt-4o", group: "OpenAI" },
+  { label: "DeepSeek R1", value: "deepseek-r1", group: "DeepSeek" },
+];
 
 export default function SelectDocPage() {
-  const [model, setModel] = useState("gemini-2.5-pro");
-  const [disabled, setDisabled] = useState(false);
+  const [basicVal, setBasicVal] = useState("gemini-pro");
+  const [searchVal, setSearchVal] = useState("claude-3-7-sonnet");
+  const [groupVal, setGroupVal] = useState("prod");
 
-  const preview = (
-    <div className="flex flex-col items-center gap-6 w-full max-w-xs">
-      <div className="flex items-center gap-2 text-xs bg-muted/40 p-3 rounded-lg border border-border">
-        <Switch
-          id="select-disabled-toggle"
-          checked={disabled}
-          onCheckedChange={setDisabled}
-        />
-        <label
-          htmlFor="select-disabled-toggle"
-          className="text-muted-foreground font-medium cursor-pointer text-xs"
-        >
-          Disabled State
-        </label>
-      </div>
+  const variants: ComponentVariant[] = [
+    {
+      id: "basic",
+      title: "Basic Select",
+      description:
+        "Standard single-choice dropdown selection with clear placeholder and focus states.",
+      preview: (
+        <div className="w-full max-w-xs">
+          <Select value={basicVal} onValueChange={setBasicVal}>
+            <SelectTrigger className="w-full">
+              <SelectValue placeholder="Select model..." />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="gemini-pro">Gemini 2.5 Pro</SelectItem>
+              <SelectItem value="gemini-flash">Gemini 2.5 Flash</SelectItem>
+              <SelectItem value="claude-sonnet">Claude 3.7 Sonnet</SelectItem>
+            </SelectContent>
+          </Select>
+        </div>
+      ),
+      codeSnippet: `<Select value={value} onValueChange={setValue}>
+  <SelectTrigger className="w-full">
+    <SelectValue placeholder="Select model..." />
+  </SelectTrigger>
+  <SelectContent>
+    <SelectItem value="gemini-pro">Gemini 2.5 Pro</SelectItem>
+    <SelectItem value="gemini-flash">Gemini 2.5 Flash</SelectItem>
+    <SelectItem value="claude-sonnet">Claude 3.7 Sonnet</SelectItem>
+  </SelectContent>
+</Select>`,
+    },
+    {
+      id: "searchable",
+      title: "Searchable Select (Fuzzy Filter)",
+      description:
+        "AntD-inspired select variant featuring a search filter input, real-time matching, and empty state.",
+      preview: (
+        <div className="w-full max-w-xs">
+          <SearchableSelect
+            options={AI_OPTIONS}
+            value={searchVal}
+            onChange={setSearchVal}
+            placeholder="Search AI model..."
+            searchPlaceholder="Type to filter..."
+          />
+        </div>
+      ),
+      codeSnippet: `import { SearchableSelect } from "@yuva-devlab/ui";
 
-      <div className="w-full">
-        <Select value={model} onValueChange={setModel} disabled={disabled}>
-          <SelectTrigger className="w-full">
-            <SelectValue placeholder="Select LLM model..." />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectGroup>
-              <SelectLabel>Google Gemini</SelectLabel>
-              <SelectItem value="gemini-2.5-pro">Gemini 2.5 Pro</SelectItem>
-              <SelectItem value="gemini-2.5-flash">Gemini 2.5 Flash</SelectItem>
-            </SelectGroup>
-            <SelectSeparator />
-            <SelectGroup>
-              <SelectLabel>Anthropic Claude</SelectLabel>
-              <SelectItem value="claude-3-7-sonnet">
-                Claude 3.7 Sonnet
-              </SelectItem>
-              <SelectItem value="claude-3-5-haiku">Claude 3.5 Haiku</SelectItem>
-            </SelectGroup>
-          </SelectContent>
-        </Select>
-      </div>
-    </div>
-  );
-
-  const codeSnippet = `import {
-  Select,
-  SelectTrigger,
-  SelectValue,
-  SelectContent,
-  SelectItem,
-  SelectGroup,
-  SelectLabel,
-  SelectSeparator,
-} from "@yuva-devlab/ui";
-
-export function ModelPicker() {
-  return (
-    <Select defaultValue="gemini-2.5-pro"${disabled ? " disabled" : ""}>
-      <SelectTrigger className="w-50">
-        <SelectValue placeholder="Select LLM..." />
-      </SelectTrigger>
-      <SelectContent>
-        <SelectGroup>
-          <SelectLabel>Google Gemini</SelectLabel>
-          <SelectItem value="gemini-2.5-pro">Gemini 2.5 Pro</SelectItem>
-          <SelectItem value="gemini-2.5-flash">Gemini 2.5 Flash</SelectItem>
-        </SelectGroup>
-      </SelectContent>
-    </Select>
-  );
-}`;
+<SearchableSelect
+  options={[
+    { label: "Gemini 2.5 Pro", value: "gemini-2.5-pro", group: "Google" },
+    { label: "Claude 3.7 Sonnet", value: "claude-3-7-sonnet", group: "Anthropic" },
+    { label: "GPT-4o", value: "gpt-4o", group: "OpenAI" },
+  ]}
+  value={selectedModel}
+  onChange={setSelectedModel}
+  placeholder="Search AI model..."
+  searchPlaceholder="Type to filter..."
+/>`,
+    },
+    {
+      id: "grouped",
+      title: "Grouped Options with Separators",
+      description:
+        "Organize long option lists into distinct logical categories using SelectGroup and SelectLabel.",
+      preview: (
+        <div className="w-full max-w-xs">
+          <Select value={groupVal} onValueChange={setGroupVal}>
+            <SelectTrigger className="w-full">
+              <SelectValue placeholder="Choose environment..." />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectGroup>
+                <SelectLabel>Production Environments</SelectLabel>
+                <SelectItem value="prod">Production US-East</SelectItem>
+                <SelectItem value="prod-eu">Production EU-Central</SelectItem>
+              </SelectGroup>
+              <SelectSeparator />
+              <SelectGroup>
+                <SelectLabel>Pre-Production</SelectLabel>
+                <SelectItem value="staging">Staging QA</SelectItem>
+                <SelectItem value="dev">Development Sandbox</SelectItem>
+              </SelectGroup>
+            </SelectContent>
+          </Select>
+        </div>
+      ),
+      codeSnippet: `<Select defaultValue="prod">
+  <SelectTrigger>
+    <SelectValue placeholder="Environment..." />
+  </SelectTrigger>
+  <SelectContent>
+    <SelectGroup>
+      <SelectLabel>Production</SelectLabel>
+      <SelectItem value="prod">Production US-East</SelectItem>
+    </SelectGroup>
+    <SelectSeparator />
+    <SelectGroup>
+      <SelectLabel>Pre-Production</SelectLabel>
+      <SelectItem value="dev">Development Sandbox</SelectItem>
+    </SelectGroup>
+  </SelectContent>
+</Select>`,
+    },
+    {
+      id: "disabled",
+      title: "Disabled State",
+      description:
+        "Disabled trigger button prevents flyout interaction and shows muted styling.",
+      preview: (
+        <div className="w-full max-w-xs">
+          <Select disabled defaultValue="locked">
+            <SelectTrigger className="w-full">
+              <SelectValue placeholder="Unavailable" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="locked">Production Locked</SelectItem>
+            </SelectContent>
+          </Select>
+        </div>
+      ),
+      codeSnippet: `<Select disabled defaultValue="locked">
+  <SelectTrigger>
+    <SelectValue placeholder="Unavailable" />
+  </SelectTrigger>
+  <SelectContent>
+    <SelectItem value="locked">Production Locked</SelectItem>
+  </SelectContent>
+</Select>`,
+    },
+  ];
 
   const propsList = [
     {
@@ -124,22 +206,17 @@ export function ModelPicker() {
         "Selectable option row with active check indicator and hover highlight.",
     },
     {
-      name: ".dl-select-label",
-      description: "Group title heading text inside the dropdown.",
-    },
-    {
-      name: ".dl-select-separator",
-      description: "Horizontal rule separating item groups.",
+      name: ".dl-searchable-select-trigger",
+      description: "Searchable select trigger button with placeholder styling.",
     },
   ];
 
   return (
     <ComponentView
       title="Select"
-      description="Accessible custom dropdown selection menu built on Radix UI Select with pure scoped CSS."
-      category="Form Elements"
-      preview={preview}
-      codeSnippet={codeSnippet}
+      description="Accessible custom dropdown selection menu supporting basic, searchable, grouped, and disabled variants."
+      category="Data Entry"
+      variants={variants}
       propsList={propsList}
       cssClasses={cssClasses}
     />

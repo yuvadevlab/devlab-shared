@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { ThemeProvider } from "../components/theme-provider";
+import { SearchProvider } from "../components/search-provider";
 import { Header } from "../components/header";
 import { Sidebar } from "../components/sidebar";
+import { ScrollToTop } from "../components/scroll-to-top";
 import { Toaster } from "@yuva-devlab/ui";
 
 export const metadata: Metadata = {
@@ -26,14 +28,20 @@ export default function RootLayout({
     >
       <body className="bg-background text-foreground h-screen flex flex-col overflow-hidden antialiased">
         <ThemeProvider>
-          <Header />
-          <div className="flex flex-1 min-h-0 overflow-hidden">
-            <Sidebar />
-            <main className="min-w-0 flex-1 overflow-y-auto px-6 py-8 md:px-12 md:py-10">
-              <div className="mx-auto max-w-5xl">{children}</div>
-            </main>
-          </div>
-          <Toaster />
+          <SearchProvider>
+            <ScrollToTop />
+            <Header />
+            <div className="flex flex-1 min-h-0 overflow-hidden">
+              <Sidebar />
+              <main
+                id="main-content"
+                className="min-w-0 flex-1 overflow-y-auto px-6 py-8 md:px-12 md:py-10"
+              >
+                <div className="mx-auto max-w-5xl">{children}</div>
+              </main>
+            </div>
+            <Toaster />
+          </SearchProvider>
         </ThemeProvider>
       </body>
     </html>

@@ -24,7 +24,13 @@
   flex-shrink: 0;
 }
 
-.dl-date-picker-content {
-  width: auto;
-  padding: 0;
+.dl-date-picker-content,
+.dl-popover.dl-date-picker-content {
+  width: fit-content !important;
+  max-width: fit-content !important;
+  padding: 0 !important;
+  box-shadow: 0 4px 20px rgb(0 0 0 / 0.15);
+  border-radius: var(--radius-lg, 0.5rem);
+  border: 1px solid var(--border);
+  background-color: var(--popover);
 }

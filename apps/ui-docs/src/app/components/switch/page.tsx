@@ -2,55 +2,93 @@
 
 import React, { useState } from "react";
 import { Switch } from "@yuva-devlab/ui";
-import { ComponentView } from "../../../components/component-view";
+import {
+  ComponentView,
+  type ComponentVariant,
+} from "../../../components/component-view";
 
 export default function SwitchDocPage() {
-  const [checked, setChecked] = useState(true);
-  const [disabled, setDisabled] = useState(false);
+  const [basicChecked, setBasicChecked] = useState(true);
+  const [featureChecked, setFeatureChecked] = useState(false);
 
-  const preview = (
-    <div className="flex flex-col items-center gap-6">
-      <div className="flex items-center gap-2 text-xs bg-muted/40 p-3 rounded-lg border border-border">
-        <Switch
-          id="switch-disabled-setting"
-          checked={disabled}
-          onCheckedChange={setDisabled}
-        />
-        <label
-          htmlFor="switch-disabled-setting"
-          className="text-muted-foreground font-medium cursor-pointer text-xs"
-        >
-          Disabled State
-        </label>
-      </div>
-
-      <div className="flex items-center gap-3">
-        <Switch
-          id="autonomous-mode"
-          checked={checked}
-          onCheckedChange={setChecked}
-          disabled={disabled}
-        />
-        <label
-          htmlFor="autonomous-mode"
-          className="text-foreground text-sm font-semibold cursor-pointer"
-        >
-          Autonomous Self-Healing
-        </label>
-      </div>
-    </div>
-  );
-
-  const codeSnippet = `import { Switch } from "@yuva-devlab/ui";
-
-export function SettingsToggle() {
-  return (
-    <div className="flex items-center gap-3">
-      <Switch id="auto-mode"${disabled ? " disabled" : ""} defaultChecked />
-      <label htmlFor="auto-mode">Autonomous Self-Healing</label>
-    </div>
-  );
-}`;
+  const variants: ComponentVariant[] = [
+    {
+      id: "basic",
+      title: "Basic Toggle Switch",
+      description:
+        "AntD-inspired binary switch component with smooth slide transition.",
+      preview: (
+        <div className="flex items-center gap-3">
+          <Switch
+            checked={basicChecked}
+            onCheckedChange={setBasicChecked}
+            aria-label="Toggle setting"
+          />
+          <span className="text-xs font-mono text-muted-foreground">
+            {basicChecked ? "Active (On)" : "Disabled (Off)"}
+          </span>
+        </div>
+      ),
+      codeSnippet: `<Switch checked={checked} onCheckedChange={setChecked} />`,
+    },
+    {
+      id: "with-label",
+      title: "With Label & Description",
+      description:
+        "Form setting card combining the switch with bold label and subtitle.",
+      preview: (
+        <div className="w-full max-w-sm p-4 border border-border rounded-xl bg-card flex items-center justify-between">
+          <div className="space-y-0.5">
+            <label
+              htmlFor="feature-toggle"
+              className="text-xs font-semibold text-foreground cursor-pointer"
+            >
+              Automatic Failover Healing
+            </label>
+            <p className="text-[11px] text-muted-foreground">
+              Reroutes agent tasks upon node timeout.
+            </p>
+          </div>
+          <Switch
+            id="feature-toggle"
+            checked={featureChecked}
+            onCheckedChange={setFeatureChecked}
+          />
+        </div>
+      ),
+      codeSnippet: `<div className="flex items-center justify-between">
+  <div>
+    <label htmlFor="feature">Automatic Failover</label>
+    <p>Reroutes agent tasks upon node timeout.</p>
+  </div>
+  <Switch id="feature" checked={checked} onCheckedChange={setChecked} />
+</div>`,
+    },
+    {
+      id: "disabled",
+      title: "Disabled States",
+      description:
+        "Non-interactive switch states with 50% opacity and disabled cursor.",
+      preview: (
+        <div className="flex items-center gap-6">
+          <div className="flex items-center gap-2">
+            <Switch disabled defaultChecked />
+            <span className="text-xs text-muted-foreground">
+              Checked Disabled
+            </span>
+          </div>
+          <div className="flex items-center gap-2">
+            <Switch disabled />
+            <span className="text-xs text-muted-foreground">
+              Unchecked Disabled
+            </span>
+          </div>
+        </div>
+      ),
+      codeSnippet: `<Switch disabled defaultChecked />
+<Switch disabled />`,
+    },
+  ];
 
   const propsList = [
     {
@@ -88,10 +126,9 @@ export function SettingsToggle() {
   return (
     <ComponentView
       title="Switch"
-      description="Interactive toggle switch allowing users to alternate between binary on/off states."
-      category="Form Elements"
-      preview={preview}
-      codeSnippet={codeSnippet}
+      description="Interactive toggle switch allowing users to alternate between binary on/off states. Showcasing basic switches, labeled settings, and disabled states."
+      category="Data Entry"
+      variants={variants}
       propsList={propsList}
       cssClasses={cssClasses}
     />

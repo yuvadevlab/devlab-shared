@@ -2,157 +2,126 @@
 
 import React from "react";
 import { toast, Button } from "@yuva-devlab/ui";
-import { ComponentView } from "../../../components/component-view";
+import {
+  ComponentView,
+  ComponentVariant,
+} from "../../../components/component-view";
 
+/**
+ * Documentation page for Toaster component showcasing status toast triggers and action notifications.
+ */
 export default function ToasterDocPage() {
-  const preview = (
-    <div className="flex flex-wrap items-center justify-center gap-3 py-6">
-      <Button
-        variant="default"
-        onClick={() => toast("Autonomous workflow initialized.")}
-      >
-        Default Toast
-      </Button>
-      <Button
-        variant="secondary"
-        onClick={() =>
-          toast.success("Model checkpoint successfully saved to registry.")
-        }
-      >
-        Success Toast
-      </Button>
-      <Button
-        variant="outline"
-        onClick={() =>
-          toast.warning("High token consumption detected (85% of quota).")
-        }
-      >
-        Warning Toast
-      </Button>
-      <Button
-        variant="destructive"
-        onClick={() =>
-          toast.error("Execution error: Sandbox process timeout exceeded.")
-        }
-      >
-        Error Toast
-      </Button>
-      <Button
-        variant="ghost"
-        className="border border-border"
-        onClick={() =>
-          toast("Agent deployment failed", {
-            description: "Cluster nodepool unschedulable due to quota",
-            action: {
-              label: "Retry",
-              onClick: () => toast.info("Retrying cluster deployment..."),
-            },
-          })
-        }
-      >
-        Toast with Action
-      </Button>
-    </div>
-  );
-
-  const codeSnippet = `import { Toaster, toast, Button } from "@yuva-devlab/ui";
-
-// 1. Mount <Toaster /> once in your root layout:
-export function RootLayout({ children }: { children: React.ReactNode }) {
-  return (
-    <html>
-      <body>
-        {children}
-        <Toaster />
-      </body>
-    </html>
-  );
-}
-
-// 2. Trigger notifications anywhere across your components:
-export function WorkflowActions() {
-  return (
-    <div className="flex gap-2">
-      <Button onClick={() => toast("Workflow started")}>
-        Start
-      </Button>
-
-      <Button onClick={() => toast.success("Configuration saved!")}>
-        Save
-      </Button>
-
-      <Button
-        variant="destructive"
-        onClick={() => toast.error("Deployment failed")}
-      >
-        Trigger Error
-      </Button>
-    </div>
-  );
-}`;
+  const variants: ComponentVariant[] = [
+    {
+      id: "types",
+      title: "Notification Types",
+      description:
+        "Semantic toast notifications indicating success, warning, or error states.",
+      preview: (
+        <div className="flex flex-wrap items-center justify-center gap-2 p-4">
+          <Button
+            size="sm"
+            variant="default"
+            onClick={() => toast("Autonomous workflow initialized.")}
+          >
+            Default
+          </Button>
+          <Button
+            size="sm"
+            variant="secondary"
+            onClick={() =>
+              toast.success("Model checkpoint successfully saved to registry.")
+            }
+          >
+            Success
+          </Button>
+          <Button
+            size="sm"
+            variant="outline"
+            onClick={() =>
+              toast.warning("High token consumption detected (85% quota).")
+            }
+          >
+            Warning
+          </Button>
+          <Button
+            size="sm"
+            variant="destructive"
+            onClick={() =>
+              toast.error("Execution error: Sandbox process timeout exceeded.")
+            }
+          >
+            Error
+          </Button>
+        </div>
+      ),
+      codeSnippet: `// Trigger different semantic toasts:
+toast("Workflow initialized.");
+toast.success("Model checkpoint saved.");
+toast.warning("High token consumption detected.");
+toast.error("Process timeout exceeded.");`,
+    },
+    {
+      id: "action",
+      title: "Interactive Action Toast",
+      description:
+        "Toasts supporting inline interactive buttons for immediate retry or cancellation.",
+      preview: (
+        <div className="flex items-center justify-center p-4">
+          <Button
+            variant="outline"
+            onClick={() =>
+              toast("Agent deployment failed", {
+                description: "Cluster nodepool unschedulable due to quota",
+                action: {
+                  label: "Retry",
+                  onClick: () => toast.info("Retrying cluster deployment..."),
+                },
+              })
+            }
+          >
+            Trigger Action Toast
+          </Button>
+        </div>
+      ),
+      codeSnippet: `toast("Agent deployment failed", {
+  description: "Cluster nodepool unschedulable due to quota",
+  action: {
+    label: "Retry",
+    onClick: () => toast.info("Retrying cluster deployment..."),
+  },
+});`,
+    },
+  ];
 
   const propsList = [
     {
+      name: "toast(message, options)",
+      type: "function",
+      default: "—",
+      description:
+        "Imperative dispatch function to trigger floating feedback toasts.",
+    },
+    {
       name: "position",
-      type: '"top-left" | "top-right" | "bottom-left" | "bottom-right" | "top-center" | "bottom-center"',
+      type: '"top-right" | "bottom-right" | ...',
       default: '"bottom-right"',
-      description: "Screen viewport position where toast messages appear.",
-    },
-    {
-      name: "richColors",
-      type: "boolean",
-      default: "false",
-      description:
-        "Whether to render vibrant semantic background colors for success/error/warning.",
-    },
-    {
-      name: "expand",
-      type: "boolean",
-      default: "false",
-      description:
-        "Whether toasts should expand rather than stack when hovering.",
-    },
-    {
-      name: "closeButton",
-      type: "boolean",
-      default: "false",
-      description:
-        "Whether to show an accessible dismiss button on each toast.",
+      description: "Screen anchor location for the toaster provider.",
     },
   ];
 
   const cssClasses = [
     {
-      name: ".dl-toaster",
-      description: "Root viewport container element managing toast stacking.",
-    },
-    {
       name: ".dl-toast",
-      description:
-        "Individual toast card with border, radius, shadow, and background tokens.",
-    },
-    {
-      name: ".dl-toast__desc",
-      description:
-        "Subtitle explanatory text styled with muted foreground tokens.",
-    },
-    {
-      name: ".dl-toast__action",
-      description: "Primary action button inside the toast card.",
-    },
-    {
-      name: ".dl-toast__cancel",
-      description: "Secondary cancel button inside the toast card.",
+      description: "Surface card for individual floating notifications.",
     },
   ];
 
   return (
     <ComponentView
-      title="Toaster / Toast"
-      description="An opinionated, elegant toast notification system configured with design system tokens and customizable actions."
-      category="Overlays & Feedback"
-      preview={preview}
-      codeSnippet={codeSnippet}
+      title="Toaster"
+      description="Succinct, non-intrusive notification banners inspired by modern web interfaces and Ant Design's message / notification."
+      variants={variants}
       propsList={propsList}
       cssClasses={cssClasses}
     />

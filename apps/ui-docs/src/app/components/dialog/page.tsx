@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { Terminal } from "lucide-react";
+import { Terminal, AlertTriangle, CheckCircle } from "lucide-react";
 import {
   Dialog,
   DialogTrigger,
@@ -11,90 +11,159 @@ import {
   DialogDescription,
   DialogBody,
   DialogFooter,
+  ConfirmDialog,
   Button,
   Input,
 } from "@yuva-devlab/ui";
-import { ComponentView } from "../../../components/component-view";
+import {
+  ComponentView,
+  type ComponentVariant,
+} from "../../../components/component-view";
 
 export default function DialogDocPage() {
-  const [open, setOpen] = useState(false);
+  const [standardOpen, setStandardOpen] = useState(false);
+  const [confirmOpen, setConfirmOpen] = useState(false);
+  const [destructiveOpen, setDestructiveOpen] = useState(false);
 
-  const preview = (
-    <div className="flex flex-col items-center gap-4">
-      <Dialog open={open} onOpenChange={setOpen}>
-        <DialogTrigger asChild>
-          <Button variant="default" className="gap-2">
-            <Terminal className="size-4" />
-            <span>Launch Execution Modal</span>
+  const variants: ComponentVariant[] = [
+    {
+      id: "standard",
+      title: "Standard Form Dialog",
+      description:
+        "Full modal dialog with header, custom form body, and footer actions.",
+      preview: (
+        <div>
+          <Dialog open={standardOpen} onOpenChange={setStandardOpen}>
+            <DialogTrigger asChild>
+              <Button variant="default" className="gap-2">
+                <Terminal className="size-4" />
+                <span>Launch Execution Modal</span>
+              </Button>
+            </DialogTrigger>
+            <DialogContent className="max-w-md">
+              <DialogHeader>
+                <DialogTitle>Configure Execution Run</DialogTitle>
+                <DialogDescription>
+                  Set runtime parameters before deploying agent to cluster.
+                </DialogDescription>
+              </DialogHeader>
+              <DialogBody className="space-y-3 py-2">
+                <div className="space-y-1">
+                  <label className="text-foreground text-xs font-semibold">
+                    Cluster Identifier
+                  </label>
+                  <Input defaultValue="us-east4-prod-a" />
+                </div>
+                <div className="space-y-1">
+                  <label className="text-foreground text-xs font-semibold">
+                    Max Step Budget
+                  </label>
+                  <Input type="number" defaultValue="25" />
+                </div>
+              </DialogBody>
+              <DialogFooter>
+                <Button
+                  variant="outline"
+                  onClick={() => setStandardOpen(false)}
+                >
+                  Cancel
+                </Button>
+                <Button onClick={() => setStandardOpen(false)}>
+                  Deploy Run
+                </Button>
+              </DialogFooter>
+            </DialogContent>
+          </Dialog>
+        </div>
+      ),
+      codeSnippet: `<Dialog>
+  <DialogTrigger asChild><Button>Open Dialog</Button></DialogTrigger>
+  <DialogContent className="max-w-md">
+    <DialogHeader>
+      <DialogTitle>Configure Run</DialogTitle>
+      <DialogDescription>Set parameters for execution.</DialogDescription>
+    </DialogHeader>
+    <DialogBody><Input placeholder="Cluster ID" /></DialogBody>
+    <DialogFooter><Button>Submit</Button></DialogFooter>
+  </DialogContent>
+</Dialog>`,
+    },
+    {
+      id: "confirm",
+      title: "Confirmation Dialog (AntD Modal.confirm)",
+      description:
+        "Pre-composed confirmation dialog for verifying non-destructive actions.",
+      preview: (
+        <div>
+          <Button
+            variant="secondary"
+            className="gap-2"
+            onClick={() => setConfirmOpen(true)}
+          >
+            <CheckCircle className="size-4" />
+            <span>Open Confirmation Modal</span>
           </Button>
-        </DialogTrigger>
-        <DialogContent className="max-w-md">
-          <DialogHeader>
-            <DialogTitle>Configure Execution Run</DialogTitle>
-            <DialogDescription>
-              Set runtime parameters before deploying agent to cluster.
-            </DialogDescription>
-          </DialogHeader>
-          <DialogBody className="space-y-3 py-2">
-            <div className="space-y-1">
-              <label className="text-foreground text-xs font-semibold">
-                Cluster Identifier
-              </label>
-              <Input defaultValue="us-east4-prod-a" />
-            </div>
-            <div className="space-y-1">
-              <label className="text-foreground text-xs font-semibold">
-                Max Step Budget
-              </label>
-              <Input type="number" defaultValue="25" />
-            </div>
-          </DialogBody>
-          <DialogFooter>
-            <Button variant="outline" onClick={() => setOpen(false)}>
-              Cancel
-            </Button>
-            <Button onClick={() => setOpen(false)}>Confirm Deployment</Button>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
-    </div>
-  );
 
-  const codeSnippet = `import {
-  Dialog,
-  DialogTrigger,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogDescription,
-  DialogBody,
-  DialogFooter,
-  Button,
-  Input,
-} from "@yuva-devlab/ui";
+          <ConfirmDialog
+            open={confirmOpen}
+            onOpenChange={setConfirmOpen}
+            title="Publish Agent Pipeline?"
+            description="This will deploy version 2.4 to the public sandbox registry."
+            confirmText="Publish Release"
+            cancelText="Keep Draft"
+            onConfirm={() => setConfirmOpen(false)}
+          />
+        </div>
+      ),
+      codeSnippet: `import { ConfirmDialog } from "@yuva-devlab/ui";
 
-export function ExecutionModal() {
-  return (
-    <Dialog>
-      <DialogTrigger asChild>
-        <Button>Open Dialog</Button>
-      </DialogTrigger>
-      <DialogContent className="max-w-md">
-        <DialogHeader>
-          <DialogTitle>Configure Run</DialogTitle>
-          <DialogDescription>Set parameters for execution.</DialogDescription>
-        </DialogHeader>
-        <DialogBody className="space-y-3">
-          <Input placeholder="Cluster ID" />
-        </DialogBody>
-        <DialogFooter>
-          <Button variant="outline">Cancel</Button>
-          <Button>Submit</Button>
-        </DialogFooter>
-      </DialogContent>
-    </Dialog>
-  );
-}`;
+<ConfirmDialog
+  open={open}
+  onOpenChange={setOpen}
+  title="Publish Agent Pipeline?"
+  description="This will deploy version 2.4 to the public sandbox registry."
+  confirmText="Publish Release"
+  onConfirm={handlePublish}
+/>`,
+    },
+    {
+      id: "destructive",
+      title: "Destructive Alert Confirmation",
+      description:
+        "Confirmation dialog for critical, irreversible actions (renders red confirm button).",
+      preview: (
+        <div>
+          <Button
+            variant="destructive"
+            className="gap-2"
+            onClick={() => setDestructiveOpen(true)}
+          >
+            <AlertTriangle className="size-4" />
+            <span>Delete Database Workspace</span>
+          </Button>
+
+          <ConfirmDialog
+            open={destructiveOpen}
+            onOpenChange={setDestructiveOpen}
+            title="Delete Database Workspace?"
+            description="This operation cannot be undone. All active sessions and tables will be permanently deleted."
+            confirmText="Delete Permanently"
+            destructive
+            onConfirm={() => setDestructiveOpen(false)}
+          />
+        </div>
+      ),
+      codeSnippet: `<ConfirmDialog
+  open={open}
+  onOpenChange={setOpen}
+  title="Delete Database Workspace?"
+  description="This operation cannot be undone."
+  confirmText="Delete Permanently"
+  destructive
+  onConfirm={handleDelete}
+/>`,
+    },
+  ];
 
   const propsList = [
     {
@@ -110,17 +179,11 @@ export function ExecutionModal() {
       description: "Callback invoked when dialog open state changes.",
     },
     {
-      name: "DialogBody",
-      type: "React.Component",
-      default: "—",
-      description: "Scrollable, flexible body section for modal content.",
-    },
-    {
-      name: "DialogFooter",
+      name: "ConfirmDialog",
       type: "React.Component",
       default: "—",
       description:
-        "Sticky action button container with responsive justification.",
+        "Pre-composed confirmation modal with title, description, and confirm actions.",
     },
   ];
 
@@ -128,36 +191,28 @@ export function ExecutionModal() {
     {
       name: ".dl-dialog-overlay",
       description:
-        "Backdrop overlay with glassmorphism blur and smooth opacity animation.",
+        "Backdrop overlay with glassmorphism blur and smooth opacity.",
     },
     {
       name: ".dl-dialog-content",
-      description:
-        "Modal card surface with automatic centering, elevation shadow, and responsive padding.",
+      description: "Modal card surface with centering, elevation, and padding.",
     },
     {
       name: ".dl-dialog__header",
-      description:
-        "Header area with title and description, including native right padding for the close button.",
-    },
-    {
-      name: ".dl-dialog__body",
-      description: "Main content area supporting min-h-0 and auto-overflow.",
+      description: "Header area with title and description.",
     },
     {
       name: ".dl-dialog__footer",
-      description:
-        "Footer action row aligned to the right on desktop, stacked on mobile.",
+      description: "Footer action row aligned to the right.",
     },
   ];
 
   return (
     <ComponentView
       title="Dialog"
-      description="Accessible modal dialog window built on Radix UI Dialog with pure CSS transitions and zero collision risk."
-      category="Overlays & Feedback"
-      preview={preview}
-      codeSnippet={codeSnippet}
+      description="Accessible modal dialog window built on Radix UI Dialog. Showcasing standard form modals, confirmation dialogs (AntD Modal.confirm), and destructive action alerts."
+      category="Feedback"
+      variants={variants}
       propsList={propsList}
       cssClasses={cssClasses}
     />
