@@ -109,11 +109,20 @@ DevLab UI supports multi-brand switching at runtime using `data-brand` and `data
 
 ---
 
-## Component Catalog (56 Components)
+## Component Catalog (61 Components)
 
-### General & Layout
+### Layout & Composition Primitives (Zero Tailwind)
 
-- **Button**, **CopyButton**, **Card**, **MetricCard**, **SecretRevealCard**, **Badge**, **StatusBadge**, **StatusChip**, **Separator**, **Skeleton**, **LoadingState**, **AspectRatio**, **ScrollArea**, **Resizable**
+- **Box** - Fundamental container with padding (`p`), border, radius, shadow, and surface backgrounds.
+- **Flex** - 1D flexbox container (`direction`, `justify`, `align`, `wrap`, `gap`, `inline`).
+- **Stack** - High-velocity vertical or horizontal flow with token-governed spacing.
+- **Grid** - Responsive 2D grid (`cols`, `gap`, minItemWidth auto-fit).
+- **Container** - Responsive centered layout container with max-width boundaries (`sm` to `2xl`).
+- **AspectRatio**, **Panel**, **Resizable**, **ScrollArea**, **Separator**
+
+### General & Display
+
+- **Button**, **CopyButton**, **Card**, **MetricCard**, **SecretRevealCard**, **Badge**, **StatusBadge**, **StatusChip**, **Skeleton**, **LoadingState**
 
 ### Form & Data Entry
 

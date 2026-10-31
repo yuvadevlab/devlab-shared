@@ -1,9 +1,9 @@
 .dl-alert {
   position: relative;
   width: 100%;
-  border-radius: var(--radius-lg, 0.5rem);
+  border-radius: var(--radius, 0.5rem);
   border: 1px solid var(--border);
-  padding: 0.875rem 1rem;
+  padding: var(--space-4, 0.875rem) var(--space-5, 1rem);
   font-size: 0.875rem;
   display: grid;
   grid-template-columns: 1fr;

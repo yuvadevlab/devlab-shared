@@ -34,7 +34,7 @@ export default defineConfig({
     const compDir = path.resolve("src/components");
     const dirs = fs
       .readdirSync(compDir, { withFileTypes: true })
-      .filter((d) => d.isDirectory());
+      .filter((d) => d.isDirectory() && d.name !== "layout");
     const cssBlocks: string[] = [];
 
     for (const d of dirs) {
@@ -49,15 +49,24 @@ export default defineConfig({
       }
     }
 
+    const layoutCssPath = path.join(compDir, "layout", "layout.css");
+    const layoutContent = fs.existsSync(layoutCssPath)
+      ? fs.readFileSync(layoutCssPath, "utf8").trim()
+      : "";
+
     const bundledCss = `/**
  * @file components.css
- * @description Bundled modular dl-* component styles wrapped in @layer dl-components.
- * Pure CSS — zero Tailwind dependency. Scoped in @layer so consumer utilities take precedence.
+ * @description Bundled modular dl-* component and layout styles with native Cascade Layers (@layer).
+ * Pure CSS — zero Tailwind dependency.
  */
+
+@layer dl-reset, dl-tokens, dl-components, dl-layout, dl-utilities, dl-app;
 
 @layer dl-components {
 ${cssBlocks.join("\n\n")}
 }
+
+${layoutContent}
 `;
 
     let finalCss = bundledCss;

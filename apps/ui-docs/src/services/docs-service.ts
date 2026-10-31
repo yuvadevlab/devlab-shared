@@ -23,40 +23,37 @@ const INSTALLATION_STEPS: InstallationStep[] = [
     id: "configure-css",
     title: "2. Configure globals.css",
     description:
-      "Import Tailwind CSS, the token preset, your brand theme, and component styles into your app's global stylesheet:",
-    codeSnippet: `@import "tailwindcss";
+      "Import the design tokens and component styles into your app's global stylesheet with native Cascade Layers (@layer):",
+    codeSnippet: `/* Native W3C Cascade Layers (Zero Tailwind required) */
+@layer dl-reset, dl-tokens, dl-components, dl-layout, dl-app;
+
 @import "@yuva-devlab/tokens/preset.css";
 @import "@yuva-devlab/tokens/themes/orchestrai.css";
-@import "@yuva-devlab/ui/styles.css";
+@import "@yuva-devlab/ui/components.css";
 
-@custom-variant dark (&:where(.dark, .dark *));
-
-@layer base {
-  * {
-    border-color: var(--border);
-  }
-  body {
-    background-color: var(--background);
-    color: var(--foreground);
-    font-family: var(--font-sans);
-  }
-}`,
+/* (Optional) If your application uses Tailwind CSS 4: */
+/* @import "tailwindcss"; */`,
     language: "css",
   },
   {
     id: "use-components",
-    title: "3. Use Components with Full Type Safety",
+    title: "3. Use Components & Layout Primitives",
     description:
-      "Import and use components anywhere in your React or Next.js tree:",
-    codeSnippet: `import { Button, Input, Badge, Dialog } from "@yuva-devlab/ui";
+      "Compose layouts and UI components with full TypeScript type safety and zero runtime styling overhead:",
+    codeSnippet: `import { Button, Stack, Flex, Input, Badge, Card } from "@yuva-devlab/ui";
 
 export default function MyPage() {
   return (
-    <div className="p-6 space-y-4">
-      <Badge variant="success">Connected</Badge>
-      <Input placeholder="Enter prompt..." />
-      <Button variant="default">Deploy Agent</Button>
-    </div>
+    <Card className="max-w-md p-6">
+      <Stack gap="4">
+        <Flex justify="between" align="center">
+          <h2 className="text-xl font-bold">DevLab Project</h2>
+          <Badge variant="success">Active</Badge>
+        </Flex>
+        <Input placeholder="Enter prompt..." />
+        <Button variant="default">Deploy Agent</Button>
+      </Stack>
+    </Card>
   );
 }`,
     language: "tsx",
