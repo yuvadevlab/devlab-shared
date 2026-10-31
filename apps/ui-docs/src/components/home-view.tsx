@@ -19,7 +19,7 @@ export interface HomeViewProps {
  */
 export function HomeView({ stats, groupedComponents }: HomeViewProps) {
   return (
-    <Stack gap={10} className="home-view pb-16">
+    <Stack gap={10} className="home-view">
       <HomeHero totalComponents={stats.totalComponents} />
       <HomePillars />
       <HomeCatalog
