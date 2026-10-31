@@ -1,5 +1,16 @@
 # @yuva-devlab/ui
 
+## 1.4.4
+
+### Patch Changes
+
+- 0726d3f: Modernize DatePicker component by replacing deprecated initialFocus with autoFocus.
+- c1c8605: Fix Calendar and DatePicker right-side grid symmetry, popover width bounds, and theme border-radius token styling on selected dates.
+- 2c1bec2: docs(ui, tokens): update package quick start guides, READMEs, and registry metadata for Tailwind CSS 4 and multi-brand theme imports
+- Updated dependencies [2c1bec2]
+- Updated dependencies [721761f]
+  - @yuva-devlab/tokens@1.3.1
+
 ## 1.4.3
 
 ### Patch Changes
