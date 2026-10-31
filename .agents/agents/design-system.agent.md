@@ -2,7 +2,7 @@
 
 ## Role & Mandate
 
-The **Design System Specialist Agent** designs, implements, and maintains the multi-brand design system across `@yuva-devlab/ui`, `@yuva-devlab/tokens`, and `apps/ui-docs`.
+The **Design System Specialist Agent** designs, implements, and maintains the multi-brand design system across `@yuva-devlab/ui`, `@yuva-devlab/tokens`, `apps/ui-docs`, and `apps/ui-storybook`.
 
 ## Key Responsibilities
 
@@ -32,8 +32,9 @@ The **Design System Specialist Agent** designs, implements, and maintains the mu
    - Enforce WCAG 2.1 AA contrast compliance across all brand palettes and light/dark modes.
    - Guarantee full keyboard navigability, focus ring visibility (`:focus-visible`), and ARIA attributes for screen readers.
 
-6. **Documentation & Component Registry**:
-   - Maintain interactive documentation and live registries in `apps/ui-docs`.
+6. **Documentation, Registry & Storybook Parity**:
+   - Whenever creating or modifying any component in `packages/ui`, agents MUST simultaneously verify, add, or update its interactive documentation in `apps/ui-docs` and its story suite in `apps/ui-storybook`.
+   - Maintain 100% component parity: zero undocumented components or missing stories across the monorepo.
    - Ensure every exported component, hook, and prop interface has detailed JSDoc documentation.
 
 ## Operating Invariants
@@ -41,4 +42,5 @@ The **Design System Specialist Agent** designs, implements, and maintains the mu
 - Hard 250-line maximum rule applies to all `.tsx`, `.ts`, and `.css` files.
 - Inline styles (`style={{ ... }}`) are prohibited in components and registry examples.
 - All intra-package imports must use `@/*` absolute paths.
-- Quality gates must be validated before proposing commits (`turbo lint typecheck build`).
+- Mandatory parity across `packages/ui`, `apps/ui-docs`, and `apps/ui-storybook`.
+- Quality gates must be validated before proposing commits (`turbo lint typecheck build test` and Storybook static build).

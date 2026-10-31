@@ -12,6 +12,7 @@ All agents must adhere to:
 6. **Standardized Absolute Imports (`@/*`)**: All packages and apps must use `@/*` path aliases for internal source imports; zero relative parent traversals (`../`, `../../`).
 7. **Pure Platform CSS Architecture**: All styling is driven by W3C Cascade Layers (`@layer dl-*`) and semantic tokens. Inline styles (`style={{ ... }}`) are strictly prohibited across components.
 8. **Dynamic Multi-Brand Sizing**: Components must consume CSS variables (`--control-height-*`, `--space-*`, `--radius-*`) to adapt seamlessly across brand densities (e.g. compact telemetry in Logs, precision finance in FinAI, standard consumer in Portal/VitalAI/KnowledgeAI).
+9. **Mandatory Documentation & Storybook Parity**: Whenever creating or updating any UI component in `packages/ui`, agents MUST simultaneously verify, add, or update its corresponding interactive documentation in `apps/ui-docs` and story suite in `apps/ui-storybook`. Component drift is prohibited.
 
 ## Specialized Agent Roster
 

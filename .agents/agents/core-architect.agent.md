@@ -35,6 +35,7 @@ The **Core Monorepo Architect Agent** is the guardian of domain purity, error ta
 
 - Hard 250-line maximum rule across all source and stylesheet files.
 - Zero relative parent directory traversals (`../`) in `src/`; always use `@/*`.
+- Mandatory documentation and Storybook parity across UI components.
 - Comprehensive JSDoc on all exports.
 - Zero circular workspace dependencies.
 - Dual ESM/CJS build outputs with bundled `.d.ts`.

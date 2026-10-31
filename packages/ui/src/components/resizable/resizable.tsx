@@ -11,7 +11,7 @@ export type ResizablePanelGroupProps = React.ComponentProps<typeof Group>;
  *
  * @example
  * ```tsx
- * <ResizablePanelGroup direction="horizontal">
+ * <ResizablePanelGroup orientation="horizontal">
  *   <ResizablePanel defaultSize={50}>Left Content</ResizablePanel>
  *   <ResizableHandle withHandle />
  *   <ResizablePanel defaultSize={50}>Right Content</ResizablePanel>
