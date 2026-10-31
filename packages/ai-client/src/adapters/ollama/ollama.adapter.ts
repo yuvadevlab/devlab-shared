@@ -6,15 +6,15 @@
 
 import { DomainError, ErrorCode, ModelTimeoutError } from "@yuva-devlab/errors";
 import { Logger, loggerWithConfig } from "@yuva-devlab/logger";
-import { resolveEnvCredentials } from "../../config";
-import { AI_DEFAULT_MODELS, AI_ENDPOINTS } from "../../constants";
+import { resolveEnvCredentials } from "@/config";
+import { AI_DEFAULT_MODELS, AI_ENDPOINTS } from "@/constants";
 import {
   FinishReason,
   type ILLMProvider,
   type LLMRequest,
   type LLMResponse,
   type LLMStreamChunk,
-} from "../../types";
+} from "@/types";
 import {
   mapOllamaMessages,
   type OllamaAdapterConfig,

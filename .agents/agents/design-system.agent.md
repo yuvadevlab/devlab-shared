@@ -17,5 +17,6 @@ The **Design System Specialist Agent** maintains the multi-brand design system a
 
 ## Operating Invariants
 
-- Zero inline styles for brand tokens.
+- Component styling and sizing are governed by W3C Cascade Layers (`@layer dl-*`) and design tokens.
+- All components must dynamically adapt sizing and density from active brand theme variables (`--control-height-*`, `--space-*`, `--radius-*`).
 - All interactive components must support keyboard navigation and screen-reader ARIA tags.

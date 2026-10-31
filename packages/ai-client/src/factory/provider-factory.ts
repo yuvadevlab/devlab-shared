@@ -12,9 +12,9 @@ import {
   GroqAdapter,
   OllamaAdapter,
   OpenAIAdapter,
-} from "../adapters";
-import { FallbackCascade } from "../cascade";
-import type { ILLMProvider } from "../types";
+} from "@/adapters";
+import { FallbackCascade } from "@/cascade";
+import type { ILLMProvider } from "@/types";
 
 const logger = loggerWithConfig(new Logger("ProviderFactory"));
 

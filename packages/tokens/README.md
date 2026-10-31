@@ -2,9 +2,9 @@
 
 [![npm version](https://img.shields.io/npm/v/@yuva-devlab/tokens.svg)](https://www.npmjs.com/package/@yuva-devlab/tokens)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
-[![Tailwind CSS 4](https://img.shields.io/badge/Tailwind%20CSS-v4.x-38bdf8.svg)](https://tailwindcss.com)
+[![W3C Cascade Layers](https://img.shields.io/badge/CSS-W3C%20Cascade%20Layers-22c55e.svg)](https://developer.mozilla.org/en-US/docs/Web/CSS/@layer)
 
-> Core design token engine, OKLCH color palettes, typography scales, responsive density profiles, and Tailwind CSS 4 preset bridge for the DevLab ecosystem.
+> Core design token engine, OKLCH color palettes, typography scales, responsive density profiles, and pure W3C Cascade Layers for the DevLab ecosystem.
 
 ---
 
@@ -14,7 +14,7 @@
 - ⚡ **Zero-Runtime CSS Variables** - Pure CSS custom properties with zero JavaScript runtime overhead.
 - 🏷️ **Multi-Brand Theme Architecture** - Scoped brand theming for OrchestrAI, VitalAI, FinAI, Logs, and Portal.
 - 📐 **Density & Geometry Controls** - Brand-aware control heights, padding tokens, border radii, and typography scaling.
-- 🌉 **Tailwind CSS 4 Bridge** - Native `@theme` declarations providing seamless utility class integration.
+- 🏛️ **W3C Cascade Layers** - Native `@layer dl-tokens` providing clean cascade boundaries with zero build-step overhead.
 - 📦 **Typed Metadata Exports** - Full TypeScript contracts for programmatic brand discovery and switching.
 
 ---
@@ -36,9 +36,21 @@ yarn add @yuva-devlab/tokens
 
 ## Usage
 
-### 1. Tailwind CSS 4 Integration
+### 1. Platform CSS Integration
 
 Import the preset and your chosen brand theme in your root CSS file (e.g. `globals.css` or `app.css`):
+
+```css
+/* W3C Cascade Layers */
+@layer dl-reset, dl-tokens, dl-components, dl-layout, dl-utilities, dl-app;
+
+@import "@yuva-devlab/tokens/preset.css";
+@import "@yuva-devlab/tokens/themes/orchestrai.css";
+```
+
+### 2. Optional Tailwind CSS 4 Integration
+
+If your application still utilizes Tailwind CSS 4 during migration, you can layer it together:
 
 ```css
 @import "tailwindcss";
@@ -46,7 +58,7 @@ Import the preset and your chosen brand theme in your root CSS file (e.g. `globa
 @import "@yuva-devlab/tokens/themes/orchestrai.css";
 ```
 
-### 2. Available Brand Themes
+### 3. Available Brand Themes
 
 Import any brand theme stylesheet from `@yuva-devlab/tokens/themes/*`:
 

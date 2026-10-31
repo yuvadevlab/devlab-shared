@@ -18,7 +18,7 @@ export default function SecretRevealCardDocPage() {
       description:
         "Masks sensitive secrets with click-to-reveal toggle and one-click copy feedback.",
       preview: (
-        <div className="w-full max-w-sm">
+        <div className="dl-demo-frame dl-demo-frame--sm">
           <SecretRevealCard
             secret={secretKey}
             warningMessage="This token is displayed only once. Please store it in your environment vault immediately."
@@ -38,7 +38,7 @@ export default function SecretRevealCardDocPage() {
       description:
         "Clean credential disclosure without custom warning text for developer settings pages.",
       preview: (
-        <div className="w-full max-w-sm">
+        <div className="dl-demo-frame dl-demo-frame--sm">
           <SecretRevealCard secret={jwtToken} copyLabel="Copy Token" />
         </div>
       ),
@@ -79,7 +79,7 @@ export default function SecretRevealCardDocPage() {
     },
     {
       name: ".dl-secret-reveal-value",
-      description: "Monospace secret value text with font-mono styling.",
+      description: "Monospace secret value text.",
     },
   ];
 

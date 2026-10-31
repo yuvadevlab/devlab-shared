@@ -1,13 +1,14 @@
 "use client";
 
 import React, { useState } from "react";
-import { Badge, Button } from "@yuva-devlab/ui";
+import { Badge, Flex, Stack } from "@yuva-devlab/ui";
 import { DemoCard, type ComponentVariant } from "@/components/demo-card";
 import {
   ApiTable,
   type PropDefinition,
   type CssClassDefinition,
 } from "@/components/api-table";
+import { VariantFilterBar } from "@/components/variant-filter-bar";
 
 export type { ComponentVariant, PropDefinition, CssClassDefinition };
 
@@ -32,7 +33,6 @@ export function ComponentView({
   propsList,
   cssClasses,
 }: ComponentViewProps) {
-  // Normalize variants list
   const allVariants: ComponentVariant[] =
     variants && variants.length > 0
       ? variants
@@ -57,91 +57,79 @@ export function ComponentView({
           (v, idx) => (v.id || `variant-${idx}`) === activeFilter,
         );
 
+  const filterItems = allVariants.map((v, i) => ({
+    id: v.id || `variant-${i}`,
+    title: v.title,
+  }));
+
   return (
-    <div className="space-y-12 pb-16">
-      {/* Header Info */}
-      <div className="space-y-3 border-b pb-8 border-border">
-        <div className="flex items-center gap-2">
-          {category && (
-            <Badge
-              variant="secondary"
-              className="text-xs uppercase tracking-wider"
-            >
-              {category}
-            </Badge>
-          )}
-          <Badge variant="outline" className="text-xs">
-            Pure CSS Scoped
-          </Badge>
-          {allVariants.length > 1 && (
-            <Badge variant="outline" className="text-xs text-primary font-mono">
-              {allVariants.length} Variants
-            </Badge>
-          )}
-        </div>
-        <h1 className="text-3xl font-extrabold tracking-tight text-foreground">
-          {title}
-        </h1>
-        <p className="text-muted-foreground text-sm leading-relaxed max-w-3xl">
-          {description}
-        </p>
-      </div>
+    <div className="dl-comp-view">
+      <Stack gap={10}>
+        {/* Header Info */}
+        <header className="dl-comp-header">
+          <Stack gap={3}>
+            <Flex align="center" wrap="wrap" gap={2}>
+              {category && (
+                <Badge variant="secondary" className="dl-comp-header__badge">
+                  {category}
+                </Badge>
+              )}
+              <Badge variant="outline" className="dl-comp-header__badge">
+                Pure CSS Scoped
+              </Badge>
+              {allVariants.length > 1 && (
+                <Badge
+                  variant="outline"
+                  className="dl-comp-header__badge-variants"
+                >
+                  {allVariants.length} Variants
+                </Badge>
+              )}
+            </Flex>
+            <h1 className="dl-comp-header__title">{title}</h1>
+            <p className="dl-comp-header__desc">{description}</p>
+          </Stack>
+        </header>
 
-      {/* Examples & Variants Section (Ant Design style) */}
-      <div className="space-y-6">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-border/60 pb-4">
-          <div>
-            <h2 className="text-xl font-bold tracking-tight text-foreground">
-              Examples & Variants
-            </h2>
-            <p className="text-xs text-muted-foreground mt-0.5">
-              Explore interactive use cases and component variants.
-            </p>
-          </div>
-
-          {/* Quick Filter / Jump Pills */}
-          {allVariants.length > 1 && (
-            <div className="flex items-center gap-1.5 flex-wrap">
-              <Button
-                variant={activeFilter === "all" ? "secondary" : "ghost"}
-                size="sm"
-                onClick={() => setActiveFilter("all")}
-                className="h-7 text-xs px-2.5 rounded-full"
-              >
-                All ({allVariants.length})
-              </Button>
-              {allVariants.map((v, i) => {
-                const vid = v.id || `variant-${i}`;
-                return (
-                  <Button
-                    key={vid}
-                    variant={activeFilter === vid ? "secondary" : "ghost"}
-                    size="sm"
-                    onClick={() => setActiveFilter(vid)}
-                    className="h-7 text-xs px-2.5 rounded-full"
-                  >
-                    {v.title}
-                  </Button>
-                );
-              })}
+        {/* Examples & Variants Section */}
+        <Stack gap={6} className="dl-variants-section">
+          <Flex
+            align="center"
+            justify="between"
+            wrap="wrap"
+            gap={3}
+            className="dl-variants-section__header"
+          >
+            <div>
+              <h2 className="dl-variants-section__title">
+                Examples & Variants
+              </h2>
+              <p className="dl-variants-section__desc">
+                Explore interactive use cases and component variants.
+              </p>
             </div>
-          )}
-        </div>
 
-        {/* Demo Cards Stack */}
-        <div className="space-y-6">
-          {displayedVariants.map((variant, index) => (
-            <DemoCard
-              key={variant.id || `card-${index}`}
-              variant={variant}
-              index={index}
+            <VariantFilterBar
+              variants={filterItems}
+              activeId={activeFilter}
+              onSelect={setActiveFilter}
             />
-          ))}
-        </div>
-      </div>
+          </Flex>
 
-      {/* API Reference & CSS Classes */}
-      <ApiTable propsList={propsList} cssClasses={cssClasses} />
+          <Stack gap={6}>
+            {displayedVariants.map((variant, index) => (
+              <DemoCard
+                key={variant.id || `card-${index}`}
+                variant={variant}
+                index={index}
+              />
+            ))}
+          </Stack>
+        </Stack>
+
+        {/* API Table */}
+        <ApiTable propsList={propsList} cssClasses={cssClasses} />
+      </Stack>
     </div>
   );
 }

@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { Toggle, ToggleGroup, ToggleGroupItem } from "@yuva-devlab/ui";
+import { Toggle, ToggleGroup, ToggleGroupItem, Flex } from "@yuva-devlab/ui";
 import {
   Bold,
   Italic,
@@ -27,20 +27,19 @@ export default function ToggleDocPage() {
       description:
         "Two-state button that can be clicked to switch between active on and off states.",
       preview: (
-        <div className="flex items-center gap-3">
+        <Flex align="center" gap={3}>
           <Toggle
             pressed={singlePressed}
             onPressedChange={setSinglePressed}
             variant="outline"
-            className="gap-2"
           >
-            <Bold className="size-4" />
+            <Bold className="dl-demo-icon" />
             <span>Bold Formatting</span>
           </Toggle>
-        </div>
+        </Flex>
       ),
       codeSnippet: `<Toggle pressed={pressed} onPressedChange={setPressed} variant="outline">
-  <Bold className="size-4" />
+  <Bold className="dl-demo-icon" />
   <span>Bold</span>
 </Toggle>`,
     },
@@ -57,22 +56,22 @@ export default function ToggleDocPage() {
           variant="outline"
         >
           <ToggleGroupItem value="left" aria-label="Align left">
-            <AlignLeft className="size-4" />
+            <AlignLeft className="dl-demo-icon" />
           </ToggleGroupItem>
           <ToggleGroupItem value="center" aria-label="Align center">
-            <AlignCenter className="size-4" />
+            <AlignCenter className="dl-demo-icon" />
           </ToggleGroupItem>
           <ToggleGroupItem value="right" aria-label="Align right">
-            <AlignRight className="size-4" />
+            <AlignRight className="dl-demo-icon" />
           </ToggleGroupItem>
         </ToggleGroup>
       ),
       codeSnippet: `import { ToggleGroup, ToggleGroupItem } from "@yuva-devlab/ui";
 
 <ToggleGroup type="single" value={align} onValueChange={setAlign} variant="outline">
-  <ToggleGroupItem value="left"><AlignLeft className="size-4" /></ToggleGroupItem>
-  <ToggleGroupItem value="center"><AlignCenter className="size-4" /></ToggleGroupItem>
-  <ToggleGroupItem value="right"><AlignRight className="size-4" /></ToggleGroupItem>
+  <ToggleGroupItem value="left"><AlignLeft className="dl-demo-icon" /></ToggleGroupItem>
+  <ToggleGroupItem value="center"><AlignCenter className="dl-demo-icon" /></ToggleGroupItem>
+  <ToggleGroupItem value="right"><AlignRight className="dl-demo-icon" /></ToggleGroupItem>
 </ToggleGroup>`,
     },
     {
@@ -88,20 +87,20 @@ export default function ToggleDocPage() {
           variant="outline"
         >
           <ToggleGroupItem value="bold" aria-label="Toggle bold">
-            <Bold className="size-4" />
+            <Bold className="dl-demo-icon" />
           </ToggleGroupItem>
           <ToggleGroupItem value="italic" aria-label="Toggle italic">
-            <Italic className="size-4" />
+            <Italic className="dl-demo-icon" />
           </ToggleGroupItem>
           <ToggleGroupItem value="underline" aria-label="Toggle underline">
-            <Underline className="size-4" />
+            <Underline className="dl-demo-icon" />
           </ToggleGroupItem>
         </ToggleGroup>
       ),
       codeSnippet: `<ToggleGroup type="multiple" value={formats} onValueChange={setFormats} variant="outline">
-  <ToggleGroupItem value="bold"><Bold className="size-4" /></ToggleGroupItem>
-  <ToggleGroupItem value="italic"><Italic className="size-4" /></ToggleGroupItem>
-  <ToggleGroupItem value="underline"><Underline className="size-4" /></ToggleGroupItem>
+  <ToggleGroupItem value="bold"><Bold className="dl-demo-icon" /></ToggleGroupItem>
+  <ToggleGroupItem value="italic"><Italic className="dl-demo-icon" /></ToggleGroupItem>
+  <ToggleGroupItem value="underline"><Underline className="dl-demo-icon" /></ToggleGroupItem>
 </ToggleGroup>`,
     },
   ];

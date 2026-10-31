@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { ToggleGroup, ToggleGroupItem } from "@yuva-devlab/ui";
+import { ToggleGroup, ToggleGroupItem, Stack } from "@yuva-devlab/ui";
 import {
   AlignLeft,
   AlignCenter,
@@ -27,7 +27,7 @@ export default function ToggleGroupDocPage() {
       description:
         "Radio-style mutually exclusive toggle group, commonly used for text alignments or layout density.",
       preview: (
-        <div className="flex flex-col items-center gap-3">
+        <Stack align="center" gap={3}>
           <ToggleGroup
             type="single"
             value={alignment}
@@ -35,28 +35,27 @@ export default function ToggleGroupDocPage() {
             variant="outline"
           >
             <ToggleGroupItem value="left" aria-label="Align left">
-              <AlignLeft className="size-4" />
+              <AlignLeft className="dl-demo-icon" />
             </ToggleGroupItem>
             <ToggleGroupItem value="center" aria-label="Align center">
-              <AlignCenter className="size-4" />
+              <AlignCenter className="dl-demo-icon" />
             </ToggleGroupItem>
             <ToggleGroupItem value="right" aria-label="Align right">
-              <AlignRight className="size-4" />
+              <AlignRight className="dl-demo-icon" />
             </ToggleGroupItem>
             <ToggleGroupItem value="justify" aria-label="Align justify">
-              <AlignJustify className="size-4" />
+              <AlignJustify className="dl-demo-icon" />
             </ToggleGroupItem>
           </ToggleGroup>
-          <div className="text-xs text-muted-foreground font-mono">
-            Alignment:{" "}
-            <span className="text-primary font-bold">{alignment}</span>
+          <div className="dl-demo-code dl-demo-caption">
+            Alignment: <span className="dl-demo-heading">{alignment}</span>
           </div>
-        </div>
+        </Stack>
       ),
       codeSnippet: `<ToggleGroup type="single" value={align} onValueChange={setAlign} variant="outline">
-  <ToggleGroupItem value="left"><AlignLeft className="size-4" /></ToggleGroupItem>
-  <ToggleGroupItem value="center"><AlignCenter className="size-4" /></ToggleGroupItem>
-  <ToggleGroupItem value="right"><AlignRight className="size-4" /></ToggleGroupItem>
+  <ToggleGroupItem value="left"><AlignLeft className="dl-demo-icon" /></ToggleGroupItem>
+  <ToggleGroupItem value="center"><AlignCenter className="dl-demo-icon" /></ToggleGroupItem>
+  <ToggleGroupItem value="right"><AlignRight className="dl-demo-icon" /></ToggleGroupItem>
 </ToggleGroup>`,
     },
     {
@@ -65,7 +64,7 @@ export default function ToggleGroupDocPage() {
       description:
         "Checkbox-style non-exclusive toggle group allowing multiple concurrent selections.",
       preview: (
-        <div className="flex flex-col items-center gap-3">
+        <Stack align="center" gap={3}>
           <ToggleGroup
             type="multiple"
             value={formats}
@@ -73,27 +72,27 @@ export default function ToggleGroupDocPage() {
             variant="outline"
           >
             <ToggleGroupItem value="bold" aria-label="Bold">
-              <Bold className="size-4" />
+              <Bold className="dl-demo-icon" />
             </ToggleGroupItem>
             <ToggleGroupItem value="italic" aria-label="Italic">
-              <Italic className="size-4" />
+              <Italic className="dl-demo-icon" />
             </ToggleGroupItem>
             <ToggleGroupItem value="underline" aria-label="Underline">
-              <Underline className="size-4" />
+              <Underline className="dl-demo-icon" />
             </ToggleGroupItem>
           </ToggleGroup>
-          <div className="text-xs text-muted-foreground font-mono">
+          <div className="dl-demo-code dl-demo-caption">
             Active:{" "}
-            <span className="text-primary font-bold">
+            <span className="dl-demo-heading">
               {formats.join(", ") || "None"}
             </span>
           </div>
-        </div>
+        </Stack>
       ),
       codeSnippet: `<ToggleGroup type="multiple" value={formats} onValueChange={setFormats} variant="outline">
-  <ToggleGroupItem value="bold"><Bold className="size-4" /></ToggleGroupItem>
-  <ToggleGroupItem value="italic"><Italic className="size-4" /></ToggleGroupItem>
-  <ToggleGroupItem value="underline"><Underline className="size-4" /></ToggleGroupItem>
+  <ToggleGroupItem value="bold"><Bold className="dl-demo-icon" /></ToggleGroupItem>
+  <ToggleGroupItem value="italic"><Italic className="dl-demo-icon" /></ToggleGroupItem>
+  <ToggleGroupItem value="underline"><Underline className="dl-demo-icon" /></ToggleGroupItem>
 </ToggleGroup>`,
     },
   ];

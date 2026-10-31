@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { Container, Box } from "@yuva-devlab/ui";
+import { Container, Box, Stack } from "@yuva-devlab/ui";
 import {
   ComponentView,
   type ComponentVariant,
@@ -15,24 +15,18 @@ export default function ContainerDocPage() {
       description:
         "Centered container providing consistent horizontal margins and bounds.",
       preview: (
-        <div className="w-full space-y-3">
+        <Stack gap={3} className="dl-demo-frame">
           <Container size="sm">
-            <Box p="3" bg="muted" radius="md" className="text-xs text-center">
+            <Box p="3" bg="muted" radius="md" className="dl-demo-desc">
               Container size="sm" (max-width: 640px)
             </Box>
           </Container>
           <Container size="md">
-            <Box
-              p="3"
-              bg="card"
-              border
-              radius="md"
-              className="text-xs text-center"
-            >
+            <Box p="3" bg="card" border radius="md" className="dl-demo-desc">
               Container size="md" (max-width: 768px)
             </Box>
           </Container>
-        </div>
+        </Stack>
       ),
       codeSnippet: `<Container size="sm">
   <Box p="3" bg="muted">Small Container</Box>

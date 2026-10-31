@@ -45,7 +45,8 @@
     "./root.css": "./dist/root.css",
     "./common.css": "./dist/common.css",
     "./components/*": "./dist/components/*",
-    "./components.css": "./dist/components.css"
+    "./components.css": "./dist/components.css",
+    "./utilities.css": "./dist/utilities.css"
   },
   "files": [
     "dist"

@@ -3,15 +3,13 @@
 import React from "react";
 import Link from "next/link";
 import {
-  Sun,
-  Moon,
-  ExternalLink,
-  BookOpen,
   Layers,
+  Moon,
+  Sun,
   Sparkles,
+  BookOpen,
+  ExternalLink,
 } from "lucide-react";
-import { useTheme, type Brand } from "@/components/theme-provider";
-import { SearchTrigger } from "@/components/search-trigger";
 import {
   Button,
   Select,
@@ -20,30 +18,28 @@ import {
   SelectContent,
   SelectItem,
   Switch,
+  Flex,
 } from "@yuva-devlab/ui";
+import { useTheme, type Brand } from "@/components/theme-provider";
+import { SearchTrigger } from "@/components/search-trigger";
 import uiPackage from "@yuva-devlab/ui/package.json";
 
-interface BrandOption {
-  value: Brand;
-  label: string;
-}
-
-const BRANDS: readonly BrandOption[] = [
+const BRANDS = [
   {
     value: "orchestrai",
-    label: "🤖 OrchestrAI (Cyber Cyan)",
+    label: "⚡ OrchestrAI (Emerald Precision)",
   },
   {
     value: "finai",
-    label: "📊 FinAI (Emerald Green)",
+    label: "💎 FinAI (Cyberpunk Neon)",
   },
   {
     value: "portal",
-    label: "🛡️ DevLab Portal (Mint Obsidian)",
+    label: "🔮 DevLab Portal (Deep Indigo)",
   },
   {
     value: "logs",
-    label: "💻 DevLab Logs (Matrix Amber)",
+    label: "📊 DevLab Logs (Matrix Phosphor)",
   },
   {
     value: "vitalai",
@@ -56,40 +52,44 @@ export function Header() {
     useTheme();
 
   return (
-    <header className="border-border bg-card/80 sticky top-0 z-50 flex h-16 w-full items-center justify-between border-b px-6 backdrop-blur-md">
+    <header className="dl-docs-header">
       {/* Brand Logo & Title */}
-      <div className="flex items-center gap-3">
-        <Link
-          href="/"
-          className="flex items-center gap-2.5 font-bold tracking-tight"
-        >
-          <div className="bg-primary text-primary-foreground flex size-8 items-center justify-center rounded-lg shadow-sm">
-            <Layers className="size-4" />
+      <Flex align="center" gap={3}>
+        <Link href="/" className="dl-docs-header__brand-link">
+          <div className="dl-docs-header__logo">
+            <Layers className="dl-docs-header__logo-icon" />
           </div>
-          <span className="text-foreground text-base">DevLab UI</span>
-          <span className="border-border text-muted-foreground rounded-full border px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider">
+          <span className="dl-docs-header__brand-name">DevLab UI</span>
+          <span className="dl-docs-header__version-pill">
             v{uiPackage.version}
           </span>
         </Link>
-      </div>
+      </Flex>
 
       {/* Global Search Bar (Ant Design Inspired) */}
-      <div className="hidden sm:flex items-center justify-center flex-1 max-w-md px-4">
-        <SearchTrigger variant="header" className="w-full" />
+      <div className="dl-docs-header__search-center">
+        <SearchTrigger
+          variant="header"
+          className="dl-docs-header__search-trigger"
+        />
       </div>
 
       {/* Center/Right Toolbar */}
-      <div className="flex items-center gap-3">
+      <Flex align="center" gap={3}>
         {/* Mobile Search Button */}
-        <div className="sm:hidden">
-          <SearchTrigger variant="header" className="w-auto px-2" />
+        <div className="dl-docs-header__search-mobile">
+          <SearchTrigger variant="header" />
         </div>
 
         {/* Brand Switcher */}
-        <div className="flex items-center gap-1.5 text-xs font-medium">
-          <span className="text-muted-foreground hidden sm:inline">Brand:</span>
+        <Flex
+          align="center"
+          gap={2}
+          className="dl-docs-header__brand-select-wrap"
+        >
+          <span className="dl-docs-header__brand-label">Brand:</span>
           <Select value={brand} onValueChange={(val) => setBrand(val as Brand)}>
-            <SelectTrigger className="h-8 w-54 text-xs font-medium">
+            <SelectTrigger className="dl-docs-header__select-trigger">
               <SelectValue placeholder="Select Brand" />
             </SelectTrigger>
             <SelectContent>
@@ -100,10 +100,10 @@ export function Header() {
               ))}
             </SelectContent>
           </Select>
-        </div>
+        </Flex>
 
         {/* Full Theme Experience Flag */}
-        <div className="flex items-center gap-2 rounded-lg border border-border/80 bg-muted/40 px-2.5 py-1 text-xs">
+        <div className="dl-docs-header__theme-toggle">
           <Switch
             id="full-theme-toggle"
             checked={fullTheme}
@@ -111,12 +111,14 @@ export function Header() {
           />
           <label
             htmlFor="full-theme-toggle"
-            className="cursor-pointer select-none font-medium flex items-center gap-1.5"
+            className="dl-docs-header__theme-label"
             title="When enabled, adopts the selected brand's complete typography, sizing, spacing and corner radii across the entire documentation app."
           >
-            <Sparkles className="size-3.5 text-primary" />
-            <span className="hidden lg:inline">Preview Full Theme</span>
-            <span className="lg:hidden hidden sm:inline">Full Theme</span>
+            <Sparkles className="dl-docs-header__sparkles" />
+            <span className="dl-docs-header__theme-text-full">
+              Preview Full Theme
+            </span>
+            <span className="dl-docs-header__theme-text-short">Full Theme</span>
           </label>
         </div>
 
@@ -125,16 +127,16 @@ export function Header() {
           asChild
           variant="outline"
           size="sm"
-          className="hidden h-8 gap-1.5 text-xs md:inline-flex"
+          className="dl-docs-header__storybook-btn"
         >
           <a
             href="http://localhost:6006"
             target="_blank"
             rel="noopener noreferrer"
           >
-            <BookOpen className="size-3.5" />
+            <BookOpen className="dl-docs-header__icon-sm" />
             <span>Storybook</span>
-            <ExternalLink className="size-3 opacity-60" />
+            <ExternalLink className="dl-docs-header__icon-xs" />
           </a>
         </Button>
 
@@ -143,16 +145,16 @@ export function Header() {
           variant="ghost"
           size="icon"
           onClick={toggleMode}
-          className="size-8 rounded-md"
+          className="dl-docs-header__mode-btn"
           aria-label="Toggle dark/light mode"
         >
           {mode === "dark" ? (
-            <Sun className="size-4 text-amber-400" />
+            <Sun className="dl-docs-header__sun-icon" />
           ) : (
-            <Moon className="size-4" />
+            <Moon className="dl-docs-header__icon-sm" />
           )}
         </Button>
-      </div>
+      </Flex>
     </header>
   );
 }

@@ -14,6 +14,7 @@ import {
   ConfirmDialog,
   Button,
   Input,
+  Stack,
 } from "@yuva-devlab/ui";
 import {
   ComponentView,
@@ -35,31 +36,31 @@ export default function DialogDocPage() {
         <div>
           <Dialog open={standardOpen} onOpenChange={setStandardOpen}>
             <DialogTrigger asChild>
-              <Button variant="default" className="gap-2">
-                <Terminal className="size-4" />
+              <Button variant="default">
+                <Terminal className="dl-demo-icon dl-demo-icon--sm" />
                 <span>Launch Execution Modal</span>
               </Button>
             </DialogTrigger>
-            <DialogContent className="max-w-md">
+            <DialogContent>
               <DialogHeader>
                 <DialogTitle>Configure Execution Run</DialogTitle>
                 <DialogDescription>
                   Set runtime parameters before deploying agent to cluster.
                 </DialogDescription>
               </DialogHeader>
-              <DialogBody className="space-y-3 py-2">
-                <div className="space-y-1">
-                  <label className="text-foreground text-xs font-semibold">
-                    Cluster Identifier
-                  </label>
-                  <Input defaultValue="us-east4-prod-a" />
-                </div>
-                <div className="space-y-1">
-                  <label className="text-foreground text-xs font-semibold">
-                    Max Step Budget
-                  </label>
-                  <Input type="number" defaultValue="25" />
-                </div>
+              <DialogBody>
+                <Stack gap={3}>
+                  <Stack gap={1}>
+                    <label className="dl-demo-heading">
+                      Cluster Identifier
+                    </label>
+                    <Input defaultValue="us-east4-prod-a" />
+                  </Stack>
+                  <Stack gap={1}>
+                    <label className="dl-demo-heading">Max Step Budget</label>
+                    <Input type="number" defaultValue="25" />
+                  </Stack>
+                </Stack>
               </DialogBody>
               <DialogFooter>
                 <Button
@@ -78,7 +79,7 @@ export default function DialogDocPage() {
       ),
       codeSnippet: `<Dialog>
   <DialogTrigger asChild><Button>Open Dialog</Button></DialogTrigger>
-  <DialogContent className="max-w-md">
+  <DialogContent>
     <DialogHeader>
       <DialogTitle>Configure Run</DialogTitle>
       <DialogDescription>Set parameters for execution.</DialogDescription>
@@ -95,12 +96,8 @@ export default function DialogDocPage() {
         "Pre-composed confirmation dialog for verifying non-destructive actions.",
       preview: (
         <div>
-          <Button
-            variant="secondary"
-            className="gap-2"
-            onClick={() => setConfirmOpen(true)}
-          >
-            <CheckCircle className="size-4" />
+          <Button variant="secondary" onClick={() => setConfirmOpen(true)}>
+            <CheckCircle className="dl-demo-icon dl-demo-icon--sm" />
             <span>Open Confirmation Modal</span>
           </Button>
 
@@ -135,10 +132,9 @@ export default function DialogDocPage() {
         <div>
           <Button
             variant="destructive"
-            className="gap-2"
             onClick={() => setDestructiveOpen(true)}
           >
-            <AlertTriangle className="size-4" />
+            <AlertTriangle className="dl-demo-icon dl-demo-icon--sm" />
             <span>Delete Database Workspace</span>
           </Button>
 

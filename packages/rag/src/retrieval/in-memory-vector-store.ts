@@ -5,15 +5,15 @@
  */
 
 import { Logger, loggerWithConfig } from "@yuva-devlab/logger";
-import { DEFAULT_MIN_SCORE, DEFAULT_TOP_K } from "../constants";
+import { DEFAULT_MIN_SCORE, DEFAULT_TOP_K } from "@/constants";
 import type {
   DocumentChunk,
   RagQuery,
   RagSearchResult,
   ScoredDocumentChunk,
-} from "../contracts";
-import type { IEmbeddingProvider } from "../embeddings";
-import { cosineSimilarity } from "../similarity";
+} from "@/contracts";
+import type { IEmbeddingProvider } from "@/embeddings";
+import { cosineSimilarity } from "@/similarity";
 
 const logger = loggerWithConfig(new Logger("InMemoryVectorStore"));
 

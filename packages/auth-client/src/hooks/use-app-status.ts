@@ -5,7 +5,7 @@
  */
 
 import { useDevLabAuth } from "./use-devlab-auth";
-import { AppStatus } from "../types";
+import { AppStatus } from "@/types";
 
 /**
  * Convenience hook inspecting the active platform lifecycle state.

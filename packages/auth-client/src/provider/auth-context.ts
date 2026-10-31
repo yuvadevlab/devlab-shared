@@ -5,7 +5,7 @@
  */
 
 import { createContext } from "react";
-import type { DevLabAuthContextValue } from "../types";
+import type { DevLabAuthContextValue } from "@/types";
 
 /**
  * React context storing current DevLab authentication state and actions.

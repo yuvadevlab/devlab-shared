@@ -32,6 +32,7 @@ const REGISTRY: Record<
   dialog: () => import("@/registry/components/dialog"),
   drawer: () => import("@/registry/components/drawer"),
   "dropdown-menu": () => import("@/registry/components/dropdown-menu"),
+  "empty-state": () => import("@/registry/components/empty-state"),
   flex: () => import("@/registry/components/flex"),
   form: () => import("@/registry/components/form"),
   grid: () => import("@/registry/components/grid"),

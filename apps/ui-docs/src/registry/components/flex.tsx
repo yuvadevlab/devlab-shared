@@ -18,16 +18,16 @@ export default function FlexDocPage() {
         <Flex
           justify="between"
           align="center"
-          className="w-full max-w-md p-4 border rounded-lg"
+          className="dl-demo-frame dl-demo-frame--md dl-demo-box"
         >
           <div>
-            <h4 className="font-semibold text-sm">Cluster Status</h4>
-            <span className="text-xs text-muted-foreground">us-east4</span>
+            <h4 className="dl-demo-heading">Cluster Status</h4>
+            <span className="dl-demo-desc">us-east4</span>
           </div>
           <Badge variant="success">Online</Badge>
         </Flex>
       ),
-      codeSnippet: `<Flex justify="between" align="center">
+      codeSnippet: `<Flex justify="between" align="center" className="dl-demo-frame dl-demo-frame--md dl-demo-box">
   <div>
     <h4>Cluster Status</h4>
     <span>us-east4</span>

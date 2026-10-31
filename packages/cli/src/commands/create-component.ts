@@ -5,9 +5,9 @@ import chalk from "chalk";
 import { Command } from "commander";
 import prompts from "prompts";
 
-import { findRepoRoot } from "../utils/fs";
-import { scaffoldPrimitive, scaffoldStyledComponent } from "../utils/helpers";
-import { toKebabCase, toPascalCase } from "../utils/strings";
+import { findRepoRoot } from "@/utils/fs";
+import { scaffoldPrimitive, scaffoldStyledComponent } from "@/utils/helpers";
+import { toKebabCase, toPascalCase } from "@/utils/strings";
 
 interface CreateComponentOptions {
   kind?: "component" | "primitive";

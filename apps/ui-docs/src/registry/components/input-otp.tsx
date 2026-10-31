@@ -7,6 +7,8 @@ import {
   InputOTPSlot,
   InputOTPSeparator,
   Button,
+  Flex,
+  Stack,
 } from "@yuva-devlab/ui";
 import { ComponentView, ComponentVariant } from "@/components/component-view";
 
@@ -24,7 +26,7 @@ export default function InputOTPDocPage() {
       description:
         "Two 3-digit groups separated by a dash delimiter, typical for SMS or authenticator 2FA.",
       preview: (
-        <div className="flex flex-col items-center gap-4">
+        <Stack align="center" gap={4}>
           <InputOTP maxLength={6} value={val6} onChange={setVal6}>
             <InputOTPGroup>
               <InputOTPSlot index={0} />
@@ -39,21 +41,15 @@ export default function InputOTPDocPage() {
             </InputOTPGroup>
           </InputOTP>
 
-          <div className="flex items-center gap-3">
-            <span className="text-xs text-muted-foreground font-mono">
-              Entered:{" "}
-              <strong className="text-primary">{val6 || "None"}</strong>
+          <Flex align="center" gap={3}>
+            <span className="dl-demo-code">
+              Entered: <strong>{val6 || "None"}</strong>
             </span>
-            <Button
-              size="sm"
-              variant="outline"
-              className="h-7 text-xs"
-              onClick={() => setVal6("")}
-            >
+            <Button size="sm" variant="outline" onClick={() => setVal6("")}>
               Reset
             </Button>
-          </div>
-        </div>
+          </Flex>
+        </Stack>
       ),
       codeSnippet: `<InputOTP maxLength={6} value={value} onChange={setValue}>
   <InputOTPGroup>
@@ -75,7 +71,7 @@ export default function InputOTPDocPage() {
       description:
         "Compact 4-digit code entry suitable for transaction authorizations and quick passcodes.",
       preview: (
-        <div className="flex flex-col items-center gap-4">
+        <Stack align="center" gap={4}>
           <InputOTP maxLength={4} value={val4} onChange={setVal4}>
             <InputOTPGroup>
               <InputOTPSlot index={0} />
@@ -85,10 +81,10 @@ export default function InputOTPDocPage() {
             </InputOTPGroup>
           </InputOTP>
 
-          <span className="text-xs text-muted-foreground font-mono">
-            PIN: <strong className="text-primary">{val4 || "None"}</strong>
+          <span className="dl-demo-code">
+            PIN: <strong>{val4 || "None"}</strong>
           </span>
-        </div>
+        </Stack>
       ),
       codeSnippet: `<InputOTP maxLength={4} value={pin} onChange={setPin}>
   <InputOTPGroup>

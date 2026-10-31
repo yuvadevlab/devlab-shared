@@ -1,11 +1,29 @@
 import * as React from "react";
 import { Slot } from "@radix-ui/react-slot";
-import { cn } from "../../lib/utils";
+import { cn } from "@/lib/utils";
 
 /**
  * Visual padding scale tokens mapped to semantic spacing CSS variables.
  */
-export type BoxPadding = "0" | "1" | "2" | "3" | "4" | "5" | "6" | "8" | "10";
+export type BoxPadding =
+  | "0"
+  | "1"
+  | "2"
+  | "3"
+  | "4"
+  | "5"
+  | "6"
+  | "8"
+  | "10"
+  | 0
+  | 1
+  | 2
+  | 3
+  | 4
+  | 5
+  | 6
+  | 8
+  | 10;
 
 /**
  * Border radius scale tokens mapped to brand radius CSS variables.
@@ -26,6 +44,11 @@ export interface BoxProps extends React.HTMLAttributes<HTMLDivElement> {
    * @default false
    */
   asChild?: boolean;
+  /**
+   * HTML element type to render.
+   * @default "div"
+   */
+  as?: React.ElementType;
   /**
    * Internal padding token mapped to --space-* CSS variables.
    */
@@ -60,7 +83,6 @@ export interface BoxProps extends React.HTMLAttributes<HTMLDivElement> {
 
 /**
  * Primitive bounding Box component for structured spacing, borders, and surfaces.
- * Pure CSS platform primitive with zero runtime Tailwind dependencies.
  *
  * @example
  * ```tsx
@@ -74,6 +96,7 @@ export const Box = React.forwardRef<HTMLDivElement, BoxProps>(
     {
       className,
       asChild = false,
+      as,
       p,
       px,
       py,
@@ -86,7 +109,7 @@ export const Box = React.forwardRef<HTMLDivElement, BoxProps>(
     },
     ref,
   ) => {
-    const Comp = asChild ? Slot : "div";
+    const Comp = asChild ? Slot : as || "div";
 
     const inlineStyles: React.CSSProperties = { ...style };
     if (p) inlineStyles.padding = `var(--space-${p})`;

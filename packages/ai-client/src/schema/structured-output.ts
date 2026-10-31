@@ -7,13 +7,13 @@
 import { z } from "zod";
 import { DomainError, ErrorCode } from "@yuva-devlab/errors";
 import { Logger, loggerWithConfig } from "@yuva-devlab/logger";
-import { AI_EXECUTION_DEFAULTS } from "../constants";
+import { AI_EXECUTION_DEFAULTS } from "@/constants";
 import {
   createAssistantMessage,
   createUserMessage,
   type ILLMProvider,
   type LLMRequest,
-} from "../types";
+} from "@/types";
 
 const logger = loggerWithConfig(new Logger("StructuredOutput"));
 

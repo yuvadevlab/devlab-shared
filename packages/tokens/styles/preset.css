@@ -186,7 +186,7 @@
   --theme-spacing: 0.25rem;
 }
 
-@theme inline {
+:root {
   /* ── Typography & Spacing Tokens ────────────────────────────────── */
   --font-sans: var(--font-sans);
   --font-display: var(--font-display);
@@ -277,7 +277,7 @@
 }
 
 /* ── Cybernetic Grid & Graph Topologies ──────────────────────────────────── */
-@utility execution-grid {
+.execution-grid {
   background-image:
     linear-gradient(var(--border) 1px, transparent 1px),
     linear-gradient(90deg, var(--border) 1px, transparent 1px);
@@ -285,7 +285,7 @@
   mask-image: linear-gradient(to bottom, black, transparent 72%);
 }
 
-@utility topology-grid {
+.topology-grid {
   background-image: radial-gradient(
     circle at center,
     var(--border) 1px,
@@ -302,7 +302,7 @@
 }
 
 /* ── Glass Morphism Utility ────────────────────────────────────────────── */
-@utility glass {
+.glass {
   background-color: var(--surface);
   backdrop-filter: blur(16px) saturate(140%);
   -webkit-backdrop-filter: blur(16px) saturate(140%);
@@ -310,7 +310,7 @@
 }
 
 /* ── Mesh Background Gradient ─────────────────────────────────────────── */
-@utility mesh-bg {
+.mesh-bg {
   background-image:
     radial-gradient(
       60rem 30rem at 12% -10%,
@@ -325,7 +325,7 @@
 }
 
 /* ── Text Gradient Utility ─────────────────────────────────────────────── */
-@utility text-gradient {
+.text-gradient {
   background-image: linear-gradient(
     100deg,
     var(--foreground) 10%,
@@ -336,24 +336,24 @@
 }
 
 /* ── Live Agent Telemetry Animations ─────────────────────────────────────── */
-@utility animate-agent-pulse {
+.animate-agent-pulse {
   animation: agent-pulse 1.8s ease-in-out infinite;
 }
 
-@utility animate-signal-travel {
+.animate-signal-travel {
   animation: signal-travel 1.5s linear infinite;
 }
 
-@utility animate-progress-flow {
+.animate-progress-flow {
   animation: progress-flow 1.8s ease-in-out infinite;
 }
 
-@utility runner-enter {
+.runner-enter {
   animation: runner-enter 260ms ease-out both;
 }
 
 /* ── Pulse Ring Animation (status indicator) ───────────────────────────── */
-@utility pulse-dot {
+.pulse-dot {
   animation: pulse-ring 1.8s ease-out infinite;
 }
 

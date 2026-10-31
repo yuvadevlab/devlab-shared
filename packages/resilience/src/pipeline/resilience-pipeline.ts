@@ -5,16 +5,16 @@
  * @module @yuva-devlab/resilience/pipeline
  */
 
-import { withTimeout, type TimeoutOptions } from "../deadline";
-import { retryAsync, type RetryOptions } from "../retry";
-import { CircuitBreaker, type CircuitBreakerOptions } from "../circuit-breaker";
-import { Bulkhead, type BulkheadOptions } from "../bulkhead";
-import { TokenBucket, type TokenBucketOptions } from "../ratelimit";
+import { withTimeout, type TimeoutOptions } from "@/deadline";
+import { retryAsync, type RetryOptions } from "@/retry";
+import { CircuitBreaker, type CircuitBreakerOptions } from "@/circuit-breaker";
+import { Bulkhead, type BulkheadOptions } from "@/bulkhead";
+import { TokenBucket, type TokenBucketOptions } from "@/ratelimit";
 import {
   withFallback,
   type FallbackOptions,
   type FallbackHandler,
-} from "../fallback";
+} from "@/fallback";
 import type {
   IResiliencePolicy,
   PipelinePolicyOptions,

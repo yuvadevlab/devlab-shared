@@ -31,7 +31,6 @@ export default function PaginationDocPage() {
             <PaginationItem>
               <PaginationPrevious
                 onClick={() => setPage1((p) => Math.max(1, p - 1))}
-                className="cursor-pointer"
               />
             </PaginationItem>
             {[1, 2, 3, 4].map((num) => (
@@ -39,7 +38,6 @@ export default function PaginationDocPage() {
                 <PaginationLink
                   isActive={page1 === num}
                   onClick={() => setPage1(num)}
-                  className="cursor-pointer"
                 >
                   {num}
                 </PaginationLink>
@@ -48,7 +46,6 @@ export default function PaginationDocPage() {
             <PaginationItem>
               <PaginationNext
                 onClick={() => setPage1((p) => Math.min(4, p + 1))}
-                className="cursor-pointer"
               />
             </PaginationItem>
           </PaginationContent>
@@ -74,14 +71,12 @@ export default function PaginationDocPage() {
             <PaginationItem>
               <PaginationPrevious
                 onClick={() => setPage2((p) => Math.max(1, p - 1))}
-                className="cursor-pointer"
               />
             </PaginationItem>
             <PaginationItem>
               <PaginationLink
                 isActive={page2 === 1}
                 onClick={() => setPage2(1)}
-                className="cursor-pointer"
               >
                 1
               </PaginationLink>
@@ -90,7 +85,6 @@ export default function PaginationDocPage() {
               <PaginationLink
                 isActive={page2 === 2}
                 onClick={() => setPage2(2)}
-                className="cursor-pointer"
               >
                 2
               </PaginationLink>
@@ -99,7 +93,6 @@ export default function PaginationDocPage() {
               <PaginationLink
                 isActive={page2 === 3}
                 onClick={() => setPage2(3)}
-                className="cursor-pointer"
               >
                 3
               </PaginationLink>
@@ -111,7 +104,6 @@ export default function PaginationDocPage() {
               <PaginationLink
                 isActive={page2 === 50}
                 onClick={() => setPage2(50)}
-                className="cursor-pointer"
               >
                 50
               </PaginationLink>
@@ -119,7 +111,6 @@ export default function PaginationDocPage() {
             <PaginationItem>
               <PaginationNext
                 onClick={() => setPage2((p) => Math.min(50, p + 1))}
-                className="cursor-pointer"
               />
             </PaginationItem>
           </PaginationContent>

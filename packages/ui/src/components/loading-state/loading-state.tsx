@@ -1,6 +1,6 @@
 import * as React from "react";
-import { cn } from "../../lib/utils";
-import { Skeleton } from "../skeleton";
+import { cn } from "@/lib/utils";
+import { Skeleton } from "@/components/skeleton";
 
 export interface LoadingStateProps extends React.HTMLAttributes<HTMLDivElement> {
   /** Number of skeleton placeholder rows to render (default: 3) */
@@ -50,17 +50,10 @@ export function LoadingState({
 
   return (
     <div className={cn("dl-loading-skeleton", className)} {...props}>
-      <Skeleton style={{ height: "2rem", width: "33.333%" }} />
+      <Skeleton className="dl-loading-skeleton__header" />
       <div className="dl-loading-skeleton__list">
         {Array.from({ length: rows }).map((_, i) => (
-          <Skeleton
-            key={i}
-            style={{
-              height: "4rem",
-              width: "100%",
-              borderRadius: "var(--radius-lg, 0.75rem)",
-            }}
-          />
+          <Skeleton key={i} className="dl-loading-skeleton__row" />
         ))}
       </div>
     </div>

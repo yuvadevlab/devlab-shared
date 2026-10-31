@@ -13,6 +13,8 @@ import {
   SecretRevealCard,
   Button,
   Badge,
+  Flex,
+  Grid,
 } from "@yuva-devlab/ui";
 import {
   ComponentView,
@@ -27,43 +29,47 @@ export default function CardDocPage() {
       description:
         "Structured container featuring header, badge, body content, and footer actions.",
       preview: (
-        <Card className="w-full max-w-sm">
+        <Card className="dl-demo-frame dl-demo-frame--sm">
           <CardHeader>
-            <div className="flex items-center justify-between">
-              <CardTitle className="text-base">Autonomous Fleet</CardTitle>
+            <Flex align="center" justify="between">
+              <CardTitle>Autonomous Fleet</CardTitle>
               <Badge variant="success">Online</Badge>
-            </div>
+            </Flex>
             <CardDescription>Cluster Node: us-east4-agent-01</CardDescription>
           </CardHeader>
           <CardContent>
-            <p className="text-muted-foreground text-xs leading-relaxed">
+            <p className="dl-demo-desc">
               Cluster operating normally. 99.98% uptime maintained over the last
               30 days.
             </p>
           </CardContent>
-          <CardFooter className="flex justify-between">
-            <Button variant="ghost" size="sm">
-              Dismiss
-            </Button>
-            <Button size="sm" className="gap-1.5">
-              <span>Inspect Node</span>
-              <ArrowRight className="size-3.5" />
-            </Button>
+          <CardFooter>
+            <Flex justify="between" className="dl-demo-frame">
+              <Button variant="ghost" size="sm">
+                Dismiss
+              </Button>
+              <Button size="sm">
+                <span>Inspect Node</span>
+                <ArrowRight className="dl-demo-icon dl-demo-icon--xs" />
+              </Button>
+            </Flex>
           </CardFooter>
         </Card>
       ),
-      codeSnippet: `<Card className="w-full max-w-sm">
+      codeSnippet: `<Card className="dl-demo-frame dl-demo-frame--sm">
   <CardHeader>
-    <div className="flex items-center justify-between">
+    <Flex align="center" justify="between">
       <CardTitle>Autonomous Fleet</CardTitle>
       <Badge variant="success">Online</Badge>
-    </div>
+    </Flex>
     <CardDescription>Cluster Node: us-east4</CardDescription>
   </CardHeader>
   <CardContent><p>Cluster operating normally.</p></CardContent>
-  <CardFooter className="flex justify-between">
-    <Button variant="ghost" size="sm">Dismiss</Button>
-    <Button size="sm">Inspect Node</Button>
+  <CardFooter>
+    <Flex justify="between">
+      <Button variant="ghost" size="sm">Dismiss</Button>
+      <Button size="sm">Inspect Node</Button>
+    </Flex>
   </CardFooter>
 </Card>`,
     },
@@ -73,32 +79,34 @@ export default function CardDocPage() {
       description:
         "AntD-inspired statistic card displaying numerical KPIs, trend delta badges, and icons.",
       preview: (
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full max-w-md">
+        <Grid columns={2} gap={4} className="dl-demo-frame dl-demo-frame--md">
           <MetricCard
             label="Total Tokens"
             value="14.2M"
             note="+18.4% vs previous 30 days"
             positive={true}
-            icon={<Cpu className="size-4" />}
+            icon={<Cpu className="dl-demo-icon dl-demo-icon--sm" />}
           />
           <MetricCard
             label="Active Agents"
             value="482"
             note="+12.0% active tasks"
             positive={true}
-            icon={<TrendingUp className="size-4" />}
+            icon={<TrendingUp className="dl-demo-icon dl-demo-icon--sm" />}
           />
-        </div>
+        </Grid>
       ),
-      codeSnippet: `import { MetricCard } from "@yuva-devlab/ui";
+      codeSnippet: `import { MetricCard, Grid } from "@yuva-devlab/ui";
 
-<MetricCard
-  label="Total Tokens"
-  value="14.2M"
-  note="+18.4% vs last month"
-  positive={true}
-  icon={<Cpu className="size-4" />}
-/>`,
+<Grid columns={2} gap="4">
+  <MetricCard
+    label="Total Tokens"
+    value="14.2M"
+    note="+18.4% vs last month"
+    positive={true}
+    icon={<Cpu />}
+  />
+</Grid>`,
     },
     {
       id: "secret",
@@ -106,7 +114,7 @@ export default function CardDocPage() {
       description:
         "Secure card for displaying sensitive API keys with click-to-reveal mask and instant copy.",
       preview: (
-        <div className="w-full max-w-md">
+        <div className="dl-demo-frame dl-demo-frame--md">
           <SecretRevealCard
             secret="AIzaSyB4x902_devlab_production_secret_key"
             warningMessage="Store this credential in server vault immediately."

@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { Box, Button } from "@yuva-devlab/ui";
+import { Box, Button, Stack } from "@yuva-devlab/ui";
 import {
   ComponentView,
   type ComponentVariant,
@@ -20,21 +20,29 @@ export default function BoxDocPage() {
           border
           radius="lg"
           shadow="md"
-          className="w-full max-w-sm"
+          className="dl-demo-frame dl-demo-frame--sm"
         >
-          <h4 className="font-semibold text-sm mb-1">Encapsulated Surface</h4>
-          <p className="text-xs text-muted-foreground mb-4">
-            Zero Tailwind utility classes needed. Sourced from design tokens.
-          </p>
-          <Button size="sm" variant="default">
-            Action
-          </Button>
+          <Stack gap={3}>
+            <Stack gap={1}>
+              <h4 className="dl-demo-heading">Encapsulated Surface</h4>
+              <p className="dl-demo-desc">
+                Cleanly styled from design tokens without external utilities.
+              </p>
+            </Stack>
+            <div>
+              <Button size="sm" variant="default">
+                Action
+              </Button>
+            </div>
+          </Stack>
         </Box>
       ),
       codeSnippet: `<Box p="6" bg="card" border radius="lg" shadow="md">
-  <h4>Encapsulated Surface</h4>
-  <p>Zero Tailwind utility classes needed.</p>
-  <Button size="sm">Action</Button>
+  <Stack gap="3">
+    <h4>Encapsulated Surface</h4>
+    <p>Cleanly styled from design tokens.</p>
+    <Button size="sm">Action</Button>
+  </Stack>
 </Box>`,
     },
     {
@@ -43,7 +51,12 @@ export default function BoxDocPage() {
       description:
         "Subtle background container with custom padding and rounded corners.",
       preview: (
-        <Box p="4" bg="muted" radius="md" className="w-full max-w-sm text-xs">
+        <Box
+          p="4"
+          bg="muted"
+          radius="md"
+          className="dl-demo-frame dl-demo-frame--sm dl-demo-desc"
+        >
           Token-driven muted background box.
         </Box>
       ),

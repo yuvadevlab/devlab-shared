@@ -8,13 +8,13 @@ import { Logger, loggerWithConfig } from "@yuva-devlab/logger";
 import {
   DEFAULT_PRICING_CACHE_TTL_MS,
   SAFETY_CEILING_PRICING,
-} from "../constants";
+} from "@/constants";
 import type {
   IPricingResolver,
   ModelPricingRate,
   PricingLoaderFn,
   PricingLookupOptions,
-} from "../types";
+} from "@/types";
 
 const logger = loggerWithConfig(new Logger("DynamicPricingResolver"));
 

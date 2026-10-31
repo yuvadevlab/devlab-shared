@@ -1,7 +1,13 @@
 "use client";
 
 import React, { useState } from "react";
-import { RadioGroup, RadioGroupItem, Label } from "@yuva-devlab/ui";
+import {
+  RadioGroup,
+  RadioGroupItem,
+  Label,
+  Flex,
+  Stack,
+} from "@yuva-devlab/ui";
 import {
   ComponentView,
   type ComponentVariant,
@@ -18,46 +24,49 @@ export default function RadioGroupDocPage() {
       description:
         "AntD-inspired rich option cards with primary border highlight on selection.",
       preview: (
-        <div className="w-full max-w-sm">
-          <RadioGroup
-            value={val1}
-            onValueChange={setVal1}
-            className="space-y-3"
-          >
-            <div className="flex items-center space-x-3 p-3 rounded-lg border border-border bg-card/60 hover:bg-muted/40 transition cursor-pointer">
-              <RadioGroupItem value="standard" id="r-standard" />
-              <div className="flex-1">
-                <Label
-                  htmlFor="r-standard"
-                  className="cursor-pointer font-semibold"
-                >
-                  Standard Compute
-                </Label>
-                <p className="text-xs text-muted-foreground mt-0.5">
-                  4 vCPUs • 16GB RAM • Burst credits
-                </p>
-              </div>
-            </div>
+        <div className="dl-demo-frame dl-demo-frame--sm">
+          <RadioGroup value={val1} onValueChange={setVal1}>
+            <Stack gap={3}>
+              <Flex
+                align="center"
+                gap={3}
+                className="dl-demo-box dl-demo-box--sm"
+              >
+                <RadioGroupItem value="standard" id="r-standard" />
+                <div className="dl-demo-frame">
+                  <Label htmlFor="r-standard" className="dl-demo-heading">
+                    Standard Compute
+                  </Label>
+                  <p className="dl-demo-desc">
+                    4 vCPUs • 16GB RAM • Burst credits
+                  </p>
+                </div>
+              </Flex>
 
-            <div className="flex items-center space-x-3 p-3 rounded-lg border border-border bg-card/60 hover:bg-muted/40 transition cursor-pointer">
-              <RadioGroupItem value="pro" id="r-pro" />
-              <div className="flex-1">
-                <Label htmlFor="r-pro" className="cursor-pointer font-semibold">
-                  GPU Acceleration
-                </Label>
-                <p className="text-xs text-muted-foreground mt-0.5">
-                  NVIDIA H100 Tensor Core • 80GB VRAM
-                </p>
-              </div>
-            </div>
+              <Flex
+                align="center"
+                gap={3}
+                className="dl-demo-box dl-demo-box--sm"
+              >
+                <RadioGroupItem value="pro" id="r-pro" />
+                <div className="dl-demo-frame">
+                  <Label htmlFor="r-pro" className="dl-demo-heading">
+                    GPU Acceleration
+                  </Label>
+                  <p className="dl-demo-desc">
+                    NVIDIA H100 Tensor Core • 80GB VRAM
+                  </p>
+                </div>
+              </Flex>
+            </Stack>
           </RadioGroup>
         </div>
       ),
       codeSnippet: `<RadioGroup value={val} onValueChange={setVal}>
-  <div className="p-3 border rounded-lg">
+  <Flex align="center" gap="3" className="dl-demo-box dl-demo-box--sm">
     <RadioGroupItem value="standard" id="r1" />
     <Label htmlFor="r1">Standard</Label>
-  </div>
+  </Flex>
 </RadioGroup>`,
     },
     {
@@ -65,38 +74,36 @@ export default function RadioGroupDocPage() {
       title: "Horizontal Inline Radio Group",
       description: "Compact horizontal layout suitable for form filter bars.",
       preview: (
-        <RadioGroup
-          value={val2}
-          onValueChange={setVal2}
-          className="flex items-center gap-6"
-        >
-          <div className="flex items-center space-x-2">
-            <RadioGroupItem value="gpt4" id="r-gpt4" />
-            <Label htmlFor="r-gpt4" className="cursor-pointer text-xs">
-              GPT-4o
-            </Label>
-          </div>
-          <div className="flex items-center space-x-2">
-            <RadioGroupItem value="gemini" id="r-gemini" />
-            <Label htmlFor="r-gemini" className="cursor-pointer text-xs">
-              Gemini 2.5
-            </Label>
-          </div>
-          <div className="flex items-center space-x-2">
-            <RadioGroupItem value="claude" id="r-claude" disabled />
-            <Label
-              htmlFor="r-claude"
-              className="cursor-pointer text-xs text-muted-foreground"
-            >
-              Claude (Locked)
-            </Label>
-          </div>
+        <RadioGroup value={val2} onValueChange={setVal2}>
+          <Flex align="center" gap={6}>
+            <Flex align="center" gap={2}>
+              <RadioGroupItem value="gpt4" id="r-gpt4" />
+              <Label htmlFor="r-gpt4" className="dl-demo-desc">
+                GPT-4o
+              </Label>
+            </Flex>
+            <Flex align="center" gap={2}>
+              <RadioGroupItem value="gemini" id="r-gemini" />
+              <Label htmlFor="r-gemini" className="dl-demo-desc">
+                Gemini 2.5
+              </Label>
+            </Flex>
+            <Flex align="center" gap={2}>
+              <RadioGroupItem value="claude" id="r-claude" disabled />
+              <Label htmlFor="r-claude" className="dl-demo-desc">
+                Claude (Locked)
+              </Label>
+            </Flex>
+          </Flex>
         </RadioGroup>
       ),
-      codeSnippet: `<RadioGroup value={val} onValueChange={setVal} className="flex gap-6">
-  <RadioGroupItem value="gpt4" id="r1" /><Label htmlFor="r1">GPT-4o</Label>
-  <RadioGroupItem value="gemini" id="r2" /><Label htmlFor="r2">Gemini</Label>
-  <RadioGroupItem value="claude" id="r3" disabled /><Label htmlFor="r3">Claude</Label>
+      codeSnippet: `<RadioGroup value={val} onValueChange={setVal}>
+  <Flex align="center" gap="6">
+    <Flex align="center" gap="2">
+      <RadioGroupItem value="gpt4" id="r1" />
+      <Label htmlFor="r1">GPT-4o</Label>
+    </Flex>
+  </Flex>
 </RadioGroup>`,
     },
   ];

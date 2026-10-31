@@ -1,7 +1,7 @@
 {
   "name": "@yuva-devlab/tokens",
   "version": "1.3.1",
-  "description": "Design tokens, brand themes, and Tailwind CSS 4 preset bridge for Yuva DevLab",
+  "description": "Design tokens, brand themes, and W3C Cascade Layers for Yuva DevLab",
   "repository": {
     "type": "git",
     "url": "https://github.com/yuvadevlab/devlab-shared.git",
@@ -13,7 +13,7 @@
   "keywords": [
     "design-tokens",
     "tokens",
-    "tailwindcss",
+    "cascade-layers",
     "oklch",
     "css-variables",
     "vitalai",

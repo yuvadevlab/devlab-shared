@@ -51,6 +51,24 @@
   font-weight: 600;
   color: var(--muted-foreground);
 }
+.dl-menu-item--inset,
+.dl-menu-label--inset {
+  padding-left: 2rem;
+}
+.dl-menu-item__chevron {
+  margin-left: auto;
+  width: 1rem;
+  height: 1rem;
+}
+.dl-menu-item__icon {
+  width: 1rem;
+  height: 1rem;
+}
+.dl-menu-item__radio-dot {
+  width: 0.5rem;
+  height: 0.5rem;
+  fill: currentColor;
+}
 .dl-menu-separator {
   margin: 0.25rem -0.25rem;
   height: 1px;

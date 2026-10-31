@@ -20,7 +20,6 @@ export const CALENDAR_VARIANTS: ComponentVariant[] = [
   mode="single"
   selected={date}
   onSelect={setDate}
-  className="rounded-lg border"
 />`,
   },
   {
@@ -29,14 +28,13 @@ export const CALENDAR_VARIANTS: ComponentVariant[] = [
     description:
       "Inline calendar view displaying current date marker and month navigation.",
     preview: (
-      <div className="border border-border rounded-xl bg-card shadow-xs p-1">
-        <Calendar mode="single" selected={new Date()} className="rounded-lg" />
+      <div className="dl-demo-box dl-demo-box--sm">
+        <Calendar mode="single" selected={new Date()} />
       </div>
     ),
     codeSnippet: `<Calendar
   mode="single"
   selected={new Date()}
-  className="rounded-lg border"
 />`,
   },
 ];

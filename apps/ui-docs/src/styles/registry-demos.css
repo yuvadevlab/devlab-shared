@@ -1,0 +1,230 @@
+/**
+ * @file registry-demos.css
+ * @description Dedicated layout frames, preview boxes, typography, and badges for component previews.
+ */
+
+@layer dl-app {
+  /* Demo Container Frames */
+  .dl-demo-frame {
+    width: 100%;
+  }
+
+  .dl-demo-frame--xs {
+    width: 100%;
+    max-width: 16rem;
+  }
+
+  .dl-demo-frame--sm {
+    width: 100%;
+    max-width: 24rem;
+  }
+
+  .dl-demo-frame--md {
+    width: 100%;
+    max-width: 28rem;
+  }
+
+  .dl-demo-frame--lg {
+    width: 100%;
+    max-width: 36rem;
+  }
+
+  .dl-demo-frame--xl {
+    width: 100%;
+    max-width: 48rem;
+  }
+
+  .dl-demo-frame--full {
+    width: 100%;
+  }
+
+  .dl-demo-frame--carousel {
+    width: 100%;
+    max-width: 24rem;
+    padding-inline: 2.5rem;
+  }
+
+  .dl-demo-frame--carousel-sm {
+    width: 100%;
+    max-width: 20rem;
+    padding-inline: 2.5rem;
+  }
+
+  /* Preview Surface Boxes */
+  .dl-demo-box {
+    border: 1px solid var(--border);
+    border-radius: var(--radius-xl, 0.75rem);
+    background-color: var(--card);
+    padding: 1rem;
+    box-shadow: 0 1px 2px rgb(0 0 0 / 0.05);
+  }
+
+  .dl-demo-box--sm {
+    padding: 0.75rem;
+  }
+
+  .dl-demo-box--lg {
+    padding: 1.5rem;
+  }
+
+  .dl-demo-box--muted {
+    background-color: color-mix(in oklch, var(--muted) 30%, transparent);
+  }
+
+  .dl-demo-box--code {
+    border: 1px solid color-mix(in oklch, var(--border) 80%, transparent);
+    border-radius: var(--radius-lg, 0.5rem);
+    background-color: color-mix(in oklch, var(--muted) 30%, transparent);
+    padding: 0.5rem 0.75rem;
+    font-family: var(--font-mono, monospace);
+    font-size: 0.75rem;
+    color: var(--muted-foreground);
+  }
+
+  .dl-demo-box--collapsible-header {
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 0.75rem;
+    margin-bottom: 0.75rem;
+  }
+
+  /* Demo Typography */
+  .dl-demo-title {
+    font-size: 0.875rem;
+    font-weight: 700;
+    color: var(--foreground);
+    margin: 0;
+  }
+
+  .dl-demo-heading {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--foreground);
+    margin: 0;
+  }
+
+  .dl-demo-desc {
+    font-size: 0.75rem;
+    color: var(--muted-foreground);
+    line-height: 1.5;
+    margin: 0;
+  }
+
+  .dl-demo-caption {
+    font-size: 0.6875rem;
+    color: var(--muted-foreground);
+    margin: 0;
+  }
+
+  .dl-demo-code {
+    font-family: var(--font-mono, monospace);
+    font-size: 0.75rem;
+    color: var(--primary);
+  }
+
+  .dl-demo-label {
+    font-size: 0.625rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--muted-foreground);
+  }
+
+  /* Demo Icons */
+  .dl-demo-icon {
+    width: 1rem;
+    height: 1rem;
+    flex-shrink: 0;
+  }
+
+  .dl-demo-icon--xs {
+    width: 0.75rem;
+    height: 0.75rem;
+  }
+
+  .dl-demo-icon--sm {
+    width: 0.875rem;
+    height: 0.875rem;
+  }
+
+  .dl-demo-icon--md {
+    width: 1.25rem;
+    height: 1.25rem;
+  }
+
+  .dl-demo-icon--lg {
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+
+  .dl-demo-icon--rotated {
+    transform: rotate(180deg);
+  }
+
+  .dl-demo-icon--transition {
+    transition: transform 0.2s ease;
+  }
+
+  /* Demo Chart */
+  .dl-demo-chart {
+    width: 100%;
+    height: 11rem;
+  }
+
+  /* Demo Context Zone */
+  .dl-demo-context-zone {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 18rem;
+    height: 8rem;
+    border-radius: var(--radius-xl, 0.75rem);
+    border: 1px dashed var(--border);
+    background-color: color-mix(in oklch, var(--muted) 20%, transparent);
+    font-size: 0.75rem;
+    color: var(--muted-foreground);
+    user-select: none;
+    cursor: context-menu;
+    transition: border-color 0.15s ease;
+  }
+
+  .dl-demo-context-zone:hover {
+    border-color: var(--primary);
+  }
+
+  .dl-demo-context-zone--card {
+    border-style: solid;
+    background-color: var(--card);
+  }
+
+  /* Demo Resizable */
+  .dl-demo-resizable-box {
+    width: 100%;
+    max-width: 24rem;
+    height: 10rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-xl, 0.75rem);
+    overflow: hidden;
+  }
+
+  .dl-demo-resizable-box--tall {
+    height: 12rem;
+  }
+
+  .dl-demo-resizable-panel {
+    display: flex;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+    padding: 0.75rem;
+  }
+
+  .dl-demo-resizable-panel--muted {
+    background-color: color-mix(in oklch, var(--muted) 30%, transparent);
+  }
+
+  /* Demo Scroll Area */
+  .dl-demo-scroll-area {
+    height: 11rem;
+    padding: 0.75rem;
+  }
+}

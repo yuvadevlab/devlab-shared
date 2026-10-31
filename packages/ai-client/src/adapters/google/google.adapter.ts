@@ -6,8 +6,8 @@
 
 import { DomainError, ErrorCode, ModelTimeoutError } from "@yuva-devlab/errors";
 import { Logger, loggerWithConfig } from "@yuva-devlab/logger";
-import { resolveEnvCredentials } from "../../config";
-import { AI_ENDPOINTS } from "../../constants";
+import { resolveEnvCredentials } from "@/config";
+import { AI_ENDPOINTS } from "@/constants";
 import {
   FinishReason,
   type ILLMProvider,
@@ -15,7 +15,7 @@ import {
   type LLMResponse,
   type LLMStreamChunk,
   MissingCredentialError,
-} from "../../types";
+} from "@/types";
 import {
   buildGeminiRequestBody,
   type GeminiResponse,

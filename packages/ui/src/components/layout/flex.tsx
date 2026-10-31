@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Slot } from "@radix-ui/react-slot";
-import { cn } from "../../lib/utils";
+import { cn } from "@/lib/utils";
 
 /**
  * Flexbox direction options.
@@ -21,7 +21,25 @@ export type FlexAlign = "start" | "center" | "end" | "stretch" | "baseline";
 /**
  * Spacing gap scale tokens mapped to --space-* CSS variables.
  */
-export type LayoutGap = "0" | "1" | "2" | "3" | "4" | "5" | "6" | "8" | "10";
+export type LayoutGap =
+  | "0"
+  | "1"
+  | "2"
+  | "3"
+  | "4"
+  | "5"
+  | "6"
+  | "8"
+  | "10"
+  | 0
+  | 1
+  | 2
+  | 3
+  | 4
+  | 5
+  | 6
+  | 8
+  | 10;
 
 /**
  * Props for the Flex layout primitive.
@@ -32,6 +50,11 @@ export interface FlexProps extends React.HTMLAttributes<HTMLDivElement> {
    * @default false
    */
   asChild?: boolean;
+  /**
+   * HTML element type to render.
+   * @default "div"
+   */
+  as?: React.ElementType;
   /**
    * Flex direction.
    * @default "row"
@@ -49,7 +72,7 @@ export interface FlexProps extends React.HTMLAttributes<HTMLDivElement> {
    * Flex wrap behavior.
    * @default false
    */
-  wrap?: boolean | "reverse";
+  wrap?: boolean | "wrap" | "nowrap" | "reverse";
   /**
    * Gap spacing token mapped to --space-*.
    */
@@ -63,7 +86,6 @@ export interface FlexProps extends React.HTMLAttributes<HTMLDivElement> {
 
 /**
  * Polymorphic Flex container component for fluid 1-dimensional layouts.
- * Pure CSS with zero runtime Tailwind dependencies.
  *
  * @example
  * ```tsx
@@ -78,6 +100,7 @@ export const Flex = React.forwardRef<HTMLDivElement, FlexProps>(
     {
       className,
       asChild = false,
+      as,
       direction = "row",
       justify,
       align,
@@ -88,7 +111,7 @@ export const Flex = React.forwardRef<HTMLDivElement, FlexProps>(
     },
     ref,
   ) => {
-    const Comp = asChild ? Slot : "div";
+    const Comp = asChild ? Slot : as || "div";
 
     return (
       <Comp
@@ -99,7 +122,8 @@ export const Flex = React.forwardRef<HTMLDivElement, FlexProps>(
           direction && `dl-flex--${direction}`,
           justify && `dl-flex--justify-${justify}`,
           align && `dl-flex--align-${align}`,
-          wrap === true && "dl-flex--wrap",
+          (wrap === true || wrap === "wrap") && "dl-flex--wrap",
+          wrap === "nowrap" && "dl-flex--nowrap",
           wrap === "reverse" && "dl-flex--wrap-reverse",
           gap !== undefined && `dl-gap-${gap}`,
           className,

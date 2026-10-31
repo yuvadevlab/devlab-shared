@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { Separator } from "@yuva-devlab/ui";
+import { Separator, Stack, Flex } from "@yuva-devlab/ui";
 import { ComponentView, ComponentVariant } from "@/components/component-view";
 
 /**
@@ -15,29 +15,27 @@ export default function SeparatorDocPage() {
       description:
         "Visually separates grouped sections of text or form field modules.",
       preview: (
-        <div className="w-full max-w-sm space-y-3 text-xs p-2">
+        <Stack gap={3} className="dl-demo-frame dl-demo-frame--sm dl-demo-desc">
           <div>
-            <h4 className="font-semibold text-foreground text-sm">
-              DevLab Microservices
-            </h4>
-            <p className="text-muted-foreground mt-0.5">
+            <h4 className="dl-demo-heading">DevLab Microservices</h4>
+            <p className="dl-demo-desc">
               Foundation cloud packages and design tokens.
             </p>
           </div>
           <Separator />
           <div>
-            <p className="text-muted-foreground">
+            <p className="dl-demo-desc">
               Core foundation system built with Radix UI and enterprise tokens.
             </p>
           </div>
-        </div>
+        </Stack>
       ),
-      codeSnippet: `<div>
+      codeSnippet: `<Stack gap={3}>
   <h4>DevLab Microservices</h4>
   <p>Foundation packages.</p>
-  <Separator className="my-3" />
+  <Separator />
   <p>System details.</p>
-</div>`,
+</Stack>`,
     },
     {
       id: "vertical",
@@ -45,29 +43,23 @@ export default function SeparatorDocPage() {
       description:
         "Separates inline elements such as header navigation links or toolbar buttons.",
       preview: (
-        <div className="flex h-5 items-center space-x-3 text-xs p-4 border border-border rounded-xl bg-card">
-          <span className="text-foreground font-medium">Packages</span>
+        <Flex align="center" gap={3} className="dl-demo-box dl-demo-desc">
+          <span className="dl-demo-heading">Packages</span>
           <Separator orientation="vertical" />
-          <span className="text-muted-foreground hover:text-foreground cursor-pointer">
-            Documentation
-          </span>
+          <span className="dl-demo-desc">Documentation</span>
           <Separator orientation="vertical" />
-          <span className="text-muted-foreground hover:text-foreground cursor-pointer">
-            Changelog
-          </span>
+          <span className="dl-demo-desc">Changelog</span>
           <Separator orientation="vertical" />
-          <span className="text-muted-foreground hover:text-foreground cursor-pointer">
-            GitHub
-          </span>
-        </div>
+          <span className="dl-demo-desc">GitHub</span>
+        </Flex>
       ),
-      codeSnippet: `<div className="flex h-5 items-center space-x-3 text-xs">
+      codeSnippet: `<Flex align="center" gap={3}>
   <span>Packages</span>
   <Separator orientation="vertical" />
   <span>Documentation</span>
   <Separator orientation="vertical" />
   <span>GitHub</span>
-</div>`,
+</Flex>`,
     },
   ];
 

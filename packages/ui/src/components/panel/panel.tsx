@@ -1,5 +1,5 @@
 import * as React from "react";
-import { cn } from "../../lib/utils";
+import { cn } from "@/lib/utils";
 
 export interface PanelProps extends React.HTMLAttributes<HTMLElement> {
   /** Optional header title for the panel section */

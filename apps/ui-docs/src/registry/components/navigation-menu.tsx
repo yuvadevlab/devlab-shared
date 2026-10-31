@@ -7,6 +7,9 @@ import {
   NavigationMenuItem,
   NavigationMenuTrigger,
   NavigationMenuContent,
+  Flex,
+  Stack,
+  Grid,
 } from "@yuva-devlab/ui";
 import { ComponentView, ComponentVariant } from "@/components/component-view";
 
@@ -21,80 +24,74 @@ export default function NavigationMenuDocPage() {
       description:
         "Multi-column navigation flyout cards with subtitles, links, and design system categories.",
       preview: (
-        <div className="flex items-center justify-center p-4">
+        <Flex align="center" justify="center">
           <NavigationMenu>
             <NavigationMenuList>
               <NavigationMenuItem>
                 <NavigationMenuTrigger>Getting Started</NavigationMenuTrigger>
-                <NavigationMenuContent className="p-4 md:w-80">
-                  <div className="space-y-2">
-                    <h4 className="font-semibold text-foreground text-sm">
-                      DevLab Architecture
-                    </h4>
-                    <p className="text-xs text-muted-foreground leading-relaxed">
+                <NavigationMenuContent>
+                  <Stack gap={2}>
+                    <h4 className="dl-demo-heading">DevLab Architecture</h4>
+                    <p className="dl-demo-desc">
                       Enterprise scoped CSS design system built on Radix UI
                       primitives.
                     </p>
-                    <div className="pt-2 border-t border-border flex flex-col gap-1 text-xs">
-                      <a
-                        href="/components/button"
-                        className="text-primary hover:underline"
-                      >
+                    <Stack
+                      gap={1}
+                      className="dl-demo-desc dl-demo-box--collapsible-header"
+                    >
+                      <a href="/components/button" className="dl-demo-code">
                         Button Component →
                       </a>
-                      <a
-                        href="/components/select"
-                        className="text-muted-foreground hover:text-foreground"
-                      >
+                      <a href="/components/select" className="dl-demo-desc">
                         Select & Filters →
                       </a>
-                    </div>
-                  </div>
+                    </Stack>
+                  </Stack>
                 </NavigationMenuContent>
               </NavigationMenuItem>
 
               <NavigationMenuItem>
                 <NavigationMenuTrigger>Components</NavigationMenuTrigger>
-                <NavigationMenuContent className="p-4 md:w-80">
-                  <div className="grid grid-cols-2 gap-2 text-xs">
+                <NavigationMenuContent>
+                  <Grid columns={2} gap={2} className="dl-demo-desc">
                     <a
                       href="/components/button"
-                      className="p-2 rounded hover:bg-muted font-medium text-foreground"
+                      className="dl-demo-sidebar-btn"
                     >
                       Button
                     </a>
                     <a
                       href="/components/date-picker"
-                      className="p-2 rounded hover:bg-muted font-medium text-foreground"
+                      className="dl-demo-sidebar-btn"
                     >
                       Date Picker
                     </a>
                     <a
                       href="/components/dialog"
-                      className="p-2 rounded hover:bg-muted font-medium text-foreground"
+                      className="dl-demo-sidebar-btn"
                     >
                       Dialog
                     </a>
-                    <a
-                      href="/components/table"
-                      className="p-2 rounded hover:bg-muted font-medium text-foreground"
-                    >
+                    <a href="/components/table" className="dl-demo-sidebar-btn">
                       Table
                     </a>
-                  </div>
+                  </Grid>
                 </NavigationMenuContent>
               </NavigationMenuItem>
             </NavigationMenuList>
           </NavigationMenu>
-        </div>
+        </Flex>
       ),
       codeSnippet: `<NavigationMenu>
   <NavigationMenuList>
     <NavigationMenuItem>
       <NavigationMenuTrigger>Getting Started</NavigationMenuTrigger>
-      <NavigationMenuContent className="p-4 md:w-80">
-        <h4>DevLab Architecture</h4>
-        <p>Enterprise scoped CSS design system.</p>
+      <NavigationMenuContent>
+        <Stack gap="2">
+          <h4>DevLab Architecture</h4>
+          <p>Enterprise scoped CSS design system.</p>
+        </Stack>
       </NavigationMenuContent>
     </NavigationMenuItem>
   </NavigationMenuList>
@@ -106,56 +103,42 @@ export default function NavigationMenuDocPage() {
       description:
         "Top-level header layout combining hover-activated flyouts with direct navigation triggers.",
       preview: (
-        <div className="flex items-center justify-center p-4">
+        <Flex align="center" justify="center">
           <NavigationMenu>
             <NavigationMenuList>
               <NavigationMenuItem>
                 <NavigationMenuTrigger>API Reference</NavigationMenuTrigger>
-                <NavigationMenuContent className="p-3 w-56">
-                  <div className="flex flex-col gap-1.5 text-xs">
-                    <span className="font-semibold text-foreground">
-                      Core Packages
-                    </span>
-                    <a
-                      href="#primitives"
-                      className="text-muted-foreground hover:text-foreground"
-                    >
+                <NavigationMenuContent>
+                  <Stack gap={1} className="dl-demo-desc">
+                    <span className="dl-demo-heading">Core Packages</span>
+                    <a href="#primitives" className="dl-demo-desc">
                       @yuva-devlab/ui
                     </a>
-                    <a
-                      href="#resilience"
-                      className="text-muted-foreground hover:text-foreground"
-                    >
+                    <a href="#resilience" className="dl-demo-desc">
                       @yuva-devlab/resilience
                     </a>
-                  </div>
+                  </Stack>
                 </NavigationMenuContent>
               </NavigationMenuItem>
               <NavigationMenuItem>
-                <a
-                  href="#docs"
-                  className="px-3 py-2 text-xs font-medium text-muted-foreground hover:text-foreground"
-                >
+                <a href="#docs" className="dl-demo-sidebar-btn">
                   Documentation
                 </a>
               </NavigationMenuItem>
               <NavigationMenuItem>
-                <a
-                  href="#changelog"
-                  className="px-3 py-2 text-xs font-medium text-muted-foreground hover:text-foreground"
-                >
+                <a href="#changelog" className="dl-demo-sidebar-btn">
                   Changelog
                 </a>
               </NavigationMenuItem>
             </NavigationMenuList>
           </NavigationMenu>
-        </div>
+        </Flex>
       ),
       codeSnippet: `<NavigationMenu>
   <NavigationMenuList>
     <NavigationMenuItem>
       <NavigationMenuTrigger>API Reference</NavigationMenuTrigger>
-      <NavigationMenuContent className="p-3 w-56">
+      <NavigationMenuContent>
         <span>Core Packages</span>
       </NavigationMenuContent>
     </NavigationMenuItem>

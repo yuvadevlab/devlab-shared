@@ -10,7 +10,7 @@
 
 In enterprise microservice and multi-agent platforms, code duplication, inconsistent UI paradigms, fragmented error hierarchies, divergent logging formats, and bespoke authentication guards quickly lead to platform fragility and maintenance overhead. DevLab Shared solves this by centralizing:
 
-1. **Unified Design System & UI Primitives**: Accessible, themeable UI components built on React 19, Radix UI, Tailwind CSS v4, and standardized design tokens.
+1. **Unified Design System & UI Primitives**: Accessible, themeable UI components built on React 19, Radix UI, pure W3C Cascade Layers (`@layer`), scoped styles (`dl-*`), and standardized design tokens.
 2. **Enterprise Primitives & Zero-Dependency Contracts**: Centralized error hierarchies, type-safe configurations, structured Pino logging with credential redaction, and centralized regular expressions.
 3. **Distributed Resilience & Security Utilities**: Production-grade Circuit Breakers, Exponential Backoff policies with jitter, Fastify/NestJS authentication guards, and JWKS token verification.
 4. **Cognitive Agent & RAG Primitives**: Shared semantic caching (`@yuva-devlab/semantic-cache`), AI client abstractions, vector search interfaces, and token billing calculators.
@@ -47,7 +47,7 @@ In enterprise microservice and multi-agent platforms, code duplication, inconsis
 
 #### 1. UI Documentation Showcase (`apps/ui-docs` — Port `3006`)
 
-- **Technology Stack**: Next.js 15, React 19, Tailwind CSS v4, `@yuva-devlab/ui`.
+- **Technology Stack**: Next.js 15, React 19, Pure Platform CSS (W3C Cascade Layers), `@yuva-devlab/ui`.
 - **Purpose**: Live interactive documentation portal showcasing all UI components, tokens, accessibility guidelines, and code snippets.
 - **Detailed Features**:
   - **Live Component Sandbox**: Interactive playground for rendering and configuring UI components with real-time prop tweaking.
@@ -70,7 +70,7 @@ In enterprise microservice and multi-agent platforms, code duplication, inconsis
 
 1. **`@yuva-devlab/tokens`**:
    - Houses design tokens (colors, typography, spacing, shadows, border radii, z-indices).
-   - Generates CSS variables, Tailwind configuration presets, and TypeScript constants.
+   - Generates CSS variables, brand themes, pure W3C Cascade Layers, and TypeScript constants.
 2. **`@yuva-devlab/ui`**:
    - Comprehensive React 19 component library built on Radix UI primitives.
    - Includes: `Button`, `Dialog`, `Drawer`, `DropdownMenu`, `Input`, `Select`, `Table`, `Tabs`, `Toast`, `Tooltip`, `Card`, `Badge`, `Skeleton`.

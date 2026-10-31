@@ -10,8 +10,8 @@ import {
   DEFAULT_SIMILARITY_THRESHOLD,
   DEFAULT_CACHE_TTL_MS,
   DEFAULT_MAX_CACHE_ENTRIES,
-} from "../constants";
-import { cosineSimilarity } from "../similarity";
+} from "@/constants";
+import { cosineSimilarity } from "@/similarity";
 import {
   CacheHitStatus,
   type IEmbeddingProvider,
@@ -19,7 +19,7 @@ import {
   type SemanticCacheOptions,
   type CacheLookupResult,
   type SemanticCacheStats,
-} from "../types";
+} from "@/types";
 import { CacheMetricsCollector } from "./cache-metrics";
 
 const logger = loggerWithConfig(new Logger("SemanticCache"));

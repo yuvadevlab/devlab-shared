@@ -8,6 +8,8 @@ import {
   Button,
   Input,
   Label,
+  Flex,
+  Stack,
 } from "@yuva-devlab/ui";
 import { SlidersHorizontal, Info } from "lucide-react";
 import { ComponentView, ComponentVariant } from "@/components/component-view";
@@ -23,48 +25,50 @@ export default function PopoverDocPage() {
       description:
         "Floating panel containing input controls for in-place property editing.",
       preview: (
-        <div className="flex items-center justify-center p-4">
+        <Flex align="center" justify="center">
           <Popover>
             <PopoverTrigger asChild>
-              <Button variant="outline" className="gap-2">
-                <SlidersHorizontal className="size-4" />
+              <Button variant="outline">
+                <SlidersHorizontal className="dl-demo-icon dl-demo-icon--sm" />
                 <span>Telemetry Filters</span>
               </Button>
             </PopoverTrigger>
-            <PopoverContent align="center" className="w-80 p-4 space-y-4">
-              <div className="space-y-1">
-                <h4 className="font-semibold text-foreground text-sm">
-                  Sampling Rates
-                </h4>
-                <p className="text-xs text-muted-foreground">
-                  Configure sampling rates for live trace exports.
-                </p>
-              </div>
+            <PopoverContent align="center">
+              <Stack gap={4}>
+                <Stack gap={1}>
+                  <h4 className="dl-demo-heading">Sampling Rates</h4>
+                  <p className="dl-demo-desc">
+                    Configure sampling rates for live trace exports.
+                  </p>
+                </Stack>
 
-              <div className="space-y-3 text-xs">
-                <div className="space-y-1">
-                  <Label htmlFor="sample-rate">Sample Frequency (ms)</Label>
-                  <Input id="sample-rate" defaultValue="250" />
-                </div>
-                <div className="space-y-1">
-                  <Label htmlFor="max-traces">Max In-Memory Traces</Label>
-                  <Input id="max-traces" defaultValue="10000" />
-                </div>
-              </div>
+                <Stack gap={3} className="dl-demo-desc">
+                  <Stack gap={1}>
+                    <Label htmlFor="sample-rate">Sample Frequency (ms)</Label>
+                    <Input id="sample-rate" defaultValue="250" />
+                  </Stack>
+                  <Stack gap={1}>
+                    <Label htmlFor="max-traces">Max In-Memory Traces</Label>
+                    <Input id="max-traces" defaultValue="10000" />
+                  </Stack>
+                </Stack>
+              </Stack>
             </PopoverContent>
           </Popover>
-        </div>
+        </Flex>
       ),
       codeSnippet: `<Popover>
   <PopoverTrigger asChild>
-    <Button variant="outline"><SlidersHorizontal className="size-4 mr-2" />Filters</Button>
+    <Button variant="outline"><SlidersHorizontal />Filters</Button>
   </PopoverTrigger>
-  <PopoverContent className="w-80 p-4 space-y-4">
-    <h4>Sampling Rates</h4>
-    <div className="space-y-1">
-      <Label htmlFor="freq">Frequency</Label>
-      <Input id="freq" defaultValue="250" />
-    </div>
+  <PopoverContent>
+    <Stack gap="4">
+      <h4>Sampling Rates</h4>
+      <Stack gap="1">
+        <Label htmlFor="freq">Frequency</Label>
+        <Input id="freq" defaultValue="250" />
+      </Stack>
+    </Stack>
   </PopoverContent>
 </Popover>`,
     },
@@ -74,32 +78,34 @@ export default function PopoverDocPage() {
       description:
         "Lightweight informational flyout explaining complex system configurations.",
       preview: (
-        <div className="flex items-center justify-center p-4">
+        <Flex align="center" justify="center">
           <Popover>
             <PopoverTrigger asChild>
               <Button variant="ghost" size="icon">
-                <Info className="size-4 text-muted-foreground" />
+                <Info className="dl-demo-icon dl-demo-icon--sm" />
               </Button>
             </PopoverTrigger>
-            <PopoverContent align="center" className="w-64 p-3 text-xs">
-              <p className="font-semibold text-foreground mb-1">
-                Circuit Breaker Threshold
-              </p>
-              <p className="text-muted-foreground leading-relaxed">
-                When 50% of requests fail within a 10s window, the breaker trips
-                to OPEN state automatically.
-              </p>
+            <PopoverContent align="center">
+              <Stack gap={1} className="dl-demo-desc">
+                <p className="dl-demo-heading">Circuit Breaker Threshold</p>
+                <p>
+                  When 50% of requests fail within a 10s window, the breaker
+                  trips to OPEN state automatically.
+                </p>
+              </Stack>
             </PopoverContent>
           </Popover>
-        </div>
+        </Flex>
       ),
       codeSnippet: `<Popover>
   <PopoverTrigger asChild>
-    <Button variant="ghost" size="icon"><Info className="size-4" /></Button>
+    <Button variant="ghost" size="icon"><Info /></Button>
   </PopoverTrigger>
-  <PopoverContent className="w-64 p-3 text-xs">
-    <p className="font-semibold">Circuit Breaker Threshold</p>
-    <p>When 50% of requests fail, breaker trips to OPEN.</p>
+  <PopoverContent>
+    <Stack gap="1">
+      <p>Circuit Breaker Threshold</p>
+      <p>When 50% of requests fail, breaker trips to OPEN.</p>
+    </Stack>
   </PopoverContent>
 </Popover>`,
     },

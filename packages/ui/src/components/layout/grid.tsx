@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Slot } from "@radix-ui/react-slot";
-import { cn } from "../../lib/utils";
+import { cn } from "@/lib/utils";
 import type { LayoutGap } from "./flex";
 
 /**
@@ -18,10 +18,19 @@ export interface GridProps extends React.HTMLAttributes<HTMLDivElement> {
    */
   asChild?: boolean;
   /**
+   * HTML element type to render.
+   * @default "div"
+   */
+  as?: React.ElementType;
+  /**
    * Number of uniform columns, or an auto-fit minItemWidth (e.g. "280px").
    * @default 1
    */
   cols?: GridColumns | string;
+  /**
+   * Alias for `cols`.
+   */
+  columns?: GridColumns | string;
   /**
    * Spacing gap token mapped to --space-* CSS variables.
    * @default "4"
@@ -36,7 +45,6 @@ export interface GridProps extends React.HTMLAttributes<HTMLDivElement> {
 
 /**
  * Responsive 2D Grid layout primitive.
- * Pure CSS with zero runtime Tailwind dependencies.
  *
  * @example
  * ```tsx
@@ -52,7 +60,9 @@ export const Grid = React.forwardRef<HTMLDivElement, GridProps>(
     {
       className,
       asChild = false,
-      cols = 1,
+      as,
+      cols,
+      columns,
       gap = "4",
       inline = false,
       style,
@@ -60,13 +70,14 @@ export const Grid = React.forwardRef<HTMLDivElement, GridProps>(
     },
     ref,
   ) => {
-    const Comp = asChild ? Slot : "div";
+    const Comp = asChild ? Slot : as || "div";
+    const resolvedCols = cols ?? columns ?? 1;
 
     const inlineStyles: React.CSSProperties = { ...style };
-    if (typeof cols === "number") {
-      inlineStyles.gridTemplateColumns = `repeat(${cols}, minmax(0, 1fr))`;
-    } else if (typeof cols === "string") {
-      inlineStyles.gridTemplateColumns = `repeat(auto-fit, minmax(${cols}, 1fr))`;
+    if (typeof resolvedCols === "number") {
+      inlineStyles.gridTemplateColumns = `repeat(${resolvedCols}, minmax(0, 1fr))`;
+    } else if (typeof resolvedCols === "string") {
+      inlineStyles.gridTemplateColumns = `repeat(auto-fit, minmax(${resolvedCols}, 1fr))`;
     }
 
     return (

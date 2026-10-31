@@ -5,18 +5,20 @@
 [![React 19](https://img.shields.io/badge/React-19.x-61dafb.svg)](https://react.dev)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.x%20%7C%206.x-3178c6.svg)](https://www.typescriptlang.org)
 
-> Production-ready, fully-typed React component library engineered for the DevLab ecosystem. Built on accessible Radix UI primitives, powered by OKLCH CSS design tokens (`@yuva-devlab/tokens`), and fully compatible with Tailwind CSS 4.
+> Production-ready, fully-typed React component library engineered for the DevLab ecosystem. Built on accessible Radix UI primitives, powered by OKLCH CSS design tokens (`@yuva-devlab/tokens`), and modular W3C Cascade Layers (`@layer dl-*`).
 
 ---
 
 ## Features
 
 - 🎨 **Multi-Brand Theme Architecture** - Seamless brand isolation across OrchestrAI, VitalAI, FinAI, Logs, and Portal.
-- ⚡ **Zero-Runtime Overhead** - Driven by standard CSS custom properties and modern OKLCH color spaces.
+- 📐 **Dynamic Theme-Driven Sizing** - Automatic adaptation across brand densities (compact telemetry logs, precision finance tables, athletic kinetic scaling).
+- ⚡ **Modular Platform CSS** - Scoped W3C Cascade Layers (`@layer dl-components, dl-layout, dl-utilities`) and semantic design tokens.
+- 📐 **Layout & Composition Primitives** - First-class `<Box>`, `<Flex>`, `<Stack>`, `<Grid>`, and `<Container>` primitives.
 - ♿ **Accessible by Default** - Built on Radix UI primitives with complete WAI-ARIA and keyboard navigation compliance.
-- 🧩 **56+ Core UI Components** - Buttons, Calendars, DatePickers, Drawers, Sheets, Sidebars, Menus, Modals, and more.
-- 🔒 **End-to-End Type Safety** - First-class TypeScript definitions with full polymorphic `asChild` composition support.
-- 📦 **Tree-Shakeable ESM & CJS** - Optimized builds producing clean dual artifacts.
+- 🧩 **62+ Core UI & Layout Primitives** - Buttons, Calendars, DatePickers, Drawers, Sheets, Sidebars, Menus, Modals, EmptyStates, Layouts, and more.
+- 🔒 **End-to-End Type Safety** - First-class TypeScript definitions with full polymorphic `asChild` and `as` composition support.
+- 📦 **Tree-Shakeable ESM & CJS** - Highly optimized builds producing clean dual artifacts.
 
 ---
 
@@ -47,38 +49,47 @@ pnpm add react@^19.0.0 react-dom@^19.0.0 sonner@^2.0.0
 
 ### 1. Configure Styles
 
-In your application's root stylesheet (e.g. `globals.css` or `app.css`), import the token preset, desired brand theme, and component styles:
+In your application's root stylesheet (e.g. `globals.css` or `app.css`), establish the W3C Cascade Layer order and import your desired tokens and styles:
 
 ```css
-@import "tailwindcss";
+/* 1. Establish W3C Cascade Layer hierarchy */
+@layer dl-reset, dl-tokens, dl-components, dl-layout, dl-utilities, dl-app;
+
+/* 2. Import design tokens & brand theme */
 @import "@yuva-devlab/tokens/preset.css";
 @import "@yuva-devlab/tokens/themes/orchestrai.css";
-@import "@yuva-devlab/ui/components.css";
+
+/* 3. Import UI components and layout styles */
+@import "@yuva-devlab/ui/styles.css";
+
+/* (Optional) If your project still uses Tailwind CSS 4 during migration: */
+/* @import "tailwindcss"; */
 ```
 
 > **Tip:** You can import any theme preset from `@yuva-devlab/tokens/themes/*` (`orchestrai`, `vitalai`, `finai`, `logs`, `portal`).
 
-### 2. Render Components
+### 2. Render Components & Layout Primitives
 
 ```tsx
-import { Button, Card, DatePicker, Badge } from "@yuva-devlab/ui";
+import { Button, Card, DatePicker, Badge, Stack, Flex } from "@yuva-devlab/ui";
 import { Sparkles } from "lucide-react";
 
 export default function DashboardCard() {
   return (
-    <Card className="p-6 max-w-md shadow-md">
-      <div className="flex items-center justify-between mb-4">
-        <h2 className="text-xl font-bold">DevLab Project</h2>
-        <Badge variant="default">Production</Badge>
-      </div>
+    <Card>
+      <Stack gap={4}>
+        <Flex justify="between" align="center">
+          <h2>DevLab Project</h2>
+          <Badge variant="default">Production</Badge>
+        </Flex>
 
-      <div className="space-y-4">
         <DatePicker />
-        <Button variant="primary" className="w-full">
-          <Sparkles className="w-4 h-4 mr-2" />
+
+        <Button variant="primary">
+          <Sparkles />
           Deploy Pipeline
         </Button>
-      </div>
+      </Stack>
     </Card>
   );
 }
@@ -109,9 +120,9 @@ DevLab UI supports multi-brand switching at runtime using `data-brand` and `data
 
 ---
 
-## Component Catalog (61 Components)
+## Component Catalog (62 Components)
 
-### Layout & Composition Primitives (Zero Tailwind)
+### Layout & Composition Primitives
 
 - **Box** - Fundamental container with padding (`p`), border, radius, shadow, and surface backgrounds.
 - **Flex** - 1D flexbox container (`direction`, `justify`, `align`, `wrap`, `gap`, `inline`).
@@ -122,7 +133,7 @@ DevLab UI supports multi-brand switching at runtime using `data-brand` and `data
 
 ### General & Display
 
-- **Button**, **CopyButton**, **Card**, **MetricCard**, **SecretRevealCard**, **Badge**, **StatusBadge**, **StatusChip**, **Skeleton**, **LoadingState**
+- **Button**, **CopyButton**, **Card**, **MetricCard**, **SecretRevealCard**, **Badge**, **StatusBadge**, **StatusChip**, **Skeleton**, **LoadingState**, **EmptyState**
 
 ### Form & Data Entry
 

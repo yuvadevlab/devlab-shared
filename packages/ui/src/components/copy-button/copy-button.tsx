@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { Check, Copy } from "lucide-react";
-import { cn } from "../../lib/utils";
+import { cn } from "@/lib/utils";
 
 export interface CopyButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   /** Text content to write to user clipboard */

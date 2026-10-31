@@ -4,7 +4,7 @@ import * as React from "react";
 import * as SheetPrimitive from "@radix-ui/react-dialog";
 import { cva, type VariantProps } from "class-variance-authority";
 import { X } from "lucide-react";
-import { cn } from "../../lib/utils";
+import { cn } from "@/lib/utils";
 
 /**
  * Root Sheet component for displaying slide-over drawers (left, right, top, bottom).
@@ -21,7 +21,7 @@ import { cn } from "../../lib/utils";
  *       <SheetTitle>Navigation Menu</SheetTitle>
  *       <SheetDescription>Explore workspace features.</SheetDescription>
  *     </SheetHeader>
- *     <div className="py-4">Sheet navigation links...</div>
+ *     <Box py="4">Sheet navigation links...</Box>
  *   </SheetContent>
  * </Sheet>
  * ```
@@ -90,7 +90,7 @@ const SheetContent = React.forwardRef<
       {...props}
     >
       <SheetPrimitive.Close className="dl-sheet-close">
-        <X style={{ width: "1rem", height: "1rem" }} />
+        <X />
         <span className="sr-only">Close</span>
       </SheetPrimitive.Close>
       {children}

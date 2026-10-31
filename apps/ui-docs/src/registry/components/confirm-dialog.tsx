@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { ConfirmDialog, Button } from "@yuva-devlab/ui";
+import { ConfirmDialog, Button, Stack } from "@yuva-devlab/ui";
 import { ComponentView, ComponentVariant } from "@/components/component-view";
 
 /**
@@ -19,7 +19,7 @@ export default function ConfirmDialogDocPage() {
       description:
         "High-stakes confirmation dialog styled with destructive action buttons.",
       preview: (
-        <div className="flex flex-col items-center gap-3">
+        <Stack align="center" gap={3}>
           <Button variant="outline" onClick={() => setOpenDestructive(true)}>
             Revoke Cluster Credentials
           </Button>
@@ -39,10 +39,8 @@ export default function ConfirmDialogDocPage() {
             }}
           />
 
-          {status && (
-            <p className="text-xs text-muted-foreground font-mono">{status}</p>
-          )}
-        </div>
+          {status && <p className="dl-demo-code">{status}</p>}
+        </Stack>
       ),
       codeSnippet: `<ConfirmDialog
   open={open}
@@ -60,7 +58,7 @@ export default function ConfirmDialogDocPage() {
       description:
         "Lightweight confirmation for non-destructive workflow events such as schema syncs.",
       preview: (
-        <div className="flex flex-col items-center gap-3">
+        <Stack align="center" gap={3}>
           <Button variant="default" onClick={() => setOpenStandard(true)}>
             Synchronize Vector Database
           </Button>
@@ -79,7 +77,7 @@ export default function ConfirmDialogDocPage() {
               setOpenStandard(false);
             }}
           />
-        </div>
+        </Stack>
       ),
       codeSnippet: `<ConfirmDialog
   open={open}

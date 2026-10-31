@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Slot } from "@radix-ui/react-slot";
-import { cn } from "../../lib/utils";
+import { cn } from "@/lib/utils";
 import type { LayoutGap } from "./flex";
 
 /**
@@ -22,6 +22,11 @@ export interface StackProps extends React.HTMLAttributes<HTMLDivElement> {
    * @default false
    */
   asChild?: boolean;
+  /**
+   * HTML element type to render.
+   * @default "div"
+   */
+  as?: React.ElementType;
   /**
    * Flow orientation of the stack items.
    * @default "col"
@@ -56,6 +61,7 @@ export const Stack = React.forwardRef<HTMLDivElement, StackProps>(
     {
       className,
       asChild = false,
+      as,
       direction = "col",
       gap = "3",
       align = "stretch",
@@ -63,7 +69,7 @@ export const Stack = React.forwardRef<HTMLDivElement, StackProps>(
     },
     ref,
   ) => {
-    const Comp = asChild ? Slot : "div";
+    const Comp = asChild ? Slot : as || "div";
 
     return (
       <Comp

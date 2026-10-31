@@ -8,8 +8,8 @@ import {
 } from "lucide-react";
 import { DayButton, DayPicker, getDefaultClassNames } from "react-day-picker";
 
-import { cn } from "../../lib/utils";
-import { Button, buttonVariants } from "../button";
+import { cn } from "@/lib/utils";
+import { Button, buttonVariants } from "@/components/button";
 
 export type CalendarProps = React.ComponentProps<typeof DayPicker> & {
   buttonVariant?: React.ComponentProps<typeof Button>["variant"];
@@ -46,7 +46,7 @@ function Calendar({
   return (
     <DayPicker
       showOutsideDays={showOutsideDays}
-      className={cn("dl-calendar group/calendar", className)}
+      className={cn("dl-calendar", className)}
       captionLayout={captionLayout}
       formatters={{
         formatMonthDropdown: (date) =>
@@ -54,51 +54,38 @@ function Calendar({
         ...formatters,
       }}
       classNames={{
-        root: cn("dl-calendar w-fit", defaultClassNames.root),
-        months: cn(
-          "relative flex flex-col gap-4 md:flex-row",
-          defaultClassNames.months,
-        ),
-        month: cn("flex w-full flex-col gap-4", defaultClassNames.month),
-        nav: cn(
-          "absolute inset-x-0 top-0 flex w-full items-center justify-between gap-1",
-          defaultClassNames.nav,
-        ),
+        root: cn("dl-calendar", defaultClassNames.root),
+        months: cn("dl-calendar__months", defaultClassNames.months),
+        month: cn("dl-calendar__month", defaultClassNames.month),
+        nav: cn("dl-calendar__nav", defaultClassNames.nav),
         button_previous: cn(
           buttonVariants({ variant: buttonVariant, size: "icon" }),
-          "select-none p-0 aria-disabled:opacity-50",
+          "dl-calendar__nav-button",
           defaultClassNames.button_previous,
         ),
         button_next: cn(
           buttonVariants({ variant: buttonVariant, size: "icon" }),
-          "select-none p-0 aria-disabled:opacity-50",
+          "dl-calendar__nav-button",
           defaultClassNames.button_next,
         ),
         month_caption: cn(
-          "flex w-full items-center justify-center",
+          "dl-calendar__month-caption",
           defaultClassNames.month_caption,
         ),
-        dropdowns: cn(
-          "flex w-full items-center justify-center gap-1.5 text-sm font-medium",
-          defaultClassNames.dropdowns,
-        ),
+        dropdowns: cn("dl-calendar__dropdowns", defaultClassNames.dropdowns),
         dropdown_root: cn(
-          "relative rounded-md border border-input shadow-xs",
+          "dl-calendar__dropdown-root",
           defaultClassNames.dropdown_root,
         ),
-        dropdown: cn(
-          "bg-popover absolute inset-0 opacity-0",
-          defaultClassNames.dropdown,
-        ),
+        dropdown: cn("dl-calendar__dropdown", defaultClassNames.dropdown),
         caption_label: cn(
-          "select-none font-medium text-sm",
-          captionLayout === "label"
-            ? "text-sm"
-            : "flex h-8 items-center gap-1 rounded-md pl-2 pr-1 text-sm",
+          "dl-calendar__caption-label",
+          captionLayout !== "label" &&
+            "dl-calendar__caption-label--interactive",
           defaultClassNames.caption_label,
         ),
-        table: cn("w-full border-collapse", defaultClassNames.month_grid),
-        month_grid: cn("w-full border-collapse", defaultClassNames.month_grid),
+        table: cn("dl-calendar__table", defaultClassNames.month_grid),
+        month_grid: cn("dl-calendar__table", defaultClassNames.month_grid),
         weekdays: defaultClassNames.weekdays,
         weekday: defaultClassNames.weekday,
         week: defaultClassNames.week,
@@ -126,35 +113,23 @@ function Calendar({
           orientation,
           ...chevronProps
         }) => {
+          const chevronClass = cn("dl-calendar__chevron", chevronClassName);
           if (orientation === "left") {
             return (
-              <ChevronLeftIcon
-                className={cn("size-4", chevronClassName)}
-                {...chevronProps}
-              />
+              <ChevronLeftIcon className={chevronClass} {...chevronProps} />
             );
           }
           if (orientation === "right") {
             return (
-              <ChevronRightIcon
-                className={cn("size-4", chevronClassName)}
-                {...chevronProps}
-              />
+              <ChevronRightIcon className={chevronClass} {...chevronProps} />
             );
           }
-          return (
-            <ChevronDownIcon
-              className={cn("size-4", chevronClassName)}
-              {...chevronProps}
-            />
-          );
+          return <ChevronDownIcon className={chevronClass} {...chevronProps} />;
         },
         DayButton: CalendarDayButton,
         WeekNumber: ({ children, ...weekProps }) => (
           <td {...weekProps}>
-            <div className="flex size-(--cell-size) items-center justify-center text-center">
-              {children}
-            </div>
+            <div className="dl-calendar__week-number">{children}</div>
           </td>
         ),
         ...components,
@@ -198,7 +173,7 @@ function CalendarDayButton({
       data-range-end={modifiers["range_end"]}
       data-range-middle={modifiers["range_middle"]}
       className={cn(
-        "dl-calendar__day-button flex aspect-square items-center justify-center font-normal leading-none",
+        "dl-calendar__day-button",
         defaultClassNames.day_button,
         className,
       )}

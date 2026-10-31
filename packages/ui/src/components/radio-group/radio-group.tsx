@@ -1,7 +1,7 @@
 import * as React from "react";
 import * as RadioGroupPrimitive from "@radix-ui/react-radio-group";
 import { Circle } from "lucide-react";
-import { cn } from "../../lib/utils";
+import { cn } from "@/lib/utils";
 
 export type RadioGroupProps = React.ComponentPropsWithoutRef<
   typeof RadioGroupPrimitive.Root
@@ -14,14 +14,14 @@ export type RadioGroupProps = React.ComponentPropsWithoutRef<
  * @example
  * ```tsx
  * <RadioGroup defaultValue="monthly" onValueChange={setBillingCycle}>
- *   <div className="flex items-center gap-2">
+ *   <Flex align="center" gap="2">
  *     <RadioGroupItem value="monthly" id="r1" />
  *     <Label htmlFor="r1">Monthly Billing</Label>
- *   </div>
- *   <div className="flex items-center gap-2">
+ *   </Flex>
+ *   <Flex align="center" gap="2">
  *     <RadioGroupItem value="annual" id="r2" />
  *     <Label htmlFor="r2">Annual Billing (Save 20%)</Label>
- *   </div>
+ *   </Flex>
  * </RadioGroup>
  * ```
  */

@@ -1,5 +1,5 @@
 import React from "react";
-import { Badge, StatusBadge, StatusChip } from "@yuva-devlab/ui";
+import { Badge, StatusBadge, StatusChip, Flex } from "@yuva-devlab/ui";
 import type { ComponentVariant } from "@/components/demo-card";
 import type {
   PropDefinition,
@@ -13,7 +13,7 @@ export const BADGE_VARIANTS: ComponentVariant[] = [
     description:
       "Standard semantic status pills mapped to design system theme colors.",
     preview: (
-      <div className="flex flex-wrap items-center justify-center gap-2.5">
+      <Flex wrap="wrap" align="center" justify="center" gap={3}>
         <Badge variant="default">Default</Badge>
         <Badge variant="secondary">Secondary</Badge>
         <Badge variant="outline">Outline</Badge>
@@ -21,7 +21,7 @@ export const BADGE_VARIANTS: ComponentVariant[] = [
         <Badge variant="warning">Warning</Badge>
         <Badge variant="info">Info</Badge>
         <Badge variant="destructive">Destructive</Badge>
-      </div>
+      </Flex>
     ),
     codeSnippet: `<Badge variant="default">Default</Badge>
 <Badge variant="secondary">Secondary</Badge>
@@ -37,12 +37,12 @@ export const BADGE_VARIANTS: ComponentVariant[] = [
     description:
       "Specialized presence and health badges featuring a glowing / pulsing status dot.",
     preview: (
-      <div className="flex flex-wrap items-center justify-center gap-3">
+      <Flex wrap="wrap" align="center" justify="center" gap={3}>
         <StatusBadge status="Active" />
         <StatusBadge status="In Progress" />
         <StatusBadge status="Completed" />
         <StatusBadge status="Failed" />
-      </div>
+      </Flex>
     ),
     codeSnippet: `import { StatusBadge } from "@yuva-devlab/ui";
 
@@ -57,12 +57,12 @@ export const BADGE_VARIANTS: ComponentVariant[] = [
     description:
       "AntD-inspired filter chip buttons with count badges and click states.",
     preview: (
-      <div className="flex flex-wrap items-center justify-center gap-2.5">
+      <Flex wrap="wrap" align="center" justify="center" gap={3}>
         <StatusChip status="running" />
         <StatusChip status="processing" />
         <StatusChip status="warning" />
         <StatusChip status="failed" />
-      </div>
+      </Flex>
     ),
     codeSnippet: `import { StatusChip } from "@yuva-devlab/ui";
 
@@ -86,7 +86,7 @@ export const BADGE_CSS: CssClassDefinition[] = [
   {
     name: ".dl-badge",
     description:
-      "Base badge styling with inline-flex, pill radius, and font-semibold.",
+      "Base badge styling with pill radius and semi-bold typography.",
   },
   {
     name: ".dl-badge--success",

@@ -10,7 +10,7 @@ import { Mail, Loader2, ArrowLeft } from "lucide-react";
 import { AuthCard } from "./auth-card";
 import { AuthInput } from "./auth-input";
 import { ForgotPasswordSuccess } from "./forgot-password-success";
-import type { ForgotPasswordProps } from "../types";
+import type { ForgotPasswordProps } from "@/types";
 
 export const ForgotPassword: React.FC<ForgotPasswordProps> = ({
   onSuccess,

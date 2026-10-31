@@ -1,5 +1,5 @@
 import React from "react";
-import { Badge } from "@yuva-devlab/ui";
+import { Badge, Flex, Stack, Grid } from "@yuva-devlab/ui";
 import type {
   SemanticColorToken,
   RadiusToken,
@@ -22,117 +22,107 @@ export function TokensView({
   typography,
 }: TokensViewProps): React.JSX.Element {
   return (
-    <div className="space-y-12 pb-16">
-      {/* Header */}
-      <div className="space-y-2 border-b border-border pb-6">
-        <div className="flex items-center gap-2">
-          <Badge variant="secondary" className="text-xs">
-            Design Tokens
-          </Badge>
-          <Badge variant="outline" className="text-xs">
-            OKLCH Space
-          </Badge>
-        </div>
-        <h1 className="text-3xl font-extrabold tracking-tight text-foreground">
-          Design Tokens & Palette
-        </h1>
-        <p className="text-muted-foreground text-sm max-w-2xl">
-          DevLab UI design tokens are defined in{" "}
-          <code className="text-primary font-mono text-xs">
-            @yuva-devlab/tokens
-          </code>
-          . Colors adapt dynamically when switching brands (OrchestrAI vs FinAI)
-          or modes (Light vs Dark).
-        </p>
-      </div>
+    <div className="dl-tokens-view">
+      <Stack gap={10}>
+        {/* Header */}
+        <header className="dl-tokens-header">
+          <Stack gap={2}>
+            <Flex align="center" gap={2}>
+              <Badge variant="secondary" className="dl-tokens-header__badge">
+                Design Tokens
+              </Badge>
+              <Badge variant="outline" className="dl-tokens-header__badge">
+                OKLCH Space
+              </Badge>
+            </Flex>
+            <h1 className="dl-tokens-header__title">Design Tokens & Palette</h1>
+            <p className="dl-tokens-header__desc">
+              DevLab UI design tokens are defined in{" "}
+              <code className="dl-tokens-header__code">
+                @yuva-devlab/tokens
+              </code>
+              . Colors adapt dynamically when switching brands (OrchestrAI vs
+              FinAI) or modes (Light vs Dark).
+            </p>
+          </Stack>
+        </header>
 
-      {/* Semantic Color Swatches */}
-      <section className="space-y-4">
-        <h2 className="text-xl font-bold tracking-tight text-foreground">
-          Semantic Color Palette
-        </h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
-          {semanticColors.map((color) => (
-            <div
-              key={color.name}
-              className="border border-border rounded-lg p-3 bg-card flex items-center gap-3 shadow-xs"
-            >
-              <div
-                className="size-10 rounded-md border border-border/60 shrink-0 shadow-inner"
-                style={{ backgroundColor: `var(${color.name})` }}
-              />
-              <div className="min-w-0 flex-1">
-                <div className="flex items-center justify-between">
-                  <span className="text-xs font-bold text-foreground truncate">
-                    {color.role}
-                  </span>
-                  <code className="text-[11px] font-mono text-primary">
-                    {color.name}
-                  </code>
+        {/* Semantic Color Swatches */}
+        <section>
+          <Stack gap={4}>
+            <h2 className="dl-tokens-section__title">Semantic Color Palette</h2>
+            <Grid columns={3} gap={3} className="dl-tokens-grid--colors">
+              {semanticColors.map((color) => (
+                <div key={color.name} className="dl-token-card">
+                  <div
+                    className="dl-token-card__swatch"
+                    style={
+                      {
+                        "--swatch-bg": `var(${color.name})`,
+                      } as React.CSSProperties
+                    }
+                  />
+                  <div className="dl-token-card__info">
+                    <Flex align="center" justify="between">
+                      <span className="dl-token-card__role">{color.role}</span>
+                      <code className="dl-token-card__name">{color.name}</code>
+                    </Flex>
+                    <p className="dl-token-card__desc">{color.desc}</p>
+                  </div>
                 </div>
-                <p className="text-[11px] text-muted-foreground line-clamp-1 mt-0.5">
-                  {color.desc}
-                </p>
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
+              ))}
+            </Grid>
+          </Stack>
+        </section>
 
-      {/* Corner Radii Scale */}
-      <section className="space-y-4">
-        <h2 className="text-xl font-bold tracking-tight text-foreground">
-          Corner Radii Scale
-        </h2>
-        <div className="grid grid-cols-2 sm:grid-cols-5 gap-3">
-          {radii.map((r) => (
-            <div
-              key={r.token}
-              className="border border-border rounded-lg p-4 bg-card flex flex-col items-center gap-3 text-center"
-            >
-              <div
-                className="size-14 border-2 border-primary bg-primary/10 shadow-xs"
-                style={{ borderRadius: `var(${r.token})` }}
-              />
-              <div>
-                <code className="text-xs font-mono font-semibold text-foreground">
-                  {r.token}
-                </code>
-                <span className="block text-[11px] text-muted-foreground mt-0.5">
-                  {r.example}
-                </span>
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
+        {/* Corner Radii Scale */}
+        <section>
+          <Stack gap={4}>
+            <h2 className="dl-tokens-section__title">Corner Radii Scale</h2>
+            <Grid columns={5} gap={3} className="dl-tokens-grid--radii">
+              {radii.map((r) => (
+                <Stack
+                  key={r.token}
+                  align="center"
+                  gap={3}
+                  className="dl-radius-card"
+                >
+                  <div
+                    className="dl-radius-card__box"
+                    style={
+                      {
+                        "--box-radius": `var(${r.token})`,
+                      } as React.CSSProperties
+                    }
+                  />
+                  <div>
+                    <code className="dl-radius-card__token">{r.token}</code>
+                    <span className="dl-radius-card__example">{r.example}</span>
+                  </div>
+                </Stack>
+              ))}
+            </Grid>
+          </Stack>
+        </section>
 
-      {/* Typography Scale */}
-      <section className="space-y-4">
-        <h2 className="text-xl font-bold tracking-tight text-foreground">
-          Typography Stacks
-        </h2>
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-          {typography.map((t) => (
-            <div
-              key={t.token}
-              className="border border-border rounded-lg p-4 bg-card space-y-1.5 shadow-xs"
-            >
-              <div className="flex items-center justify-between">
-                <span className="text-xs font-bold text-foreground">
-                  {t.role}
-                </span>
-                <code className="text-[11px] font-mono text-primary">
-                  {t.token}
-                </code>
-              </div>
-              <p className="text-xs text-muted-foreground font-mono">
-                {t.value}
-              </p>
-            </div>
-          ))}
-        </div>
-      </section>
+        {/* Typography Scale */}
+        <section>
+          <Stack gap={4}>
+            <h2 className="dl-tokens-section__title">Typography Stacks</h2>
+            <Grid columns={3} gap={3} className="dl-tokens-grid--typo">
+              {typography.map((t) => (
+                <div key={t.token} className="dl-typo-card">
+                  <Flex align="center" justify="between">
+                    <span className="dl-typo-card__role">{t.role}</span>
+                    <code className="dl-typo-card__token">{t.token}</code>
+                  </Flex>
+                  <p className="dl-typo-card__value">{t.value}</p>
+                </div>
+              ))}
+            </Grid>
+          </Stack>
+        </section>
+      </Stack>
     </div>
   );
 }

@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Slot } from "@radix-ui/react-slot";
-import { cn } from "../../lib/utils";
+import { cn } from "@/lib/utils";
 
 /**
  * Responsive maximum width constraint for the Container.
@@ -17,6 +17,11 @@ export interface ContainerProps extends React.HTMLAttributes<HTMLDivElement> {
    */
   asChild?: boolean;
   /**
+   * HTML element type to render.
+   * @default "div"
+   */
+  as?: React.ElementType;
+  /**
    * Maximum width threshold.
    * @default "xl"
    */
@@ -25,7 +30,6 @@ export interface ContainerProps extends React.HTMLAttributes<HTMLDivElement> {
 
 /**
  * Centered responsive max-width boundary component for page sections and layouts.
- * Pure CSS with zero runtime Tailwind dependencies.
  *
  * @example
  * ```tsx
@@ -36,8 +40,8 @@ export interface ContainerProps extends React.HTMLAttributes<HTMLDivElement> {
  * ```
  */
 export const Container = React.forwardRef<HTMLDivElement, ContainerProps>(
-  ({ className, asChild = false, size = "xl", ...props }, ref) => {
-    const Comp = asChild ? Slot : "div";
+  ({ className, asChild = false, as, size = "xl", ...props }, ref) => {
+    const Comp = asChild ? Slot : as || "div";
 
     return (
       <Comp

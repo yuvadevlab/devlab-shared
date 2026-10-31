@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import { Flex, Stack } from "@yuva-devlab/ui";
 import type { ComponentVariant } from "@/types/component-doc";
 import { VariantFilterBar } from "@/components/variant-filter-bar";
 import { DemoCard } from "@/components/demo-card";
@@ -28,13 +29,17 @@ export function InteractiveVariantsSection({
       : variants.filter((v, i) => (v.id || `variant-${i}`) === activeFilter);
 
   return (
-    <div className="space-y-6">
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-border/60 pb-4">
+    <Stack gap={6} className="dl-variants-section">
+      <Flex
+        align="center"
+        justify="between"
+        wrap="wrap"
+        gap={3}
+        className="dl-variants-section__header"
+      >
         <div>
-          <h2 className="text-xl font-bold tracking-tight text-foreground">
-            Examples & Variants
-          </h2>
-          <p className="text-xs text-muted-foreground mt-0.5">
+          <h2 className="dl-variants-section__title">Examples & Variants</h2>
+          <p className="dl-variants-section__desc">
             Explore interactive use cases and component variants.
           </p>
         </div>
@@ -44,9 +49,9 @@ export function InteractiveVariantsSection({
           activeId={activeFilter}
           onSelect={setActiveFilter}
         />
-      </div>
+      </Flex>
 
-      <div className="space-y-6">
+      <Stack gap={6}>
         {displayedVariants.map((variant, index) => (
           <DemoCard
             key={variant.id || `card-${index}`}
@@ -54,7 +59,7 @@ export function InteractiveVariantsSection({
             index={index}
           />
         ))}
-      </div>
-    </div>
+      </Stack>
+    </Stack>
   );
 }

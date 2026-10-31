@@ -12,8 +12,8 @@ import {
   DEFAULT_PUBLIC_PATHS,
   HTTP_STATUS_SERVICE_UNAVAILABLE,
   HTTP_STATUS_UNAUTHORIZED,
-} from "../constants";
-import { AppStatus, type AuthContext } from "../types";
+} from "@/constants";
+import { AppStatus, type AuthContext } from "@/types";
 
 const logger = loggerWithConfig(new Logger("AuthMiddleware"));
 

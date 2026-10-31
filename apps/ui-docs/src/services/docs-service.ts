@@ -24,12 +24,12 @@ const INSTALLATION_STEPS: InstallationStep[] = [
     title: "2. Configure globals.css",
     description:
       "Import the design tokens and component styles into your app's global stylesheet with native Cascade Layers (@layer):",
-    codeSnippet: `/* Native W3C Cascade Layers (Zero Tailwind required) */
-@layer dl-reset, dl-tokens, dl-components, dl-layout, dl-app;
+    codeSnippet: `/* Native W3C Cascade Layers */
+@layer dl-reset, dl-tokens, dl-components, dl-layout, dl-utilities, dl-app;
 
 @import "@yuva-devlab/tokens/preset.css";
 @import "@yuva-devlab/tokens/themes/orchestrai.css";
-@import "@yuva-devlab/ui/components.css";
+@import "@yuva-devlab/ui/styles.css";
 
 /* (Optional) If your application uses Tailwind CSS 4: */
 /* @import "tailwindcss"; */`,
@@ -44,10 +44,10 @@ const INSTALLATION_STEPS: InstallationStep[] = [
 
 export default function MyPage() {
   return (
-    <Card className="max-w-md p-6">
+    <Card>
       <Stack gap="4">
         <Flex justify="between" align="center">
-          <h2 className="text-xl font-bold">DevLab Project</h2>
+          <h2>DevLab Project</h2>
           <Badge variant="success">Active</Badge>
         </Flex>
         <Input placeholder="Enter prompt..." />

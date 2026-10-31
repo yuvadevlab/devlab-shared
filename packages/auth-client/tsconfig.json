@@ -5,6 +5,9 @@
     "types": ["node"],
     "module": "ESNext",
     "moduleResolution": "bundler",
+    "paths": {
+      "@/*": ["./src/*"]
+    },
     "jsx": "react-jsx",
     "outDir": "./dist",
     "rootDir": "./src",

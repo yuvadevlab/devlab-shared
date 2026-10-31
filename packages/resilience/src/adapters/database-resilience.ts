@@ -4,7 +4,7 @@
  * @module @yuva-devlab/resilience/adapters
  */
 
-import { ResiliencePipeline } from "../pipeline";
+import { ResiliencePipeline } from "@/pipeline";
 
 /**
  * Options tailoring resilience policies for database queries.

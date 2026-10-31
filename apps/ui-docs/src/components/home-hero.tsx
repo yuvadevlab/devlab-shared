@@ -1,7 +1,7 @@
 import React from "react";
 import Link from "next/link";
 import { Sparkles, ArrowRight } from "lucide-react";
-import { Button, Badge } from "@yuva-devlab/ui";
+import { Button, Badge, Stack, Flex } from "@yuva-devlab/ui";
 import { SearchTrigger } from "@/components/search-trigger";
 
 export interface HomeHeroProps {
@@ -13,42 +13,48 @@ export interface HomeHeroProps {
  */
 export function HomeHero({ totalComponents }: HomeHeroProps) {
   return (
-    <section className="space-y-5">
-      <div className="flex flex-wrap items-center gap-2">
-        <Badge variant="secondary" className="gap-1.5 py-1 text-xs">
-          <Sparkles className="size-3 text-primary" />
+    <Stack gap={5} as="section" className="dl-home-hero">
+      <Flex wrap="wrap" align="center" gap={2}>
+        <Badge variant="secondary" className="dl-home-hero__badge">
+          <Sparkles className="dl-home-hero__sparkles" />
           <span>Complete {totalComponents} Components Showcase</span>
         </Badge>
-        <Badge variant="outline" className="text-xs">
-          Pure CSS • Zero Tailwind Collisions
+        <Badge variant="outline" className="dl-home-hero__badge-outline">
+          Pure Platform CSS • Cascade Layers
         </Badge>
-      </div>
+      </Flex>
 
-      <h1 className="text-foreground text-4xl font-extrabold tracking-tight sm:text-5xl">
-        DevLab UI Design System
-      </h1>
+      <h1 className="dl-home-hero__title">DevLab UI Design System</h1>
 
-      <p className="text-muted-foreground max-w-2xl text-base leading-relaxed sm:text-lg">
+      <p className="dl-home-hero__desc">
         Enterprise React UI primitives engineered with scoped{" "}
-        <code className="text-primary font-mono text-sm">dl-*</code> CSS
-        classes, multi-brand OKLCH theme tokens, and rich JSDoc documentation
-        for flawless developer ergonomics.
+        <code className="dl-home-hero__code">dl-*</code> CSS classes,
+        multi-brand OKLCH theme tokens, and rich JSDoc documentation for
+        flawless developer ergonomics.
       </p>
 
-      <div className="flex flex-wrap items-center gap-3 pt-2">
-        <Button asChild size="lg" className="gap-2">
+      <Flex
+        wrap="wrap"
+        align="center"
+        gap={3}
+        className="dl-home-hero__actions"
+      >
+        <Button asChild size="lg" className="dl-home-hero__primary-btn">
           <Link href="/components/button">
             <span>Explore All {totalComponents} Components</span>
-            <ArrowRight className="size-4" />
+            <ArrowRight className="dl-home-hero__arrow" />
           </Link>
         </Button>
-        <div className="w-auto">
-          <SearchTrigger variant="header" className="h-10 sm:w-64" />
+        <div className="dl-home-hero__search">
+          <SearchTrigger
+            variant="header"
+            className="dl-home-hero__search-trigger"
+          />
         </div>
         <Button asChild variant="outline" size="lg">
           <Link href="/docs/tokens">Design Tokens</Link>
         </Button>
-      </div>
-    </section>
+      </Flex>
+    </Stack>
   );
 }

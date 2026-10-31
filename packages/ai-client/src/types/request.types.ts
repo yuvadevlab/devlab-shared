@@ -5,7 +5,7 @@
  */
 
 import { z } from "zod";
-import { AI_EXECUTION_DEFAULTS } from "../constants";
+import { AI_EXECUTION_DEFAULTS } from "@/constants";
 import { AIMessageSchema } from "./message.types";
 
 /**

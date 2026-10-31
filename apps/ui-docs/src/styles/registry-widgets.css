@@ -1,0 +1,88 @@
+/**
+ * @file registry-widgets.css
+ * @description Widget helpers for skeleton wireframes, data tables, sliders, and tabbed interfaces.
+ */
+
+@layer dl-app {
+  /* Alignment and wrapping helpers */
+  .dl-demo-align-right {
+    text-align: right;
+  }
+
+  .dl-demo-text-center {
+    text-align: center;
+  }
+
+  .dl-demo-nowrap {
+    white-space: nowrap;
+  }
+
+  /* Skeleton Wireframe Elements */
+  .dl-demo-skeleton-avatar {
+    width: 3rem;
+    height: 3rem;
+    border-radius: 9999px;
+    flex-shrink: 0;
+  }
+
+  .dl-demo-skeleton-line {
+    width: 100%;
+    height: 1rem;
+  }
+
+  .dl-demo-skeleton-line--sm {
+    width: 75%;
+    height: 0.75rem;
+  }
+
+  .dl-demo-skeleton-line--md {
+    width: 66%;
+    height: 1rem;
+  }
+
+  .dl-demo-skeleton-line--lg {
+    width: 80%;
+    height: 0.75rem;
+  }
+
+  .dl-demo-skeleton-hero {
+    width: 100%;
+    height: 7rem;
+    border-radius: var(--radius-lg, 0.5rem);
+  }
+
+  .dl-demo-skeleton-btn {
+    width: 4rem;
+    height: 2rem;
+    border-radius: var(--radius-md, 0.375rem);
+  }
+
+  .dl-demo-skeleton-btn--lg {
+    width: 5rem;
+    height: 2rem;
+    border-radius: var(--radius-md, 0.375rem);
+  }
+
+  /* Slider Display Rows */
+  .dl-demo-slider-labels {
+    font-size: 0.625rem;
+    color: var(--muted-foreground);
+    font-family: var(--font-mono, monospace);
+  }
+
+  /* Tabs Layouts */
+  .dl-demo-tabs-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    width: 100%;
+  }
+
+  .dl-demo-row {
+    padding-block: 0.25rem;
+    border-bottom: 1px solid color-mix(in oklch, var(--border) 50%, transparent);
+  }
+
+  .dl-demo-row:last-child {
+    border-bottom: none;
+  }
+}

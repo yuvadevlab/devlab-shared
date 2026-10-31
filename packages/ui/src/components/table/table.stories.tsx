@@ -8,8 +8,8 @@ import {
   TableCell,
   TableCaption,
 } from "./table";
-import { StatusBadge } from "../status-badge/status-badge";
-import { Button } from "../button/button";
+import { StatusBadge } from "@/components/status-badge/status-badge";
+import { Button } from "@/components/button/button";
 
 const meta: Meta<typeof Table> = {
   title: "Components/Table",

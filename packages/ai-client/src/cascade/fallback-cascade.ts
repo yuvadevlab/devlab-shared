@@ -16,7 +16,7 @@ import type {
   LLMRequest,
   LLMResponse,
   LLMStreamChunk,
-} from "../types";
+} from "@/types";
 
 const logger = loggerWithConfig(new Logger("FallbackCascade"));
 

@@ -4,7 +4,7 @@
  * @module @yuva-devlab/rag
  */
 
-import type { CreateChunkInput } from "../contracts";
+import type { CreateChunkInput } from "@/contracts";
 
 /**
  * Options configuring chunk size and overlap windows.

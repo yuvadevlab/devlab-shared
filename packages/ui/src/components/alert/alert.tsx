@@ -1,6 +1,6 @@
 import * as React from "react";
 import { cva, type VariantProps } from "class-variance-authority";
-import { cn } from "../../lib/utils";
+import { cn } from "@/lib/utils";
 
 /**
  * Alert variant configuration mapping to dl-* scoped CSS classes.
@@ -28,7 +28,7 @@ export interface AlertProps
  * @example
  * ```tsx
  * <Alert variant="destructive">
- *   <AlertCircle className="size-4" />
+ *   <AlertCircle />
  *   <AlertTitle>Authentication Failed</AlertTitle>
  *   <AlertDescription>
  *     Your session has expired. Please log in again to continue.

@@ -29,6 +29,12 @@
   padding-inline-end: 0.625rem;
 }
 
+.dl-pagination-icon {
+  width: 1rem;
+  height: 1rem;
+  flex-shrink: 0;
+}
+
 .dl-pagination-ellipsis {
   display: flex;
   align-items: center;

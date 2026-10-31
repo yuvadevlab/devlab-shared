@@ -3,7 +3,7 @@
   justify-content: flex-start;
   text-align: left;
   font-weight: 400;
-  height: 2.25rem;
+  height: var(--control-height-md, 2.25rem);
   border-color: var(--border);
   background-color: color-mix(in oklch, var(--secondary) 40%, transparent);
 }
@@ -18,7 +18,7 @@
 }
 
 .dl-date-picker-icon {
-  margin-inline-end: 0.5rem;
+  margin-inline-end: var(--space-2, 0.5rem);
   width: 1rem;
   height: 1rem;
   flex-shrink: 0;

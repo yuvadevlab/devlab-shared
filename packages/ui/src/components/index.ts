@@ -23,6 +23,7 @@ export * from "./date-picker";
 export * from "./dialog";
 export * from "./drawer";
 export * from "./dropdown-menu";
+export * from "./empty-state";
 export * from "./form";
 export * from "./hover-card";
 export * from "./input";

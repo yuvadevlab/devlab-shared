@@ -1,7 +1,7 @@
 /**
  * @file layout.css
  * @description Layout primitive styles wrapped in @layer dl-layout.
- * Pure CSS — zero Tailwind dependency. Governed by semantic design tokens.
+ * Governed by semantic design tokens.
  */
 
 @layer dl-layout {

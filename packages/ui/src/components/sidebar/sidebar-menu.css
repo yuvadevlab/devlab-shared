@@ -1,0 +1,183 @@
+.dl-sidebar-group {
+  position: relative;
+  display: flex;
+  width: 100%;
+  min-width: 0;
+  flex-direction: column;
+  padding: var(--space-2, 0.5rem);
+}
+.dl-sidebar-group-label {
+  display: flex;
+  height: var(--control-height-sm, 2rem);
+  flex-shrink: 0;
+  align-items: center;
+  border-radius: var(--radius-md, 0.375rem);
+  padding-inline: var(--space-2, 0.5rem);
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: color-mix(in oklch, var(--sidebar-foreground) 70%, transparent);
+  outline: none;
+  transition:
+    margin 0.2s ease-linear,
+    opacity 0.2s ease-linear;
+}
+.dl-sidebar-group-label svg {
+  width: 1rem;
+  height: 1rem;
+}
+[data-collapsible="icon"] .dl-sidebar-group-label {
+  margin-top: -2rem;
+  opacity: 0;
+}
+
+.dl-sidebar-group-action {
+  position: absolute;
+  right: 0.75rem;
+  top: 0.875rem;
+  display: flex;
+  aspect-ratio: 1 / 1;
+  width: 1.25rem;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-md, 0.375rem);
+  padding: 0;
+  background: transparent;
+  border: none;
+  color: var(--sidebar-foreground);
+  outline: none;
+  cursor: pointer;
+}
+.dl-sidebar-group-action:hover {
+  background-color: var(--sidebar-accent);
+  color: var(--sidebar-accent-foreground);
+}
+[data-collapsible="icon"] .dl-sidebar-group-action {
+  display: none;
+}
+.dl-sidebar-group-content {
+  width: 100%;
+  font-size: 0.875rem;
+}
+
+.dl-sidebar-menu {
+  display: flex;
+  width: 100%;
+  min-width: 0;
+  flex-direction: column;
+  gap: 0.25rem;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.dl-sidebar-menu-item {
+  position: relative;
+  list-style: none;
+}
+
+.dl-sidebar-menu-button {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  gap: 0.5rem;
+  overflow: hidden;
+  border-radius: var(--radius-md, 0.375rem);
+  padding: 0.5rem;
+  text-align: left;
+  outline: none;
+  border: none;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+  text-decoration: none;
+  box-sizing: border-box;
+  transition:
+    width 0.15s ease,
+    height 0.15s ease,
+    padding 0.15s ease,
+    background-color 0.15s ease,
+    color 0.15s ease;
+}
+.dl-sidebar-menu-button:hover,
+.dl-sidebar-menu-button[data-state="open"] {
+  background-color: var(--sidebar-accent);
+  color: var(--sidebar-accent-foreground);
+}
+.dl-sidebar-menu-button:active,
+.dl-sidebar-menu-button[data-active="true"] {
+  background-color: var(--sidebar-accent);
+  color: var(--sidebar-accent-foreground);
+  font-weight: 500;
+}
+.dl-sidebar-menu-button:disabled,
+.dl-sidebar-menu-button[aria-disabled="true"] {
+  pointer-events: none;
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+.dl-sidebar-menu-button svg {
+  width: 1rem;
+  height: 1rem;
+  flex-shrink: 0;
+}
+.dl-sidebar-menu-button > span:last-child {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.dl-sidebar-menu-button[data-size="default"] {
+  height: var(--control-height-sm, 2rem);
+  font-size: 0.875rem;
+}
+.dl-sidebar-menu-button[data-size="sm"] {
+  height: var(--control-height-xs, 1.75rem);
+  font-size: 0.75rem;
+}
+.dl-sidebar-menu-button[data-size="lg"] {
+  height: var(--control-height-xl, 3rem);
+  font-size: 0.875rem;
+}
+.dl-sidebar-menu-button[data-variant="outline"] {
+  background-color: var(--background);
+  box-shadow: 0 0 0 1px var(--sidebar-border);
+}
+.dl-sidebar-menu-button[data-variant="outline"]:hover {
+  box-shadow: 0 0 0 1px var(--sidebar-accent);
+}
+[data-collapsible="icon"] .dl-sidebar-menu-button {
+  width: var(--control-height-sm, 2rem) !important;
+  height: var(--control-height-sm, 2rem) !important;
+  padding: var(--space-2, 0.5rem) !important;
+}
+[data-collapsible="icon"] .dl-sidebar-menu-button[data-size="lg"] {
+  padding: 0 !important;
+}
+
+.dl-sidebar-menu-action {
+  position: absolute;
+  right: 0.25rem;
+  top: 0.375rem;
+  display: flex;
+  aspect-ratio: 1 / 1;
+  width: 1.25rem;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-md, 0.375rem);
+  padding: 0;
+  border: none;
+  background: transparent;
+  color: var(--sidebar-foreground);
+  cursor: pointer;
+  outline: none;
+}
+.dl-sidebar-menu-action:hover {
+  background-color: var(--sidebar-accent);
+  color: var(--sidebar-accent-foreground);
+}
+.dl-sidebar-menu-action svg {
+  width: 1rem;
+  height: 1rem;
+  flex-shrink: 0;
+}
+[data-collapsible="icon"] .dl-sidebar-menu-action {
+  display: none;
+}

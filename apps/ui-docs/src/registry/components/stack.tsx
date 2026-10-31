@@ -15,7 +15,7 @@ export default function StackDocPage() {
       description:
         "Consistent vertical flow with token spacing between form elements.",
       preview: (
-        <Stack gap="3" className="w-full max-w-sm">
+        <Stack gap="3" className="dl-demo-frame dl-demo-frame--sm">
           <Input placeholder="Enter username..." />
           <Input placeholder="Enter password..." type="password" />
           <Button variant="default">Sign In</Button>

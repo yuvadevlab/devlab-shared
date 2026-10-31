@@ -1,6 +1,6 @@
 import React from "react";
 import Link from "next/link";
-import { Badge } from "@yuva-devlab/ui";
+import { Badge, Stack, Flex, Grid, Box } from "@yuva-devlab/ui";
 import type { ComponentMeta, ComponentCategory } from "@/config/meta-types";
 
 export interface HomeCatalogProps {
@@ -18,53 +18,56 @@ export function HomeCatalog({
   const categories = Object.keys(groupedComponents) as ComponentCategory[];
 
   return (
-    <section className="space-y-6">
-      <div className="flex items-center justify-between border-b border-border pb-3">
+    <Stack gap={6} as="section">
+      <Flex align="center" justify="between" className="dl-catalog-header">
         <div>
-          <h2 className="text-2xl font-bold tracking-tight text-foreground">
-            Component Directory
-          </h2>
-          <p className="text-xs text-muted-foreground mt-0.5">
+          <h2 className="dl-catalog-title">Component Directory</h2>
+          <p className="dl-catalog-desc">
             Explore all {totalComponents} primitives grouped by functional
             domain.
           </p>
         </div>
-        <Badge variant="outline" className="font-mono text-xs">
+        <Badge variant="outline" className="dl-catalog-badge">
           {totalComponents} Components
         </Badge>
-      </div>
+      </Flex>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <Grid cols="repeat(auto-fit, minmax(320px, 1fr))" gap={6}>
         {categories.map((category) => {
           const comps = groupedComponents[category] || [];
           return (
-            <div
+            <Box
               key={category}
-              className="border border-border/80 rounded-xl p-5 bg-card/40 space-y-3"
+              border
+              radius="xl"
+              p={5}
+              className="dl-catalog-card"
             >
-              <div className="flex items-center justify-between border-b border-border/60 pb-2">
-                <h3 className="font-semibold text-sm text-foreground">
-                  {category}
-                </h3>
-                <span className="text-[11px] font-mono text-muted-foreground">
-                  {comps.length}
-                </span>
-              </div>
-              <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
-                {comps.map((c) => (
-                  <Link
-                    key={c.slug}
-                    href={c.href}
-                    className="p-2 rounded-lg bg-muted/30 hover:bg-primary/10 border border-transparent hover:border-primary/30 transition text-xs font-medium text-foreground hover:text-primary truncate block"
-                  >
-                    {c.name}
-                  </Link>
-                ))}
-              </div>
-            </div>
+              <Stack gap={3}>
+                <Flex
+                  align="center"
+                  justify="between"
+                  className="dl-catalog-card__header"
+                >
+                  <h3 className="dl-catalog-card__category">{category}</h3>
+                  <span className="dl-catalog-card__count">{comps.length}</span>
+                </Flex>
+                <Grid cols="repeat(auto-fill, minmax(110px, 1fr))" gap={2}>
+                  {comps.map((c) => (
+                    <Link
+                      key={c.slug}
+                      href={c.href}
+                      className="dl-catalog-link"
+                    >
+                      {c.name}
+                    </Link>
+                  ))}
+                </Grid>
+              </Stack>
+            </Box>
           );
         })}
-      </div>
-    </section>
+      </Grid>
+    </Stack>
   );
 }

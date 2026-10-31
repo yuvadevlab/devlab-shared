@@ -7,8 +7,8 @@
  * @module @yuva-devlab/ai-client
  */
 
-import { AI_DEFAULT_MODELS, AI_ENDPOINTS } from "../constants";
-import type { ProviderCredentials } from "../types";
+import { AI_DEFAULT_MODELS, AI_ENDPOINTS } from "@/constants";
+import type { ProviderCredentials } from "@/types";
 
 /**
  * Safely reads an environment variable without crashing in non-Node environments.

@@ -20,37 +20,43 @@ export default function GridDocPage() {
       title: "Three Column Metric Grid",
       description: "Responsive 3-column layout driven by native CSS Grid.",
       preview: (
-        <Grid cols={3} gap="4" className="w-full">
-          <Card className="p-3">
-            <CardHeader className="p-0 pb-2">
-              <CardTitle className="text-xs text-muted-foreground">
-                Requests
+        <Grid cols={3} gap="4" className="dl-demo-frame">
+          <Card>
+            <CardHeader>
+              <CardTitle>
+                <span className="dl-demo-caption">Requests</span>
               </CardTitle>
             </CardHeader>
-            <CardContent className="p-0 font-bold text-lg">1.4M</CardContent>
+            <CardContent>
+              <span className="dl-demo-title">1.4M</span>
+            </CardContent>
           </Card>
-          <Card className="p-3">
-            <CardHeader className="p-0 pb-2">
-              <CardTitle className="text-xs text-muted-foreground">
-                Latency
+          <Card>
+            <CardHeader>
+              <CardTitle>
+                <span className="dl-demo-caption">Latency</span>
               </CardTitle>
             </CardHeader>
-            <CardContent className="p-0 font-bold text-lg">12ms</CardContent>
+            <CardContent>
+              <span className="dl-demo-title">12ms</span>
+            </CardContent>
           </Card>
-          <Card className="p-3">
-            <CardHeader className="p-0 pb-2">
-              <CardTitle className="text-xs text-muted-foreground">
-                Uptime
+          <Card>
+            <CardHeader>
+              <CardTitle>
+                <span className="dl-demo-caption">Uptime</span>
               </CardTitle>
             </CardHeader>
-            <CardContent className="p-0 font-bold text-lg">99.99%</CardContent>
+            <CardContent>
+              <span className="dl-demo-title">99.99%</span>
+            </CardContent>
           </Card>
         </Grid>
       ),
       codeSnippet: `<Grid cols={3} gap="4">
-  <Card><CardContent>1.4M</CardContent></Card>
-  <Card><CardContent>12ms</CardContent></Card>
-  <Card><CardContent>99.99%</CardContent></Card>
+  <Card><CardHeader><CardTitle>Requests</CardTitle></CardHeader><CardContent>1.4M</CardContent></Card>
+  <Card><CardHeader><CardTitle>Latency</CardTitle></CardHeader><CardContent>12ms</CardContent></Card>
+  <Card><CardHeader><CardTitle>Uptime</CardTitle></CardHeader><CardContent>99.99%</CardContent></Card>
 </Grid>`,
     },
   ];

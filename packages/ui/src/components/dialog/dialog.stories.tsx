@@ -9,8 +9,8 @@ import {
   DialogDescription,
   DialogFooter,
 } from "./dialog";
-import { Button } from "../button/button";
-import { Input } from "../input/input";
+import { Button } from "@/components/button/button";
+import { Input } from "@/components/input/input";
 
 const meta: Meta<typeof Dialog> = {
   title: "Components/Dialog",

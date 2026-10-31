@@ -16,46 +16,46 @@ export default function MetricCardDocPage() {
       description:
         "High-level statistics displaying values, notes, positive trend flags, and icons.",
       preview: (
-        <div className="w-full max-w-lg">
-          <MetricsGrid className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+        <div className="dl-demo-frame dl-demo-frame--lg">
+          <MetricsGrid>
             <MetricCard
               label="Execution Velocity"
               value="1,420 t/s"
               note="+18.4% vs last hour"
               positive={true}
-              icon={<Zap className="size-4 text-primary" />}
+              icon={<Zap className="dl-demo-icon dl-demo-icon--sm" />}
             />
             <MetricCard
               label="Active Nodes"
               value="48 / 50"
               note="96% capacity"
               positive={true}
-              icon={<Cpu className="size-4 text-primary" />}
+              icon={<Cpu className="dl-demo-icon dl-demo-icon--sm" />}
             />
             <MetricCard
               label="Error Rate"
               value="0.04%"
               note="Within SLA (<0.1%)"
               positive={true}
-              icon={<Activity className="size-4 text-emerald-500" />}
+              icon={<Activity className="dl-demo-icon dl-demo-icon--sm" />}
             />
           </MetricsGrid>
         </div>
       ),
-      codeSnippet: `<MetricsGrid className="grid grid-cols-3 gap-3">
+      codeSnippet: `<MetricsGrid>
   <MetricCard
     label="Execution Velocity"
     value="1,420 t/s"
     note="+18.4% vs last hour"
     positive={true}
-    icon={<Zap className="size-4" />}
+    icon={<Zap />}
   />
   <MetricCard
     label="Error Rate"
     value="0.04%"
     note="Within SLA"
     positive={true}
-    icon={<Activity className="size-4" />}
+    icon={<Activity />}
   />
 </MetricsGrid>`,
     },
@@ -65,13 +65,13 @@ export default function MetricCardDocPage() {
       description:
         "Highlighting degraded system metrics requiring developer or DevOps intervention.",
       preview: (
-        <div className="w-full max-w-sm">
+        <div className="dl-demo-frame dl-demo-frame--sm">
           <MetricCard
             label="Vector Cache Latency"
             value="142 ms"
             note="+38% latency spike"
             positive={false}
-            icon={<AlertTriangle className="size-4 text-amber-500" />}
+            icon={<AlertTriangle className="dl-demo-icon dl-demo-icon--sm" />}
           />
         </div>
       ),
@@ -80,7 +80,7 @@ export default function MetricCardDocPage() {
   value="142 ms"
   note="+38% latency spike"
   positive={false}
-  icon={<AlertTriangle className="size-4" />}
+  icon={<AlertTriangle />}
 />`,
     },
   ];

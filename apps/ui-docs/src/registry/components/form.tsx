@@ -12,6 +12,7 @@ import {
   Input,
   Button,
   Label,
+  Stack,
 } from "@yuva-devlab/ui";
 import { useForm } from "react-hook-form";
 import { ComponentView, ComponentVariant } from "@/components/component-view";
@@ -40,59 +41,65 @@ export default function FormDocPage() {
       description:
         "Field integrated with react-hook-form, featuring labels, descriptions, and error messages.",
       preview: (
-        <div className="w-full max-w-sm space-y-4">
+        <Stack gap={4} className="dl-demo-frame dl-demo-frame--sm">
           {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
           <Form {...(form as any)}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-              <FormField
-                // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                control={form.control as any}
-                name="clusterId"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Agent Cluster Identifier</FormLabel>
-                    <FormControl>
-                      <Input placeholder="Enter cluster..." {...field} />
-                    </FormControl>
-                    <FormDescription>
-                      Unique identity for the workspace container.
-                    </FormDescription>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <Button type="submit" size="sm">
-                Save Configuration
-              </Button>
+            <form onSubmit={form.handleSubmit(onSubmit)}>
+              <Stack gap={4}>
+                <FormField
+                  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                  control={form.control as any}
+                  name="clusterId"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Agent Cluster Identifier</FormLabel>
+                      <FormControl>
+                        <Input placeholder="Enter cluster..." {...field} />
+                      </FormControl>
+                      <FormDescription>
+                        Unique identity for the workspace container.
+                      </FormDescription>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <div>
+                  <Button type="submit" size="sm">
+                    Save Configuration
+                  </Button>
+                </div>
+              </Stack>
             </form>
           </Form>
 
           {submittedValue && (
-            <p className="text-xs text-primary font-mono">
+            <p className="dl-demo-code">
               Saved cluster identifier: {submittedValue}
             </p>
           )}
-        </div>
+        </Stack>
       ),
       codeSnippet: `const form = useForm({ defaultValues: { clusterId: "alpha" } });
 
 <Form {...form}>
-  <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-    <FormField
-      control={form.control}
-      name="clusterId"
-      render={({ field }) => (
-        <FormItem>
-          <FormLabel>Cluster Identifier</FormLabel>
-          <FormControl>
-            <Input {...field} />
-          </FormControl>
-          <FormDescription>Unique workspace ID.</FormDescription>
-          <FormMessage />
-        </FormItem>
-      )}
-    />
-    <Button type="submit">Save</Button>
+  <form onSubmit={form.handleSubmit(onSubmit)}>
+    <Stack gap="4">
+      <FormField
+        control={form.control}
+        name="clusterId"
+        render={({ field }) => (
+          <FormItem>
+            <FormLabel>Cluster Identifier</FormLabel>
+            <FormControl>
+              <Input {...field} />
+            </FormControl>
+            <FormDescription>Unique workspace ID.</FormDescription>
+            <FormMessage />
+          </FormItem>
+        )}
+      />
+      <Button type="submit">Save</Button>
+    </Stack>
   </form>
 </Form>`,
     },
@@ -102,24 +109,28 @@ export default function FormDocPage() {
       description:
         "Lightweight grouped form controls without external schema validation bindings.",
       preview: (
-        <div className="w-full max-w-sm space-y-3">
-          <div className="space-y-1">
+        <Stack gap={3} className="dl-demo-frame dl-demo-frame--sm">
+          <Stack gap={1}>
             <Label>Endpoint URL</Label>
             <Input defaultValue="https://api.devlab.io/v1/traces" />
-            <p className="text-[11px] text-muted-foreground">
+            <p className="dl-demo-caption">
               Direct OTLP telemetry push receiver.
             </p>
+          </Stack>
+          <div>
+            <Button size="sm" variant="secondary">
+              Test Connection
+            </Button>
           </div>
-          <Button size="sm" variant="secondary">
-            Test Connection
-          </Button>
-        </div>
+        </Stack>
       ),
-      codeSnippet: `<div className="space-y-3">
-  <FormLabel>Endpoint URL</FormLabel>
-  <Input defaultValue="https://api.devlab.io/v1/traces" />
+      codeSnippet: `<Stack gap="3">
+  <Stack gap="1">
+    <Label>Endpoint URL</Label>
+    <Input defaultValue="https://api.devlab.io/v1/traces" />
+  </Stack>
   <Button size="sm" variant="secondary">Test Connection</Button>
-</div>`,
+</Stack>`,
     },
   ];
 

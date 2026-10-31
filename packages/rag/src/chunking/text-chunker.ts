@@ -10,8 +10,8 @@ import {
   DEFAULT_CHUNK_SIZE,
   MAX_CHUNK_SIZE,
   MIN_CHUNK_SIZE,
-} from "../constants";
-import type { CreateChunkInput } from "../contracts";
+} from "@/constants";
+import type { CreateChunkInput } from "@/contracts";
 import type { ChunkingOptions, ITextChunker } from "./chunker.interface";
 import { estimateTokenCount } from "./token-estimator";
 

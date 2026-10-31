@@ -1,0 +1,111 @@
+.dl-calendar .rdp-month_caption,
+.dl-calendar .dl-calendar__month-caption {
+  position: relative;
+  display: flex;
+  height: var(--cell-size, 2rem);
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  padding: 0 var(--cell-size, 2rem);
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--foreground);
+  box-sizing: border-box;
+}
+
+.dl-calendar .rdp-caption_label,
+.dl-calendar .dl-calendar__caption-label {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--foreground);
+  line-height: 1;
+  user-select: none;
+}
+
+.dl-calendar .dl-calendar__caption-label--interactive {
+  display: flex;
+  height: var(--control-height-sm, 2rem);
+  align-items: center;
+  gap: 0.25rem;
+  border-radius: var(--radius-md, 0.375rem);
+  padding-inline: 0.5rem 0.25rem;
+}
+
+.dl-calendar .dl-calendar__dropdowns {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  gap: 0.375rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.dl-calendar .dl-calendar__dropdown-root {
+  position: relative;
+  border-radius: var(--radius-md, 0.375rem);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-xs, 0 1px 2px 0 rgb(0 0 0 / 0.05));
+}
+
+.dl-calendar .dl-calendar__dropdown {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  background: var(--popover);
+  cursor: pointer;
+}
+
+.dl-calendar .rdp-nav,
+.dl-calendar .dl-calendar__nav {
+  position: absolute;
+  top: 0;
+  inset-inline: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  height: var(--cell-size, 2rem);
+  pointer-events: none;
+}
+
+.dl-calendar .rdp-button_previous,
+.dl-calendar .rdp-button_next,
+.dl-calendar .dl-calendar__nav-button {
+  pointer-events: auto;
+  width: var(--cell-size, 2rem) !important;
+  height: var(--cell-size, 2rem) !important;
+  min-width: var(--cell-size, 2rem) !important;
+  padding: 0 !important;
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-md, 0.375rem) !important;
+  border: 1px solid var(--border);
+  background: var(--background);
+  color: var(--muted-foreground);
+  cursor: pointer;
+  user-select: none;
+  transition: all 0.15s ease;
+}
+
+.dl-calendar .rdp-button_previous:hover,
+.dl-calendar .rdp-button_next:hover,
+.dl-calendar .dl-calendar__nav-button:hover {
+  background-color: var(--accent);
+  color: var(--accent-foreground);
+}
+
+.dl-calendar .rdp-button_previous[aria-disabled="true"],
+.dl-calendar .rdp-button_next[aria-disabled="true"] {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.dl-calendar .rdp-button_previous svg,
+.dl-calendar .rdp-button_next svg,
+.dl-calendar .dl-calendar__chevron {
+  width: 1rem;
+  height: 1rem;
+  flex-shrink: 0;
+}

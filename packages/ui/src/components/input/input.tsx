@@ -1,5 +1,5 @@
 import * as React from "react";
-import { cn } from "../../lib/utils";
+import { cn } from "@/lib/utils";
 
 export interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   /**
@@ -17,7 +17,6 @@ export interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> 
 /**
  * Textual input control styled with design system tokens and scoped CSS.
  * Provides accessible focus states, logical padding, and seamless icon integration.
- * Zero Tailwind runtime dependencies.
  *
  * @example
  * ```tsx
@@ -28,7 +27,7 @@ export interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> 
  * <Input
  *   type="search"
  *   placeholder="Search agents..."
- *   startIcon={<Search className="size-4" />}
+ *   startIcon={<Search />}
  * />
  *
  * // Password field with end visibility action

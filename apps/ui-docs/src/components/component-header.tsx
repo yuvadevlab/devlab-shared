@@ -1,5 +1,5 @@
 import React from "react";
-import { Badge } from "@yuva-devlab/ui";
+import { Badge, Flex, Stack } from "@yuva-devlab/ui";
 import type { ComponentCategory } from "@/config/meta-types";
 
 export interface ComponentHeaderProps {
@@ -20,33 +20,28 @@ export function ComponentHeader({
   variantCount = 0,
 }: ComponentHeaderProps) {
   return (
-    <header className="space-y-3 border-b pb-8 border-border">
-      <div className="flex items-center gap-2 flex-wrap">
-        {category && (
-          <Badge
-            variant="secondary"
-            className="text-xs uppercase tracking-wider font-semibold"
-          >
-            {category}
+    <header className="dl-comp-header">
+      <Stack gap={3}>
+        <Flex align="center" wrap="wrap" gap={2}>
+          {category && (
+            <Badge variant="secondary" className="dl-comp-header__badge">
+              {category}
+            </Badge>
+          )}
+          <Badge variant="outline" className="dl-comp-header__badge">
+            Pure CSS Scoped
           </Badge>
-        )}
-        <Badge variant="outline" className="text-xs">
-          Pure CSS Scoped
-        </Badge>
-        {variantCount > 1 && (
-          <Badge variant="outline" className="text-xs text-primary font-mono">
-            {variantCount} Variants
-          </Badge>
-        )}
-      </div>
+          {variantCount > 1 && (
+            <Badge variant="outline" className="dl-comp-header__badge-variants">
+              {variantCount} Variants
+            </Badge>
+          )}
+        </Flex>
 
-      <h1 className="text-3xl font-extrabold tracking-tight text-foreground">
-        {title}
-      </h1>
+        <h1 className="dl-comp-header__title">{title}</h1>
 
-      <p className="text-muted-foreground text-sm leading-relaxed max-w-3xl">
-        {description}
-      </p>
+        <p className="dl-comp-header__desc">{description}</p>
+      </Stack>
     </header>
   );
 }

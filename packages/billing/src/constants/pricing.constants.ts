@@ -4,7 +4,7 @@
  * @module @yuva-devlab/billing
  */
 
-import type { ModelPricingRate } from "../types";
+import type { ModelPricingRate } from "@/types";
 
 /**
  * Default cache duration in milliseconds for live model pricing matrices (5 minutes).
