@@ -1,5 +1,6 @@
 import React from "react";
 import { Code2 } from "lucide-react";
+import { Flex, Stack } from "@yuva-devlab/ui";
 import type { ComponentVariant } from "@/types/component-doc";
 import { CopyCodeButton } from "@/components/copy-code-button";
 
@@ -19,57 +20,50 @@ export function DemoCard({ variant, index }: DemoCardProps) {
   const id = variant.id || `demo-${index}`;
 
   return (
-    <div
-      id={id}
-      className="border border-border rounded-xl bg-card overflow-hidden shadow-xs scroll-mt-24 transition-all hover:border-primary/40"
-    >
+    <div id={id} className="dl-demo-card">
       {/* Interactive Preview Canvas */}
-      <div className="p-6 md:p-8 flex items-center justify-center min-h-45 bg-muted/10 border-b border-border">
-        <div className="w-full flex justify-center items-center">
+      <div className="dl-demo-card__canvas">
+        <Flex
+          align="center"
+          justify="center"
+          className="dl-demo-card__canvas-inner"
+        >
           {variant.preview}
-        </div>
+        </Flex>
       </div>
 
       {/* Meta & Actions Bar */}
-      <div className="px-5 py-4 bg-card flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-        <div className="space-y-1">
-          <h4 className="text-sm font-bold text-foreground tracking-tight flex items-center gap-2">
-            <span>{variant.title}</span>
-          </h4>
+      <Flex align="center" justify="between" className="dl-demo-card__meta">
+        <Stack gap={1} className="dl-demo-card__info">
+          <h4 className="dl-demo-card__title">{variant.title}</h4>
           {variant.description && (
-            <p className="text-xs text-muted-foreground leading-relaxed">
-              {variant.description}
-            </p>
+            <p className="dl-demo-card__desc">{variant.description}</p>
           )}
-        </div>
+        </Stack>
 
-        <div className="flex items-center gap-1.5 shrink-0 self-end sm:self-center">
+        <div className="dl-demo-card__actions">
           <CopyCodeButton code={variant.codeSnippet} />
         </div>
-      </div>
+      </Flex>
 
       {/* Native Zero-JS Accessible Code Disclosure */}
-      <details className="group border-t border-border">
-        <summary className="flex items-center justify-between px-5 py-2.5 text-xs font-medium text-muted-foreground hover:text-foreground cursor-pointer select-none bg-muted/20 hover:bg-muted/40 transition-colors list-none">
-          <span className="flex items-center gap-1.5">
-            <Code2 className="size-3.5" />
+      <details className="dl-demo-card__disclosure">
+        <summary className="dl-demo-card__summary">
+          <Flex align="center" gap={2}>
+            <Code2 className="dl-demo-card__icon-sm" />
             <span>View Source</span>
-          </span>
-          <span className="text-[10px] text-muted-foreground transition-transform group-open:rotate-180">
-            ▼
-          </span>
+          </Flex>
+          <span className="dl-demo-card__arrow">▼</span>
         </summary>
 
-        <div className="bg-muted/40 p-4 border-t border-border overflow-x-auto font-mono text-xs">
+        <div className="dl-demo-card__code">
           {variant.highlightedHtml ? (
             <div
-              className="[&>pre]:p-0 [&>pre]:m-0 [&>pre]:bg-transparent overflow-x-auto text-xs"
+              className="dl-demo-card__code-highlighted"
               dangerouslySetInnerHTML={{ __html: variant.highlightedHtml }}
             />
           ) : (
-            <pre className="text-foreground whitespace-pre m-0">
-              {variant.codeSnippet}
-            </pre>
+            <pre className="dl-demo-card__code-raw">{variant.codeSnippet}</pre>
           )}
         </div>
       </details>

@@ -10,7 +10,7 @@ import type {
   EventHandler,
   EventSubscription,
   IEventBus,
-} from "../contracts";
+} from "@/contracts";
 
 /**
  * In-memory event bus with pattern matching, asynchronous execution, and fault isolation.

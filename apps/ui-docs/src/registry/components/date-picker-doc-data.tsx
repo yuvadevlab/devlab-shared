@@ -57,7 +57,7 @@ export const DATE_PICKER_VARIANTS: ComponentVariant[] = [
     description:
       "Disables opening the popover calendar and displays subdued trigger styling.",
     preview: (
-      <div className="w-full max-w-xs">
+      <div className="dl-demo-frame dl-demo-frame--xs">
         <DatePicker
           disabled
           value="2026-10-30"

@@ -33,34 +33,34 @@ export default function CommandDocPage() {
       description:
         "Fast fuzzy-searchable dialog for quick access to actions and resources.",
       preview: (
-        <div className="w-full max-w-md border border-border rounded-xl bg-card shadow-xs overflow-hidden">
+        <div className="dl-demo-frame dl-demo-frame--md dl-demo-box">
           <Command>
             <CommandInput placeholder="Type a command or search..." />
-            <CommandList className="max-h-56">
+            <CommandList>
               <CommandEmpty>No results found.</CommandEmpty>
               <CommandGroup heading="Suggestions">
                 <CommandItem>
-                  <Calendar className="mr-2 size-4 text-muted-foreground" />
+                  <Calendar className="dl-demo-icon dl-demo-icon--sm" />
                   <span>Calendar Event</span>
                 </CommandItem>
                 <CommandItem>
-                  <Smile className="mr-2 size-4 text-muted-foreground" />
+                  <Smile className="dl-demo-icon dl-demo-icon--sm" />
                   <span>Search Emoji</span>
                 </CommandItem>
                 <CommandItem>
-                  <Calculator className="mr-2 size-4 text-muted-foreground" />
+                  <Calculator className="dl-demo-icon dl-demo-icon--sm" />
                   <span>Calculator</span>
                 </CommandItem>
               </CommandGroup>
               <CommandSeparator />
               <CommandGroup heading="Settings">
                 <CommandItem>
-                  <User className="mr-2 size-4 text-muted-foreground" />
+                  <User className="dl-demo-icon dl-demo-icon--sm" />
                   <span>Profile</span>
                   <CommandShortcut>⌘P</CommandShortcut>
                 </CommandItem>
                 <CommandItem>
-                  <Settings className="mr-2 size-4 text-muted-foreground" />
+                  <Settings className="dl-demo-icon dl-demo-icon--sm" />
                   <span>Settings</span>
                   <CommandShortcut>⌘S</CommandShortcut>
                 </CommandItem>
@@ -75,13 +75,13 @@ export default function CommandDocPage() {
     <CommandEmpty>No results found.</CommandEmpty>
     <CommandGroup heading="Suggestions">
       <CommandItem>
-        <Calendar className="mr-2 size-4" />
+        <Calendar />
         <span>Calendar Event</span>
       </CommandItem>
     </CommandGroup>
     <CommandGroup heading="Settings">
       <CommandItem>
-        <Settings className="mr-2 size-4" />
+        <Settings />
         <span>Settings</span>
         <CommandShortcut>⌘S</CommandShortcut>
       </CommandItem>
@@ -95,19 +95,19 @@ export default function CommandDocPage() {
       description:
         "Specialized developer actions with instant keyboard execution.",
       preview: (
-        <div className="w-full max-w-md border border-border rounded-xl bg-card shadow-xs overflow-hidden">
+        <div className="dl-demo-frame dl-demo-frame--md dl-demo-box">
           <Command>
             <CommandInput placeholder="Search developer tools..." />
-            <CommandList className="max-h-56">
+            <CommandList>
               <CommandEmpty>No matching tool.</CommandEmpty>
               <CommandGroup heading="Agent Tools">
                 <CommandItem>
-                  <Terminal className="mr-2 size-4 text-primary" />
+                  <Terminal className="dl-demo-icon dl-demo-icon--sm" />
                   <span>Spawn Subagent Sandbox</span>
                   <CommandShortcut>⌘K</CommandShortcut>
                 </CommandItem>
                 <CommandItem>
-                  <Zap className="mr-2 size-4 text-amber-500" />
+                  <Zap className="dl-demo-icon dl-demo-icon--sm" />
                   <span>Flush Vector Cache</span>
                   <CommandShortcut>⌘⇧F</CommandShortcut>
                 </CommandItem>
@@ -121,7 +121,7 @@ export default function CommandDocPage() {
   <CommandList>
     <CommandGroup heading="Agent Tools">
       <CommandItem>
-        <Terminal className="mr-2 size-4 text-primary" />
+        <Terminal />
         <span>Spawn Subagent</span>
         <CommandShortcut>⌘K</CommandShortcut>
       </CommandItem>

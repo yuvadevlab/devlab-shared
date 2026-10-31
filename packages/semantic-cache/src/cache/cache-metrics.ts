@@ -4,7 +4,7 @@
  * @module @yuva-devlab/semantic-cache
  */
 
-import type { SemanticCacheStats } from "../types";
+import type { SemanticCacheStats } from "@/types";
 
 /**
  * Tracks hit/miss counters and calculates cache efficiency ratios.

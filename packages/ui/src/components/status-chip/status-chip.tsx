@@ -1,5 +1,5 @@
 import * as React from "react";
-import { cn } from "../../lib/utils";
+import { cn } from "@/lib/utils";
 
 const statusToneMap: Record<string, string> = {
   active: "dl-status-chip--primary",

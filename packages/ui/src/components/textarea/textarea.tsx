@@ -1,12 +1,11 @@
 import * as React from "react";
-import { cn } from "../../lib/utils";
+import { cn } from "@/lib/utils";
 
 export type TextareaProps = React.TextareaHTMLAttributes<HTMLTextAreaElement>;
 
 /**
  * Multi-line text field styled with design system tokens and scoped CSS.
  * Provides accessible focus states, vertical resizing, and clean error integration.
- * Zero Tailwind runtime dependencies.
  *
  * @example
  * ```tsx

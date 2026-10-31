@@ -6,7 +6,7 @@
 
 import { ForbiddenError, UnauthorizedError } from "@yuva-devlab/errors";
 import { Logger, loggerWithConfig } from "@yuva-devlab/logger";
-import type { ApiKey, AuthContext, AuthUser } from "../types";
+import type { ApiKey, AuthContext, AuthUser } from "@/types";
 
 const logger = loggerWithConfig(new Logger("AuthGuards"));
 

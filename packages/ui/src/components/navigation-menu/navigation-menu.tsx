@@ -3,7 +3,7 @@ import * as NavigationMenuPrimitive from "@radix-ui/react-navigation-menu";
 import { cva } from "class-variance-authority";
 import { ChevronDown } from "lucide-react";
 
-import { cn } from "../../lib/utils";
+import { cn } from "@/lib/utils";
 
 export type NavigationMenuProps = React.ComponentPropsWithoutRef<
   typeof NavigationMenuPrimitive.Root
@@ -19,7 +19,7 @@ export type NavigationMenuProps = React.ComponentPropsWithoutRef<
  *     <NavigationMenuItem>
  *       <NavigationMenuTrigger>Getting Started</NavigationMenuTrigger>
  *       <NavigationMenuContent>
- *         <ul className="grid gap-3 p-6 md:w-[400px]">
+ *         <ul>
  *           <li><a href="/intro">Introduction</a></li>
  *           <li><a href="/install">Installation</a></li>
  *         </ul>

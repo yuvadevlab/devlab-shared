@@ -4,7 +4,7 @@
  * @module @yuva-devlab/events
  */
 
-import type { DomainEventEnvelope } from "../contracts/envelope";
+import type { DomainEventEnvelope } from "@/contracts/envelope";
 import type { OutboxRecord } from "./outbox-record";
 
 /**

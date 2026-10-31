@@ -14,7 +14,6 @@ import {
 const meta: Meta<typeof Select> = {
   title: "Components/Select",
   component: Select,
-  tags: ["autodocs"],
 };
 
 export default meta;
@@ -22,7 +21,7 @@ type Story = StoryObj<typeof Select>;
 
 export const Default: Story = {
   render: () => (
-    <div style={{ width: "240px" }}>
+    <div className="dl-story-w-xs">
       <Select defaultValue="gemini-2.5-pro">
         <SelectTrigger>
           <SelectValue placeholder="Select model..." />
@@ -48,7 +47,7 @@ export const Default: Story = {
 
 export const Disabled: Story = {
   render: () => (
-    <div style={{ width: "240px" }}>
+    <div className="dl-story-w-xs">
       <Select disabled defaultValue="locked">
         <SelectTrigger>
           <SelectValue placeholder="Unavailable" />

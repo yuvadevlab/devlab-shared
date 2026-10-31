@@ -1,6 +1,6 @@
 import * as React from "react";
 import * as SliderPrimitive from "@radix-ui/react-slider";
-import { cn } from "../../lib/utils";
+import { cn } from "@/lib/utils";
 
 export type SliderProps = React.ComponentPropsWithoutRef<
   typeof SliderPrimitive.Root
@@ -9,7 +9,6 @@ export type SliderProps = React.ComponentPropsWithoutRef<
 /**
  * Interactive slider component for selecting single numeric values or continuous ranges.
  * Built upon Radix UI Slider with scoped CSS track and thumb styling.
- * Zero Tailwind runtime dependencies.
  *
  * @example
  * ```tsx

@@ -30,6 +30,9 @@ export default defineConfig({
     ssr: true, // Important for Node.js builds
   },
   resolve: {
+    alias: {
+      "@": resolve(__dirname, "src"),
+    },
     conditions: ["node"],
   },
 });

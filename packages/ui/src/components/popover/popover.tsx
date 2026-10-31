@@ -1,6 +1,6 @@
 import * as React from "react";
 import * as PopoverPrimitive from "@radix-ui/react-popover";
-import { cn } from "../../lib/utils";
+import { cn } from "@/lib/utils";
 
 /**
  * Root container for non-modal floating panels and flyouts. Built upon Radix UI Popover.
@@ -11,11 +11,11 @@ import { cn } from "../../lib/utils";
  *   <PopoverTrigger asChild>
  *     <Button variant="outline">Open Filters</Button>
  *   </PopoverTrigger>
- *   <PopoverContent align="start" className="w-80">
- *     <div className="grid gap-2">
- *       <h4 className="font-semibold text-sm">Filter Results</h4>
- *       <p className="text-xs text-muted-foreground">Adjust display criteria.</p>
- *     </div>
+ *   <PopoverContent align="start">
+ *     <Stack gap="2">
+ *       <h4>Filter Results</h4>
+ *       <p>Adjust display criteria.</p>
+ *     </Stack>
  *   </PopoverContent>
  * </Popover>
  * ```

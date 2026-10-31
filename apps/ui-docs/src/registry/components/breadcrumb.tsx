@@ -23,7 +23,7 @@ export default function BreadcrumbDocPage() {
       description:
         "Handles deeply nested hierarchies by condensing intermediate segments into an ellipsis.",
       preview: (
-        <div className="w-full max-w-md p-4 border border-border rounded-xl bg-card">
+        <div className="dl-demo-frame dl-demo-frame--md dl-demo-box">
           <Breadcrumb>
             <BreadcrumbList>
               <BreadcrumbItem>
@@ -73,7 +73,7 @@ export default function BreadcrumbDocPage() {
       description:
         "Breadcrumbs styled with explicit slash separators for clean Unix-style path representations.",
       preview: (
-        <div className="w-full max-w-md p-4 border border-border rounded-xl bg-card">
+        <div className="dl-demo-frame dl-demo-frame--md dl-demo-box">
           <Breadcrumb>
             <BreadcrumbList>
               <BreadcrumbItem>

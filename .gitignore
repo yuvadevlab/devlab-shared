@@ -6,3 +6,6 @@ storybook-static
 .next
 coverage
 .env*.local
+*.tsbuildinfo
+packages/tokens/styles
+packages/tokens/css-data.json

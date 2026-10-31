@@ -4,8 +4,8 @@
  * @module @yuva-devlab/resilience/adapters
  */
 
-import { ResiliencePipeline } from "../pipeline";
-import type { FallbackHandler } from "../fallback";
+import { ResiliencePipeline } from "@/pipeline";
+import type { FallbackHandler } from "@/fallback";
 
 /**
  * Options tailoring resilience policies for agent tool executions.

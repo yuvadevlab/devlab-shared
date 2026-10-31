@@ -7,17 +7,17 @@ import * as React from "react";
 import { Slot } from "@radix-ui/react-slot";
 import { cva, type VariantProps } from "class-variance-authority";
 
-import { cn } from "../../lib/utils";
+import { cn } from "@/lib/utils";
 
 const ${variantVar} = cva(
-  "inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50",
+  "dl-${kebab}",
   {
     variants: {
       variant: {
-        default: "bg-primary text-primary-foreground shadow hover:bg-primary/90",
+        default: "dl-${kebab}--default",
       },
       size: {
-        default: "h-9 px-4 py-2",
+        default: "dl-${kebab}--md",
       },
     },
     defaultVariants: {
@@ -61,7 +61,7 @@ export interface ${pascal}CustomProps {
 
 const styledStylesTemplate = (): string => {
   return `
-// Tailwind CSS 4 utility classes are used directly with class-variance-authority.
+// Scoped component classes are used directly with class-variance-authority.
 `;
 };
 
@@ -69,7 +69,7 @@ export const styledTestTemplate = (pascal: string, kebab: string): string => {
   return `
 import React from "react";
 import { render } from "@testing-library/react";
-import { ${pascal} } from "../${kebab}";
+import { ${pascal} } from "@/utils/${kebab}";
 
 describe("${pascal}", () => {
   it("renders without crashing", () => {

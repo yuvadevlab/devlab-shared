@@ -1,10 +1,10 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { Progress } from "./progress";
+import { Flex } from "@/components/layout/flex";
 
 const meta: Meta<typeof Progress> = {
   title: "Components/Progress",
   component: Progress,
-  tags: ["autodocs"],
   argTypes: {
     value: {
       control: { type: "range", min: 0, max: 100, step: 1 },
@@ -21,25 +21,11 @@ type Story = StoryObj<typeof Progress>;
 
 export const Default: Story = {
   render: (args) => (
-    <div
-      style={{
-        width: "320px",
-        display: "flex",
-        flexDirection: "column",
-        gap: "8px",
-      }}
-    >
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          fontSize: "12px",
-          opacity: 0.8,
-        }}
-      >
+    <div className="dl-story-col dl-story-w-sm">
+      <Flex justify="between" align="center">
         <span>Agent Synthesis Pipeline</span>
         <span>{args.value}%</span>
-      </div>
+      </Flex>
       <Progress {...args} />
     </div>
   ),

@@ -33,8 +33,8 @@ import {
   type RagSearchResult,
 } from "@yuva-devlab/rag";
 import { SemanticCache } from "@yuva-devlab/semantic-cache";
-import { DEFAULT_CLIENT_TIMEOUT_MS, DEFAULT_GATEWAY_URL } from "../constants";
-import type { DevLabClientConfig } from "../types";
+import { DEFAULT_CLIENT_TIMEOUT_MS, DEFAULT_GATEWAY_URL } from "@/constants";
+import type { DevLabClientConfig } from "@/types";
 
 const logger = loggerWithConfig(new Logger("DevLabClient"));
 

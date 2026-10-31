@@ -6,7 +6,7 @@
 
 import React, { useContext } from "react";
 import { LogOut, User } from "lucide-react";
-import { DevLabAuthContext } from "../provider/auth-context";
+import { DevLabAuthContext } from "@/provider/auth-context";
 
 /**
  * Compact profile button displaying user initials or avatar, with one-click logout.

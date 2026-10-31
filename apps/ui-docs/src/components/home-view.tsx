@@ -4,6 +4,7 @@ import { HomeHero } from "@/components/home-hero";
 import { HomePillars } from "@/components/home-pillars";
 import { HomeCatalog } from "@/components/home-catalog";
 import { HomeQuickstart } from "@/components/home-quickstart";
+import { Stack } from "@yuva-devlab/ui";
 
 export interface HomeViewProps {
   stats: {
@@ -18,7 +19,7 @@ export interface HomeViewProps {
  */
 export function HomeView({ stats, groupedComponents }: HomeViewProps) {
   return (
-    <div className="space-y-14">
+    <Stack gap={10} className="home-view">
       <HomeHero totalComponents={stats.totalComponents} />
       <HomePillars />
       <HomeCatalog
@@ -26,6 +27,6 @@ export function HomeView({ stats, groupedComponents }: HomeViewProps) {
         groupedComponents={groupedComponents}
       />
       <HomeQuickstart />
-    </div>
+    </Stack>
   );
 }

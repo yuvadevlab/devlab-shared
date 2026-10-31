@@ -5,13 +5,13 @@
  */
 
 import { Logger, loggerWithConfig } from "@yuva-devlab/logger";
-import { BUDGET_THRESHOLDS } from "../constants";
-import type { CostLedger } from "../ledger";
+import { BUDGET_THRESHOLDS } from "@/constants";
+import type { CostLedger } from "@/ledger";
 import {
   BillingEnforcementAction,
   type BudgetEvaluationResult,
   BudgetQuotaStatus,
-} from "../types";
+} from "@/types";
 
 const logger = loggerWithConfig(new Logger("BudgetEnforcer"));
 

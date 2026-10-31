@@ -5,7 +5,6 @@ import { Alert, AlertTitle, AlertDescription } from "./alert";
 const meta: Meta<typeof Alert> = {
   title: "Components/Alert",
   component: Alert,
-  tags: ["autodocs"],
   argTypes: {
     variant: {
       control: "select",
@@ -23,9 +22,9 @@ type Story = StoryObj<typeof Alert>;
 
 export const Default: Story = {
   render: () => (
-    <div style={{ maxWidth: "480px" }}>
+    <div className="dl-story-w-md">
       <Alert variant="default">
-        <Info style={{ width: "16px", height: "16px" }} />
+        <Info size={16} />
         <AlertTitle>System Scheduled Maintenance</AlertTitle>
         <AlertDescription>
           Cluster maintenance is scheduled tonight between 02:00 and 03:00 UTC.
@@ -38,9 +37,9 @@ export const Default: Story = {
 
 export const Destructive: Story = {
   render: () => (
-    <div style={{ maxWidth: "480px" }}>
+    <div className="dl-story-w-md">
       <Alert variant="destructive">
-        <AlertCircle style={{ width: "16px", height: "16px" }} />
+        <AlertCircle size={16} />
         <AlertTitle>Agent Execution Failed</AlertTitle>
         <AlertDescription>
           Process terminated abruptly: Execution timeout exceeded (30,000ms

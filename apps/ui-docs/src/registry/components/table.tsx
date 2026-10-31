@@ -69,27 +69,27 @@ export default function TableDocPage() {
       description:
         "AntD-inspired clean tabular presentation for structured records.",
       preview: (
-        <div className="w-full border border-border rounded-lg overflow-hidden bg-card">
+        <div className="dl-demo-frame dl-demo-box">
           <Table>
             <TableHeader>
               <TableRow>
                 <TableHead>Service Name</TableHead>
                 <TableHead>Endpoint</TableHead>
                 <TableHead>Status</TableHead>
-                <TableHead className="text-right">Latency (p99)</TableHead>
+                <TableHead className="dl-demo-align-right">
+                  Latency (p99)
+                </TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
               {basicRows.map((r) => (
                 <TableRow key={r.name}>
-                  <TableCell className="font-medium text-xs">
-                    {r.name}
-                  </TableCell>
-                  <TableCell className="font-mono text-xs text-muted-foreground">
+                  <TableCell className="dl-demo-heading">{r.name}</TableCell>
+                  <TableCell className="dl-demo-code dl-demo-desc">
                     {r.endpoint}
                   </TableCell>
-                  <TableCell className="text-xs">{r.status}</TableCell>
-                  <TableCell className="text-right font-mono text-xs text-muted-foreground">
+                  <TableCell className="dl-demo-desc">{r.status}</TableCell>
+                  <TableCell className="dl-demo-align-right dl-demo-code dl-demo-desc">
                     {r.p99}
                   </TableCell>
                 </TableRow>
@@ -104,15 +104,15 @@ export default function TableDocPage() {
       <TableHead>Service</TableHead>
       <TableHead>Endpoint</TableHead>
       <TableHead>Status</TableHead>
-      <TableHead className="text-right">Latency</TableHead>
+      <TableHead className="dl-demo-align-right">Latency</TableHead>
     </TableRow>
   </TableHeader>
   <TableBody>
     <TableRow>
-      <TableCell className="font-medium">Gateway</TableCell>
+      <TableCell className="dl-demo-heading">Gateway</TableCell>
       <TableCell>https://api.devlab.io</TableCell>
       <TableCell>Active</TableCell>
-      <TableCell className="text-right">42ms</TableCell>
+      <TableCell className="dl-demo-align-right">42ms</TableCell>
     </TableRow>
   </TableBody>
 </Table>`,
@@ -123,46 +123,38 @@ export default function TableDocPage() {
       description:
         "Enhanced dashboard table enriched with status badges and action trigger buttons.",
       preview: (
-        <div className="w-full border border-border rounded-lg overflow-hidden bg-card">
+        <div className="dl-demo-frame dl-demo-box">
           <Table>
             <TableHeader>
               <TableRow>
-                <TableHead className="font-mono text-xs">Run ID</TableHead>
+                <TableHead className="dl-demo-code">Run ID</TableHead>
                 <TableHead>Agent</TableHead>
-                <TableHead className="font-mono text-xs">
-                  Engine Model
-                </TableHead>
+                <TableHead className="dl-demo-code">Engine Model</TableHead>
                 <TableHead>Presence</TableHead>
-                <TableHead className="text-right font-mono text-xs">
+                <TableHead className="dl-demo-align-right dl-demo-code">
                   Tokens
                 </TableHead>
-                <TableHead className="text-right w-24">Actions</TableHead>
+                <TableHead className="dl-demo-align-right">Actions</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
               {interactiveRows.map((r) => (
                 <TableRow key={r.id}>
-                  <TableCell className="font-mono text-xs text-primary font-medium">
-                    {r.id}
-                  </TableCell>
-                  <TableCell className="font-medium text-xs whitespace-nowrap">
+                  <TableCell className="dl-demo-code">{r.id}</TableCell>
+                  <TableCell className="dl-demo-heading dl-demo-nowrap">
                     {r.agent}
                   </TableCell>
-                  <TableCell className="font-mono text-xs text-muted-foreground whitespace-nowrap">
+                  <TableCell className="dl-demo-desc dl-demo-nowrap">
                     {r.model}
                   </TableCell>
                   <TableCell>
                     <StatusBadge status={r.status} />
                   </TableCell>
-                  <TableCell className="font-mono text-xs text-right whitespace-nowrap">
+                  <TableCell className="dl-demo-code dl-demo-align-right dl-demo-nowrap">
                     {r.tokens}
                   </TableCell>
-                  <TableCell className="text-right whitespace-nowrap">
-                    <Button
-                      variant="ghost"
-                      size="sm"
-                      className="h-7 text-xs px-2.5"
-                    >
+                  <TableCell className="dl-demo-align-right dl-demo-nowrap">
+                    <Button variant="ghost" size="sm">
                       Inspect
                     </Button>
                   </TableCell>
@@ -175,10 +167,10 @@ export default function TableDocPage() {
       codeSnippet: `<Table>
   <TableBody>
     <TableRow>
-      <TableCell className="font-mono">exec-98201</TableCell>
-      <TableCell className="font-medium">Code Synthesizer</TableCell>
-      <TableCell><StatusBadge status="online" label="Online" /></TableCell>
-      <TableCell className="text-right"><Button size="sm">Inspect</Button></TableCell>
+      <TableCell className="dl-demo-code">exec-98201</TableCell>
+      <TableCell className="dl-demo-heading">Code Synthesizer</TableCell>
+      <TableCell><StatusBadge status="online" /></TableCell>
+      <TableCell className="dl-demo-align-right"><Button size="sm">Inspect</Button></TableCell>
     </TableRow>
   </TableBody>
 </Table>`,

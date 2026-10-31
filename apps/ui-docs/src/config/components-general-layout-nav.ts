@@ -18,8 +18,105 @@ export const GENERAL_LAYOUT_NAV_COMPONENTS: ComponentMeta[] = [
     description: "One-click clipboard copy button with visual state feedback.",
     keywords: ["clipboard", "copy", "paste", "duplicate"],
   },
+  {
+    name: "Heading",
+    slug: "heading",
+    href: "/components/heading",
+    category: "General",
+    description:
+      "Accessible heading primitive decoupling semantic hierarchy from visual size.",
+    keywords: ["title", "h1", "h2", "h3", "heading", "typography", "header"],
+  },
+  {
+    name: "Text",
+    slug: "text",
+    href: "/components/text",
+    category: "General",
+    description:
+      "Multi-variant text primitive for body copy, captions, code, and metrics.",
+    keywords: [
+      "paragraph",
+      "text",
+      "body",
+      "caption",
+      "code",
+      "metric",
+      "typography",
+    ],
+  },
+  {
+    name: "Heading",
+    slug: "heading",
+    href: "/components/heading",
+    category: "General",
+    description:
+      "Accessible heading primitive decoupling semantic hierarchy from visual size.",
+    keywords: ["title", "h1", "h2", "h3", "heading", "typography", "header"],
+  },
+  {
+    name: "Text",
+    slug: "text",
+    href: "/components/text",
+    category: "General",
+    description:
+      "Multi-variant text primitive for body copy, captions, code, and metrics.",
+    keywords: [
+      "paragraph",
+      "text",
+      "body",
+      "caption",
+      "code",
+      "metric",
+      "typography",
+    ],
+  },
 
   // Layout
+  {
+    name: "Box",
+    slug: "box",
+    href: "/components/box",
+    category: "Layout",
+    description:
+      "Primitive bounding container for padding, borders, shadows, and token surfaces.",
+    keywords: ["box", "container", "surface", "padding", "border"],
+  },
+  {
+    name: "Flex",
+    slug: "flex",
+    href: "/components/flex",
+    category: "Layout",
+    description:
+      "Polymorphic 1D flex container with alignment, direction, wrapping, and token gaps.",
+    keywords: ["flex", "flexbox", "row", "col", "align", "justify", "wrap"],
+  },
+  {
+    name: "Stack",
+    slug: "stack",
+    href: "/components/stack",
+    category: "Layout",
+    description:
+      "High-velocity vertical or horizontal content flow with token-governed spacing.",
+    keywords: ["stack", "vertical", "column", "flow", "gap", "spacing"],
+  },
+  {
+    name: "Grid",
+    slug: "grid",
+    href: "/components/grid",
+    category: "Layout",
+    description:
+      "Responsive 2D grid layout supporting uniform columns and auto-fit column widths.",
+    keywords: ["grid", "columns", "rows", "responsive", "2d"],
+  },
+  {
+    name: "Container",
+    slug: "container",
+    href: "/components/container",
+    category: "Layout",
+    description:
+      "Centered max-width content boundary with responsive breakpoint thresholds.",
+    keywords: ["container", "max-width", "center", "layout", "wrapper"],
+  },
   {
     name: "Aspect Ratio",
     slug: "aspect-ratio",

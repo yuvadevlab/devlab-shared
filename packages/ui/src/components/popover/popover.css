@@ -1,11 +1,11 @@
 .dl-popover {
   z-index: 50;
   width: 18rem;
-  border-radius: var(--radius-lg, 0.5rem);
+  border-radius: var(--radius, 0.5rem);
   border: 1px solid var(--border);
   background-color: var(--popover);
   color: var(--popover-foreground);
-  padding: 1rem;
+  padding: var(--space-4, 1rem);
   box-shadow: 0 4px 24px rgb(0 0 0/0.12);
   outline: none;
 }

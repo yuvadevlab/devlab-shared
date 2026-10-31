@@ -19,21 +19,17 @@ export default function ResizableDocPage() {
       description:
         "Side-by-side adjustable panels with drag handles for custom sidebar widths.",
       preview: (
-        <div className="w-full max-w-sm h-40 border border-border rounded-xl overflow-hidden shadow-xs">
+        <div className="dl-demo-resizable-box">
           <ResizablePanelGroup orientation="horizontal">
             <ResizablePanel defaultSize={35} minSize={20}>
-              <div className="flex h-full items-center justify-center p-3 bg-muted/20">
-                <span className="text-xs font-semibold text-muted-foreground">
-                  Sidebar (35%)
-                </span>
+              <div className="dl-demo-resizable-panel dl-demo-resizable-panel--muted">
+                <span className="dl-demo-caption">Sidebar (35%)</span>
               </div>
             </ResizablePanel>
             <ResizableHandle withHandle />
             <ResizablePanel defaultSize={65}>
-              <div className="flex h-full items-center justify-center p-3 bg-background">
-                <span className="text-xs font-semibold text-foreground">
-                  Content (65%)
-                </span>
+              <div className="dl-demo-resizable-panel">
+                <span className="dl-demo-heading">Content (65%)</span>
               </div>
             </ResizablePanel>
           </ResizablePanelGroup>
@@ -55,21 +51,17 @@ export default function ResizableDocPage() {
       description:
         "Stacked panels allowing users to adjust output terminal or log console heights.",
       preview: (
-        <div className="w-full max-w-sm h-48 border border-border rounded-xl overflow-hidden shadow-xs">
+        <div className="dl-demo-resizable-box dl-demo-resizable-box--tall">
           <ResizablePanelGroup orientation="vertical">
             <ResizablePanel defaultSize={60} minSize={30}>
-              <div className="flex h-full items-center justify-center p-3 bg-background">
-                <span className="text-xs font-semibold text-foreground">
-                  Code Editor (60%)
-                </span>
+              <div className="dl-demo-resizable-panel">
+                <span className="dl-demo-heading">Code Editor (60%)</span>
               </div>
             </ResizablePanel>
             <ResizableHandle withHandle />
             <ResizablePanel defaultSize={40}>
-              <div className="flex h-full items-center justify-center p-3 bg-muted/30">
-                <span className="text-xs font-semibold text-muted-foreground">
-                  Terminal Logs (40%)
-                </span>
+              <div className="dl-demo-resizable-panel dl-demo-resizable-panel--muted">
+                <span className="dl-demo-caption">Terminal Logs (40%)</span>
               </div>
             </ResizablePanel>
           </ResizablePanelGroup>

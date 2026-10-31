@@ -2,10 +2,10 @@ import * as React from "react";
 import { format } from "date-fns";
 import { Calendar as CalendarIcon } from "lucide-react";
 
-import { cn } from "../../lib/utils";
-import { Button } from "../button";
-import { Calendar } from "../calendar";
-import { Popover, PopoverContent, PopoverTrigger } from "../popover";
+import { cn } from "@/lib/utils";
+import { Button } from "@/components/button";
+import { Calendar } from "@/components/calendar";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/popover";
 
 export interface DatePickerProps {
   /**
@@ -35,7 +35,6 @@ export interface DatePickerProps {
 /**
  * Accessible date picker component featuring an interactive popover calendar.
  * Formats dates safely in local timezone to prevent UTC day-shifting.
- * Pure CSS with zero runtime Tailwind dependencies.
  *
  * @example
  * ```tsx

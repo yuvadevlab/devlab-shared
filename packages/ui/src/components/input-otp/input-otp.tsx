@@ -2,14 +2,13 @@ import * as React from "react";
 import { OTPInput, OTPInputContext } from "input-otp";
 import { Minus } from "lucide-react";
 
-import { cn } from "../../lib/utils";
+import { cn } from "@/lib/utils";
 
 export type InputOTPProps = React.ComponentPropsWithoutRef<typeof OTPInput>;
 
 /**
  * Accessible One-Time Password (OTP) input component with pin slots and fake carets.
  * Built upon the `input-otp` primitive with scoped token styling.
- * Zero Tailwind runtime dependencies.
  *
  * @example
  * ```tsx

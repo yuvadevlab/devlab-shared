@@ -1,4 +1,5 @@
 import React from "react";
+import { Stack } from "@yuva-devlab/ui";
 import type { PropDefinition, CssClassDefinition } from "@/types/component-doc";
 
 export interface ComponentApiSectionProps {
@@ -15,74 +16,62 @@ export function ComponentApiSection({
   cssClasses,
 }: ComponentApiSectionProps) {
   return (
-    <section className="space-y-8 pt-4 border-t border-border">
-      {/* API Reference Table */}
-      <div className="space-y-4">
-        <h3 className="text-xl font-bold tracking-tight text-foreground">
-          API Reference
-        </h3>
-        <div className="border border-border rounded-lg overflow-x-auto bg-card">
-          <table className="w-full text-left text-xs">
-            <thead className="bg-muted/50 border-b border-border text-muted-foreground font-semibold">
-              <tr>
-                <th className="py-2.5 px-4">Property</th>
-                <th className="py-2.5 px-4">Type</th>
-                <th className="py-2.5 px-4">Default</th>
-                <th className="py-2.5 px-4">Description</th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-border">
-              {propsList.map((p) => (
-                <tr key={p.name} className="hover:bg-muted/20">
-                  <td className="py-3 px-4 font-mono font-semibold text-primary">
-                    {p.name}
-                  </td>
-                  <td className="py-3 px-4 font-mono text-muted-foreground">
-                    {p.type}
-                  </td>
-                  <td className="py-3 px-4 font-mono text-foreground">
-                    {p.default ?? "—"}
-                  </td>
-                  <td className="py-3 px-4 text-muted-foreground">
-                    {p.description}
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      </div>
-
-      {/* Scoped CSS Classes */}
-      {cssClasses && cssClasses.length > 0 && (
-        <div className="space-y-4">
-          <h3 className="text-xl font-bold tracking-tight text-foreground">
-            Scoped CSS Classes
-          </h3>
-          <div className="border border-border rounded-lg overflow-x-auto bg-card">
-            <table className="w-full text-left text-xs">
-              <thead className="bg-muted/50 border-b border-border text-muted-foreground font-semibold">
+    <section className="dl-docs-api-section">
+      <Stack gap={8}>
+        {/* API Reference Table */}
+        <Stack gap={4}>
+          <h3 className="dl-docs-api-title">API Reference</h3>
+          <div className="dl-docs-table-card">
+            <table className="dl-docs-table">
+              <thead>
                 <tr>
-                  <th className="py-2.5 px-4">CSS Selector</th>
-                  <th className="py-2.5 px-4">Description</th>
+                  <th>Property</th>
+                  <th>Type</th>
+                  <th>Default</th>
+                  <th>Description</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-border">
-                {cssClasses.map((c) => (
-                  <tr key={c.name} className="hover:bg-muted/20">
-                    <td className="py-3 px-4 font-mono font-semibold text-foreground">
-                      {c.name}
+              <tbody>
+                {propsList.map((p) => (
+                  <tr key={p.name}>
+                    <td className="dl-docs-table__prop">{p.name}</td>
+                    <td className="dl-docs-table__type">{p.type}</td>
+                    <td className="dl-docs-table__default">
+                      {p.default ?? "—"}
                     </td>
-                    <td className="py-3 px-4 text-muted-foreground">
-                      {c.description}
-                    </td>
+                    <td className="dl-docs-table__desc">{p.description}</td>
                   </tr>
                 ))}
               </tbody>
             </table>
           </div>
-        </div>
-      )}
+        </Stack>
+
+        {/* Scoped CSS Classes */}
+        {cssClasses && cssClasses.length > 0 && (
+          <Stack gap={4}>
+            <h3 className="dl-docs-api-title">Scoped CSS Classes</h3>
+            <div className="dl-docs-table-card">
+              <table className="dl-docs-table">
+                <thead>
+                  <tr>
+                    <th>CSS Selector</th>
+                    <th>Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {cssClasses.map((c) => (
+                    <tr key={c.name}>
+                      <td className="dl-docs-table__selector">{c.name}</td>
+                      <td className="dl-docs-table__desc">{c.description}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </Stack>
+        )}
+      </Stack>
     </section>
   );
 }

@@ -41,8 +41,8 @@ export default function ChartDocPage() {
       description:
         "AntD-inspired categorical comparison bar chart with custom token tooltips.",
       preview: (
-        <div className="w-full max-w-md p-4 border border-border rounded-xl bg-card shadow-xs">
-          <ChartContainer config={chartConfig} className="h-44 w-full">
+        <div className="dl-demo-frame dl-demo-frame--md dl-demo-box">
+          <ChartContainer config={chartConfig} className="dl-demo-chart">
             <BarChart data={chartData}>
               <XAxis
                 dataKey="month"
@@ -67,7 +67,7 @@ export default function ChartDocPage() {
           </ChartContainer>
         </div>
       ),
-      codeSnippet: `<ChartContainer config={chartConfig} className="h-44 w-full">
+      codeSnippet: `<ChartContainer config={chartConfig} className="dl-demo-chart">
   <BarChart data={chartData}>
     <XAxis dataKey="month" />
     <YAxis />
@@ -82,8 +82,8 @@ export default function ChartDocPage() {
       description:
         "Time-series area chart with theme token fill gradient and interactive hover cursor.",
       preview: (
-        <div className="w-full max-w-md p-4 border border-border rounded-xl bg-card shadow-xs">
-          <ChartContainer config={chartConfig} className="h-44 w-full">
+        <div className="dl-demo-frame dl-demo-frame--md dl-demo-box">
+          <ChartContainer config={chartConfig} className="dl-demo-chart">
             <AreaChart data={chartData}>
               <defs>
                 <linearGradient id="tokenGradient" x1="0" y1="0" x2="0" y2="1">
@@ -118,7 +118,7 @@ export default function ChartDocPage() {
           </ChartContainer>
         </div>
       ),
-      codeSnippet: `<ChartContainer config={chartConfig} className="h-44 w-full">
+      codeSnippet: `<ChartContainer config={chartConfig} className="dl-demo-chart">
   <AreaChart data={chartData}>
     <XAxis dataKey="month" />
     <ChartTooltip content={<ChartTooltipContent />} />

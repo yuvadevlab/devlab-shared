@@ -1,5 +1,5 @@
 import * as React from "react";
-import { cn } from "../../lib/utils";
+import { cn } from "@/lib/utils";
 
 export type SkeletonProps = React.HTMLAttributes<HTMLDivElement>;
 
@@ -8,13 +8,13 @@ export type SkeletonProps = React.HTMLAttributes<HTMLDivElement>;
  *
  * @example
  * ```tsx
- * <div className="flex items-center space-x-4">
- *   <Skeleton className="h-12 w-12 rounded-full" />
- *   <div className="space-y-2">
- *     <Skeleton className="h-4 w-[250px]" />
- *     <Skeleton className="h-4 w-[200px]" />
- *   </div>
- * </div>
+ * <Flex align="center" gap="4">
+ *   <Skeleton variant="circle" />
+ *   <Stack gap="2">
+ *     <Skeleton />
+ *     <Skeleton />
+ *   </Stack>
+ * </Flex>
  * ```
  */
 function Skeleton({ className, ...props }: SkeletonProps) {

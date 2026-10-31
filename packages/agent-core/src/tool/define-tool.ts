@@ -11,12 +11,12 @@ import {
   ValidationError,
 } from "@yuva-devlab/errors";
 import { Logger, loggerWithConfig } from "@yuva-devlab/logger";
-import { AccessTier, ConfirmationPolicy } from "../constants";
+import { AccessTier, ConfirmationPolicy } from "@/constants";
 import type {
   DefineToolConfig,
   ToolExecutionContext,
   UniversalTool,
-} from "../types";
+} from "@/types";
 
 const defaultLogger = loggerWithConfig(new Logger("UniversalTool"));
 

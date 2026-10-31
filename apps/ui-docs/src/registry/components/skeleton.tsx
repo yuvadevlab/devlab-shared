@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { Skeleton } from "@yuva-devlab/ui";
+import { Skeleton, Stack, Flex } from "@yuva-devlab/ui";
 import { ComponentView, ComponentVariant } from "@/components/component-view";
 
 /**
@@ -15,21 +15,25 @@ export default function SkeletonDocPage() {
       description:
         "Skeleton placeholder simulating a user profile or message thread item.",
       preview: (
-        <div className="flex items-center gap-4 w-full max-w-sm p-2">
-          <Skeleton className="size-12 rounded-full shrink-0" />
-          <div className="space-y-2 flex-1">
-            <Skeleton className="h-4 w-full" />
-            <Skeleton className="h-3 w-3/4" />
-          </div>
-        </div>
+        <Flex
+          align="center"
+          gap={4}
+          className="dl-demo-frame dl-demo-frame--sm dl-demo-box"
+        >
+          <Skeleton className="dl-demo-skeleton-avatar" />
+          <Stack gap={2} className="dl-demo-frame">
+            <Skeleton className="dl-demo-skeleton-line" />
+            <Skeleton className="dl-demo-skeleton-line--sm" />
+          </Stack>
+        </Flex>
       ),
-      codeSnippet: `<div className="flex items-center gap-4">
-  <Skeleton className="size-12 rounded-full" />
-  <div className="space-y-2 flex-1">
-    <Skeleton className="h-4 w-full" />
-    <Skeleton className="h-3 w-3/4" />
-  </div>
-</div>`,
+      codeSnippet: `<Flex align="center" gap={4}>
+  <Skeleton className="dl-demo-skeleton-avatar" />
+  <Stack gap={2}>
+    <Skeleton className="dl-demo-skeleton-line" />
+    <Skeleton className="dl-demo-skeleton-line--sm" />
+  </Stack>
+</Flex>`,
     },
     {
       id: "card",
@@ -37,29 +41,31 @@ export default function SkeletonDocPage() {
       description:
         "Multi-element wireframe simulating an entire content card or dashboard panel.",
       preview: (
-        <div className="w-full max-w-sm border border-border rounded-xl p-4 space-y-3 bg-card">
-          <Skeleton className="h-28 w-full rounded-lg" />
-          <Skeleton className="h-4 w-2/3" />
-          <div className="space-y-1.5">
-            <Skeleton className="h-3 w-full" />
-            <Skeleton className="h-3 w-4/5" />
-          </div>
-          <div className="flex justify-end gap-2 pt-2">
-            <Skeleton className="h-8 w-16 rounded-md" />
-            <Skeleton className="h-8 w-20 rounded-md" />
-          </div>
-        </div>
+        <Stack gap={3} className="dl-demo-frame dl-demo-frame--sm dl-demo-box">
+          <Skeleton className="dl-demo-skeleton-hero" />
+          <Skeleton className="dl-demo-skeleton-line--md" />
+          <Stack gap={2}>
+            <Skeleton className="dl-demo-skeleton-line" />
+            <Skeleton className="dl-demo-skeleton-line--lg" />
+          </Stack>
+          <Flex justify="end" gap={2}>
+            <Skeleton className="dl-demo-skeleton-btn" />
+            <Skeleton className="dl-demo-skeleton-btn--lg" />
+          </Flex>
+        </Stack>
       ),
-      codeSnippet: `<div className="border rounded-xl p-4 space-y-3">
-  <Skeleton className="h-28 w-full rounded-lg" />
-  <Skeleton className="h-4 w-2/3" />
-  <Skeleton className="h-3 w-full" />
-  <Skeleton className="h-3 w-4/5" />
-  <div className="flex justify-end gap-2">
-    <Skeleton className="h-8 w-16 rounded-md" />
-    <Skeleton className="h-8 w-20 rounded-md" />
-  </div>
-</div>`,
+      codeSnippet: `<Stack gap={3} className="dl-demo-box">
+  <Skeleton className="dl-demo-skeleton-hero" />
+  <Skeleton className="dl-demo-skeleton-line--md" />
+  <Stack gap={2}>
+    <Skeleton className="dl-demo-skeleton-line" />
+    <Skeleton className="dl-demo-skeleton-line--lg" />
+  </Stack>
+  <Flex justify="end" gap={2}>
+    <Skeleton className="dl-demo-skeleton-btn" />
+    <Skeleton className="dl-demo-skeleton-btn--lg" />
+  </Flex>
+</Stack>`,
     },
   ];
 

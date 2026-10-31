@@ -5,7 +5,7 @@
  */
 
 import { z } from "zod";
-import { DomainEventEnvelopeSchema } from "../contracts/envelope";
+import { DomainEventEnvelopeSchema } from "@/contracts/envelope";
 
 /**
  * Lifecycle status of an outbox record awaiting dispatch.

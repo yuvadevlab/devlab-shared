@@ -1,8 +1,6 @@
 /**
  * @file src/styles/preset.css
- * @description Backward compatibility bridge for @yuva-devlab/ui.
- * Directs downstream Tailwind 4 consumers to @yuva-devlab/tokens/preset.css
- * and imports UI component styles.
+ * @description Composite preset importing tokens and UI component styles.
  */
-@import "@yuva-devlab/tokens/preset.css";
+@import "@yuva-devlab/tokens/styles.css";
 @import "./styles.css";

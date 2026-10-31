@@ -6,7 +6,7 @@
 
 import React from "react";
 import { AlertTriangle, RefreshCw, Wrench } from "lucide-react";
-import { AppStatus } from "../types";
+import { AppStatus } from "@/types";
 
 /**
  * Properties for AppUnavailableScreen.

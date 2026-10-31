@@ -8,7 +8,7 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
-} from "../alert-dialog";
+} from "@/components/alert-dialog";
 
 export interface ConfirmDialogProps {
   /** Whether the confirmation dialog is visible */

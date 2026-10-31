@@ -11,6 +11,7 @@ import {
   DropdownMenuShortcut,
   DropdownMenuCheckboxItem,
   Button,
+  Flex,
 } from "@yuva-devlab/ui";
 import { ComponentView, ComponentVariant } from "@/components/component-view";
 
@@ -28,12 +29,12 @@ export default function DropdownMenuDocPage() {
       description:
         "Standard dropdown menu with grouped options and keyboard accelerator hints.",
       preview: (
-        <div className="flex items-center justify-center p-2">
+        <Flex align="center" justify="center">
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button variant="outline">Options Menu</Button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent className="w-56">
+            <DropdownMenuContent>
               <DropdownMenuLabel>Workspace Actions</DropdownMenuLabel>
               <DropdownMenuSeparator />
               <DropdownMenuItem>
@@ -51,13 +52,13 @@ export default function DropdownMenuDocPage() {
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
-        </div>
+        </Flex>
       ),
       codeSnippet: `<DropdownMenu>
   <DropdownMenuTrigger asChild>
     <Button variant="outline">Options Menu</Button>
   </DropdownMenuTrigger>
-  <DropdownMenuContent className="w-56">
+  <DropdownMenuContent>
     <DropdownMenuLabel>Workspace Actions</DropdownMenuLabel>
     <DropdownMenuSeparator />
     <DropdownMenuItem>
@@ -77,12 +78,12 @@ export default function DropdownMenuDocPage() {
       description:
         "Supports persistent state checkboxes for controlling view modes or filter toggles.",
       preview: (
-        <div className="flex items-center justify-center p-2">
+        <Flex align="center" justify="center">
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button variant="outline">View Settings</Button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent className="w-56">
+            <DropdownMenuContent>
               <DropdownMenuLabel>Display Layers</DropdownMenuLabel>
               <DropdownMenuSeparator />
               <DropdownMenuCheckboxItem
@@ -99,13 +100,13 @@ export default function DropdownMenuDocPage() {
               </DropdownMenuCheckboxItem>
             </DropdownMenuContent>
           </DropdownMenu>
-        </div>
+        </Flex>
       ),
       codeSnippet: `<DropdownMenu>
   <DropdownMenuTrigger asChild>
     <Button variant="outline">View Settings</Button>
   </DropdownMenuTrigger>
-  <DropdownMenuContent className="w-56">
+  <DropdownMenuContent>
     <DropdownMenuCheckboxItem
       checked={showStatus}
       onCheckedChange={setShowStatus}
@@ -121,31 +122,31 @@ export default function DropdownMenuDocPage() {
       description:
         "Contextual operations highlighting critical destructive actions in warning color.",
       preview: (
-        <div className="flex items-center justify-center p-2">
+        <Flex align="center" justify="center">
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button variant="ghost">Manage Cluster ▾</Button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent className="w-56">
+            <DropdownMenuContent>
               <DropdownMenuItem>Restart Nodes</DropdownMenuItem>
               <DropdownMenuItem>Export Metrics</DropdownMenuItem>
               <DropdownMenuSeparator />
-              <DropdownMenuItem className="text-destructive">
+              <DropdownMenuItem className="dl-dropdown-item--destructive">
                 <span>Terminate Cluster</span>
                 <DropdownMenuShortcut>⇧⌫</DropdownMenuShortcut>
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
-        </div>
+        </Flex>
       ),
       codeSnippet: `<DropdownMenu>
   <DropdownMenuTrigger asChild>
     <Button variant="ghost">Manage Cluster ▾</Button>
   </DropdownMenuTrigger>
-  <DropdownMenuContent className="w-56">
+  <DropdownMenuContent>
     <DropdownMenuItem>Restart Nodes</DropdownMenuItem>
     <DropdownMenuSeparator />
-    <DropdownMenuItem className="text-destructive">
+    <DropdownMenuItem className="dl-dropdown-item--destructive">
       Terminate Cluster
     </DropdownMenuItem>
   </DropdownMenuContent>

@@ -12,6 +12,7 @@ import {
   AlertDialogAction,
   AlertDialogCancel,
   Button,
+  Stack,
 } from "@yuva-devlab/ui";
 import { ComponentView, ComponentVariant } from "@/components/component-view";
 
@@ -29,7 +30,7 @@ export default function AlertDialogDocPage() {
       description:
         "Requires explicit user confirmation before executing irreversible or high-impact operations.",
       preview: (
-        <div className="flex flex-col items-center gap-3">
+        <Stack align="center" gap={3}>
           <AlertDialog>
             <AlertDialogTrigger asChild>
               <Button variant="destructive">Deprovision Sandbox Cluster</Button>
@@ -46,7 +47,7 @@ export default function AlertDialogDocPage() {
                 <AlertDialogCancel>Keep Active</AlertDialogCancel>
                 <AlertDialogAction
                   onClick={() => setDestructiveDone(true)}
-                  className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
+                  className="dl-btn--destructive"
                 >
                   Confirm Deprovision
                 </AlertDialogAction>
@@ -54,11 +55,9 @@ export default function AlertDialogDocPage() {
             </AlertDialogContent>
           </AlertDialog>
           {destructiveDone && (
-            <p className="text-xs text-destructive font-mono">
-              Cluster deprovisioning dispatched.
-            </p>
+            <p className="dl-demo-code">Cluster deprovisioning dispatched.</p>
           )}
-        </div>
+        </Stack>
       ),
       codeSnippet: `<AlertDialog>
   <AlertDialogTrigger asChild>
@@ -84,7 +83,7 @@ export default function AlertDialogDocPage() {
       description:
         "Modal prompt to verify user intent for non-destructive operations like publishing drafts.",
       preview: (
-        <div className="flex flex-col items-center gap-3">
+        <Stack align="center" gap={3}>
           <AlertDialog>
             <AlertDialogTrigger asChild>
               <Button variant="default">Publish Model to Production</Button>
@@ -106,11 +105,11 @@ export default function AlertDialogDocPage() {
             </AlertDialogContent>
           </AlertDialog>
           {publishDone && (
-            <p className="text-xs text-emerald-500 font-mono">
+            <p className="dl-demo-code">
               Model release initiated successfully.
             </p>
           )}
-        </div>
+        </Stack>
       ),
       codeSnippet: `<AlertDialog>
   <AlertDialogTrigger asChild>

@@ -1,0 +1,131 @@
+/**
+ * @file demo-card.css
+ * @description Interactive preview demo card with code disclosure and syntax highlighting.
+ */
+
+@layer dl-app {
+  .dl-demo-card {
+    border: 1px solid var(--border);
+    border-radius: var(--radius-xl, 0.75rem);
+    background-color: var(--card);
+    overflow: hidden;
+    box-shadow: 0 1px 2px rgb(0 0 0 / 0.05);
+    scroll-margin-top: 6rem;
+    transition: border-color 0.15s ease;
+  }
+
+  .dl-demo-card:hover {
+    border-color: color-mix(in oklch, var(--primary) 40%, transparent);
+  }
+
+  .dl-demo-card__canvas {
+    padding: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 11.25rem;
+    background-color: color-mix(in oklch, var(--muted) 10%, transparent);
+    border-bottom: 1px solid var(--border);
+  }
+
+  @media (min-width: 768px) {
+    .dl-demo-card__canvas {
+      padding: 2rem;
+    }
+  }
+
+  .dl-demo-card__canvas-inner {
+    width: 100%;
+  }
+
+  .dl-demo-card__meta {
+    padding: 1rem 1.25rem;
+    background-color: var(--card);
+    gap: 0.75rem;
+  }
+
+  .dl-demo-card__info {
+    min-width: 0;
+  }
+
+  .dl-demo-card__title {
+    font-size: 0.875rem;
+    font-weight: 700;
+    color: var(--foreground);
+    letter-spacing: -0.025em;
+    margin: 0;
+  }
+
+  .dl-demo-card__desc {
+    font-size: 0.75rem;
+    color: var(--muted-foreground);
+    line-height: 1.5;
+    margin: 0;
+  }
+
+  .dl-demo-card__actions {
+    flex-shrink: 0;
+  }
+
+  .dl-demo-card__disclosure {
+    border-top: 1px solid var(--border);
+  }
+
+  .dl-demo-card__summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.625rem 1.25rem;
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: var(--muted-foreground);
+    cursor: pointer;
+    user-select: none;
+    background-color: color-mix(in oklch, var(--muted) 20%, transparent);
+    transition:
+      background-color 0.15s ease,
+      color 0.15s ease;
+    list-style: none;
+  }
+
+  .dl-demo-card__summary:hover {
+    background-color: color-mix(in oklch, var(--muted) 40%, transparent);
+    color: var(--foreground);
+  }
+
+  .dl-demo-card__arrow {
+    font-size: 0.625rem;
+    color: var(--muted-foreground);
+    transition: transform 0.2s ease;
+  }
+
+  .dl-demo-card__disclosure[open] .dl-demo-card__arrow {
+    transform: rotate(180deg);
+  }
+
+  .dl-demo-card__code {
+    background-color: color-mix(in oklch, var(--muted) 40%, transparent);
+    padding: 1rem;
+    border-top: 1px solid var(--border);
+    overflow-x: auto;
+    font-family: var(--font-mono, monospace);
+    font-size: 0.75rem;
+  }
+
+  .dl-demo-card__code-highlighted pre {
+    margin: 0;
+    padding: 0;
+    background: transparent !important;
+  }
+
+  .dl-demo-card__code-raw {
+    margin: 0;
+    color: var(--foreground);
+    white-space: pre;
+  }
+
+  .dl-demo-card__icon-sm {
+    width: 0.875rem;
+    height: 0.875rem;
+  }
+}

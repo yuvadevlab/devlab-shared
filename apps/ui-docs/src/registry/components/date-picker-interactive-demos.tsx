@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { DatePicker, Calendar, Button } from "@yuva-devlab/ui";
+import { DatePicker, Calendar, Button, Flex, Stack } from "@yuva-devlab/ui";
 
 /**
  * Interactive Client Island for basic flyout popover date picking.
@@ -10,7 +10,7 @@ export function BasicDatePickerDemo(): React.JSX.Element {
   const [basicDate, setBasicDate] = useState<string>("2026-10-30");
 
   return (
-    <div className="w-full max-w-xs">
+    <div className="dl-demo-frame dl-demo-frame--xs">
       <DatePicker
         value={basicDate}
         onChange={setBasicDate}
@@ -29,7 +29,7 @@ export function InlineCalendarDatePickerDemo(): React.JSX.Element {
   );
 
   return (
-    <div className="border border-border rounded-xl bg-card shadow-xs p-1">
+    <div className="dl-demo-box dl-demo-box--sm">
       <Calendar
         mode="single"
         selected={calendarDate}
@@ -46,26 +46,23 @@ export function ClearableDatePickerDemo(): React.JSX.Element {
   const [clearableDate, setClearableDate] = useState<string>("2026-12-25");
 
   return (
-    <div className="w-full max-w-xs space-y-3">
-      <div className="flex items-center justify-between text-xs bg-muted/40 p-2.5 rounded-lg border border-border">
-        <span className="text-muted-foreground">Chosen Date:</span>
-        <code className="text-primary font-mono font-semibold">
-          {clearableDate || "None"}
-        </code>
+    <Stack gap={3} className="dl-demo-frame dl-demo-frame--xs">
+      <Flex align="center" justify="between" className="dl-demo-box--code">
+        <span className="dl-demo-caption">Chosen Date:</span>
+        <code className="dl-demo-code">{clearableDate || "None"}</code>
         <Button
           variant="outline"
           size="sm"
-          className="h-6 text-xs px-2"
           onClick={() => setClearableDate("")}
         >
           Clear
         </Button>
-      </div>
+      </Flex>
       <DatePicker
         value={clearableDate}
         onChange={setClearableDate}
         placeholder="Pick a date"
       />
-    </div>
+    </Stack>
   );
 }

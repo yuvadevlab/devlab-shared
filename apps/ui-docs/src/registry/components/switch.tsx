@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { Switch } from "@yuva-devlab/ui";
+import { Switch, Flex, Stack } from "@yuva-devlab/ui";
 import {
   ComponentView,
   type ComponentVariant,
@@ -18,16 +18,16 @@ export default function SwitchDocPage() {
       description:
         "AntD-inspired binary switch component with smooth slide transition.",
       preview: (
-        <div className="flex items-center gap-3">
+        <Flex align="center" gap={3}>
           <Switch
             checked={basicChecked}
             onCheckedChange={setBasicChecked}
             aria-label="Toggle setting"
           />
-          <span className="text-xs font-mono text-muted-foreground">
+          <span className="dl-demo-code dl-demo-desc">
             {basicChecked ? "Active (On)" : "Disabled (Off)"}
           </span>
-        </div>
+        </Flex>
       ),
       codeSnippet: `<Switch checked={checked} onCheckedChange={setChecked} />`,
     },
@@ -37,32 +37,33 @@ export default function SwitchDocPage() {
       description:
         "Form setting card combining the switch with bold label and subtitle.",
       preview: (
-        <div className="w-full max-w-sm p-4 border border-border rounded-xl bg-card flex items-center justify-between">
-          <div className="space-y-0.5">
-            <label
-              htmlFor="feature-toggle"
-              className="text-xs font-semibold text-foreground cursor-pointer"
-            >
+        <Flex
+          align="center"
+          justify="between"
+          className="dl-demo-frame dl-demo-frame--sm dl-demo-box"
+        >
+          <Stack gap={1}>
+            <label htmlFor="feature-toggle" className="dl-demo-heading">
               Automatic Failover Healing
             </label>
-            <p className="text-[11px] text-muted-foreground">
+            <p className="dl-demo-desc">
               Reroutes agent tasks upon node timeout.
             </p>
-          </div>
+          </Stack>
           <Switch
             id="feature-toggle"
             checked={featureChecked}
             onCheckedChange={setFeatureChecked}
           />
-        </div>
+        </Flex>
       ),
-      codeSnippet: `<div className="flex items-center justify-between">
-  <div>
+      codeSnippet: `<Flex align="center" justify="between">
+  <Stack gap={1}>
     <label htmlFor="feature">Automatic Failover</label>
     <p>Reroutes agent tasks upon node timeout.</p>
-  </div>
+  </Stack>
   <Switch id="feature" checked={checked} onCheckedChange={setChecked} />
-</div>`,
+</Flex>`,
     },
     {
       id: "disabled",
@@ -70,20 +71,16 @@ export default function SwitchDocPage() {
       description:
         "Non-interactive switch states with 50% opacity and disabled cursor.",
       preview: (
-        <div className="flex items-center gap-6">
-          <div className="flex items-center gap-2">
+        <Flex align="center" gap={6}>
+          <Flex align="center" gap={2}>
             <Switch disabled defaultChecked />
-            <span className="text-xs text-muted-foreground">
-              Checked Disabled
-            </span>
-          </div>
-          <div className="flex items-center gap-2">
+            <span className="dl-demo-desc">Checked Disabled</span>
+          </Flex>
+          <Flex align="center" gap={2}>
             <Switch disabled />
-            <span className="text-xs text-muted-foreground">
-              Unchecked Disabled
-            </span>
-          </div>
-        </div>
+            <span className="dl-demo-desc">Unchecked Disabled</span>
+          </Flex>
+        </Flex>
       ),
       codeSnippet: `<Switch disabled defaultChecked />
 <Switch disabled />`,

@@ -21,42 +21,71 @@ const INSTALLATION_STEPS: InstallationStep[] = [
   },
   {
     id: "configure-css",
-    title: "2. Configure globals.css",
+    title: "2. Configure globals.css with W3C Cascade Layers",
     description:
-      "Import Tailwind CSS, the token preset, your brand theme, and component styles into your app's global stylesheet:",
-    codeSnippet: `@import "tailwindcss";
-@import "@yuva-devlab/tokens/preset.css";
-@import "@yuva-devlab/tokens/themes/orchestrai.css";
-@import "@yuva-devlab/ui/styles.css";
+      "Import core design tokens and your brand theme in your root CSS stylesheet using standard W3C Cascade Layers (@layer):",
+    codeSnippet: `/* Establish W3C Cascade Layer hierarchy */
+@layer dl-base, dl-tokens, dl-components, dl-layout, dl-utilities, dl-app;
 
-@custom-variant dark (&:where(.dark, .dark *));
-
-@layer base {
-  * {
-    border-color: var(--border);
-  }
-  body {
-    background-color: var(--background);
-    color: var(--foreground);
-    font-family: var(--font-sans);
-  }
-}`,
+@import "@yuva-devlab/tokens/styles.css";
+@import "@yuva-devlab/tokens/themes/finai.css";
+@import "@yuva-devlab/ui/styles.css";`,
     language: "css",
   },
   {
-    id: "use-components",
-    title: "3. Use Components with Full Type Safety",
+    id: "vscode-autocomplete",
+    title: "3. Enable Native VS Code Autocomplete",
     description:
-      "Import and use components anywhere in your React or Next.js tree:",
-    codeSnippet: `import { Button, Input, Badge, Dialog } from "@yuva-devlab/ui";
+      "Enable instant IDE autocomplete for all DevLab utility classes (dl-display, dl-h1..dl-h6, glass, execution-grid) with zero marketplace extensions in .vscode/settings.json:",
+    codeSnippet: `{
+  "css.customData": ["./node_modules/@yuva-devlab/tokens/css-data.json"],
+  "html.customData": ["./node_modules/@yuva-devlab/tokens/css-data.json"]
+}`,
+    language: "json",
+  },
+  {
+    id: "use-typography-primitives",
+    title: "4. Render UI & Typography Primitives",
+    description:
+      "Compose layouts and typography with decoupled semantic HTML levels (as) and visual design scales (size, variant):",
+    codeSnippet: `import { Heading, Text, Button, Card, Stack, Flex, Badge } from "@yuva-devlab/ui";
 
-export default function MyPage() {
+export default function PortfolioOverview() {
   return (
-    <div className="p-6 space-y-4">
-      <Badge variant="success">Connected</Badge>
-      <Input placeholder="Enter prompt..." />
-      <Button variant="default">Deploy Agent</Button>
-    </div>
+    <Card>
+      <Stack gap={4}>
+        <Flex justify="between" align="center">
+          <Heading as="h1" size="h2">Portfolio Analytics</Heading>
+          <Badge variant="default">Live</Badge>
+        </Flex>
+
+        <Text variant="caption">Updated in real-time</Text>
+        <Text variant="metric">$1,248,390.50</Text>
+
+        <Button variant="primary">Execute Rebalance</Button>
+      </Stack>
+    </Card>
+  );
+}`,
+    language: "tsx",
+  },
+  {
+    id: "use-brand-extensions",
+    title: "5. Use Type-Safe Brand Extensions for Charts",
+    description:
+      "Import brand-specific color constants for Recharts, canvas, or WebGL with full TypeScript autocompletion:",
+    codeSnippet: `import { FINAI_EXTENSIONS } from "@yuva-devlab/tokens";
+import { AreaChart, Area } from "recharts";
+
+export function EquityChart({ data }) {
+  return (
+    <AreaChart data={data}>
+      <Area
+        dataKey="bullish"
+        stroke={FINAI_EXTENSIONS.common.charts["chart-bullish"]}
+        fill={FINAI_EXTENSIONS.common.charts["chart-bullish"]}
+      />
+    </AreaChart>
   );
 }`,
     language: "tsx",

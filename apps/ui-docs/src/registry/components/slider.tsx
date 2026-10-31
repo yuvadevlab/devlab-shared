@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { Slider } from "@yuva-devlab/ui";
+import { Slider, Stack, Flex } from "@yuva-devlab/ui";
 import {
   ComponentView,
   type ComponentVariant,
@@ -18,13 +18,13 @@ export default function SliderDocPage() {
       description:
         "AntD-inspired smooth continuous draggable slider with live numeric readout.",
       preview: (
-        <div className="w-full max-w-sm space-y-4">
-          <div className="flex justify-between text-xs font-mono">
-            <span className="text-muted-foreground">Model Temperature:</span>
-            <span className="text-primary font-bold">
+        <Stack gap={4} className="dl-demo-frame dl-demo-frame--sm">
+          <Flex justify="between" className="dl-demo-desc dl-demo-code">
+            <span>Model Temperature:</span>
+            <span className="dl-demo-heading">
               {(val1[0] / 100).toFixed(2)}
             </span>
-          </div>
+          </Flex>
           <Slider
             value={val1}
             onValueChange={setVal1}
@@ -32,11 +32,11 @@ export default function SliderDocPage() {
             max={100}
             step={1}
           />
-          <div className="flex justify-between text-[10px] text-muted-foreground font-mono">
+          <Flex justify="between" className="dl-demo-slider-labels">
             <span>0.00 (Strict)</span>
             <span>1.00 (Creative)</span>
-          </div>
-        </div>
+          </Flex>
+        </Stack>
       ),
       codeSnippet: `<Slider value={val} onValueChange={setVal} min={0} max={100} step={1} />`,
     },
@@ -46,11 +46,11 @@ export default function SliderDocPage() {
       description:
         "Slider configured with step ticks (step=25) for discrete parameter selection.",
       preview: (
-        <div className="w-full max-w-sm space-y-4">
-          <div className="flex justify-between text-xs font-mono">
-            <span className="text-muted-foreground">Concurrency Quota:</span>
-            <span className="text-primary font-bold">{val2[0]} Workers</span>
-          </div>
+        <Stack gap={4} className="dl-demo-frame dl-demo-frame--sm">
+          <Flex justify="between" className="dl-demo-desc dl-demo-code">
+            <span>Concurrency Quota:</span>
+            <span className="dl-demo-heading">{val2[0]} Workers</span>
+          </Flex>
           <Slider
             value={val2}
             onValueChange={setVal2}
@@ -58,14 +58,14 @@ export default function SliderDocPage() {
             max={100}
             step={25}
           />
-          <div className="flex justify-between text-[10px] text-muted-foreground font-mono">
+          <Flex justify="between" className="dl-demo-slider-labels">
             <span>0</span>
             <span>25</span>
             <span>50</span>
             <span>75</span>
             <span>100</span>
-          </div>
-        </div>
+          </Flex>
+        </Stack>
       ),
       codeSnippet: `<Slider value={val} onValueChange={setVal} min={0} max={100} step={25} />`,
     },
@@ -75,13 +75,13 @@ export default function SliderDocPage() {
       description:
         "Non-interactive slider track preventing mouse dragging and keyboard controls.",
       preview: (
-        <div className="w-full max-w-sm space-y-4">
-          <div className="flex justify-between text-xs font-mono text-muted-foreground">
+        <Stack gap={4} className="dl-demo-frame dl-demo-frame--sm">
+          <Flex justify="between" className="dl-demo-desc dl-demo-code">
             <span>Locked Setting:</span>
             <span>40%</span>
-          </div>
+          </Flex>
           <Slider disabled defaultValue={[40]} />
-        </div>
+        </Stack>
       ),
       codeSnippet: `<Slider disabled defaultValue={[40]} />`,
     },

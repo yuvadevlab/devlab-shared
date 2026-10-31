@@ -1,7 +1,7 @@
 {
   "name": "@yuva-devlab/tokens",
   "version": "1.3.1",
-  "description": "Design tokens, brand themes, and Tailwind CSS 4 preset bridge for Yuva DevLab",
+  "description": "Design tokens, brand themes, and W3C Cascade Layers for Yuva DevLab",
   "repository": {
     "type": "git",
     "url": "https://github.com/yuvadevlab/devlab-shared.git",
@@ -13,7 +13,7 @@
   "keywords": [
     "design-tokens",
     "tokens",
-    "tailwindcss",
+    "cascade-layers",
     "oklch",
     "css-variables",
     "vitalai",
@@ -40,6 +40,8 @@
     },
     "./preset.css": "./styles/preset.css",
     "./styles.css": "./styles/styles.css",
+    "./utilities.css": "./styles/utilities.css",
+    "./typography.css": "./styles/typography.css",
     "./root.css": "./styles/root.css",
     "./themes/finai.css": "./styles/themes/finai.css",
     "./themes/orchestrai.css": "./styles/themes/orchestrai.css",
@@ -50,18 +52,20 @@
   },
   "files": [
     "dist",
-    "styles"
+    "styles",
+    "css-data.json"
   ],
   "license": "MIT",
   "scripts": {
-    "build": "tsup",
+    "build:tokens": "tsup scripts/generate-tokens.ts --format esm --out-dir .temp-scripts --no-dts --no-config && node .temp-scripts/generate-tokens.js && rm -rf .temp-scripts",
+    "build": "pnpm run build:tokens && tsup",
     "dev": "tsup --watch",
     "lint": "eslint src",
     "lint:fix": "eslint src --fix",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "typecheck": "tsc --noEmit",
-    "clean": "rm -rf dist node_modules .turbo"
+    "clean": "rm -rf dist styles css-data.json node_modules .turbo"
   },
   "devDependencies": {
     "@types/node": "^24.10.1",

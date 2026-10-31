@@ -9,6 +9,7 @@ import {
   MenubarItem,
   MenubarSeparator,
   MenubarShortcut,
+  Flex,
 } from "@yuva-devlab/ui";
 import { ComponentView, ComponentVariant } from "@/components/component-view";
 
@@ -23,7 +24,7 @@ export default function MenubarDocPage() {
       description:
         "Desktop-style horizontal menu bar with nested items and keyboard accelerators.",
       preview: (
-        <div className="flex items-center justify-center p-2">
+        <Flex align="center" justify="center">
           <Menubar>
             <MenubarMenu>
               <MenubarTrigger>File</MenubarTrigger>
@@ -77,7 +78,7 @@ export default function MenubarDocPage() {
               </MenubarContent>
             </MenubarMenu>
           </Menubar>
-        </div>
+        </Flex>
       ),
       codeSnippet: `<Menubar>
   <MenubarMenu>
@@ -104,7 +105,7 @@ export default function MenubarDocPage() {
       description:
         "Simplified top-level bar tailored for specialized IDE panels or prompt testing consoles.",
       preview: (
-        <div className="flex items-center justify-center p-2">
+        <Flex align="center" justify="center">
           <Menubar>
             <MenubarMenu>
               <MenubarTrigger>Model</MenubarTrigger>
@@ -126,7 +127,7 @@ export default function MenubarDocPage() {
               </MenubarContent>
             </MenubarMenu>
           </Menubar>
-        </div>
+        </Flex>
       ),
       codeSnippet: `<Menubar>
   <MenubarMenu>

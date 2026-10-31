@@ -5,7 +5,6 @@ import { Badge } from "./badge";
 const meta: Meta<typeof Badge> = {
   title: "Components/Badge",
   component: Badge,
-  tags: ["autodocs"],
   argTypes: {
     variant: {
       control: "select",
@@ -38,14 +37,7 @@ export const Default: Story = {};
 
 export const AllVariants: Story = {
   render: () => (
-    <div
-      style={{
-        display: "flex",
-        gap: "8px",
-        alignItems: "center",
-        flexWrap: "wrap",
-      }}
-    >
+    <div className="dl-story-row">
       <Badge variant="default">Default</Badge>
       <Badge variant="secondary">Secondary</Badge>
       <Badge variant="outline">Outline</Badge>

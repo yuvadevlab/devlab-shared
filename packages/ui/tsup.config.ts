@@ -23,6 +23,7 @@ export default defineConfig({
     fs.copyFileSync("src/styles/styles.css", "dist/styles.css");
     fs.copyFileSync("src/styles/root.css", "dist/root.css");
     fs.copyFileSync("src/styles/common.css", "dist/common.css");
+    fs.copyFileSync("src/styles/utilities.css", "dist/utilities.css");
     fs.copyFileSync("src/styles/preset.css", "dist/preset.css");
     fs.cpSync("src/styles/themes", "dist/themes", { recursive: true });
     fs.cpSync("src/components", "dist/components", {
@@ -34,30 +35,43 @@ export default defineConfig({
     const compDir = path.resolve("src/components");
     const dirs = fs
       .readdirSync(compDir, { withFileTypes: true })
-      .filter((d) => d.isDirectory());
+      .filter((d) => d.isDirectory() && d.name !== "layout");
     const cssBlocks: string[] = [];
 
     for (const d of dirs) {
-      const cssPath = path.join(compDir, d.name, `${d.name}.css`);
-      if (fs.existsSync(cssPath)) {
+      const compSubDir = path.join(compDir, d.name);
+      const cssFiles = fs
+        .readdirSync(compSubDir)
+        .filter((f) => f.endsWith(".css"))
+        .sort();
+      for (const cssFile of cssFiles) {
+        const cssPath = path.join(compSubDir, cssFile);
         const content = fs.readFileSync(cssPath, "utf8").trim();
         if (content) {
           cssBlocks.push(
-            `  /* ── ${d.name} ── */\n  ${content.replace(/\n/g, "\n  ")}`,
+            `  /* ── ${d.name}/${cssFile} ── */\n  ${content.replace(/\n/g, "\n  ")}`,
           );
         }
       }
     }
 
+    const layoutCssPath = path.join(compDir, "layout", "layout.css");
+    const layoutContent = fs.existsSync(layoutCssPath)
+      ? fs.readFileSync(layoutCssPath, "utf8").trim()
+      : "";
+
     const bundledCss = `/**
  * @file components.css
- * @description Bundled modular dl-* component styles wrapped in @layer dl-components.
- * Pure CSS — zero Tailwind dependency. Scoped in @layer so consumer utilities take precedence.
+ * @description Bundled modular dl-* component and layout styles with native Cascade Layers (@layer).
  */
+
+@layer dl-reset, dl-tokens, dl-components, dl-layout, dl-utilities, dl-app;
 
 @layer dl-components {
 ${cssBlocks.join("\n\n")}
 }
+
+${layoutContent}
 `;
 
     let finalCss = bundledCss;

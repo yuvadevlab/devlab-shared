@@ -4,12 +4,12 @@
  * @module @yuva-devlab/resilience/pipeline
  */
 
-import type { TimeoutOptions } from "../deadline";
-import type { RetryOptions } from "../retry";
-import type { CircuitBreakerOptions, CircuitBreaker } from "../circuit-breaker";
-import type { BulkheadOptions, Bulkhead } from "../bulkhead";
-import type { FallbackOptions, FallbackHandler } from "../fallback";
-import type { TokenBucketOptions, TokenBucket } from "../ratelimit";
+import type { TimeoutOptions } from "@/deadline";
+import type { RetryOptions } from "@/retry";
+import type { CircuitBreakerOptions, CircuitBreaker } from "@/circuit-breaker";
+import type { BulkheadOptions, Bulkhead } from "@/bulkhead";
+import type { FallbackOptions, FallbackHandler } from "@/fallback";
+import type { TokenBucketOptions, TokenBucket } from "@/ratelimit";
 
 /**
  * Common contract for executing tasks across resilience boundaries.

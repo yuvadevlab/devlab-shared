@@ -1,12 +1,12 @@
 .dl-menubar {
   display: flex;
-  height: 2.25rem;
+  height: var(--control-height-md, 2.25rem);
   align-items: center;
-  gap: 0.25rem;
+  gap: var(--space-1, 0.25rem);
   border-radius: var(--radius-md, 0.375rem);
   border: 1px solid var(--border);
   background-color: var(--background);
-  padding: 0.25rem;
+  padding: var(--space-1, 0.25rem);
   box-shadow: 0 1px 2px rgb(0 0 0 / 0.05);
 }
 
@@ -16,7 +16,7 @@
   user-select: none;
   align-items: center;
   border-radius: var(--radius-sm, 0.25rem);
-  padding: 0.25rem 0.75rem;
+  padding: var(--space-1, 0.25rem) var(--space-3, 0.75rem);
   font-size: 0.875rem;
   font-weight: 500;
   outline: none;

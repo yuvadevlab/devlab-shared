@@ -1,4 +1,5 @@
 import React from "react";
+import { Stack } from "@yuva-devlab/ui";
 import type { ComponentDoc } from "@/types/component-doc";
 import { ComponentHeader } from "@/components/component-header";
 import { ComponentApiSection } from "@/components/component-api-section";
@@ -14,20 +15,22 @@ export interface ComponentDocViewProps {
  */
 export function ComponentDocView({ component }: ComponentDocViewProps) {
   return (
-    <article className="space-y-12 pb-16">
-      <ComponentHeader
-        title={component.title}
-        description={component.description}
-        category={component.category}
-        variantCount={component.variants.length}
-      />
+    <article className="dl-comp-doc-view">
+      <Stack gap={10}>
+        <ComponentHeader
+          title={component.title}
+          description={component.description}
+          category={component.category}
+          variantCount={component.variants.length}
+        />
 
-      <InteractiveVariantsSection variants={component.variants} />
+        <InteractiveVariantsSection variants={component.variants} />
 
-      <ComponentApiSection
-        propsList={component.propsList}
-        cssClasses={component.cssClasses}
-      />
+        <ComponentApiSection
+          propsList={component.propsList}
+          cssClasses={component.cssClasses}
+        />
+      </Stack>
     </article>
   );
 }

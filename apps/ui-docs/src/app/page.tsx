@@ -9,7 +9,7 @@ import { HomeView } from "@/components/home-view";
 export const metadata: Metadata = {
   title: "DevLab UI — Enterprise Design System & Component Showcase",
   description:
-    "Pure CSS, multi-brand design system with zero Tailwind collisions, accessible Radix primitives, and comprehensive API reference.",
+    "Pure CSS, multi-brand design system with modular W3C Cascade Layers, accessible Radix primitives, and comprehensive API reference.",
 };
 
 /**

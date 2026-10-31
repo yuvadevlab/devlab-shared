@@ -2,7 +2,7 @@ import * as React from "react";
 import * as TogglePrimitive from "@radix-ui/react-toggle";
 import { cva, type VariantProps } from "class-variance-authority";
 
-import { cn } from "../../lib/utils";
+import { cn } from "@/lib/utils";
 
 const toggleVariants = cva("dl-toggle", {
   variants: {
@@ -33,7 +33,7 @@ export type ToggleProps = React.ComponentPropsWithoutRef<
  * @example
  * ```tsx
  * <Toggle aria-label="Toggle italic">
- *   <Italic className="size-4" />
+ *   <Italic />
  * </Toggle>
  * ```
  */

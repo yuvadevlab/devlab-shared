@@ -17,6 +17,8 @@ import {
   DrawerFooter,
   DrawerClose,
   Button,
+  Stack,
+  Box,
 } from "@yuva-devlab/ui";
 import { Sliders, Menu, PanelBottom } from "lucide-react";
 import {
@@ -39,25 +41,24 @@ export default function SheetDocPage() {
         <div>
           <Sheet open={rightOpen} onOpenChange={setRightOpen}>
             <SheetTrigger asChild>
-              <Button variant="outline" className="gap-2">
-                <Sliders className="size-4" />
+              <Button variant="outline">
+                <Sliders className="dl-demo-icon" />
                 <span>Open Right Sheet</span>
               </Button>
             </SheetTrigger>
-            <SheetContent side="right" className="w-80">
+            <SheetContent side="right">
               <SheetHeader>
                 <SheetTitle>Telemetry Configuration</SheetTitle>
                 <SheetDescription>
                   Live slide-over inspection panel for worker health.
                 </SheetDescription>
               </SheetHeader>
-              <div className="py-6 space-y-3 text-xs text-muted-foreground">
+              <Stack gap={3} className="dl-demo-frame dl-demo-desc">
                 <p>Configure log sinks, trace rates, and alert thresholds.</p>
-                <div className="p-3 bg-muted/40 rounded-lg border border-border">
-                  <span className="font-semibold text-foreground">Sinks:</span>{" "}
-                  OTLP / gRPC
-                </div>
-              </div>
+                <Box className="dl-demo-box dl-demo-box--sm">
+                  <span className="dl-demo-heading">Sinks:</span> OTLP / gRPC
+                </Box>
+              </Stack>
             </SheetContent>
           </Sheet>
         </div>
@@ -81,29 +82,29 @@ export default function SheetDocPage() {
         <div>
           <Sheet open={leftOpen} onOpenChange={setLeftOpen}>
             <SheetTrigger asChild>
-              <Button variant="secondary" className="gap-2">
-                <Menu className="size-4" />
+              <Button variant="secondary">
+                <Menu className="dl-demo-icon" />
                 <span>Open Left Navigation Sheet</span>
               </Button>
             </SheetTrigger>
-            <SheetContent side="left" className="w-72">
+            <SheetContent side="left">
               <SheetHeader>
                 <SheetTitle>Navigation Drawer</SheetTitle>
                 <SheetDescription>
                   Workspace directories and repositories.
                 </SheetDescription>
               </SheetHeader>
-              <div className="py-4 space-y-2 text-xs">
-                <div className="p-2.5 rounded-lg bg-muted/50 font-medium">
+              <Stack gap={2} className="dl-demo-frame dl-demo-desc">
+                <Box className="dl-demo-box dl-demo-box--sm dl-demo-heading">
                   Agents Registry
-                </div>
-                <div className="p-2.5 rounded-lg hover:bg-muted/30 cursor-pointer">
+                </Box>
+                <Box className="dl-demo-box dl-demo-box--sm">
                   Data Pipelines
-                </div>
-                <div className="p-2.5 rounded-lg hover:bg-muted/30 cursor-pointer">
+                </Box>
+                <Box className="dl-demo-box dl-demo-box--sm">
                   Security Policies
-                </div>
-              </div>
+                </Box>
+              </Stack>
             </SheetContent>
           </Sheet>
         </div>
@@ -126,8 +127,8 @@ export default function SheetDocPage() {
         <div>
           <Drawer open={drawerOpen} onOpenChange={setDrawerOpen}>
             <DrawerTrigger asChild>
-              <Button variant="outline" className="gap-2">
-                <PanelBottom className="size-4" />
+              <Button variant="outline">
+                <PanelBottom className="dl-demo-icon" />
                 <span>Open Bottom Drawer</span>
               </Button>
             </DrawerTrigger>
@@ -138,9 +139,9 @@ export default function SheetDocPage() {
                   Drag down handle or tap cancel to dismiss.
                 </DrawerDescription>
               </DrawerHeader>
-              <div className="p-4 space-y-2 text-xs text-muted-foreground text-center">
+              <Box className="dl-demo-box dl-demo-box--sm dl-demo-desc dl-demo-text-center">
                 <p>Mobile-optimized gesture sheet powered by Vaul.</p>
-              </div>
+              </Box>
               <DrawerFooter>
                 <DrawerClose asChild>
                   <Button variant="outline">Close Drawer</Button>

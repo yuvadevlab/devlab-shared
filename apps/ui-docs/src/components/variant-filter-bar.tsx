@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { Button } from "@yuva-devlab/ui";
+import { Button, Flex } from "@yuva-devlab/ui";
 
 export interface VariantFilterItem {
   id?: string;
@@ -25,12 +25,12 @@ export function VariantFilterBar({
   if (variants.length <= 1) return null;
 
   return (
-    <div className="flex items-center gap-1.5 flex-wrap">
+    <Flex align="center" wrap="wrap" gap={1} className="dl-variant-filter-bar">
       <Button
         variant={activeId === "all" ? "secondary" : "ghost"}
         size="sm"
         onClick={() => onSelect("all")}
-        className="h-7 text-xs px-2.5 rounded-full font-medium"
+        className="dl-variant-pill"
       >
         All ({variants.length})
       </Button>
@@ -43,12 +43,12 @@ export function VariantFilterBar({
             variant={isActive ? "secondary" : "ghost"}
             size="sm"
             onClick={() => onSelect(id)}
-            className="h-7 text-xs px-2.5 rounded-full font-medium"
+            className="dl-variant-pill"
           >
             {v.title}
           </Button>
         );
       })}
-    </div>
+    </Flex>
   );
 }

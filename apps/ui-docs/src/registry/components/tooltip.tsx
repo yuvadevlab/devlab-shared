@@ -13,6 +13,7 @@ import {
   PopoverTrigger,
   PopoverContent,
   Button,
+  Stack,
 } from "@yuva-devlab/ui";
 import { Sparkles, Info, MessageSquare } from "lucide-react";
 import {
@@ -31,13 +32,13 @@ export default function TooltipDocPage() {
         <TooltipProvider>
           <Tooltip>
             <TooltipTrigger asChild>
-              <Button variant="outline" className="gap-2">
-                <Sparkles className="size-4 text-primary" />
+              <Button variant="outline">
+                <Sparkles className="dl-demo-icon" />
                 <span>Hover for Insights</span>
               </Button>
             </TooltipTrigger>
             <TooltipContent side="top">
-              <p className="text-xs">
+              <p className="dl-demo-desc">
                 Autonomous self-healing enabled on this node cluster.
               </p>
             </TooltipContent>
@@ -59,23 +60,21 @@ export default function TooltipDocPage() {
       preview: (
         <HoverCard>
           <HoverCardTrigger asChild>
-            <Button variant="ghost" className="gap-2 text-primary underline">
-              <Info className="size-4" />
+            <Button variant="ghost">
+              <Info className="dl-demo-icon" />
               <span>@orchestrai-agent</span>
             </Button>
           </HoverCardTrigger>
-          <HoverCardContent className="w-72">
-            <div className="space-y-2">
-              <h4 className="text-xs font-bold text-foreground">
-                OrchestrAI Core Worker
-              </h4>
-              <p className="text-xs text-muted-foreground">
+          <HoverCardContent className="dl-demo-frame--sm">
+            <Stack gap={2}>
+              <h4 className="dl-demo-heading">OrchestrAI Core Worker</h4>
+              <p className="dl-demo-desc">
                 Multi-agent coordinator managing distributed task delegation.
               </p>
-              <div className="text-[10px] text-muted-foreground font-mono">
+              <div className="dl-demo-code dl-demo-caption">
                 Cluster: us-east4 | Health: 100%
               </div>
-            </div>
+            </Stack>
           </HoverCardContent>
         </HoverCard>
       ),
@@ -85,7 +84,7 @@ export default function TooltipDocPage() {
   <HoverCardTrigger asChild>
     <Button variant="ghost">@orchestrai-agent</Button>
   </HoverCardTrigger>
-  <HoverCardContent className="w-72">
+  <HoverCardContent>
     <h4>OrchestrAI Core Worker</h4>
     <p>Multi-agent coordinator.</p>
   </HoverCardContent>
@@ -99,20 +98,18 @@ export default function TooltipDocPage() {
       preview: (
         <Popover>
           <PopoverTrigger asChild>
-            <Button variant="secondary" className="gap-2">
-              <MessageSquare className="size-4" />
+            <Button variant="secondary">
+              <MessageSquare className="dl-demo-icon" />
               <span>Open Popover</span>
             </Button>
           </PopoverTrigger>
-          <PopoverContent className="w-64">
-            <div className="space-y-2 text-xs">
-              <div className="font-semibold text-foreground">
-                Quick Annotations
-              </div>
-              <p className="text-muted-foreground">
+          <PopoverContent className="dl-demo-frame--xs">
+            <Stack gap={2}>
+              <div className="dl-demo-heading">Quick Annotations</div>
+              <p className="dl-demo-desc">
                 Add runtime comments to this trace execution span.
               </p>
-            </div>
+            </Stack>
           </PopoverContent>
         </Popover>
       ),
@@ -120,7 +117,7 @@ export default function TooltipDocPage() {
 
 <Popover>
   <PopoverTrigger asChild><Button>Open</Button></PopoverTrigger>
-  <PopoverContent className="w-64">
+  <PopoverContent>
     <h4>Quick Annotations</h4>
   </PopoverContent>
 </Popover>`,

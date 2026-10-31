@@ -2,7 +2,14 @@
 
 import React from "react";
 import { Info, AlertCircle, RefreshCw } from "lucide-react";
-import { Alert, AlertTitle, AlertDescription, Button } from "@yuva-devlab/ui";
+import {
+  Alert,
+  AlertTitle,
+  AlertDescription,
+  Button,
+  Flex,
+  Stack,
+} from "@yuva-devlab/ui";
 import {
   ComponentView,
   type ComponentVariant,
@@ -16,9 +23,9 @@ export default function AlertDocPage() {
       description:
         "Standard system status notification with leading icon, bold title, and description.",
       preview: (
-        <div className="w-full max-w-md">
+        <div className="dl-demo-frame dl-demo-frame--md">
           <Alert variant="default">
-            <Info className="size-4" />
+            <Info className="dl-demo-icon dl-demo-icon--sm" />
             <AlertTitle>Cluster Synchronization Scheduled</AlertTitle>
             <AlertDescription>
               OrchestrAI model checkpoints will be committed automatically at
@@ -28,7 +35,7 @@ export default function AlertDocPage() {
         </div>
       ),
       codeSnippet: `<Alert variant="default">
-  <Info className="size-4" />
+  <Info />
   <AlertTitle>Cluster Synchronization Scheduled</AlertTitle>
   <AlertDescription>Checkpoints committed at 00:00 UTC.</AlertDescription>
 </Alert>`,
@@ -39,9 +46,9 @@ export default function AlertDocPage() {
       description:
         "High-priority warning banner styled with destructive error tokens.",
       preview: (
-        <div className="w-full max-w-md">
+        <div className="dl-demo-frame dl-demo-frame--md">
           <Alert variant="destructive">
-            <AlertCircle className="size-4" />
+            <AlertCircle className="dl-demo-icon dl-demo-icon--sm" />
             <AlertTitle>Critical Tool Step Failure</AlertTitle>
             <AlertDescription>
               Cluster agent execution terminated due to budget limit exhaustion.
@@ -50,7 +57,7 @@ export default function AlertDocPage() {
         </div>
       ),
       codeSnippet: `<Alert variant="destructive">
-  <AlertCircle className="size-4" />
+  <AlertCircle />
   <AlertTitle>Critical Tool Step Failure</AlertTitle>
   <AlertDescription>Execution budget limit exhausted.</AlertDescription>
 </Alert>`,
@@ -61,37 +68,34 @@ export default function AlertDocPage() {
       description:
         "AntD-inspired actionable banner allowing users to immediately trigger recovery.",
       preview: (
-        <div className="w-full max-w-md">
-          <Alert
-            variant="default"
-            className="flex items-center justify-between"
-          >
-            <div className="space-y-1">
-              <div className="flex items-center gap-2">
-                <Info className="size-4" />
-                <AlertTitle>Configuration Stale</AlertTitle>
-              </div>
-              <AlertDescription>
-                A new schema revision is available for your database.
-              </AlertDescription>
-            </div>
-            <Button
-              size="sm"
-              variant="outline"
-              className="h-7 text-xs gap-1.5 shrink-0 ml-4"
-            >
-              <RefreshCw className="size-3" />
-              <span>Sync</span>
-            </Button>
+        <div className="dl-demo-frame dl-demo-frame--md">
+          <Alert variant="default">
+            <Flex align="center" justify="between" className="dl-demo-frame">
+              <Stack gap={1}>
+                <Flex align="center" gap={2}>
+                  <Info className="dl-demo-icon dl-demo-icon--sm" />
+                  <AlertTitle>Configuration Stale</AlertTitle>
+                </Flex>
+                <AlertDescription>
+                  A new schema revision is available for your database.
+                </AlertDescription>
+              </Stack>
+              <Button size="sm" variant="outline">
+                <RefreshCw className="dl-demo-icon dl-demo-icon--xs" />
+                <span>Sync</span>
+              </Button>
+            </Flex>
           </Alert>
         </div>
       ),
-      codeSnippet: `<Alert className="flex items-center justify-between">
-  <div>
-    <AlertTitle>Configuration Stale</AlertTitle>
-    <AlertDescription>New schema revision available.</AlertDescription>
-  </div>
-  <Button size="sm" variant="outline">Sync</Button>
+      codeSnippet: `<Alert>
+  <Flex align="center" justify="between">
+    <Stack gap={1}>
+      <AlertTitle>Configuration Stale</AlertTitle>
+      <AlertDescription>New schema revision available.</AlertDescription>
+    </Stack>
+    <Button size="sm" variant="outline">Sync</Button>
+  </Flex>
 </Alert>`,
     },
   ];

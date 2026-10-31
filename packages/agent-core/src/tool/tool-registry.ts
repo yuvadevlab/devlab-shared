@@ -6,8 +6,8 @@
 
 import { DomainError, ErrorCode } from "@yuva-devlab/errors";
 import { Logger, loggerWithConfig } from "@yuva-devlab/logger";
-import type { AccessTier, ToolCapability } from "../constants";
-import type { UniversalTool } from "../types";
+import type { AccessTier, ToolCapability } from "@/constants";
+import type { UniversalTool } from "@/types";
 
 const logger = loggerWithConfig(new Logger("ToolRegistry"));
 

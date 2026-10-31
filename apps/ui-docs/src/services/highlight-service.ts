@@ -23,6 +23,6 @@ export async function highlightCode(
       .replace(/&/g, "&amp;")
       .replace(/</g, "&lt;")
       .replace(/>/g, "&gt;");
-    return `<pre class="shiki text-foreground"><code>${escaped}</code></pre>`;
+    return `<pre class="shiki"><code>${escaped}</code></pre>`;
   }
 }

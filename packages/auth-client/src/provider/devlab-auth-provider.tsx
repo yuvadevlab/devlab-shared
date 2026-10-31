@@ -5,13 +5,13 @@
  */
 
 import React, { useCallback, useEffect, useMemo, useState } from "react";
-import { AppUnavailableScreen } from "../components/app-unavailable-screen";
+import { AppUnavailableScreen } from "@/components/app-unavailable-screen";
 import {
   AppStatus,
   type AuthUser,
   type DevLabAuthContextValue,
   type DevLabAuthProviderProps,
-} from "../types";
+} from "@/types";
 import { DevLabAuthContext } from "./auth-context";
 import {
   STORAGE_KEY_TOKEN,

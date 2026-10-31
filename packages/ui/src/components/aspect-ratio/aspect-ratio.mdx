@@ -1,0 +1,22 @@
+import { Meta, Title, Description, Canvas, Controls } from "@storybook/blocks";
+import * as AspectRatioStories from "./aspect-ratio.stories";
+
+<Meta of={AspectRatioStories} />
+
+<Title />
+
+# Aspect Ratio
+
+Displays content within a desired ratio, preventing layout shifts during asset loading.
+
+## Default (16:9)
+
+<Canvas of={AspectRatioStories.Default} />
+
+## Square (1:1)
+
+<Canvas of={AspectRatioStories.Square} />
+
+## Component Properties
+
+<Controls />

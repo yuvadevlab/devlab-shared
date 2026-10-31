@@ -2,7 +2,7 @@
 
 import React from "react";
 import { CornerDownLeft } from "lucide-react";
-import { Badge } from "@yuva-devlab/ui";
+import { Badge, Flex } from "@yuva-devlab/ui";
 import type { ComponentMeta } from "@/config/components-meta";
 
 export interface SearchResultItemProps {
@@ -22,50 +22,37 @@ export function SearchResultItem({
     <div
       onClick={onSelect}
       onMouseEnter={onHover}
-      className={`flex items-center justify-between p-3 rounded-lg text-sm cursor-pointer transition ${
-        isSelected
-          ? "bg-primary/10 text-foreground border border-primary/30"
-          : "text-muted-foreground hover:bg-muted/40 hover:text-foreground"
-      }`}
+      className={`dl-search-item ${isSelected ? "dl-search-item--selected" : ""}`.trim()}
     >
-      <div className="flex items-center gap-3 min-w-0">
+      <Flex align="center" gap={3} className="dl-search-item__main">
         <div
-          className={`size-7 rounded-md flex items-center justify-center shrink-0 text-xs font-bold ${
+          className={`dl-search-item__avatar ${
             isSelected
-              ? "bg-primary text-primary-foreground"
-              : "bg-muted text-muted-foreground"
+              ? "dl-search-item__avatar--selected"
+              : "dl-search-item__avatar--default"
           }`}
         >
           {item.name.charAt(0)}
         </div>
-        <div className="min-w-0">
-          <div className="flex items-center gap-2">
-            <span className="font-semibold text-foreground truncate">
-              {item.name}
-            </span>
-            <Badge
-              variant="outline"
-              className="text-[10px] px-1.5 py-0 shrink-0 font-normal"
-            >
+        <div className="dl-search-item__meta">
+          <Flex align="center" gap={2}>
+            <span className="dl-search-item__title">{item.name}</span>
+            <Badge variant="outline" className="dl-search-item__badge">
               {item.category}
             </Badge>
-          </div>
-          <p className="text-xs text-muted-foreground truncate max-w-md mt-0.5">
-            {item.description}
-          </p>
+          </Flex>
+          <p className="dl-search-item__desc">{item.description}</p>
         </div>
-      </div>
-      <div className="flex items-center gap-2 shrink-0 pl-3">
+      </Flex>
+      <Flex align="center" gap={2} className="dl-search-item__action">
         {isSelected ? (
-          <span className="flex items-center gap-1 text-[11px] font-medium text-primary">
-            Jump to doc <CornerDownLeft className="size-3" />
+          <span className="dl-search-item__jump">
+            Jump to doc <CornerDownLeft className="dl-search-item__icon-xs" />
           </span>
         ) : (
-          <span className="text-[11px] text-muted-foreground/60 hidden sm:inline">
-            {item.slug}
-          </span>
+          <span className="dl-search-item__slug">{item.slug}</span>
         )}
-      </div>
+      </Flex>
     </div>
   );
 }

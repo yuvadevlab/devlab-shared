@@ -4,7 +4,7 @@
  * @module @yuva-devlab/rag
  */
 
-import { CHARS_PER_TOKEN_HEURISTIC } from "../constants";
+import { CHARS_PER_TOKEN_HEURISTIC } from "@/constants";
 
 /**
  * Estimates token count for a string using standard 4 characters per token heuristic.

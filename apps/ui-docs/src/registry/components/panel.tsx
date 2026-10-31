@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { Panel, Badge, Button } from "@yuva-devlab/ui";
+import { Panel, Badge, Button, Flex, Stack } from "@yuva-devlab/ui";
 import { ComponentView, ComponentVariant } from "@/components/component-view";
 
 /**
@@ -15,25 +15,25 @@ export default function PanelDocPage() {
       description:
         "Structured container featuring top-level titles, active status badges, and action buttons.",
       preview: (
-        <div className="w-full max-w-sm">
+        <div className="dl-demo-frame dl-demo-frame--sm">
           <Panel
             title="Agent Execution Pool"
             meta={<Badge variant="default">Active • 12 Nodes</Badge>}
           >
-            <div className="space-y-3 p-4 text-xs text-muted-foreground">
+            <Stack gap={3} className="dl-demo-desc">
               <p>
                 Autonomous workers are actively scheduling tasks across isolated
                 sandboxes.
               </p>
-              <div className="flex gap-2 pt-2">
+              <Flex gap={2}>
                 <Button size="sm" variant="outline">
                   Inspect Pool
                 </Button>
                 <Button size="sm" variant="secondary">
                   Scale Workers
                 </Button>
-              </div>
-            </div>
+              </Flex>
+            </Stack>
           </Panel>
         </div>
       ),
@@ -41,13 +41,13 @@ export default function PanelDocPage() {
   title="Agent Execution Pool"
   meta={<Badge variant="default">Active • 12 Nodes</Badge>}
 >
-  <div className="p-4 text-xs space-y-3">
+  <Stack gap="3" className="dl-demo-desc">
     <p>Autonomous workers actively scheduling tasks.</p>
-    <div className="flex gap-2">
+    <Flex gap="2">
       <Button size="sm" variant="outline">Inspect Pool</Button>
       <Button size="sm" variant="secondary">Scale Workers</Button>
-    </div>
-  </div>
+    </Flex>
+  </Stack>
 </Panel>`,
     },
     {
@@ -56,30 +56,31 @@ export default function PanelDocPage() {
       description:
         "Clean bordered panel without metadata tags for clean grouped forms or metrics.",
       preview: (
-        <div className="w-full max-w-sm">
+        <div className="dl-demo-frame dl-demo-frame--sm">
           <Panel title="Database Credentials">
-            <div className="p-4 space-y-2 text-xs">
-              <div className="flex justify-between py-1 border-b border-border">
-                <span className="text-muted-foreground">Host:</span>
-                <span className="font-mono text-foreground">
-                  db.cluster.internal
-                </span>
-              </div>
-              <div className="flex justify-between py-1">
-                <span className="text-muted-foreground">Port:</span>
-                <span className="font-mono text-foreground">5432</span>
-              </div>
-            </div>
+            <Stack gap={2} className="dl-demo-desc">
+              <Flex
+                justify="between"
+                className="dl-demo-box--collapsible-header"
+              >
+                <span>Host:</span>
+                <span className="dl-demo-code">db.cluster.internal</span>
+              </Flex>
+              <Flex justify="between">
+                <span>Port:</span>
+                <span className="dl-demo-code">5432</span>
+              </Flex>
+            </Stack>
           </Panel>
         </div>
       ),
       codeSnippet: `<Panel title="Database Credentials">
-  <div className="p-4 space-y-2 text-xs">
-    <div className="flex justify-between">
+  <Stack gap="2" className="dl-demo-desc">
+    <Flex justify="between">
       <span>Host:</span>
       <span>db.cluster.internal</span>
-    </div>
-  </div>
+    </Flex>
+  </Stack>
 </Panel>`,
     },
   ];

@@ -1,8 +1,8 @@
 import * as React from "react";
 import { ChevronLeft, ChevronRight, MoreHorizontal } from "lucide-react";
 
-import { cn } from "../../lib/utils";
-import { ButtonProps, buttonVariants } from "../button";
+import { cn } from "@/lib/utils";
+import { ButtonProps, buttonVariants } from "@/components/button";
 
 export type PaginationProps = React.ComponentProps<"nav">;
 
@@ -113,7 +113,7 @@ const PaginationPrevious = ({
     className={cn("dl-pagination-prev", className)}
     {...props}
   >
-    <ChevronLeft className="size-4" />
+    <ChevronLeft className="dl-pagination-icon" />
     <span>Previous</span>
   </PaginationLink>
 );
@@ -132,7 +132,7 @@ const PaginationNext = ({ className, ...props }: PaginationNextProps) => (
     {...props}
   >
     <span>Next</span>
-    <ChevronRight className="size-4" />
+    <ChevronRight className="dl-pagination-icon" />
   </PaginationLink>
 );
 PaginationNext.displayName = "PaginationNext";

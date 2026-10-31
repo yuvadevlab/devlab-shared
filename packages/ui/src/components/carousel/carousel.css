@@ -27,18 +27,18 @@
 }
 
 .dl-carousel-item--horizontal {
-  padding-left: 1rem;
+  padding-left: var(--space-4, 1rem);
 }
 
 .dl-carousel-item--vertical {
-  padding-top: 1rem;
+  padding-top: var(--space-4, 1rem);
 }
 
 .dl-carousel-btn {
   position: absolute;
   border-radius: 9999px;
-  width: 2rem;
-  height: 2rem;
+  width: var(--control-height-sm, 2rem);
+  height: var(--control-height-sm, 2rem);
   padding: 0;
 }
 

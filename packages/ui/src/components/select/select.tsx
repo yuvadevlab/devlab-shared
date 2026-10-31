@@ -2,7 +2,7 @@
 import * as React from "react";
 import * as SelectPrimitive from "@radix-ui/react-select";
 import { Check, ChevronDown, ChevronUp } from "lucide-react";
-import { cn } from "../../lib/utils";
+import { cn } from "@/lib/utils";
 
 /**
  * Root container for accessible custom dropdown selection. Built on Radix UI Select.
@@ -47,7 +47,7 @@ const SelectTrigger = React.forwardRef<
   >
     {children}
     <SelectPrimitive.Icon asChild>
-      <ChevronDown style={{ opacity: 0.5, width: "1rem", height: "1rem" }} />
+      <ChevronDown />
     </SelectPrimitive.Icon>
   </SelectPrimitive.Trigger>
 ));
@@ -62,7 +62,7 @@ const SelectScrollUpButton = React.forwardRef<
     className={cn("dl-select-scroll-btn", className)}
     {...props}
   >
-    <ChevronUp style={{ width: "1rem", height: "1rem" }} />
+    <ChevronUp />
   </SelectPrimitive.ScrollUpButton>
 ));
 SelectScrollUpButton.displayName = SelectPrimitive.ScrollUpButton.displayName;
@@ -76,7 +76,7 @@ const SelectScrollDownButton = React.forwardRef<
     className={cn("dl-select-scroll-btn", className)}
     {...props}
   >
-    <ChevronDown style={{ width: "1rem", height: "1rem" }} />
+    <ChevronDown />
   </SelectPrimitive.ScrollDownButton>
 ));
 SelectScrollDownButton.displayName =
@@ -141,7 +141,7 @@ const SelectItem = React.forwardRef<
   >
     <span className="dl-select-item__indicator">
       <SelectPrimitive.ItemIndicator>
-        <Check style={{ width: "0.75rem", height: "0.75rem" }} />
+        <Check />
       </SelectPrimitive.ItemIndicator>
     </span>
     <SelectPrimitive.ItemText>{children}</SelectPrimitive.ItemText>

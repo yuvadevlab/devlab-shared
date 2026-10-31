@@ -1,6 +1,6 @@
 import * as React from "react";
 import * as SwitchPrimitives from "@radix-ui/react-switch";
-import { cn } from "../../lib/utils";
+import { cn } from "@/lib/utils";
 
 export type SwitchProps = React.ComponentPropsWithoutRef<
   typeof SwitchPrimitives.Root
@@ -9,7 +9,6 @@ export type SwitchProps = React.ComponentPropsWithoutRef<
 /**
  * Interactive toggle control that allows users to switch between on and off states.
  * Powered by Radix UI Switch primitive with scoped CSS transitions and token styling.
- * Zero Tailwind runtime dependencies.
  *
  * @example
  * ```tsx

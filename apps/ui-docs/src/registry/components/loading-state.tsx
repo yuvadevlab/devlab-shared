@@ -15,7 +15,7 @@ export default function LoadingStateDocPage() {
       description:
         "Animated circular loader displaying real-time task progress or operation description.",
       preview: (
-        <div className="w-full max-w-sm p-4 border border-border rounded-xl bg-card">
+        <div className="dl-demo-frame dl-demo-frame--sm dl-demo-box">
           <LoadingState message="Synchronizing RAG vector indices..." />
         </div>
       ),
@@ -27,7 +27,7 @@ export default function LoadingStateDocPage() {
       description:
         "Shimmering skeleton rows representing tabular or list data being fetched.",
       preview: (
-        <div className="w-full max-w-sm p-4 border border-border rounded-xl bg-card">
+        <div className="dl-demo-frame dl-demo-frame--sm dl-demo-box">
           <LoadingState rows={3} />
         </div>
       ),

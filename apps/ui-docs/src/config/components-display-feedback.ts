@@ -194,6 +194,15 @@ export const DISPLAY_FEEDBACK_COMPONENTS: ComponentMeta[] = [
     keywords: ["sheet", "mobile", "bottom-sheet", "drag", "drawer"],
   },
   {
+    name: "Empty State",
+    slug: "empty-state",
+    href: "/components/empty-state",
+    category: "Feedback & Overlays",
+    description:
+      "Cybernetic and theme-adaptive placeholder when collections or queries yield zero entries.",
+    keywords: ["empty", "placeholder", "zero", "inbox", "search", "missing"],
+  },
+  {
     name: "Progress",
     slug: "progress",
     href: "/components/progress",

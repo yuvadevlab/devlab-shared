@@ -1,6 +1,6 @@
 import React from "react";
 import { Sparkles, ArrowRight, Trash2, Send } from "lucide-react";
-import { Button } from "@yuva-devlab/ui";
+import { Button, Flex } from "@yuva-devlab/ui";
 import type {
   ComponentVariant,
   PropDefinition,
@@ -14,14 +14,14 @@ export const BUTTON_VARIANTS: ComponentVariant[] = [
     description:
       "AntD-inspired style taxonomy: Default (Primary), Secondary, Outline, Ghost, Destructive, and Link.",
     preview: (
-      <div className="flex flex-wrap items-center justify-center gap-3">
+      <Flex wrap="wrap" align="center" justify="center" gap={3}>
         <Button variant="default">Primary</Button>
         <Button variant="secondary">Secondary</Button>
         <Button variant="outline">Outline</Button>
         <Button variant="ghost">Ghost</Button>
         <Button variant="destructive">Destructive</Button>
         <Button variant="link">Link Style</Button>
-      </div>
+      </Flex>
     ),
     codeSnippet: `<Button variant="default">Primary</Button>
 <Button variant="secondary">Secondary</Button>
@@ -36,19 +36,19 @@ export const BUTTON_VARIANTS: ComponentVariant[] = [
     description:
       "Consistent standard sizes across all layouts: sm (2rem), default (2.25rem), lg (2.5rem), and square icon.",
     preview: (
-      <div className="flex flex-wrap items-center justify-center gap-3">
+      <Flex wrap="wrap" align="center" justify="center" gap={3}>
         <Button size="sm">Small (sm)</Button>
         <Button size="default">Default (md)</Button>
         <Button size="lg">Large (lg)</Button>
         <Button size="icon" variant="outline" aria-label="Sparkles Action">
-          <Sparkles className="size-4" />
+          <Sparkles className="dl-demo-icon dl-demo-icon--sm" />
         </Button>
-      </div>
+      </Flex>
     ),
     codeSnippet: `<Button size="sm">Small (sm)</Button>
 <Button size="default">Default (md)</Button>
 <Button size="lg">Large (lg)</Button>
-<Button size="icon" variant="outline"><Sparkles className="size-4" /></Button>`,
+<Button size="icon" variant="outline"><Sparkles /></Button>`,
   },
   {
     id: "icons",
@@ -56,32 +56,32 @@ export const BUTTON_VARIANTS: ComponentVariant[] = [
     description:
       "Buttons enriched with leading, trailing, or standalone action icons.",
     preview: (
-      <div className="flex flex-wrap items-center justify-center gap-3">
-        <Button className="gap-2">
-          <Sparkles className="size-4" />
+      <Flex wrap="wrap" align="center" justify="center" gap={3}>
+        <Button>
+          <Sparkles className="dl-demo-icon dl-demo-icon--sm" />
           <span>Generate with AI</span>
         </Button>
-        <Button variant="secondary" className="gap-2">
+        <Button variant="secondary">
           <span>Continue</span>
-          <ArrowRight className="size-4" />
+          <ArrowRight className="dl-demo-icon dl-demo-icon--sm" />
         </Button>
-        <Button variant="outline" className="gap-2">
-          <Send className="size-4" />
+        <Button variant="outline">
+          <Send className="dl-demo-icon dl-demo-icon--sm" />
           <span>Send Email</span>
         </Button>
-        <Button variant="destructive" className="gap-2">
-          <Trash2 className="size-4" />
+        <Button variant="destructive">
+          <Trash2 className="dl-demo-icon dl-demo-icon--sm" />
           <span>Delete</span>
         </Button>
-      </div>
+      </Flex>
     ),
-    codeSnippet: `<Button className="gap-2">
-  <Sparkles className="size-4" />
+    codeSnippet: `<Button>
+  <Sparkles />
   <span>Generate with AI</span>
 </Button>
-<Button variant="secondary" className="gap-2">
+<Button variant="secondary">
   <span>Continue</span>
-  <ArrowRight className="size-4" />
+  <ArrowRight />
 </Button>`,
   },
   {
@@ -90,7 +90,7 @@ export const BUTTON_VARIANTS: ComponentVariant[] = [
     description:
       "Non-interactive state with 50% opacity and disabled cursor preventing click handlers.",
     preview: (
-      <div className="flex flex-wrap items-center justify-center gap-3">
+      <Flex wrap="wrap" align="center" justify="center" gap={3}>
         <Button disabled variant="default">
           Disabled Primary
         </Button>
@@ -101,9 +101,9 @@ export const BUTTON_VARIANTS: ComponentVariant[] = [
           Disabled Outline
         </Button>
         <Button disabled size="icon" variant="outline">
-          <Sparkles className="size-4" />
+          <Sparkles className="dl-demo-icon dl-demo-icon--sm" />
         </Button>
-      </div>
+      </Flex>
     ),
     codeSnippet: `<Button disabled variant="default">Disabled Primary</Button>
 <Button disabled variant="secondary">Disabled Secondary</Button>

@@ -6,16 +6,16 @@
 
 import React, { useState, useContext, type FormEvent } from "react";
 import { Lock, Mail, Loader2, ArrowRight } from "lucide-react";
-import { DevLabAuthContext } from "../provider/auth-context";
+import { DevLabAuthContext } from "@/provider/auth-context";
 import {
   executeAuthRequest,
   persistSession,
   resolveForgotPasswordUrl,
   toAuthUser,
-} from "../provider/auth-helpers";
+} from "@/provider/auth-helpers";
 import { AuthCard } from "./auth-card";
 import { AuthInput } from "./auth-input";
-import type { SignInProps } from "../types";
+import type { SignInProps } from "@/types";
 
 export const SignIn: React.FC<SignInProps> = ({
   onSuccess,
