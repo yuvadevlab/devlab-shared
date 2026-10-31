@@ -59,4 +59,5 @@ export * from "./tooltip";
 export * from "./metric-card";
 export * from "./copy-button";
 export * from "./secret-reveal-card";
+export * from "./typography";
 export * from "./layout";

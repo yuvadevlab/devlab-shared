@@ -19,7 +19,9 @@
 @import "@/styles/component-doc.css";
 @import "@/styles/demo-card.css";
 @import "@/styles/home.css";
-@import "@/styles/guides.css";
+@import "@/styles/installation-guide.css";
+@import "@/styles/tokens-palette-guide.css";
+@import "@/styles/tokens-scale-guide.css";
 @import "@/styles/mdx.css";
 @import "@/styles/registry-demos.css";
 @import "@/styles/registry-mockups.css";

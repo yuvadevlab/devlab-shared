@@ -4,22 +4,33 @@ import type {
   SemanticColorToken,
   RadiusToken,
   TypographyToken,
+  TypoScaleItem,
+  SpacingItem,
+  BrandExtensionItem,
 } from "@/services/tokens-service";
+import { TokensScaleSection } from "@/components/tokens-scale-section";
+import { TokensExtensionsSection } from "@/components/tokens-extensions-section";
 
 export interface TokensViewProps {
   semanticColors: SemanticColorToken[];
   radii: RadiusToken[];
   typography: TypographyToken[];
+  typographyScale: TypoScaleItem[];
+  spacingScale: SpacingItem[];
+  brandExtensions: BrandExtensionItem[];
 }
 
 /**
  * Pure React Server Component rendering design system tokens:
- * OKLCH color palettes, corner radii scales, and typography hierarchies.
+ * OKLCH color palettes, typography scale, spacing grid, and brand extensions.
  */
 export function TokensView({
   semanticColors,
   radii,
   typography,
+  typographyScale,
+  spacingScale,
+  brandExtensions,
 }: TokensViewProps): React.JSX.Element {
   return (
     <div className="dl-tokens-view">
@@ -29,23 +40,35 @@ export function TokensView({
           <Stack gap={2}>
             <Flex align="center" gap={2}>
               <Badge variant="secondary" className="dl-tokens-header__badge">
-                Design Tokens
+                Design Tokens v2.0
+              </Badge>
+              <Badge variant="outline" className="dl-tokens-header__badge">
+                Pure TypeScript Engine
               </Badge>
               <Badge variant="outline" className="dl-tokens-header__badge">
                 OKLCH Space
               </Badge>
             </Flex>
-            <h1 className="dl-tokens-header__title">Design Tokens & Palette</h1>
+            <h1 className="dl-tokens-header__title">
+              Design Tokens & Architecture
+            </h1>
             <p className="dl-tokens-header__desc">
-              DevLab UI design tokens are defined in{" "}
+              DevLab design tokens are authored in pure TypeScript and compiled
+              into zero-runtime W3C Cascade Layer stylesheets in{" "}
               <code className="dl-tokens-header__code">
                 @yuva-devlab/tokens
               </code>
-              . Colors adapt dynamically when switching brands (OrchestrAI vs
-              FinAI) or modes (Light vs Dark).
+              . Common tokens are shared across all brands, while domain
+              extensions are isolated per brand.
             </p>
           </Stack>
         </header>
+
+        {/* Typography Scale & Spacing Grid */}
+        <TokensScaleSection
+          typographyScale={typographyScale}
+          spacingScale={spacingScale}
+        />
 
         {/* Semantic Color Swatches */}
         <section>
@@ -56,11 +79,7 @@ export function TokensView({
                 <div key={color.name} className="dl-token-card">
                   <div
                     className="dl-token-card__swatch"
-                    style={
-                      {
-                        "--swatch-bg": `var(${color.name})`,
-                      } as React.CSSProperties
-                    }
+                    data-token={color.name}
                   />
                   <div className="dl-token-card__info">
                     <Flex align="center" justify="between">
@@ -75,6 +94,9 @@ export function TokensView({
           </Stack>
         </section>
 
+        {/* Isolated Brand Extensions */}
+        <TokensExtensionsSection brandExtensions={brandExtensions} />
+
         {/* Corner Radii Scale */}
         <section>
           <Stack gap={4}>
@@ -87,14 +109,7 @@ export function TokensView({
                   gap={3}
                   className="dl-radius-card"
                 >
-                  <div
-                    className="dl-radius-card__box"
-                    style={
-                      {
-                        "--box-radius": `var(${r.token})`,
-                      } as React.CSSProperties
-                    }
-                  />
+                  <div className="dl-radius-card__box" data-radius={r.token} />
                   <div>
                     <code className="dl-radius-card__token">{r.token}</code>
                     <span className="dl-radius-card__example">{r.example}</span>
@@ -105,7 +120,7 @@ export function TokensView({
           </Stack>
         </section>
 
-        {/* Typography Scale */}
+        {/* Font Stacks */}
         <section>
           <Stack gap={4}>
             <h2 className="dl-tokens-section__title">Typography Stacks</h2>

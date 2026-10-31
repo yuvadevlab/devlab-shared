@@ -1,0 +1,87 @@
+/**
+ * @file installation-guide.css
+ * @description Styles for installation and quickstart guide walkthroughs.
+ */
+
+@layer dl-app {
+  .dl-guide-header {
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 1.5rem;
+  }
+
+  .dl-guide-header__badge {
+    font-size: 0.75rem;
+  }
+
+  .dl-guide-header__title {
+    font-size: 1.875rem;
+    font-weight: 800;
+    letter-spacing: -0.025em;
+    color: var(--foreground);
+    margin: 0;
+  }
+
+  .dl-guide-header__desc {
+    color: var(--muted-foreground);
+    font-size: 0.875rem;
+    max-width: 42rem;
+    margin: 0;
+  }
+
+  .dl-guide-step__title {
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: var(--foreground);
+    margin: 0;
+  }
+
+  .dl-guide-step__desc {
+    font-size: 0.75rem;
+    color: var(--muted-foreground);
+    margin: 0;
+  }
+
+  .dl-code-block {
+    position: relative;
+    border-radius: var(--radius-xl, 0.75rem);
+    border: 1px solid var(--border);
+    background-color: color-mix(in oklch, var(--muted) 40%, transparent);
+    overflow: hidden;
+    box-shadow: 0 1px 2px rgb(0 0 0 / 0.05);
+  }
+
+  .dl-code-block__action {
+    position: absolute;
+    right: 0.75rem;
+    top: 0.75rem;
+    z-index: 10;
+    opacity: 0.7;
+    transition: opacity 0.15s ease;
+  }
+
+  .dl-code-block:hover .dl-code-block__action {
+    opacity: 1;
+  }
+
+  .dl-code-block__content {
+    padding: 1rem;
+    font-size: 0.75rem;
+    font-family: var(--font-mono, monospace);
+    overflow-x: auto;
+  }
+
+  .dl-code-block__content pre {
+    background: transparent !important;
+    margin: 0;
+    padding: 0;
+  }
+
+  .dl-code-block__raw {
+    padding: 1rem;
+    font-size: 0.75rem;
+    font-family: var(--font-mono, monospace);
+    overflow-x: auto;
+    white-space: pre;
+    margin: 0;
+  }
+}

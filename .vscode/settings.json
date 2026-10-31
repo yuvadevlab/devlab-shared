@@ -18,5 +18,7 @@
     "**/node_modules": true,
     "**/.turbo": true,
     "**/dist": true
-  }
+  },
+  "css.customData": [".vscode/css-data.json"],
+  "html.customData": [".vscode/css-data.json"]
 }

@@ -17,6 +17,8 @@ export default defineConfig({
   target: "es2022",
   outDir: "dist",
   async onSuccess() {
-    fs.cpSync("styles", "dist", { recursive: true });
+    if (fs.existsSync("styles")) {
+      fs.cpSync("styles", "dist", { recursive: true });
+    }
   },
 });

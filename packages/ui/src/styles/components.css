@@ -3809,6 +3809,106 @@
   .dl-tooltip[data-state="closed"] {
     animation: dl-fade-out 100ms ease;
   }
+
+  /* ── typography/typography.css ── */
+  /**
+   * @file typography.css
+   * @description Typography primitive styling and modifier attributes.
+   * Governed by W3C Cascade Layers.
+   */
+
+  @layer dl-components {
+    /* ── Color Modifiers ───────────────────────────────────────────────────── */
+    .dl-heading[data-typography-color="default"],
+    .dl-text[data-typography-color="default"] {
+      color: var(--foreground);
+    }
+
+    .dl-heading[data-typography-color="muted"],
+    .dl-text[data-typography-color="muted"] {
+      color: var(--muted-foreground);
+    }
+
+    .dl-heading[data-typography-color="subtle"],
+    .dl-text[data-typography-color="subtle"] {
+      color: color-mix(in oklch, var(--muted-foreground) 80%, transparent);
+    }
+
+    .dl-heading[data-typography-color="primary"],
+    .dl-text[data-typography-color="primary"] {
+      color: var(--primary);
+    }
+
+    .dl-heading[data-typography-color="destructive"],
+    .dl-text[data-typography-color="destructive"] {
+      color: var(--destructive);
+    }
+
+    .dl-heading[data-typography-color="warning"],
+    .dl-text[data-typography-color="warning"] {
+      color: var(--warning);
+    }
+
+    .dl-heading[data-typography-color="success"],
+    .dl-text[data-typography-color="success"] {
+      color: var(--success);
+    }
+
+    .dl-heading[data-typography-color="info"],
+    .dl-text[data-typography-color="info"] {
+      color: var(--info);
+    }
+
+    /* ── Alignment Modifiers ───────────────────────────────────────────────── */
+    .dl-heading[data-typography-align="left"],
+    .dl-text[data-typography-align="left"] {
+      text-align: left;
+    }
+
+    .dl-heading[data-typography-align="center"],
+    .dl-text[data-typography-align="center"] {
+      text-align: center;
+    }
+
+    .dl-heading[data-typography-align="right"],
+    .dl-text[data-typography-align="right"] {
+      text-align: right;
+    }
+
+    /* ── Truncation Modifier ───────────────────────────────────────────────── */
+    .dl-heading[data-typography-truncate="true"],
+    .dl-text[data-typography-truncate="true"] {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    /* ── Weight Overrides ──────────────────────────────────────────────────── */
+    .dl-heading[data-typography-weight="normal"],
+    .dl-text[data-typography-weight="normal"] {
+      font-weight: 400;
+    }
+
+    .dl-heading[data-typography-weight="medium"],
+    .dl-text[data-typography-weight="medium"] {
+      font-weight: 500;
+    }
+
+    .dl-heading[data-typography-weight="semibold"],
+    .dl-text[data-typography-weight="semibold"] {
+      font-weight: 600;
+    }
+
+    .dl-heading[data-typography-weight="bold"],
+    .dl-text[data-typography-weight="bold"] {
+      font-weight: 700;
+    }
+
+    .dl-heading[data-typography-weight="extrabold"],
+    .dl-text[data-typography-weight="extrabold"] {
+      font-weight: 800;
+    }
+  }
 }
 
 /**

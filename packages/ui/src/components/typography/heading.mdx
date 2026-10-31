@@ -1,0 +1,36 @@
+import { Meta, Title, Description, Canvas, Controls } from "@storybook/blocks";
+import * as HeadingStories from "./heading.stories";
+
+<Meta of={HeadingStories} />
+
+<Title />
+
+# Heading
+
+Accessible typography heading primitive that decouples semantic DOM hierarchy (`as="h1"`) from visual presentation size (`size="h3"`).
+
+## Default
+
+<Canvas of={HeadingStories.Default} />
+
+## All Sizes
+
+Available in `display`, `h1`, `h2`, `h3`, `h4`, `h5`, and `h6`.
+
+<Canvas of={HeadingStories.AllSizes} />
+
+## Decoupled Semantic Hierarchy
+
+Ensures document accessibility and SEO compliance by allowing headings to render the correct semantic level while visually matching the UI design specs.
+
+<Canvas of={HeadingStories.DecoupledHierarchy} />
+
+## Color Variants
+
+Supports semantic token colors: `default`, `primary`, `muted`, `success`, `warning`, `destructive`, and `info`.
+
+<Canvas of={HeadingStories.ColorVariants} />
+
+## Component Properties
+
+<Controls />

@@ -18,6 +18,58 @@ export const GENERAL_LAYOUT_NAV_COMPONENTS: ComponentMeta[] = [
     description: "One-click clipboard copy button with visual state feedback.",
     keywords: ["clipboard", "copy", "paste", "duplicate"],
   },
+  {
+    name: "Heading",
+    slug: "heading",
+    href: "/components/heading",
+    category: "General",
+    description:
+      "Accessible heading primitive decoupling semantic hierarchy from visual size.",
+    keywords: ["title", "h1", "h2", "h3", "heading", "typography", "header"],
+  },
+  {
+    name: "Text",
+    slug: "text",
+    href: "/components/text",
+    category: "General",
+    description:
+      "Multi-variant text primitive for body copy, captions, code, and metrics.",
+    keywords: [
+      "paragraph",
+      "text",
+      "body",
+      "caption",
+      "code",
+      "metric",
+      "typography",
+    ],
+  },
+  {
+    name: "Heading",
+    slug: "heading",
+    href: "/components/heading",
+    category: "General",
+    description:
+      "Accessible heading primitive decoupling semantic hierarchy from visual size.",
+    keywords: ["title", "h1", "h2", "h3", "heading", "typography", "header"],
+  },
+  {
+    name: "Text",
+    slug: "text",
+    href: "/components/text",
+    category: "General",
+    description:
+      "Multi-variant text primitive for body copy, captions, code, and metrics.",
+    keywords: [
+      "paragraph",
+      "text",
+      "body",
+      "caption",
+      "code",
+      "metric",
+      "typography",
+    ],
+  },
 
   // Layout
   {
