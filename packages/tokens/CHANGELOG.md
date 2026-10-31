@@ -1,5 +1,12 @@
 # @yuva-devlab/tokens
 
+## 1.3.1
+
+### Patch Changes
+
+- 2c1bec2: docs(ui, tokens): update package quick start guides, READMEs, and registry metadata for Tailwind CSS 4 and multi-brand theme imports
+- 721761f: refactor(tokens): update VitalAI theme to athletic volt kinetic palette and clean legacy macro variables
+
 ## 1.3.0
 
 ### Minor Changes

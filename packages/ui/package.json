@@ -1,6 +1,6 @@
 {
   "name": "@yuva-devlab/ui",
-  "version": "1.4.3",
+  "version": "1.4.4",
   "description": "Production-ready, accessible React 19 component library built on Radix UI and Tailwind CSS 4 design tokens for Yuva DevLab",
   "repository": {
     "type": "git",
