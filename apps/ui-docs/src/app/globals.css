@@ -1,3 +1,4 @@
+@import url("https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,600;0,700;0,800;1,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Manrope:wght@400;500;600;700&family=Sora:wght@600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap");
 @import "tailwindcss";
 @source "../**";
 @import "@yuva-devlab/tokens/preset.css";
@@ -11,9 +12,12 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 @theme inline {
-  --font-sans:
-    system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  --font-sans: var(--theme-font-sans, system-ui, sans-serif);
+  --font-display: var(
+    --theme-font-display,
+    var(--theme-font-sans, system-ui, sans-serif)
+  );
+  --font-mono: var(--theme-font-mono, monospace);
 }
 
 @layer base {
@@ -24,13 +28,165 @@
   html {
     background-color: var(--background);
     color: var(--foreground);
+    transition:
+      background-color 0.2s ease,
+      color 0.2s ease;
   }
 
-  body {
+  /* ── When Preview Full Theme is enabled ────────────────────────────── */
+  html[data-full-theme="true"],
+  html.full-theme-active {
+    font-family: var(--theme-font-sans, system-ui, sans-serif);
+  }
+
+  html[data-full-theme="true"] body,
+  html.full-theme-active body {
     margin: 0;
     background-color: var(--background);
     color: var(--foreground);
-    font-family: var(--font-sans);
+    font-family: var(--theme-font-sans, system-ui, sans-serif);
     -webkit-font-smoothing: antialiased;
+  }
+
+  /* Dynamic Brand Display Headings when Full Theme is enabled */
+  html[data-full-theme="true"] h1,
+  html[data-full-theme="true"] h2,
+  html[data-full-theme="true"] h3,
+  html[data-full-theme="true"] h4,
+  html[data-full-theme="true"] .font-display,
+  html.full-theme-active h1,
+  html.full-theme-active h2,
+  html.full-theme-active h3,
+  html.full-theme-active h4,
+  html.full-theme-active .font-display {
+    font-family: var(
+      --theme-font-display,
+      var(--theme-font-sans, system-ui, sans-serif)
+    );
+  }
+
+  /* VitalAI athletic punchy condensed title treatment */
+  html[data-full-theme="true"][data-brand="vitalai"] h1,
+  html[data-full-theme="true"][data-brand="vitalai"] h2,
+  html[data-full-theme="true"][data-brand="vitalai"] .font-display,
+  html.full-theme-active[data-brand="vitalai"] h1,
+  html.full-theme-active[data-brand="vitalai"] h2,
+  html.full-theme-active[data-brand="vitalai"] .font-display {
+    text-transform: uppercase;
+    letter-spacing: -0.01em;
+    font-weight: 800;
+  }
+
+  /* DevLab Logs high-density code & matrix grid styling */
+  html[data-full-theme="true"][data-brand="logs"] body,
+  html.full-theme-active[data-brand="logs"] body {
+    background-image: var(--grid-bg);
+    background-size: 24px 24px;
+  }
+
+  html[data-full-theme="true"][data-brand="logs"] code,
+  html[data-full-theme="true"][data-brand="logs"] pre,
+  html.full-theme-active[data-brand="logs"] code,
+  html.full-theme-active[data-brand="logs"] pre {
+    font-family: var(--theme-font-mono, monospace);
+  }
+
+  /* ── When Preview Full Theme is disabled (Color-only Preview) ─────────── */
+  :root[data-full-theme="false"],
+  html[data-full-theme="false"] {
+    /* 1. Typography Baseline (System / Neutral) */
+    --theme-font-sans:
+      system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+      sans-serif !important;
+    --theme-font-display:
+      system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+      sans-serif !important;
+    --theme-font-mono:
+      ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace !important;
+    --font-sans:
+      system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+      sans-serif !important;
+    --font-display:
+      system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+      sans-serif !important;
+    --font-mono:
+      ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace !important;
+    --theme-font-size-root: 16px !important;
+    --theme-spacing: 0.25rem !important;
+
+    /* 2. Control Heights (Neutral Standard) */
+    --control-height-xs: 1.75rem !important;
+    --control-height-sm: 2rem !important;
+    --control-height-md: 2.25rem !important;
+    --control-height-lg: 2.5rem !important;
+    --control-height-xl: 3rem !important;
+
+    /* 3. Component Spacing Scale (Neutral Standard) */
+    --space-1: 0.25rem !important;
+    --space-2: 0.5rem !important;
+    --space-3: 0.75rem !important;
+    --space-4: 1rem !important;
+    --space-5: 1.25rem !important;
+    --space-6: 1.5rem !important;
+    --space-8: 2rem !important;
+    --space-10: 2.5rem !important;
+
+    /* 4. Component Inner Paddings & Gaps */
+    --card-padding: 1.25rem !important;
+    --dialog-padding: 1.5rem !important;
+    --form-field-gap: 0.75rem !important;
+    --section-gap: 1.25rem !important;
+    --table-row-padding-x: 1rem !important;
+    --table-row-padding-y: 0.75rem !important;
+
+    /* 5. Icons Scale */
+    --icon-xs: 0.875rem !important;
+    --icon-sm: 1rem !important;
+    --icon-md: 1.25rem !important;
+    --icon-lg: 1.5rem !important;
+    --icon-xl: 2rem !important;
+
+    /* 6. Corner Radii (Neutral Standard 6px/8px) */
+    --radius: 0.5rem !important;
+    --radius-xs: 0.125rem !important;
+    --radius-sm: 0.25rem !important;
+    --radius-md: 0.375rem !important;
+    --radius-lg: 0.5rem !important;
+    --radius-xl: 0.75rem !important;
+    --radius-2xl: 1rem !important;
+    --radius-3xl: 1.25rem !important;
+    --radius-4xl: 1.5rem !important;
+  }
+
+  html[data-full-theme="false"] body {
+    margin: 0;
+    background-color: var(--background);
+    background-image: none !important;
+    color: var(--foreground);
+    font-family:
+      system-ui,
+      -apple-system,
+      BlinkMacSystemFont,
+      "Segoe UI",
+      Roboto,
+      sans-serif !important;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* Reset any display font styling when Full Theme is disabled */
+  html[data-full-theme="false"] h1,
+  html[data-full-theme="false"] h2,
+  html[data-full-theme="false"] h3,
+  html[data-full-theme="false"] h4,
+  html[data-full-theme="false"] .font-display {
+    font-family:
+      system-ui,
+      -apple-system,
+      BlinkMacSystemFont,
+      "Segoe UI",
+      Roboto,
+      sans-serif !important;
+    text-transform: none !important;
+    letter-spacing: normal !important;
   }
 }
