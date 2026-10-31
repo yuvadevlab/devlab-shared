@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { ScrollArea, ScrollBar } from "@yuva-devlab/ui";
+import { ScrollArea, ScrollBar, Flex, Stack } from "@yuva-devlab/ui";
 import { ComponentView, ComponentVariant } from "@/components/component-view";
 
 const mockTags = Array.from({ length: 25 }).map(
@@ -17,7 +17,7 @@ const horizontalTags = [
   "Next.js",
   "ESLint",
   "TurboRepo",
-  "TailwindCSS",
+  "PlatformCSS",
   "Resilience",
 ];
 
@@ -32,32 +32,27 @@ export default function ScrollAreaDocPage() {
       description:
         "Smooth vertical scroll area with custom styled thumb indicators.",
       preview: (
-        <div className="w-full max-w-xs border border-border rounded-xl bg-card overflow-hidden shadow-xs">
-          <div className="p-2.5 border-b border-border bg-muted/30">
-            <h4 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-              Release Tags ({mockTags.length})
-            </h4>
+        <div className="dl-demo-frame dl-demo-frame--xs dl-demo-box">
+          <div className="dl-demo-box--collapsible-header">
+            <h4 className="dl-demo-label">Release Tags ({mockTags.length})</h4>
           </div>
-          <ScrollArea className="h-44 p-3">
-            <div className="space-y-1 font-mono text-xs">
+          <ScrollArea className="dl-demo-scroll-area">
+            <Stack gap={1} className="dl-demo-code">
               {mockTags.map((tag) => (
-                <div
-                  key={tag}
-                  className="p-1 rounded-md hover:bg-muted text-muted-foreground hover:text-foreground transition cursor-pointer"
-                >
+                <div key={tag} className="dl-demo-sidebar-btn">
                   {tag}
                 </div>
               ))}
-            </div>
+            </Stack>
           </ScrollArea>
         </div>
       ),
-      codeSnippet: `<ScrollArea className="h-44 w-56 rounded-md border p-3">
-  <div className="space-y-1">
+      codeSnippet: `<ScrollArea className="dl-demo-scroll-area">
+  <Stack gap="1">
     {tags.map((tag) => (
-      <div key={tag} className="text-xs font-mono">{tag}</div>
+      <div key={tag}>{tag}</div>
     ))}
-  </div>
+  </Stack>
 </ScrollArea>`,
     },
     {
@@ -66,28 +61,25 @@ export default function ScrollAreaDocPage() {
       description:
         "Horizontal scroll viewport suitable for filter chip lists or breadcrumb segments.",
       preview: (
-        <div className="w-full max-w-sm border border-border rounded-xl bg-card p-3 shadow-xs">
-          <ScrollArea className="w-full whitespace-nowrap pb-2">
-            <div className="flex gap-2">
+        <div className="dl-demo-frame dl-demo-frame--sm dl-demo-box">
+          <ScrollArea className="dl-demo-frame">
+            <Flex gap={2}>
               {horizontalTags.map((item) => (
-                <span
-                  key={item}
-                  className="px-2.5 py-1 rounded-full text-xs font-medium border border-border bg-muted/40 text-foreground shrink-0 cursor-pointer hover:bg-primary hover:text-primary-foreground transition"
-                >
+                <span key={item} className="dl-variant-pill">
                   {item}
                 </span>
               ))}
-            </div>
+            </Flex>
             <ScrollBar orientation="horizontal" />
           </ScrollArea>
         </div>
       ),
-      codeSnippet: `<ScrollArea className="w-full whitespace-nowrap">
-  <div className="flex gap-2">
+      codeSnippet: `<ScrollArea className="dl-demo-frame">
+  <Flex gap="2">
     {tags.map(tag => (
-      <span key={tag} className="px-2.5 py-1 rounded-full text-xs border">{tag}</span>
+      <span key={tag} className="dl-variant-pill">{tag}</span>
     ))}
-  </div>
+  </Flex>
   <ScrollBar orientation="horizontal" />
 </ScrollArea>`,
     },

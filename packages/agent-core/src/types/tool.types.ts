@@ -9,7 +9,7 @@ import type {
   AccessTier,
   ConfirmationPolicy,
   ToolCapability,
-} from "../constants";
+} from "@/constants";
 import type { AgentCardPayload } from "./card.types";
 import type { ToolExecutionContext, ValidationWarning } from "./context.types";
 

@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { CopyButton, Input } from "@yuva-devlab/ui";
+import { CopyButton, Input, Flex, Stack } from "@yuva-devlab/ui";
 import { ComponentView, ComponentVariant } from "@/components/component-view";
 
 /**
@@ -18,21 +18,25 @@ export default function CopyButtonDocPage() {
       description:
         "Displays explicit label text alongside the clipboard icon, transitioning to feedback state on click.",
       preview: (
-        <div className="flex flex-col items-center gap-3 w-full max-w-sm">
-          <div className="flex items-center gap-2 w-full">
-            <Input readOnly value={apiKey} className="font-mono text-xs" />
+        <Stack
+          align="center"
+          gap={3}
+          className="dl-demo-frame dl-demo-frame--sm"
+        >
+          <Flex align="center" gap={2} className="dl-demo-frame">
+            <Input readOnly value={apiKey} className="dl-demo-code" />
             <CopyButton
               textToCopy={apiKey}
               label="Copy Key"
               copiedLabel="Copied!"
             />
-          </div>
-        </div>
+          </Flex>
+        </Stack>
       ),
-      codeSnippet: `<div className="flex items-center gap-2">
-  <Input readOnly value={apiKey} className="font-mono text-xs" />
+      codeSnippet: `<Flex align="center" gap="2">
+  <Input readOnly value={apiKey} className="dl-demo-code" />
   <CopyButton textToCopy={apiKey} label="Copy Key" copiedLabel="Copied!" />
-</div>`,
+</Flex>`,
     },
     {
       id: "terminal",
@@ -40,15 +44,19 @@ export default function CopyButtonDocPage() {
       description:
         "Embedded terminal style command box with an instant copy action button.",
       preview: (
-        <div className="w-full max-w-sm flex items-center justify-between p-2.5 rounded-lg border border-border bg-muted/40 font-mono text-xs">
-          <span className="text-foreground">$ {installCmd}</span>
+        <Flex
+          align="center"
+          justify="between"
+          className="dl-demo-frame dl-demo-frame--sm dl-demo-box--code"
+        >
+          <span>$ {installCmd}</span>
           <CopyButton textToCopy={installCmd} label="Copy" copiedLabel="Done" />
-        </div>
+        </Flex>
       ),
-      codeSnippet: `<div className="flex items-center justify-between p-2.5 rounded-lg border bg-muted/40 font-mono text-xs">
+      codeSnippet: `<Flex align="center" justify="between" className="dl-demo-box--code">
   <span>$ pnpm add @yuva-devlab/ui</span>
   <CopyButton textToCopy="pnpm add @yuva-devlab/ui" label="Copy" copiedLabel="Done" />
-</div>`,
+</Flex>`,
     },
   ];
 

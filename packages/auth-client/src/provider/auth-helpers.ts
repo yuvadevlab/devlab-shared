@@ -4,7 +4,7 @@
  * @module @yuva-devlab/auth-client
  */
 
-import type { AuthUser } from "../types";
+import type { AuthUser } from "@/types";
 
 export const STORAGE_KEY_TOKEN = "devlab_auth_token";
 export const STORAGE_KEY_USER = "devlab_auth_user";

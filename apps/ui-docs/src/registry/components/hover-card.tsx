@@ -7,6 +7,8 @@ import {
   HoverCardContent,
   Avatar,
   AvatarFallback,
+  Flex,
+  Stack,
 } from "@yuva-devlab/ui";
 import { CalendarDays, Package, ShieldCheck } from "lucide-react";
 import { ComponentView, ComponentVariant } from "@/components/component-view";
@@ -22,55 +24,51 @@ export default function HoverCardDocPage() {
       description:
         "Displays rich preview information when hovering over a user or handle link.",
       preview: (
-        <div className="flex items-center justify-center p-4">
+        <Flex align="center" justify="center">
           <HoverCard>
             <HoverCardTrigger asChild>
               <a
                 href="https://github.com/yuvarajpattabi"
                 target="_blank"
                 rel="noreferrer"
-                className="text-sm font-semibold underline underline-offset-4 text-primary hover:opacity-80 transition cursor-pointer"
+                className="dl-demo-code"
               >
                 @yuva-devlab
               </a>
             </HoverCardTrigger>
-            <HoverCardContent className="w-80">
-              <div className="flex justify-between space-x-4">
+            <HoverCardContent>
+              <Flex gap={4}>
                 <Avatar>
-                  <AvatarFallback className="bg-primary text-primary-foreground font-bold">
-                    YD
-                  </AvatarFallback>
+                  <AvatarFallback>YD</AvatarFallback>
                 </Avatar>
-                <div className="space-y-1 text-xs">
-                  <h4 className="font-semibold text-foreground text-sm">
-                    Yuva DevLab Systems
-                  </h4>
-                  <p className="text-muted-foreground leading-relaxed">
+                <Stack gap={1} className="dl-demo-desc">
+                  <h4 className="dl-demo-heading">Yuva DevLab Systems</h4>
+                  <p>
                     Enterprise foundation cloud packages, pure CSS design
                     system, and resilient agentic runtime.
                   </p>
-                  <div className="flex items-center pt-2 text-muted-foreground">
-                    <CalendarDays className="mr-2 size-3.5 opacity-70" />
-                    <span className="text-[11px]">Joined October 2026</span>
-                  </div>
-                </div>
-              </div>
+                  <Flex align="center" gap={2} className="dl-demo-caption">
+                    <CalendarDays className="dl-demo-icon dl-demo-icon--xs" />
+                    <span>Joined October 2026</span>
+                  </Flex>
+                </Stack>
+              </Flex>
             </HoverCardContent>
           </HoverCard>
-        </div>
+        </Flex>
       ),
       codeSnippet: `<HoverCard>
   <HoverCardTrigger asChild>
     <a href="https://github.com/yuvarajpattabi">@yuva-devlab</a>
   </HoverCardTrigger>
-  <HoverCardContent className="w-80">
-    <div className="flex space-x-4">
+  <HoverCardContent>
+    <Flex gap="4">
       <Avatar><AvatarFallback>YD</AvatarFallback></Avatar>
-      <div>
+      <Stack gap="1">
         <h4>Yuva DevLab Systems</h4>
         <p>Enterprise foundation cloud packages.</p>
-      </div>
-    </div>
+      </Stack>
+    </Flex>
   </HoverCardContent>
 </HoverCard>`,
     },
@@ -80,45 +78,46 @@ export default function HoverCardDocPage() {
       description:
         "Hover card exposing telemetry, versioning, and compliance status for software packages.",
       preview: (
-        <div className="flex items-center justify-center p-4">
+        <Flex align="center" justify="center">
           <HoverCard>
             <HoverCardTrigger asChild>
-              <span className="text-xs font-mono font-medium border border-border px-2 py-1 rounded bg-muted/30 cursor-pointer hover:border-primary">
-                @yuva-devlab/resilience
-              </span>
+              <span className="dl-demo-box--code">@yuva-devlab/resilience</span>
             </HoverCardTrigger>
-            <HoverCardContent className="w-72">
-              <div className="space-y-2 text-xs">
-                <div className="flex items-center justify-between">
-                  <span className="font-semibold text-foreground flex items-center gap-1.5">
-                    <Package className="size-3.5 text-primary" />
-                    v0.1.0-alpha
-                  </span>
-                  <span className="flex items-center gap-1 text-[11px] text-emerald-500 font-medium">
-                    <ShieldCheck className="size-3" />
-                    Passed Audit
-                  </span>
-                </div>
-                <p className="text-muted-foreground">
+            <HoverCardContent>
+              <Stack gap={2} className="dl-demo-desc">
+                <Flex align="center" justify="between">
+                  <Flex align="center" gap={1}>
+                    <Package className="dl-demo-icon dl-demo-icon--xs" />
+                    <span>v0.1.0-alpha</span>
+                  </Flex>
+                  <Flex align="center" gap={1} className="dl-demo-code">
+                    <ShieldCheck className="dl-demo-icon dl-demo-icon--xs" />
+                    <span>Passed Audit</span>
+                  </Flex>
+                </Flex>
+                <p>
                   Adaptive Circuit Breakers, Bulkheads, and RAG semantic caches.
                 </p>
-                <div className="text-[11px] text-muted-foreground pt-1 border-t border-border">
+                <div className="dl-demo-caption">
                   License: MIT • Size: 14.2 kB
                 </div>
-              </div>
+              </Stack>
             </HoverCardContent>
           </HoverCard>
-        </div>
+        </Flex>
       ),
       codeSnippet: `<HoverCard>
   <HoverCardTrigger asChild>
     <span>@yuva-devlab/resilience</span>
   </HoverCardTrigger>
-  <HoverCardContent className="w-72">
-    <div>
-      <h4>v0.1.0-alpha</h4>
+  <HoverCardContent>
+    <Stack gap="2">
+      <Flex align="center" justify="between">
+        <span>v0.1.0-alpha</span>
+        <span>Passed Audit</span>
+      </Flex>
       <p>Adaptive Circuit Breakers and Bulkheads.</p>
-    </div>
+    </Stack>
   </HoverCardContent>
 </HoverCard>`,
     },

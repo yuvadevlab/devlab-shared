@@ -10,6 +10,9 @@ import {
   CollapsibleTrigger,
   CollapsibleContent,
   Button,
+  Flex,
+  Stack,
+  cn,
 } from "@yuva-devlab/ui";
 import { ChevronDown } from "lucide-react";
 import {
@@ -27,7 +30,7 @@ export default function AccordionDocPage() {
       description:
         "AntD-inspired accordion where expanding one panel automatically collapses the others.",
       preview: (
-        <div className="w-full max-w-md">
+        <div className="dl-demo-frame dl-demo-frame--md">
           <Accordion type="single" collapsible defaultValue="item-1">
             <AccordionItem value="item-1">
               <AccordionTrigger>What is DevLab Shared?</AccordionTrigger>
@@ -41,8 +44,8 @@ export default function AccordionDocPage() {
               <AccordionTrigger>How does CSS scoping work?</AccordionTrigger>
               <AccordionContent>
                 All components use scoped .dl-* class names packaged within
-                @layer dl-components, guaranteeing zero Tailwind style
-                collisions.
+                @layer dl-components, guaranteeing complete isolation from
+                application-level styles.
               </AccordionContent>
             </AccordionItem>
           </Accordion>
@@ -61,7 +64,7 @@ export default function AccordionDocPage() {
       description:
         "Allows multiple accordion sections to remain expanded at the same time.",
       preview: (
-        <div className="w-full max-w-md">
+        <div className="dl-demo-frame dl-demo-frame--md">
           <Accordion type="multiple" defaultValue={["item-1", "item-2"]}>
             <AccordionItem value="item-1">
               <AccordionTrigger>Cluster Health Diagnostics</AccordionTrigger>
@@ -93,25 +96,30 @@ export default function AccordionDocPage() {
       description:
         "Minimal single-item disclosure component for toggling supplementary content.",
       preview: (
-        <div className="w-full max-w-md p-3 border border-border rounded-xl bg-card">
+        <div className="dl-demo-frame dl-demo-frame--md dl-demo-box dl-demo-box--sm">
           <Collapsible open={collapsibleOpen} onOpenChange={setCollapsibleOpen}>
-            <div className="flex items-center justify-between">
-              <span className="text-xs font-semibold text-foreground">
+            <Flex align="center" justify="between">
+              <span className="dl-demo-heading">
                 Advanced Network Proxy Settings
               </span>
               <CollapsibleTrigger asChild>
-                <Button variant="ghost" size="sm" className="h-7 w-7 p-0">
+                <Button variant="ghost" size="icon">
                   <ChevronDown
-                    className={`size-4 transition-transform duration-200 ${
-                      collapsibleOpen ? "rotate-180" : ""
-                    }`}
+                    className={cn(
+                      "dl-demo-icon dl-demo-icon--sm dl-demo-icon--transition",
+                      collapsibleOpen && "dl-demo-icon--rotated",
+                    )}
                   />
                 </Button>
               </CollapsibleTrigger>
-            </div>
-            <CollapsibleContent className="pt-3 text-xs text-muted-foreground border-t border-border mt-3">
-              Configure HTTP/2 tunneling, gRPC keep-alives, and mutual TLS
-              certs.
+            </Flex>
+            <CollapsibleContent>
+              <Stack gap={2} className="dl-demo-box--collapsible-header">
+                <span className="dl-demo-desc">
+                  Configure HTTP/2 tunneling, gRPC keep-alives, and mutual TLS
+                  certs.
+                </span>
+              </Stack>
             </CollapsibleContent>
           </Collapsible>
         </div>

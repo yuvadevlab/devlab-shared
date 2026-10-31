@@ -1,0 +1,34 @@
+import { Meta, Title, Description, Canvas, Controls } from "@storybook/blocks";
+import * as TextStories from "./text.stories";
+
+<Meta of={TextStories} />
+
+<Title />
+
+# Text
+
+Versatile body, caption, code, and metric typography primitive with semantic color tokens and responsive hierarchy.
+
+## Default
+
+<Canvas of={TextStories.Default} />
+
+## All Variants
+
+Available in `body-lg`, `body`, `body-sm`, `caption`, `code`, and `metric`.
+
+<Canvas of={TextStories.AllVariants} />
+
+## Color Variants
+
+Supports `default`, `muted`, `subtle`, `primary`, `success`, `warning`, `destructive`, and `info`.
+
+<Canvas of={TextStories.ColorVariants} />
+
+## Single-Line Truncation
+
+<Canvas of={TextStories.Truncated} />
+
+## Component Properties
+
+<Controls />

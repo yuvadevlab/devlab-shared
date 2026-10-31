@@ -9,6 +9,7 @@ import {
   ContextMenuSeparator,
   ContextMenuShortcut,
   ContextMenuCheckboxItem,
+  Flex,
 } from "@yuva-devlab/ui";
 import { ComponentView, ComponentVariant } from "@/components/component-view";
 
@@ -26,12 +27,12 @@ export default function ContextMenuDocPage() {
       description:
         "Standard contextual menu triggered by right-clicking on a canvas or drawing region.",
       preview: (
-        <div className="flex items-center justify-center p-4">
+        <Flex align="center" justify="center">
           <ContextMenu>
-            <ContextMenuTrigger className="flex h-32 w-72 items-center justify-center rounded-xl border border-dashed border-border bg-muted/20 text-xs text-muted-foreground select-none hover:border-primary/50 transition">
+            <ContextMenuTrigger className="dl-demo-context-zone">
               Right-click inside this workspace
             </ContextMenuTrigger>
-            <ContextMenuContent className="w-56">
+            <ContextMenuContent>
               <ContextMenuItem>
                 <span>Back</span>
                 <ContextMenuShortcut>⌘[</ContextMenuShortcut>
@@ -50,13 +51,13 @@ export default function ContextMenuDocPage() {
               </ContextMenuItem>
             </ContextMenuContent>
           </ContextMenu>
-        </div>
+        </Flex>
       ),
       codeSnippet: `<ContextMenu>
-  <ContextMenuTrigger className="h-32 w-72 border border-dashed rounded-xl flex items-center justify-center">
+  <ContextMenuTrigger className="dl-demo-context-zone">
     Right-click inside this workspace
   </ContextMenuTrigger>
-  <ContextMenuContent className="w-56">
+  <ContextMenuContent>
     <ContextMenuItem>
       <span>Back</span>
       <ContextMenuShortcut>⌘[</ContextMenuShortcut>
@@ -78,12 +79,12 @@ export default function ContextMenuDocPage() {
       description:
         "Code and document contextual menu featuring shortcuts and persistent toggles.",
       preview: (
-        <div className="flex items-center justify-center p-4">
+        <Flex align="center" justify="center">
           <ContextMenu>
-            <ContextMenuTrigger className="flex h-32 w-72 items-center justify-center rounded-xl border border-border bg-card p-4 text-xs font-mono text-muted-foreground select-none shadow-sm hover:border-primary/50 transition">
+            <ContextMenuTrigger className="dl-demo-context-zone dl-demo-context-zone--card">
               Right-click code snippet area
             </ContextMenuTrigger>
-            <ContextMenuContent className="w-56">
+            <ContextMenuContent>
               <ContextMenuItem>
                 <span>Format Document</span>
                 <ContextMenuShortcut>⇧⌥F</ContextMenuShortcut>
@@ -107,13 +108,13 @@ export default function ContextMenuDocPage() {
               </ContextMenuCheckboxItem>
             </ContextMenuContent>
           </ContextMenu>
-        </div>
+        </Flex>
       ),
       codeSnippet: `<ContextMenu>
-  <ContextMenuTrigger className="h-32 w-72 border rounded-xl flex items-center justify-center">
+  <ContextMenuTrigger className="dl-demo-context-zone dl-demo-context-zone--card">
     Right-click code snippet area
   </ContextMenuTrigger>
-  <ContextMenuContent className="w-56">
+  <ContextMenuContent>
     <ContextMenuItem>
       Format Document <ContextMenuShortcut>⇧⌥F</ContextMenuShortcut>
     </ContextMenuItem>

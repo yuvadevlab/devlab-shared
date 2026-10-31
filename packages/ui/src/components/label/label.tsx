@@ -1,7 +1,7 @@
 import * as React from "react";
 import * as LabelPrimitive from "@radix-ui/react-label";
 import { cva, type VariantProps } from "class-variance-authority";
-import { cn } from "../../lib/utils";
+import { cn } from "@/lib/utils";
 
 const labelVariants = cva("dl-label");
 
@@ -20,15 +20,14 @@ export interface LabelProps
 /**
  * Accessible label component associated with input controls, checkboxes, or form fields.
  * Built upon Radix UI Label primitive with design token typography and disabled styling.
- * Zero Tailwind runtime dependencies.
  *
  * @example
  * ```tsx
  * // Associated with an Input via htmlFor
- * <div className="grid gap-1.5">
+ * <Stack gap="2">
  *   <Label htmlFor="email">Email address</Label>
  *   <Input id="email" type="email" placeholder="name@company.com" />
- * </div>
+ * </Stack>
  * ```
  */
 const Label = React.forwardRef<
@@ -41,9 +40,7 @@ const Label = React.forwardRef<
     {...props}
   >
     {children}
-    {required && (
-      <span className="dl-label-required text-destructive ml-0.5">*</span>
-    )}
+    {required && <span className="dl-label-required">*</span>}
   </LabelPrimitive.Root>
 ));
 Label.displayName = LabelPrimitive.Root.displayName;

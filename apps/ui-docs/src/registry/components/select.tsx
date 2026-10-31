@@ -43,9 +43,9 @@ export default function SelectDocPage() {
       description:
         "Standard single-choice dropdown selection with clear placeholder and focus states.",
       preview: (
-        <div className="w-full max-w-xs">
+        <div className="dl-demo-frame dl-demo-frame--xs">
           <Select value={basicVal} onValueChange={setBasicVal}>
-            <SelectTrigger className="w-full">
+            <SelectTrigger>
               <SelectValue placeholder="Select model..." />
             </SelectTrigger>
             <SelectContent>
@@ -57,7 +57,7 @@ export default function SelectDocPage() {
         </div>
       ),
       codeSnippet: `<Select value={value} onValueChange={setValue}>
-  <SelectTrigger className="w-full">
+  <SelectTrigger>
     <SelectValue placeholder="Select model..." />
   </SelectTrigger>
   <SelectContent>
@@ -73,7 +73,7 @@ export default function SelectDocPage() {
       description:
         "AntD-inspired select variant featuring a search filter input, real-time matching, and empty state.",
       preview: (
-        <div className="w-full max-w-xs">
+        <div className="dl-demo-frame dl-demo-frame--xs">
           <SearchableSelect
             options={AI_OPTIONS}
             value={searchVal}
@@ -103,9 +103,9 @@ export default function SelectDocPage() {
       description:
         "Organize long option lists into distinct logical categories using SelectGroup and SelectLabel.",
       preview: (
-        <div className="w-full max-w-xs">
+        <div className="dl-demo-frame dl-demo-frame--xs">
           <Select value={groupVal} onValueChange={setGroupVal}>
-            <SelectTrigger className="w-full">
+            <SelectTrigger>
               <SelectValue placeholder="Choose environment..." />
             </SelectTrigger>
             <SelectContent>
@@ -147,9 +147,9 @@ export default function SelectDocPage() {
       description:
         "Disabled trigger button prevents flyout interaction and shows muted styling.",
       preview: (
-        <div className="w-full max-w-xs">
+        <div className="dl-demo-frame dl-demo-frame--xs">
           <Select disabled defaultValue="locked">
-            <SelectTrigger className="w-full">
+            <SelectTrigger>
               <SelectValue placeholder="Unavailable" />
             </SelectTrigger>
             <SelectContent>

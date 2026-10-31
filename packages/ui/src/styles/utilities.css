@@ -1,0 +1,137 @@
+/**
+ * @file src/styles/utilities.css
+ * @description Platform Utility Layer (@layer dl-utilities).
+ * Provides semantic, accessibility, icon, and text utilities.
+ */
+
+@layer dl-utilities {
+  /* ── Accessibility ─────────────────────────────────────────────────────── */
+  .dl-sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+  }
+
+  .dl-not-sr-only {
+    position: static;
+    width: auto;
+    height: auto;
+    padding: 0;
+    margin: 0;
+    overflow: visible;
+    clip: auto;
+    white-space: normal;
+  }
+
+  /* ── Text Clamping & Truncation ────────────────────────────────────────── */
+  .dl-truncate {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .dl-line-clamp-1 {
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .dl-line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .dl-line-clamp-3 {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  /* ── Typography & Alignment ────────────────────────────────────────────── */
+  .dl-text-left {
+    text-align: left;
+  }
+
+  .dl-text-center {
+    text-align: center;
+  }
+
+  .dl-text-right {
+    text-align: right;
+  }
+
+  .dl-whitespace-nowrap {
+    white-space: nowrap;
+  }
+
+  /* ── Standard Icon Dimensions ──────────────────────────────────────────── */
+  .dl-icon-xs {
+    width: var(--icon-xs, 0.875rem);
+    height: var(--icon-xs, 0.875rem);
+    flex-shrink: 0;
+  }
+
+  .dl-icon-sm {
+    width: var(--icon-sm, 1rem);
+    height: var(--icon-sm, 1rem);
+    flex-shrink: 0;
+  }
+
+  .dl-icon-md {
+    width: var(--icon-md, 1.25rem);
+    height: var(--icon-md, 1.25rem);
+    flex-shrink: 0;
+  }
+
+  .dl-icon-lg {
+    width: var(--icon-lg, 1.5rem);
+    height: var(--icon-lg, 1.5rem);
+    flex-shrink: 0;
+  }
+
+  .dl-icon-xl {
+    width: var(--icon-xl, 2rem);
+    height: var(--icon-xl, 2rem);
+    flex-shrink: 0;
+  }
+
+  /* ── Containment & Overflow ────────────────────────────────────────────── */
+  .dl-overflow-hidden {
+    overflow: hidden;
+  }
+
+  .dl-overflow-auto {
+    overflow: auto;
+  }
+
+  .dl-overflow-x-auto {
+    overflow-x: auto;
+  }
+
+  .dl-overflow-y-auto {
+    overflow-y: auto;
+  }
+
+  /* ── Interaction ───────────────────────────────────────────────────────── */
+  .dl-cursor-pointer {
+    cursor: pointer;
+  }
+
+  .dl-cursor-not-allowed {
+    cursor: not-allowed;
+  }
+
+  .dl-select-none {
+    user-select: none;
+  }
+}

@@ -7,8 +7,8 @@
 import crypto from "node:crypto";
 import { UnauthorizedError } from "@yuva-devlab/errors";
 import { Logger, loggerWithConfig } from "@yuva-devlab/logger";
-import { DEFAULT_JWKS_CACHE_TTL_MS } from "../constants";
-import type { JwksConfig, JwtPayload } from "../types";
+import { DEFAULT_JWKS_CACHE_TTL_MS } from "@/constants";
+import type { JwksConfig, JwtPayload } from "@/types";
 
 const logger = loggerWithConfig(new Logger("JwksValidator"));
 

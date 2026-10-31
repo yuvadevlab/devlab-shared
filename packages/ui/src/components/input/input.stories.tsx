@@ -6,7 +6,6 @@ import { Input } from "./input";
 const meta: Meta<typeof Input> = {
   title: "Components/Input",
   component: Input,
-  tags: ["autodocs"],
   argTypes: {
     placeholder: {
       control: "text",
@@ -34,7 +33,7 @@ type Story = StoryObj<typeof Input>;
 
 export const Default: Story = {
   render: (args) => (
-    <div style={{ width: "320px" }}>
+    <div className="dl-story-w-sm">
       <Input {...args} />
     </div>
   ),
@@ -42,26 +41,15 @@ export const Default: Story = {
 
 export const WithStartIcon: Story = {
   render: () => (
-    <div
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        gap: "16px",
-        width: "320px",
-      }}
-    >
+    <div className="dl-story-col dl-story-w-sm">
       <Input
         placeholder="Search agents, workspaces..."
-        startIcon={
-          <Search style={{ width: "16px", height: "16px", opacity: 0.6 }} />
-        }
+        startIcon={<Search size={16} />}
       />
       <Input
         type="email"
         placeholder="user@devlab.ai"
-        startIcon={
-          <Mail style={{ width: "16px", height: "16px", opacity: 0.6 }} />
-        }
+        startIcon={<Mail size={16} />}
       />
     </div>
   ),
@@ -69,28 +57,18 @@ export const WithStartIcon: Story = {
 
 export const WithEndIcon: Story = {
   render: () => (
-    <div style={{ width: "320px" }}>
+    <div className="dl-story-w-sm">
       <Input
         type="password"
         placeholder="Enter secret key..."
-        startIcon={
-          <Key style={{ width: "16px", height: "16px", opacity: 0.6 }} />
-        }
+        startIcon={<Key size={16} />}
         endIcon={
           <button
             type="button"
             aria-label="Toggle password visibility"
-            style={{
-              background: "transparent",
-              border: "none",
-              padding: 0,
-              cursor: "pointer",
-              display: "flex",
-              alignItems: "center",
-              opacity: 0.6,
-            }}
+            className="dl-btn--ghost"
           >
-            <Eye style={{ width: "16px", height: "16px" }} />
+            <Eye size={16} />
           </button>
         }
       />
@@ -100,7 +78,7 @@ export const WithEndIcon: Story = {
 
 export const Disabled: Story = {
   render: () => (
-    <div style={{ width: "320px" }}>
+    <div className="dl-story-w-sm">
       <Input
         disabled
         placeholder="Disabled input field"

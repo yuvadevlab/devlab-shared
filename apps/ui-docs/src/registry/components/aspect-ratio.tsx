@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { AspectRatio } from "@yuva-devlab/ui";
+import { AspectRatio, Flex, Stack } from "@yuva-devlab/ui";
 import { ComponentView, ComponentVariant } from "@/components/component-view";
 
 /**
@@ -15,27 +15,25 @@ export default function AspectRatioDocPage() {
       description:
         "Standard ratio for video streams, rich graphs, and hero dashboard previews.",
       preview: (
-        <div className="w-full max-w-sm overflow-hidden rounded-xl border border-border shadow-xs">
+        <div className="dl-demo-frame dl-demo-frame--sm dl-demo-box">
           <AspectRatio ratio={16 / 9}>
-            <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-primary/20 via-muted to-muted/80 p-4 text-center">
-              <div>
-                <p className="text-xs font-semibold text-foreground">
-                  16 : 9 Widescreen Container
-                </p>
-                <p className="text-[11px] text-muted-foreground mt-0.5 font-mono">
-                  ratio=&#123;16 / 9&#125;
-                </p>
-              </div>
-            </div>
+            <Flex
+              align="center"
+              justify="center"
+              className="dl-demo-slide dl-demo-slide--orchestrai"
+            >
+              <Stack align="center" gap={1}>
+                <p className="dl-demo-heading">16 : 9 Widescreen Container</p>
+                <p className="dl-demo-code">ratio=&#123;16 / 9&#125;</p>
+              </Stack>
+            </Flex>
           </AspectRatio>
         </div>
       ),
       codeSnippet: `<AspectRatio ratio={16 / 9}>
-  <img
-    src="/hero-banner.png"
-    alt="Hero"
-    className="h-full w-full object-cover rounded-xl"
-  />
+  <div className="dl-demo-slide">
+    <p>16 : 9 Widescreen Container</p>
+  </div>
 </AspectRatio>`,
     },
     {
@@ -44,18 +42,20 @@ export default function AspectRatioDocPage() {
       description:
         "Balanced square framing ideal for user avatars, QR codes, and product grid thumbnails.",
       preview: (
-        <div className="w-36 overflow-hidden rounded-xl border border-border shadow-xs">
+        <div className="dl-demo-frame dl-demo-frame--xs dl-demo-box">
           <AspectRatio ratio={1 / 1}>
-            <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-indigo-500/20 via-muted to-muted/80 p-2 text-center">
-              <span className="text-xs font-semibold text-foreground font-mono">
-                1 : 1 Square
-              </span>
-            </div>
+            <Flex
+              align="center"
+              justify="center"
+              className="dl-demo-slide dl-demo-slide--finai"
+            >
+              <span className="dl-demo-code">1 : 1 Square</span>
+            </Flex>
           </AspectRatio>
         </div>
       ),
       codeSnippet: `<AspectRatio ratio={1 / 1}>
-  <div className="h-full w-full flex items-center justify-center bg-muted">
+  <div className="dl-demo-slide">
     <span>1 : 1</span>
   </div>
 </AspectRatio>`,
@@ -66,23 +66,23 @@ export default function AspectRatioDocPage() {
       description:
         "Classic aspect ratio suitable for presentation slides and embedded camera feeds.",
       preview: (
-        <div className="w-full max-w-xs overflow-hidden rounded-xl border border-border shadow-xs">
+        <div className="dl-demo-frame dl-demo-frame--xs dl-demo-box">
           <AspectRatio ratio={4 / 3}>
-            <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-emerald-500/20 via-muted to-muted/80 p-4 text-center">
-              <div>
-                <p className="text-xs font-semibold text-foreground">
-                  4 : 3 Slide View
-                </p>
-                <p className="text-[11px] text-muted-foreground mt-0.5 font-mono">
-                  ratio=&#123;4 / 3&#125;
-                </p>
-              </div>
-            </div>
+            <Flex
+              align="center"
+              justify="center"
+              className="dl-demo-slide dl-demo-slide--vitalai"
+            >
+              <Stack align="center" gap={1}>
+                <p className="dl-demo-heading">4 : 3 Slide View</p>
+                <p className="dl-demo-code">ratio=&#123;4 / 3&#125;</p>
+              </Stack>
+            </Flex>
           </AspectRatio>
         </div>
       ),
       codeSnippet: `<AspectRatio ratio={4 / 3}>
-  <div className="h-full w-full flex items-center justify-center bg-muted">
+  <div className="dl-demo-slide">
     <p>4:3 Slide View</p>
   </div>
 </AspectRatio>`,

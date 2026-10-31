@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { Label, Input } from "@yuva-devlab/ui";
+import { Label, Input, Stack, Flex } from "@yuva-devlab/ui";
 import { ComponentView, ComponentVariant } from "@/components/component-view";
 
 /**
@@ -15,19 +15,19 @@ export default function LabelDocPage() {
       description:
         "Displays a red asterisk indicator to signal mandatory input fields.",
       preview: (
-        <div className="w-full max-w-sm space-y-1.5 p-2">
+        <Stack gap={2} className="dl-demo-frame dl-demo-frame--sm">
           <Label htmlFor="cluster-name" required>
             Cluster Hostname
           </Label>
           <Input id="cluster-name" placeholder="us-east-cluster-01" />
-        </div>
+        </Stack>
       ),
-      codeSnippet: `<div className="space-y-1.5">
+      codeSnippet: `<Stack gap="2">
   <Label htmlFor="cluster-name" required>
     Cluster Hostname
   </Label>
   <Input id="cluster-name" placeholder="us-east-cluster-01" />
-</div>`,
+</Stack>`,
     },
     {
       id: "optional",
@@ -35,26 +35,24 @@ export default function LabelDocPage() {
       description:
         "Standard typography label without mandatory marking for elective options.",
       preview: (
-        <div className="w-full max-w-sm space-y-1.5 p-2">
-          <div className="flex justify-between items-center">
+        <Stack gap={2} className="dl-demo-frame dl-demo-frame--sm">
+          <Flex justify="between" align="center">
             <Label htmlFor="optional-notes">Deployment Notes</Label>
-            <span className="text-[11px] text-muted-foreground font-normal">
-              (Optional)
-            </span>
-          </div>
+            <span className="dl-demo-caption">(Optional)</span>
+          </Flex>
           <Input
             id="optional-notes"
             placeholder="Changelog description or pull request reference"
           />
-        </div>
+        </Stack>
       ),
-      codeSnippet: `<div className="space-y-1.5">
-  <div className="flex justify-between">
+      codeSnippet: `<Stack gap="2">
+  <Flex justify="between">
     <Label htmlFor="notes">Deployment Notes</Label>
-    <span className="text-xs text-muted-foreground">(Optional)</span>
-  </div>
+    <span>(Optional)</span>
+  </Flex>
   <Input id="notes" placeholder="Changelog description" />
-</div>`,
+</Stack>`,
     },
   ];
 

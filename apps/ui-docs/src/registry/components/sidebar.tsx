@@ -10,6 +10,7 @@ import {
   Database,
   BarChart,
 } from "lucide-react";
+import { Flex, Stack, cn } from "@yuva-devlab/ui";
 import { ComponentView, ComponentVariant } from "@/components/component-view";
 
 /**
@@ -25,58 +26,54 @@ export default function SidebarDocPage() {
       description:
         "Full-featured app sidebar with brand branding, categorized links, and active state highlights.",
       preview: (
-        <div className="w-full max-w-md h-72 border border-border rounded-xl overflow-hidden bg-card shadow-xs flex">
-          <div className="w-48 border-r border-border bg-muted/20 flex flex-col p-2 space-y-4">
-            <div className="flex items-center gap-2 px-2 py-1 font-bold text-xs">
-              <Cpu className="size-4 text-primary" />
-              <span>DevLab Studio</span>
-            </div>
+        <div className="dl-demo-sidebar-shell">
+          <div className="dl-demo-sidebar-panel">
+            <Flex align="center" gap={2}>
+              <Cpu className="dl-demo-icon dl-demo-icon--sm" />
+              <span className="dl-demo-heading">DevLab Studio</span>
+            </Flex>
 
-            <div className="space-y-1">
-              <div className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground px-2">
-                Navigation
-              </div>
+            <Stack gap={1}>
+              <span className="dl-demo-label">Navigation</span>
               <button
+                type="button"
                 onClick={() => setActiveTab("dashboard")}
-                className={`flex items-center gap-2 w-full px-2 py-1.5 rounded-md text-xs font-medium transition ${
-                  activeTab === "dashboard"
-                    ? "bg-primary text-primary-foreground"
-                    : "text-muted-foreground hover:bg-muted hover:text-foreground"
-                }`}
+                className={cn(
+                  "dl-demo-sidebar-btn",
+                  activeTab === "dashboard" && "dl-demo-sidebar-btn--active",
+                )}
               >
-                <Home className="size-3.5" />
+                <Home className="dl-demo-icon dl-demo-icon--xs" />
                 <span>Dashboard</span>
               </button>
               <button
+                type="button"
                 onClick={() => setActiveTab("deployments")}
-                className={`flex items-center gap-2 w-full px-2 py-1.5 rounded-md text-xs font-medium transition ${
-                  activeTab === "deployments"
-                    ? "bg-primary text-primary-foreground"
-                    : "text-muted-foreground hover:bg-muted hover:text-foreground"
-                }`}
+                className={cn(
+                  "dl-demo-sidebar-btn",
+                  activeTab === "deployments" && "dl-demo-sidebar-btn--active",
+                )}
               >
-                <Layers className="size-3.5" />
+                <Layers className="dl-demo-icon dl-demo-icon--xs" />
                 <span>Deployments</span>
               </button>
               <button
+                type="button"
                 onClick={() => setActiveTab("resilience")}
-                className={`flex items-center gap-2 w-full px-2 py-1.5 rounded-md text-xs font-medium transition ${
-                  activeTab === "resilience"
-                    ? "bg-primary text-primary-foreground"
-                    : "text-muted-foreground hover:bg-muted hover:text-foreground"
-                }`}
+                className={cn(
+                  "dl-demo-sidebar-btn",
+                  activeTab === "resilience" && "dl-demo-sidebar-btn--active",
+                )}
               >
-                <ShieldAlert className="size-3.5" />
+                <ShieldAlert className="dl-demo-icon dl-demo-icon--xs" />
                 <span>Resilience</span>
               </button>
-            </div>
+            </Stack>
           </div>
 
-          <div className="flex-1 p-4 flex flex-col items-center justify-center text-center text-xs text-muted-foreground">
-            <p className="font-medium text-foreground capitalize">
-              Active: {activeTab}
-            </p>
-            <p className="text-[11px] mt-1">
+          <div className="dl-demo-sidebar-content">
+            <p className="dl-demo-heading">Active: {activeTab}</p>
+            <p className="dl-demo-caption">
               Main content rendered inside SidebarInset.
             </p>
           </div>
@@ -105,23 +102,26 @@ export default function SidebarDocPage() {
       description:
         "Space-saving icon sidebar navigation ideal for dense developer interfaces.",
       preview: (
-        <div className="w-full max-w-md h-64 border border-border rounded-xl overflow-hidden bg-card shadow-xs flex">
-          <div className="w-14 border-r border-border bg-muted/20 flex flex-col items-center py-3 gap-3">
-            <Cpu className="size-5 text-primary mb-2" />
-            <button className="p-2 rounded-lg bg-primary text-primary-foreground">
-              <Home className="size-4" />
+        <div className="dl-demo-sidebar-shell dl-demo-sidebar-shell--compact">
+          <div className="dl-demo-sidebar-rail">
+            <Cpu className="dl-demo-icon dl-demo-icon--md" />
+            <button
+              type="button"
+              className="dl-demo-sidebar-btn--icon dl-demo-sidebar-btn--icon-active"
+            >
+              <Home className="dl-demo-icon dl-demo-icon--sm" />
             </button>
-            <button className="p-2 rounded-lg text-muted-foreground hover:bg-muted hover:text-foreground">
-              <Database className="size-4" />
+            <button type="button" className="dl-demo-sidebar-btn--icon">
+              <Database className="dl-demo-icon dl-demo-icon--sm" />
             </button>
-            <button className="p-2 rounded-lg text-muted-foreground hover:bg-muted hover:text-foreground">
-              <BarChart className="size-4" />
+            <button type="button" className="dl-demo-sidebar-btn--icon">
+              <BarChart className="dl-demo-icon dl-demo-icon--sm" />
             </button>
-            <button className="p-2 rounded-lg text-muted-foreground hover:bg-muted hover:text-foreground mt-auto">
-              <Settings className="size-4" />
+            <button type="button" className="dl-demo-sidebar-btn--icon">
+              <Settings className="dl-demo-icon dl-demo-icon--sm" />
             </button>
           </div>
-          <div className="flex-1 p-4 flex items-center justify-center text-xs text-muted-foreground">
+          <div className="dl-demo-sidebar-content">
             Compact icon rail layout
           </div>
         </div>

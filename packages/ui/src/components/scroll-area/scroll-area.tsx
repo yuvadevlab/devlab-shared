@@ -1,6 +1,6 @@
 import * as React from "react";
 import * as ScrollAreaPrimitive from "@radix-ui/react-scroll-area";
-import { cn } from "../../lib/utils";
+import { cn } from "@/lib/utils";
 
 export type ScrollAreaProps = React.ComponentPropsWithoutRef<
   typeof ScrollAreaPrimitive.Root
@@ -11,12 +11,12 @@ export type ScrollAreaProps = React.ComponentPropsWithoutRef<
  *
  * @example
  * ```tsx
- * <ScrollArea className="h-72 w-48 rounded-md border">
- *   <div className="p-4">
+ * <ScrollArea>
+ *   <Box p="4">
  *     {items.map((item) => (
  *       <div key={item.id}>{item.name}</div>
  *     ))}
- *   </div>
+ *   </Box>
  * </ScrollArea>
  * ```
  */

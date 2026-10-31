@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Toaster as Sonner, toast } from "sonner";
-import type { ThemeMode } from "../../theme-provider";
+import type { ThemeMode } from "@/theme-provider";
 
 export type ToasterProps = React.ComponentProps<typeof Sonner>;
 export type ToastTheme = ThemeMode;

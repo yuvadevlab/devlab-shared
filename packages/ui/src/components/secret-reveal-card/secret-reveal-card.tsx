@@ -2,8 +2,8 @@
 
 import * as React from "react";
 import { AlertTriangle } from "lucide-react";
-import { CopyButton } from "../copy-button";
-import { cn } from "../../lib/utils";
+import { CopyButton } from "@/components/copy-button";
+import { cn } from "@/lib/utils";
 
 export interface SecretRevealCardProps extends React.HTMLAttributes<HTMLDivElement> {
   /** The sensitive secret or API key to reveal */
@@ -44,7 +44,7 @@ export const SecretRevealCard = React.forwardRef<
       <div ref={ref} className={cn("dl-secret-reveal", className)} {...props}>
         {warningMessage && (
           <div className="dl-secret-reveal__warning">
-            <AlertTriangle className="shrink-0 size-4" />
+            <AlertTriangle />
             <span>{warningMessage}</span>
           </div>
         )}

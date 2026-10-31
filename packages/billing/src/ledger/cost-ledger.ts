@@ -9,7 +9,7 @@ import type {
   BillingLedgerEntryType,
   CostLedgerEntry,
   TenantUsageSummary,
-} from "../types";
+} from "@/types";
 
 const logger = loggerWithConfig(new Logger("CostLedger"));
 

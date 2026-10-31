@@ -4,11 +4,7 @@
  * @module @yuva-devlab/ai-client
  */
 
-import {
-  type CredentialResolver,
-  type LLMRequest,
-  MessageRole,
-} from "../../types";
+import { type CredentialResolver, type LLMRequest, MessageRole } from "@/types";
 
 /**
  * Configuration options for initializing AnthropicAdapter.

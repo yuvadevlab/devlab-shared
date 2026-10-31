@@ -1,34 +1,31 @@
 import React from "react";
+import { Stack } from "@yuva-devlab/ui";
 
 /**
  * Server component rendering the quick installation and setup code snippet blocks.
  */
 export function HomeQuickstart() {
   return (
-    <section className="space-y-4">
-      <h2 className="text-foreground text-xl font-bold tracking-tight">
-        Quick Installation
-      </h2>
-      <div className="border-border bg-muted/40 relative rounded-lg border p-4 font-mono text-xs">
-        <div className="text-muted-foreground select-none pb-2 font-sans font-semibold uppercase tracking-wider text-[10px]">
-          1. Install Packages
-        </div>
-        <code className="text-foreground">
+    <Stack gap={4} as="section" className="dl-quickstart">
+      <h2 className="dl-quickstart-title">Quick Installation</h2>
+
+      <div className="dl-quickstart-block">
+        <div className="dl-quickstart-block__header">1. Install Packages</div>
+        <code className="dl-quickstart-block__code">
           pnpm add @yuva-devlab/ui @yuva-devlab/tokens
         </code>
       </div>
 
-      <div className="border-border bg-muted/40 relative rounded-lg border p-4 font-mono text-xs">
-        <div className="text-muted-foreground select-none pb-2 font-sans font-semibold uppercase tracking-wider text-[10px]">
-          2. Import Styles in globals.css
+      <div className="dl-quickstart-block">
+        <div className="dl-quickstart-block__header">
+          2. Import Platform CSS in globals.css
         </div>
-        <pre className="text-foreground whitespace-pre m-0">
-          {`@import "tailwindcss";
-@import "@yuva-devlab/tokens/preset.css";
+        <pre className="dl-quickstart-block__pre">
+          {`@import "@yuva-devlab/tokens/styles.css";
 @import "@yuva-devlab/tokens/themes/orchestrai.css";
 @import "@yuva-devlab/ui/styles.css";`}
         </pre>
       </div>
-    </section>
+    </Stack>
   );
 }

@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { Checkbox } from "@yuva-devlab/ui";
+import { Checkbox, Flex, Stack } from "@yuva-devlab/ui";
 import {
   ComponentView,
   type ComponentVariant,
@@ -23,24 +23,21 @@ export default function CheckboxDocPage() {
       description:
         "AntD-inspired binary checkbox with accessible focus ring and primary fill on check.",
       preview: (
-        <div className="flex items-center gap-3">
+        <Flex align="center" gap={3}>
           <Checkbox
             id="require-approval"
             checked={basicChecked}
             onCheckedChange={(val) => setBasicChecked(Boolean(val))}
           />
-          <label
-            htmlFor="require-approval"
-            className="text-foreground text-sm font-semibold cursor-pointer"
-          >
+          <label htmlFor="require-approval" className="dl-demo-heading">
             Require Human Approval for Destructive Steps
           </label>
-        </div>
+        </Flex>
       ),
-      codeSnippet: `<div className="flex items-center gap-2.5">
+      codeSnippet: `<Flex align="center" gap="3">
   <Checkbox id="approval" checked={checked} onCheckedChange={setChecked} />
   <label htmlFor="approval">Require Human Approval</label>
-</div>`,
+</Flex>`,
     },
     {
       id: "indeterminate",
@@ -48,8 +45,12 @@ export default function CheckboxDocPage() {
       description:
         "Tri-state parent checkbox reflecting mixed child states (AntD Checkbox.Group pattern).",
       preview: (
-        <div className="space-y-3 p-4 border border-border rounded-xl bg-card w-full max-w-sm">
-          <div className="flex items-center gap-2.5 border-b border-border pb-2.5">
+        <Stack gap={3} className="dl-demo-frame dl-demo-frame--sm dl-demo-box">
+          <Flex
+            align="center"
+            gap={2}
+            className="dl-demo-box--collapsible-header"
+          >
             <Checkbox
               id="select-all"
               checked={
@@ -61,42 +62,33 @@ export default function CheckboxDocPage() {
                 setSub2(target);
               }}
             />
-            <label
-              htmlFor="select-all"
-              className="text-xs font-bold text-foreground cursor-pointer"
-            >
+            <label htmlFor="select-all" className="dl-demo-heading">
               Select All Cluster Policies
             </label>
-          </div>
-          <div className="pl-6 space-y-2">
-            <div className="flex items-center gap-2">
+          </Flex>
+          <Stack gap={2}>
+            <Flex align="center" gap={2}>
               <Checkbox
                 id="sub1"
                 checked={sub1}
                 onCheckedChange={(v) => setSub1(Boolean(v))}
               />
-              <label
-                htmlFor="sub1"
-                className="text-xs text-muted-foreground cursor-pointer"
-              >
+              <label htmlFor="sub1" className="dl-demo-desc">
                 Strict TLS 1.3 Encryption
               </label>
-            </div>
-            <div className="flex items-center gap-2">
+            </Flex>
+            <Flex align="center" gap={2}>
               <Checkbox
                 id="sub2"
                 checked={sub2}
                 onCheckedChange={(v) => setSub2(Boolean(v))}
               />
-              <label
-                htmlFor="sub2"
-                className="text-xs text-muted-foreground cursor-pointer"
-              >
+              <label htmlFor="sub2" className="dl-demo-desc">
                 Automatic Token Revocation
               </label>
-            </div>
-          </div>
-        </div>
+            </Flex>
+          </Stack>
+        </Stack>
       ),
       codeSnippet: `<Checkbox
   checked={allChecked ? true : isIndeterminate ? "indeterminate" : false}
@@ -109,20 +101,20 @@ export default function CheckboxDocPage() {
       description:
         "Non-interactive disabled checkbox states showing checked and unchecked variations.",
       preview: (
-        <div className="flex items-center gap-6">
-          <div className="flex items-center gap-2">
+        <Flex align="center" gap={6}>
+          <Flex align="center" gap={2}>
             <Checkbox disabled defaultChecked id="dis-1" />
-            <label htmlFor="dis-1" className="text-xs text-muted-foreground">
+            <label htmlFor="dis-1" className="dl-demo-desc">
               Checked Disabled
             </label>
-          </div>
-          <div className="flex items-center gap-2">
+          </Flex>
+          <Flex align="center" gap={2}>
             <Checkbox disabled id="dis-2" />
-            <label htmlFor="dis-2" className="text-xs text-muted-foreground">
+            <label htmlFor="dis-2" className="dl-demo-desc">
               Unchecked Disabled
             </label>
-          </div>
-        </div>
+          </Flex>
+        </Flex>
       ),
       codeSnippet: `<Checkbox disabled defaultChecked />
 <Checkbox disabled />`,

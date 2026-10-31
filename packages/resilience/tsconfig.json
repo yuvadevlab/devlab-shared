@@ -5,6 +5,9 @@
     "types": ["node"],
     "module": "ESNext",
     "moduleResolution": "bundler",
+    "paths": {
+      "@/*": ["./src/*"]
+    },
     "outDir": "./dist",
     "rootDir": "./src",
     "declaration": true,

@@ -31,15 +31,17 @@ export function CopyCodeButton({ code, className }: CopyCodeButtonProps) {
       variant="ghost"
       size="sm"
       onClick={handleCopy}
-      className={`h-7 px-2.5 text-xs gap-1.5 text-muted-foreground hover:text-foreground ${className ?? ""}`}
+      className={`dl-copy-code-btn ${className ?? ""}`.trim()}
       title="Copy code to clipboard"
     >
       {copied ? (
-        <Check className="size-3 text-success" />
+        <Check className="dl-copy-code-btn__icon dl-copy-code-btn__icon--success" />
       ) : (
-        <Copy className="size-3" />
+        <Copy className="dl-copy-code-btn__icon" />
       )}
-      <span className="hidden sm:inline">{copied ? "Copied" : "Copy"}</span>
+      <span className="dl-copy-code-btn__label">
+        {copied ? "Copied" : "Copy"}
+      </span>
     </Button>
   );
 }

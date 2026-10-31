@@ -1,0 +1,153 @@
+/**
+ * @file component-doc.css
+ * @description Component documentation layout, headers, filter bars, and API reference tables.
+ */
+
+@layer dl-app {
+  /* Component View Shell */
+  .dl-comp-view {
+    max-width: 64rem;
+    margin-inline: auto;
+  }
+
+  /* Component Header */
+  .dl-comp-header {
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 2rem;
+  }
+
+  .dl-comp-header__badge {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-weight: 600;
+  }
+
+  .dl-comp-header__badge-variants {
+    font-size: 0.75rem;
+    color: var(--primary);
+    font-family: var(--font-mono, monospace);
+  }
+
+  .dl-comp-header__title {
+    font-size: 1.875rem;
+    font-weight: 800;
+    letter-spacing: -0.025em;
+    color: var(--foreground);
+    margin: 0;
+  }
+
+  .dl-comp-header__desc {
+    color: var(--muted-foreground);
+    font-size: 0.875rem;
+    line-height: 1.6;
+    max-width: 48rem;
+    margin: 0;
+  }
+
+  /* Variants Section & Pills */
+  .dl-variants-section__header {
+    border-bottom: 1px solid color-mix(in oklch, var(--border) 60%, transparent);
+    padding-bottom: 1rem;
+  }
+
+  .dl-variants-section__title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    letter-spacing: -0.025em;
+    color: var(--foreground);
+    margin: 0;
+  }
+
+  .dl-variants-section__desc {
+    font-size: 0.75rem;
+    color: var(--muted-foreground);
+    margin: 0.125rem 0 0;
+  }
+
+  .dl-variant-pill {
+    height: 1.75rem;
+    font-size: 0.75rem;
+    padding-inline: 0.625rem;
+    border-radius: 9999px;
+    font-weight: 500;
+  }
+
+  /* API Tables */
+  .dl-docs-api-section {
+    padding-top: 1rem;
+    border-top: 1px solid var(--border);
+  }
+
+  .dl-docs-api-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    letter-spacing: -0.025em;
+    color: var(--foreground);
+    margin: 0;
+  }
+
+  .dl-docs-table-card {
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg, 0.5rem);
+    overflow-x: auto;
+    background-color: var(--card);
+  }
+
+  .dl-docs-table {
+    width: 100%;
+    text-align: left;
+    font-size: 0.75rem;
+    border-collapse: collapse;
+  }
+
+  .dl-docs-table thead {
+    background-color: color-mix(in oklch, var(--muted) 50%, transparent);
+    border-bottom: 1px solid var(--border);
+    color: var(--muted-foreground);
+    font-weight: 600;
+  }
+
+  .dl-docs-table th {
+    padding: 0.625rem 1rem;
+  }
+
+  .dl-docs-table tbody tr {
+    border-bottom: 1px solid var(--border);
+  }
+
+  .dl-docs-table tbody tr:hover {
+    background-color: color-mix(in oklch, var(--muted) 20%, transparent);
+  }
+
+  .dl-docs-table__prop {
+    padding: 0.75rem 1rem;
+    font-family: var(--font-mono, monospace);
+    font-weight: 600;
+    color: var(--primary);
+  }
+
+  .dl-docs-table__type {
+    padding: 0.75rem 1rem;
+    font-family: var(--font-mono, monospace);
+    color: var(--muted-foreground);
+  }
+
+  .dl-docs-table__default {
+    padding: 0.75rem 1rem;
+    font-family: var(--font-mono, monospace);
+    color: var(--foreground);
+  }
+
+  .dl-docs-table__desc {
+    padding: 0.75rem 1rem;
+    color: var(--muted-foreground);
+  }
+
+  .dl-docs-table__selector {
+    padding: 0.75rem 1rem;
+    font-family: var(--font-mono, monospace);
+    font-weight: 600;
+    color: var(--foreground);
+  }
+}

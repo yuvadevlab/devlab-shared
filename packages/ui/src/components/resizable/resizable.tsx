@@ -2,7 +2,7 @@ import * as React from "react";
 import { GripVertical } from "lucide-react";
 import { Group, Panel, Separator } from "react-resizable-panels";
 
-import { cn } from "../../lib/utils";
+import { cn } from "@/lib/utils";
 
 export type ResizablePanelGroupProps = React.ComponentProps<typeof Group>;
 
@@ -11,7 +11,7 @@ export type ResizablePanelGroupProps = React.ComponentProps<typeof Group>;
  *
  * @example
  * ```tsx
- * <ResizablePanelGroup direction="horizontal">
+ * <ResizablePanelGroup orientation="horizontal">
  *   <ResizablePanel defaultSize={50}>Left Content</ResizablePanel>
  *   <ResizableHandle withHandle />
  *   <ResizablePanel defaultSize={50}>Right Content</ResizablePanel>

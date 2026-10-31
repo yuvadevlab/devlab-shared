@@ -3,7 +3,7 @@
 import React from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { cn } from "@yuva-devlab/ui";
+import { cn, Stack, Flex } from "@yuva-devlab/ui";
 import { COMPONENTS_LIST, ALL_CATEGORIES } from "@/config/components-meta";
 import { SearchTrigger } from "@/components/search-trigger";
 
@@ -25,19 +25,17 @@ export function Sidebar() {
   }, [pathname]);
 
   return (
-    <aside className="border-border bg-card/40 hidden h-full w-68 shrink-0 flex-col overflow-y-auto border-r p-4 md:flex scrollbar-thin">
+    <aside className="dl-docs-sidebar">
       {/* Single Unified Search Bar Trigger */}
-      <div className="mb-4">
+      <div className="dl-docs-sidebar__search-wrap">
         <SearchTrigger variant="sidebar" />
       </div>
 
-      <div className="space-y-6">
+      <Stack gap={6}>
         {/* Getting Started */}
-        <div className="space-y-1.5">
-          <h4 className="text-muted-foreground px-2.5 text-xs font-semibold tracking-wider uppercase">
-            Getting Started
-          </h4>
-          <div className="flex flex-col gap-1">
+        <Stack gap={2}>
+          <h4 className="dl-docs-sidebar__group-title">Getting Started</h4>
+          <Stack gap={1}>
             {gettingStartedLinks.map((link) => {
               const isActive = pathname === link.href;
               return (
@@ -47,18 +45,16 @@ export function Sidebar() {
                   scroll={false}
                   ref={isActive ? activeRef : undefined}
                   className={cn(
-                    "flex items-center rounded-md px-3 py-1.5 text-xs font-medium transition",
-                    isActive
-                      ? "bg-primary text-primary-foreground font-semibold shadow-xs"
-                      : "text-muted-foreground hover:bg-muted/70 hover:text-foreground",
+                    "dl-docs-sidebar__link",
+                    isActive && "dl-docs-sidebar__link--active",
                   )}
                 >
                   {link.name}
                 </Link>
               );
             })}
-          </div>
-        </div>
+          </Stack>
+        </Stack>
 
         {/* Component Categories */}
         {ALL_CATEGORIES.map((category) => {
@@ -66,14 +62,16 @@ export function Sidebar() {
           if (items.length === 0) return null;
 
           return (
-            <div key={category} className="space-y-1.5">
-              <div className="flex items-center justify-between px-2.5 text-xs font-semibold tracking-wider uppercase text-muted-foreground">
-                <h4>{category}</h4>
-                <span className="text-[10px] font-mono opacity-60">
-                  {items.length}
-                </span>
-              </div>
-              <div className="flex flex-col gap-1">
+            <Stack key={category} gap={2}>
+              <Flex
+                align="center"
+                justify="between"
+                className="dl-docs-sidebar__group-header"
+              >
+                <h4 className="dl-docs-sidebar__group-title">{category}</h4>
+                <span className="dl-docs-sidebar__count">{items.length}</span>
+              </Flex>
+              <Stack gap={1}>
                 {items.map((item) => {
                   const isActive = pathname === item.href;
                   return (
@@ -83,21 +81,19 @@ export function Sidebar() {
                       scroll={false}
                       ref={isActive ? activeRef : undefined}
                       className={cn(
-                        "flex items-center justify-between rounded-md px-3 py-1.5 text-xs font-medium transition",
-                        isActive
-                          ? "bg-primary text-primary-foreground font-semibold shadow-xs"
-                          : "text-muted-foreground hover:bg-muted/70 hover:text-foreground",
+                        "dl-docs-sidebar__link",
+                        isActive && "dl-docs-sidebar__link--active",
                       )}
                     >
                       <span>{item.name}</span>
                     </Link>
                   );
                 })}
-              </div>
-            </div>
+              </Stack>
+            </Stack>
           );
         })}
-      </div>
+      </Stack>
     </aside>
   );
 }

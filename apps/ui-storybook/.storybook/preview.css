@@ -1,0 +1,91 @@
+/**
+ * Storybook preview canvas stage styling.
+ */
+.dl-storybook-stage {
+  min-height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans, system-ui, -apple-system, sans-serif);
+  transition:
+    background-color 0.15s ease,
+    color 0.15s ease;
+}
+
+/* Story width containers */
+.dl-story-w-xs {
+  max-width: 240px;
+  width: 100%;
+}
+
+.dl-story-w-sm {
+  max-width: 320px;
+  width: 100%;
+}
+
+.dl-story-w-md {
+  max-width: 480px;
+  width: 100%;
+}
+
+.dl-story-w-lg {
+  max-width: 768px;
+  width: 100%;
+}
+
+.dl-story-w-xl {
+  max-width: 960px;
+  width: 100%;
+}
+
+/* Story flex containers */
+.dl-story-row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4, 1rem);
+  flex-wrap: wrap;
+}
+
+.dl-story-col {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3, 0.75rem);
+  width: 100%;
+}
+
+/* Skeleton story presets */
+.dl-skeleton-avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 9999px;
+  flex-shrink: 0;
+}
+
+.dl-skeleton-title {
+  height: 1.25rem;
+  width: 60%;
+}
+
+.dl-skeleton-line {
+  height: 1rem;
+  width: 100%;
+}
+
+.dl-skeleton-card-media {
+  height: 140px;
+  width: 100%;
+}
+
+/* Table story helpers */
+.dl-story-mono {
+  font-family: var(--font-mono, monospace);
+  font-size: 0.75rem;
+}
+
+.dl-story-action-btn {
+  height: 28px;
+  font-size: 11px;
+}

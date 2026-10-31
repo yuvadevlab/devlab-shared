@@ -5,7 +5,7 @@
  */
 
 import { z } from "zod";
-import { DEFAULT_MIN_SCORE, DEFAULT_TOP_K } from "../constants";
+import { DEFAULT_MIN_SCORE, DEFAULT_TOP_K } from "@/constants";
 import type { ScoredDocumentChunk } from "./chunk.schema";
 
 /**

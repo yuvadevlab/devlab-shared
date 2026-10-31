@@ -5,7 +5,7 @@
  */
 
 import { Logger, loggerWithConfig } from "@yuva-devlab/logger";
-import type { UniversalTool } from "../types";
+import type { UniversalTool } from "@/types";
 import { interpolateTemplate } from "./template-parser";
 import { formatToolsForSystemPrompt } from "./tool-formatter";
 

@@ -4,7 +4,7 @@
  * @module @yuva-devlab/agent-core
  */
 
-import type { UniversalTool } from "../types";
+import type { UniversalTool } from "@/types";
 
 /**
  * Formats an array of UniversalTool instances into a human- and model-readable markdown catalog.

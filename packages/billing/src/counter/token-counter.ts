@@ -5,8 +5,8 @@
  */
 
 import { Logger, loggerWithConfig } from "@yuva-devlab/logger";
-import { SAFETY_CEILING_PRICING } from "../constants";
-import type { IPricingResolver, ModelPricingRate } from "../types";
+import { SAFETY_CEILING_PRICING } from "@/constants";
+import type { IPricingResolver, ModelPricingRate } from "@/types";
 
 const logger = loggerWithConfig(new Logger("TokenCounter"));
 

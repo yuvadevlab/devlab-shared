@@ -5,7 +5,7 @@
  */
 
 import { logger } from "@yuva-devlab/logger";
-import type { IEventPublisher } from "../contracts/event-bus.interface";
+import type { IEventPublisher } from "@/contracts/event-bus.interface";
 import type { IOutboxStore } from "./outbox-store.interface";
 
 /**

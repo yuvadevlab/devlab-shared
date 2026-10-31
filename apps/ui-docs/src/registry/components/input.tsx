@@ -8,6 +8,7 @@ import {
   InputOTPGroup,
   InputOTPSlot,
   Button,
+  Stack,
 } from "@yuva-devlab/ui";
 import {
   ComponentView,
@@ -25,7 +26,7 @@ export default function InputDocPage() {
       description:
         "Standard text input field with placeholder and focus states.",
       preview: (
-        <div className="w-full max-w-sm">
+        <div className="dl-demo-frame dl-demo-frame--sm">
           <Input placeholder="Enter username or email address..." />
         </div>
       ),
@@ -37,24 +38,24 @@ export default function InputDocPage() {
       description:
         "AntD-inspired startIcon and endIcon slots for inline indicators and quick actions.",
       preview: (
-        <div className="w-full max-w-sm space-y-3">
+        <Stack gap={3} className="dl-demo-frame dl-demo-frame--sm">
           <Input
-            startIcon={<Search className="size-4 opacity-60" />}
+            startIcon={<Search className="dl-demo-icon dl-demo-icon--sm" />}
             placeholder="Search agents, workspaces..."
           />
           <Input
-            startIcon={<Mail className="size-4 opacity-60" />}
+            startIcon={<Mail className="dl-demo-icon dl-demo-icon--sm" />}
             placeholder="user@devlab.io"
             defaultValue="alex@devlab.io"
           />
-        </div>
+        </Stack>
       ),
       codeSnippet: `<Input
-  startIcon={<Search className="size-4" />}
+  startIcon={<Search />}
   placeholder="Search agents..."
 />
 <Input
-  startIcon={<Mail className="size-4" />}
+  startIcon={<Mail />}
   placeholder="user@devlab.io"
 />`,
     },
@@ -64,7 +65,7 @@ export default function InputDocPage() {
       description:
         "End-icon action allowing users to toggle secret password visibility safely.",
       preview: (
-        <div className="w-full max-w-sm">
+        <div className="dl-demo-frame dl-demo-frame--sm">
           <Input
             type={showPassword ? "text" : "password"}
             defaultValue="devlab_secret_token_#9284"
@@ -75,13 +76,12 @@ export default function InputDocPage() {
                 size="icon"
                 type="button"
                 onClick={() => setShowPassword(!showPassword)}
-                className="size-6 text-muted-foreground hover:text-foreground pointer-events-auto"
                 aria-label="Toggle password visibility"
               >
                 {showPassword ? (
-                  <EyeOff className="size-3.5" />
+                  <EyeOff className="dl-demo-icon dl-demo-icon--xs" />
                 ) : (
-                  <Eye className="size-3.5" />
+                  <Eye className="dl-demo-icon dl-demo-icon--xs" />
                 )}
               </Button>
             }
@@ -92,9 +92,9 @@ export default function InputDocPage() {
   type={showPassword ? "text" : "password"}
   placeholder="Enter password..."
   endIcon={
-    <button type="button" onClick={() => setShowPassword(!showPassword)}>
+    <Button variant="ghost" size="icon" onClick={() => setShowPassword(!showPassword)}>
       {showPassword ? <EyeOff /> : <Eye />}
-    </button>
+    </Button>
   }
 />`,
     },
@@ -104,7 +104,7 @@ export default function InputDocPage() {
       description:
         "Segmented OTP digit slots for two-factor authentication and SMS verification.",
       preview: (
-        <div className="flex flex-col items-center gap-2">
+        <Stack align="center" gap={2}>
           <InputOTP maxLength={6} value={otpVal} onChange={setOtpVal}>
             <InputOTPGroup>
               <InputOTPSlot index={0} />
@@ -115,7 +115,7 @@ export default function InputDocPage() {
               <InputOTPSlot index={5} />
             </InputOTPGroup>
           </InputOTP>
-        </div>
+        </Stack>
       ),
       codeSnippet: `import { InputOTP, InputOTPGroup, InputOTPSlot } from "@yuva-devlab/ui";
 
@@ -136,7 +136,7 @@ export default function InputDocPage() {
       description:
         "Input in read-only disabled state with subdued background and not-allowed cursor.",
       preview: (
-        <div className="w-full max-w-sm">
+        <div className="dl-demo-frame dl-demo-frame--sm">
           <Input
             disabled
             defaultValue="api_key_live_permanent_locked"

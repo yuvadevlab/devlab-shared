@@ -5,8 +5,8 @@
  */
 
 import { useContext } from "react";
-import { DevLabAuthContext } from "../provider/auth-context";
-import type { DevLabAuthContextValue } from "../types";
+import { DevLabAuthContext } from "@/provider/auth-context";
+import type { DevLabAuthContextValue } from "@/types";
 
 /**
  * Accesses the reactive DevLab authentication state and methods.

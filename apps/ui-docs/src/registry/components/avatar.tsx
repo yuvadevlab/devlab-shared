@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { Avatar, AvatarImage, AvatarFallback } from "@yuva-devlab/ui";
+import { Avatar, AvatarImage, AvatarFallback, Flex } from "@yuva-devlab/ui";
 import {
   ComponentView,
   type ComponentVariant,
@@ -15,7 +15,7 @@ export default function AvatarDocPage() {
       description:
         "AntD-inspired circular profile image falling back to user initials on error.",
       preview: (
-        <div className="flex items-center gap-4">
+        <Flex align="center" gap={4}>
           <Avatar>
             <AvatarImage
               src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80"
@@ -30,7 +30,7 @@ export default function AvatarDocPage() {
             />
             <AvatarFallback>AR</AvatarFallback>
           </Avatar>
-        </div>
+        </Flex>
       ),
       codeSnippet: `<Avatar>
   <AvatarImage src="/user-avatar.png" alt="Sarah Connor" />
@@ -43,62 +43,48 @@ export default function AvatarDocPage() {
       description:
         "Fallback typography monogram with primary theme colors for AI agents.",
       preview: (
-        <div className="flex items-center gap-4">
+        <Flex align="center" gap={4}>
           <Avatar>
-            <AvatarFallback className="bg-primary text-primary-foreground font-bold">
-              AI
-            </AvatarFallback>
+            <AvatarFallback>AI</AvatarFallback>
           </Avatar>
           <Avatar>
-            <AvatarFallback className="bg-secondary text-secondary-foreground font-semibold">
-              YP
-            </AvatarFallback>
+            <AvatarFallback>YP</AvatarFallback>
           </Avatar>
           <Avatar>
-            <AvatarFallback className="bg-muted text-muted-foreground font-semibold">
-              DL
-            </AvatarFallback>
+            <AvatarFallback>DL</AvatarFallback>
           </Avatar>
-        </div>
+        </Flex>
       ),
       codeSnippet: `<Avatar>
-  <AvatarFallback className="bg-primary text-primary-foreground font-bold">
-    AI
-  </AvatarFallback>
+  <AvatarFallback>AI</AvatarFallback>
 </Avatar>`,
     },
     {
       id: "group",
       title: "Avatar Group / Team Stack",
       description:
-        "AntD Avatar.Group pattern featuring negative margins and border rings.",
+        "AntD Avatar.Group pattern displaying multiple agent profiles.",
       preview: (
-        <div className="flex items-center -space-x-3 overflow-hidden p-2">
-          <Avatar className="ring-2 ring-background">
-            <AvatarFallback className="bg-primary text-primary-foreground font-bold">
-              SC
-            </AvatarFallback>
+        <Flex align="center" gap={2}>
+          <Avatar>
+            <AvatarFallback>SC</AvatarFallback>
           </Avatar>
-          <Avatar className="ring-2 ring-background">
-            <AvatarFallback className="bg-secondary text-secondary-foreground font-bold">
-              AR
-            </AvatarFallback>
+          <Avatar>
+            <AvatarFallback>AR</AvatarFallback>
           </Avatar>
-          <Avatar className="ring-2 ring-background">
-            <AvatarFallback className="bg-accent text-accent-foreground font-bold">
-              YP
-            </AvatarFallback>
+          <Avatar>
+            <AvatarFallback>YP</AvatarFallback>
           </Avatar>
-          <div className="flex items-center justify-center size-10 rounded-full bg-muted text-muted-foreground text-xs font-semibold ring-2 ring-background">
-            +5
-          </div>
-        </div>
+          <Avatar>
+            <AvatarFallback>+5</AvatarFallback>
+          </Avatar>
+        </Flex>
       ),
-      codeSnippet: `<div className="flex items-center -space-x-3">
-  <Avatar className="ring-2 ring-background"><AvatarFallback>SC</AvatarFallback></Avatar>
-  <Avatar className="ring-2 ring-background"><AvatarFallback>AR</AvatarFallback></Avatar>
-  <div className="size-10 rounded-full bg-muted text-xs font-semibold flex items-center justify-center ring-2 ring-background">+5</div>
-</div>`,
+      codeSnippet: `<Flex align="center" gap="2">
+  <Avatar><AvatarFallback>SC</AvatarFallback></Avatar>
+  <Avatar><AvatarFallback>AR</AvatarFallback></Avatar>
+  <Avatar><AvatarFallback>+5</AvatarFallback></Avatar>
+</Flex>`,
     },
   ];
 

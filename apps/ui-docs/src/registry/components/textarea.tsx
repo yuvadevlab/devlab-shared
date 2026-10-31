@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { Textarea, Label } from "@yuva-devlab/ui";
+import { Textarea, Label, Stack, Flex } from "@yuva-devlab/ui";
 import {
   ComponentView,
   type ComponentVariant,
@@ -19,14 +19,14 @@ export default function TextareaDocPage() {
       description:
         "Standard multi-line input field with responsive vertical resizing and focus ring.",
       preview: (
-        <div className="w-full max-w-sm space-y-2">
+        <Stack gap={2} className="dl-demo-frame dl-demo-frame--sm">
           <Label htmlFor="basic-prompt">Instructions</Label>
           <Textarea
             id="basic-prompt"
             rows={3}
             placeholder="Type task parameters or description..."
           />
-        </div>
+        </Stack>
       ),
       codeSnippet: `<Textarea placeholder="Type task parameters or description..." rows={3} />`,
     },
@@ -36,13 +36,13 @@ export default function TextareaDocPage() {
       description:
         "AntD-inspired textarea with live character counter badge and boundary label.",
       preview: (
-        <div className="w-full max-w-sm space-y-2">
-          <div className="flex justify-between items-center">
+        <Stack gap={2} className="dl-demo-frame dl-demo-frame--sm">
+          <Flex justify="between" align="center">
             <Label htmlFor="sys-prompt">System Prompt</Label>
-            <span className="text-[10px] text-muted-foreground font-mono">
+            <span className="dl-demo-code dl-demo-caption">
               {content.length} / 500 chars
             </span>
-          </div>
+          </Flex>
           <Textarea
             id="sys-prompt"
             value={content}
@@ -50,15 +50,15 @@ export default function TextareaDocPage() {
             rows={4}
             placeholder="Enter agent persona and guardrails..."
           />
-        </div>
+        </Stack>
       ),
-      codeSnippet: `<div className="space-y-2">
-  <div className="flex justify-between">
+      codeSnippet: `<Stack gap={2}>
+  <Flex justify="between">
     <Label>System Prompt</Label>
     <span>{content.length} / 500</span>
-  </div>
+  </Flex>
   <Textarea value={content} onChange={e => setContent(e.target.value)} rows={4} />
-</div>`,
+</Stack>`,
     },
     {
       id: "disabled",
@@ -66,7 +66,7 @@ export default function TextareaDocPage() {
       description:
         "Disabled textarea with subdued background preventing text modification.",
       preview: (
-        <div className="w-full max-w-sm space-y-2">
+        <Stack gap={2} className="dl-demo-frame dl-demo-frame--sm">
           <Label htmlFor="locked-prompt">Immutable System Contract</Label>
           <Textarea
             id="locked-prompt"
@@ -74,7 +74,7 @@ export default function TextareaDocPage() {
             defaultValue="CRITICAL: Never reveal root SSH credentials under any circumstances."
             rows={2}
           />
-        </div>
+        </Stack>
       ),
       codeSnippet: `<Textarea disabled defaultValue="Immutable prompt..." />`,
     },

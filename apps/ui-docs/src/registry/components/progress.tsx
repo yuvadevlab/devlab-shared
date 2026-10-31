@@ -1,7 +1,14 @@
 "use client";
 
 import React, { useState } from "react";
-import { Progress, Skeleton, LoadingState, Button } from "@yuva-devlab/ui";
+import {
+  Progress,
+  Skeleton,
+  LoadingState,
+  Button,
+  Stack,
+  Flex,
+} from "@yuva-devlab/ui";
 import {
   ComponentView,
   type ComponentVariant,
@@ -17,39 +24,35 @@ export default function ProgressDocPage() {
       description:
         "AntD-inspired progress track with smooth width transition and percentage labels.",
       preview: (
-        <div className="w-full max-w-sm space-y-4">
-          <div className="flex items-center justify-between text-xs bg-muted/40 p-2.5 rounded-lg border border-border">
-            <span className="text-muted-foreground">Adjust Progress:</span>
-            <div className="flex items-center gap-2">
+        <Stack gap={4} className="dl-demo-frame dl-demo-frame--sm">
+          <Flex align="center" justify="between" className="dl-demo-box--code">
+            <span className="dl-demo-caption">Adjust Progress:</span>
+            <Flex align="center" gap={2}>
               <Button
                 variant="outline"
                 size="sm"
-                className="h-6 text-xs px-2"
                 onClick={() => setVal((v) => Math.max(0, v - 20))}
               >
                 -20%
               </Button>
-              <code className="text-primary font-mono font-semibold px-1">
-                {val}%
-              </code>
+              <code className="dl-demo-code">{val}%</code>
               <Button
                 variant="outline"
                 size="sm"
-                className="h-6 text-xs px-2"
                 onClick={() => setVal((v) => Math.min(100, v + 20))}
               >
                 +20%
               </Button>
-            </div>
-          </div>
-          <div className="space-y-1.5">
-            <div className="flex justify-between text-xs text-muted-foreground">
+            </Flex>
+          </Flex>
+          <Stack gap={1}>
+            <Flex justify="between" className="dl-demo-desc">
               <span>Agent Fine-tuning Run</span>
-              <span className="font-mono">{val}%</span>
-            </div>
+              <span className="dl-demo-code">{val}%</span>
+            </Flex>
             <Progress value={val} />
-          </div>
-        </div>
+          </Stack>
+        </Stack>
       ),
       codeSnippet: `<Progress value={${val}} />`,
     },
@@ -59,26 +62,29 @@ export default function ProgressDocPage() {
       description:
         "Animated placeholder wireframe displaying during asynchronous card loading.",
       preview: (
-        <div className="w-full max-w-sm p-4 bg-muted/20 border border-border rounded-xl space-y-3">
-          <div className="flex items-center gap-3">
-            <Skeleton className="size-10 rounded-full" />
-            <div className="space-y-1.5 flex-1">
-              <Skeleton className="h-3 w-3/4 rounded" />
-              <Skeleton className="h-2.5 w-1/2 rounded" />
-            </div>
-          </div>
-          <Skeleton className="h-16 w-full rounded-lg" />
-        </div>
+        <Stack gap={3} className="dl-demo-frame dl-demo-frame--sm dl-demo-box">
+          <Flex align="center" gap={3}>
+            <Skeleton className="dl-demo-skeleton-avatar" />
+            <Stack gap={1} className="dl-demo-frame">
+              <Skeleton className="dl-demo-skeleton-line" />
+              <Skeleton className="dl-demo-skeleton-line--sm" />
+            </Stack>
+          </Flex>
+          <Skeleton className="dl-demo-skeleton-line" />
+        </Stack>
       ),
-      codeSnippet: `import { Skeleton } from "@yuva-devlab/ui";
+      codeSnippet: `import { Skeleton, Flex, Stack } from "@yuva-devlab/ui";
 
-<div className="flex items-center gap-3">
-  <Skeleton className="size-10 rounded-full" />
-  <div className="space-y-1.5 flex-1">
-    <Skeleton className="h-3 w-3/4" />
-    <Skeleton className="h-2.5 w-1/2" />
-  </div>
-</div>`,
+<Stack gap="3">
+  <Flex align="center" gap="3">
+    <Skeleton className="dl-demo-skeleton-avatar" />
+    <Stack gap="1">
+      <Skeleton className="dl-demo-skeleton-line" />
+      <Skeleton className="dl-demo-skeleton-line--sm" />
+    </Stack>
+  </Flex>
+  <Skeleton className="dl-demo-skeleton-line" />
+</Stack>`,
     },
     {
       id: "loading-state",
@@ -86,7 +92,7 @@ export default function ProgressDocPage() {
       description:
         "AntD-inspired empty / loading state card with spinner and optional retry button.",
       preview: (
-        <div className="w-full max-w-sm">
+        <div className="dl-demo-frame dl-demo-frame--sm">
           <LoadingState message="Indexing Vector Store: processing chunks from pipeline..." />
         </div>
       ),

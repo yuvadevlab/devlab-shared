@@ -102,7 +102,7 @@ export default async function Image() {
             lineHeight: 1.4,
           }}
         >
-          Pure CSS multi-brand styling, zero Tailwind collisions, accessible
+          Pure CSS multi-brand styling, modular W3C Cascade Layers, accessible
           Radix primitives, and full SSR performance.
         </p>
       </div>

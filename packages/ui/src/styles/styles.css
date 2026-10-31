@@ -1,12 +1,12 @@
 /**
  * @file src/styles/styles.css
  * @description Master stylesheet for @yuva-devlab/ui.
- * Architecture: Tokens (@yuva-devlab/tokens) -> Common Primitives -> Component Styles.
- * Zero Tailwind dependency. Pure CSS with scoped dl-* classes.
+ * Architecture: Reset -> Tokens -> Components -> Layout -> Utilities.
+ * Governed by W3C Cascade Layers.
  */
 
-/* ── 0. Establish Layer Precedence (utilities > dl-components > dl-base) ─── */
-@layer dl-base, dl-components, utilities;
+/* ── 0. Establish Layer Precedence ───────────────────────────────────────── */
+@layer dl-reset, dl-tokens, dl-components, dl-layout, dl-utilities;
 
 /* ── 1. Design Tokens & Theme Baseline ───────────────────────────────────── */
 @import "@yuva-devlab/tokens/styles.css";
@@ -16,3 +16,6 @@
 
 /* ── 3. Modular Scoped Component Styles ─────────────────────────────────── */
 @import "./components.css";
+
+/* ── 4. Zero-Runtime Platform Utilities ─────────────────────────────────── */
+@import "./utilities.css";

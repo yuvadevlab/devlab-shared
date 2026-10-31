@@ -1,9 +1,9 @@
 .dl-calendar {
-  --cell-size: 2rem;
+  --cell-size: var(--control-height-sm, 2rem);
   display: inline-block;
   width: fit-content;
   max-width: 100%;
-  padding: 0.75rem;
+  padding: var(--space-3, 0.75rem);
   box-sizing: border-box;
   color: var(--foreground);
 }
@@ -13,7 +13,8 @@
   margin: 0 auto;
 }
 
-.dl-calendar .rdp-months {
+.dl-calendar .rdp-months,
+.dl-calendar .dl-calendar__months {
   position: relative;
   display: flex;
   flex-direction: column;
@@ -22,81 +23,23 @@
   box-sizing: border-box;
 }
 
-.dl-calendar .rdp-month {
+@media (min-width: 768px) {
+  .dl-calendar .rdp-months,
+  .dl-calendar .dl-calendar__months {
+    flex-direction: row;
+  }
+}
+
+.dl-calendar .rdp-month,
+.dl-calendar .dl-calendar__month {
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
   width: 100%;
 }
 
-.dl-calendar .rdp-month_caption {
-  position: relative;
-  display: flex;
-  height: var(--cell-size, 2rem);
-  width: 100%;
-  align-items: center;
-  justify-content: center;
-  padding: 0 var(--cell-size, 2rem);
-  font-size: 0.875rem;
-  font-weight: 600;
-  color: var(--foreground);
-  box-sizing: border-box;
-}
-
-.dl-calendar .rdp-caption_label {
-  font-size: 0.875rem;
-  font-weight: 600;
-  color: var(--foreground);
-  line-height: 1;
-}
-
-/* Navigation prev / next arrows */
-.dl-calendar .rdp-nav {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  width: 100%;
-  height: var(--cell-size, 2rem);
-  pointer-events: none;
-}
-
-.dl-calendar .rdp-button_previous,
-.dl-calendar .rdp-button_next {
-  pointer-events: auto;
-  width: var(--cell-size, 2rem) !important;
-  height: var(--cell-size, 2rem) !important;
-  min-width: var(--cell-size, 2rem) !important;
-  padding: 0 !important;
-  display: inline-flex !important;
-  align-items: center;
-  justify-content: center;
-  border-radius: var(--radius-md, 0.375rem) !important;
-  border: 1px solid var(--border);
-  background: var(--background);
-  color: var(--muted-foreground);
-  cursor: pointer;
-  transition: all 0.15s ease;
-}
-
-.dl-calendar .rdp-button_previous:hover,
-.dl-calendar .rdp-button_next:hover {
-  background-color: var(--accent);
-  color: var(--accent-foreground);
-}
-
-.dl-calendar .rdp-button_previous svg,
-.dl-calendar .rdp-button_next svg {
-  width: 1rem;
-  height: 1rem;
-  flex-shrink: 0;
-}
-
-/* Grid Table */
 .dl-calendar table.rdp-month_grid,
+.dl-calendar table.dl-calendar__table,
 .dl-calendar table {
   width: 100%;
   border-collapse: collapse;
@@ -104,7 +47,6 @@
   margin: 0;
 }
 
-/* Weekday header cells */
 .dl-calendar th.rdp-weekday,
 .dl-calendar th {
   width: calc(100% / 7);
@@ -119,7 +61,6 @@
   box-sizing: border-box;
 }
 
-/* Day table cells */
 .dl-calendar td.rdp-day,
 .dl-calendar td {
   width: calc(100% / 7);
@@ -129,12 +70,19 @@
   text-align: center;
   vertical-align: middle;
   background: transparent !important;
-  background-color: transparent !important;
   border: none !important;
   box-sizing: border-box;
 }
 
-/* Day Button inside td */
+.dl-calendar .dl-calendar__week-number {
+  display: flex;
+  width: var(--cell-size, 2rem);
+  height: var(--cell-size, 2rem);
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
 .dl-calendar button.rdp-day_button,
 .dl-calendar .dl-calendar__day-button {
   width: 100% !important;
@@ -146,10 +94,12 @@
   display: inline-flex !important;
   align-items: center;
   justify-content: center;
+  aspect-ratio: 1 / 1;
   border-radius: var(--radius-md, 0.375rem) !important;
   border: none !important;
   font-size: 0.875rem;
   font-weight: 400;
+  line-height: 1;
   color: var(--foreground);
   background: transparent;
   cursor: pointer;
@@ -162,7 +112,6 @@
   color: var(--accent-foreground) !important;
 }
 
-/* Selected Date Highlight */
 .dl-calendar td[aria-selected="true"] button.rdp-day_button,
 .dl-calendar td.rdp-selected button.rdp-day_button,
 .dl-calendar button.rdp-day_button[data-selected="true"],
@@ -182,7 +131,6 @@
   color: var(--primary-foreground) !important;
 }
 
-/* Today indicator (when not selected) */
 .dl-calendar
   td.rdp-today:not([aria-selected="true"]):not(.rdp-selected)
   button.rdp-day_button {
@@ -196,11 +144,9 @@
   border: 1px solid var(--border) !important;
 }
 
-/* Range selection styles */
 .dl-calendar td.rdp-range_start {
   background-color: var(--accent) !important;
-  border-top-left-radius: var(--radius-md, 0.375rem) !important;
-  border-bottom-left-radius: var(--radius-md, 0.375rem) !important;
+  border-radius: var(--radius-md, 0.375rem) 0 0 var(--radius-md, 0.375rem) !important;
 }
 
 .dl-calendar td.rdp-range_middle {
@@ -216,8 +162,7 @@
 
 .dl-calendar td.rdp-range_end {
   background-color: var(--accent) !important;
-  border-top-right-radius: var(--radius-md, 0.375rem) !important;
-  border-bottom-right-radius: var(--radius-md, 0.375rem) !important;
+  border-radius: 0 var(--radius-md, 0.375rem) var(--radius-md, 0.375rem) !important;
 }
 
 .dl-calendar td.rdp-outside button.rdp-day_button {

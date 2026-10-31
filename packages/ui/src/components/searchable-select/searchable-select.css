@@ -22,7 +22,7 @@
   align-items: center;
   gap: 0.5rem;
   border-bottom: 1px solid var(--border);
-  padding: 0.5rem;
+  padding: var(--space-2, 0.5rem);
 }
 
 .dl-searchable-select-search-icon {
@@ -34,10 +34,10 @@
 }
 
 .dl-searchable-select-search-input {
-  height: 2rem;
+  height: var(--control-height-sm, 2rem);
   border: none;
   background: transparent;
-  padding-inline: 0.25rem;
+  padding-inline: var(--space-1, 0.25rem);
   font-size: 0.875rem;
   box-shadow: none;
 }
@@ -62,6 +62,10 @@
   text-align: center;
   font-size: 0.75rem;
   color: var(--muted-foreground);
+}
+
+.dl-searchable-select-group {
+  padding-block: 0.25rem;
 }
 
 .dl-searchable-select-group-header {
@@ -101,6 +105,19 @@
   font-weight: 500;
 }
 
+.dl-searchable-select-item-text {
+  flex: 1 1 0%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.dl-searchable-select-truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 .dl-searchable-select-add {
   border-top: 1px solid var(--border);
   background-color: color-mix(in oklch, var(--muted) 30%, transparent);
@@ -125,4 +142,10 @@
 
 .dl-searchable-select-add-btn:hover {
   background-color: color-mix(in oklch, var(--primary) 10%, transparent);
+}
+
+.dl-searchable-select-add-icon {
+  width: 0.875rem;
+  height: 0.875rem;
+  flex-shrink: 0;
 }

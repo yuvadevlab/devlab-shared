@@ -6,12 +6,12 @@
 
 import { DomainError, ErrorCode, ModelTimeoutError } from "@yuva-devlab/errors";
 import { Logger, loggerWithConfig } from "@yuva-devlab/logger";
-import { resolveEnvCredentials } from "../../config";
+import { resolveEnvCredentials } from "@/config";
 import {
   AI_DEFAULT_MODELS,
   AI_ENDPOINTS,
   AI_EXECUTION_DEFAULTS,
-} from "../../constants";
+} from "@/constants";
 import {
   FinishReason,
   type ILLMProvider,
@@ -19,7 +19,7 @@ import {
   type LLMResponse,
   type LLMStreamChunk,
   MissingCredentialError,
-} from "../../types";
+} from "@/types";
 import {
   type AnthropicAdapterConfig,
   type AnthropicResponse,

@@ -1,0 +1,158 @@
+/**
+ * @file layout.css
+ * @description Layout primitive styles wrapped in @layer dl-layout.
+ * Governed by semantic design tokens.
+ */
+
+@layer dl-layout {
+  /* ── Box ───────────────────────────────────────────────────────────── */
+  .dl-box {
+    box-sizing: border-box;
+  }
+
+  /* ── Flex ──────────────────────────────────────────────────────────── */
+  .dl-flex {
+    display: flex;
+    box-sizing: border-box;
+  }
+  .dl-flex--inline {
+    display: inline-flex;
+  }
+
+  .dl-flex--row {
+    flex-direction: row;
+  }
+  .dl-flex--row-reverse {
+    flex-direction: row-reverse;
+  }
+  .dl-flex--col {
+    flex-direction: column;
+  }
+  .dl-flex--col-reverse {
+    flex-direction: column-reverse;
+  }
+
+  .dl-flex--justify-start {
+    justify-content: flex-start;
+  }
+  .dl-flex--justify-center {
+    justify-content: center;
+  }
+  .dl-flex--justify-end {
+    justify-content: flex-end;
+  }
+  .dl-flex--justify-between {
+    justify-content: space-between;
+  }
+  .dl-flex--justify-around {
+    justify-content: space-around;
+  }
+  .dl-flex--justify-evenly {
+    justify-content: space-evenly;
+  }
+
+  .dl-flex--align-start {
+    align-items: flex-start;
+  }
+  .dl-flex--align-center {
+    align-items: center;
+  }
+  .dl-flex--align-end {
+    align-items: flex-end;
+  }
+  .dl-flex--align-stretch {
+    align-items: stretch;
+  }
+  .dl-flex--align-baseline {
+    align-items: baseline;
+  }
+
+  .dl-flex--wrap {
+    flex-wrap: wrap;
+  }
+  .dl-flex--nowrap {
+    flex-wrap: nowrap;
+  }
+  .dl-flex--wrap-reverse {
+    flex-wrap: wrap-reverse;
+  }
+
+  /* ── Stack ─────────────────────────────────────────────────────────── */
+  .dl-stack {
+    display: flex;
+    box-sizing: border-box;
+  }
+  .dl-stack--col {
+    flex-direction: column;
+  }
+  .dl-stack--row {
+    flex-direction: row;
+  }
+
+  /* ── Grid ──────────────────────────────────────────────────────────── */
+  .dl-grid {
+    display: grid;
+    box-sizing: border-box;
+  }
+  .dl-grid--inline {
+    display: inline-grid;
+  }
+
+  /* ── Container ─────────────────────────────────────────────────────── */
+  .dl-container {
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    box-sizing: border-box;
+    padding-left: var(--space-4, 1rem);
+    padding-right: var(--space-4, 1rem);
+  }
+
+  .dl-container--sm {
+    max-width: 640px;
+  }
+  .dl-container--md {
+    max-width: 768px;
+  }
+  .dl-container--lg {
+    max-width: 1024px;
+  }
+  .dl-container--xl {
+    max-width: 1280px;
+  }
+  .dl-container--2xl {
+    max-width: 1536px;
+  }
+  .dl-container--fluid {
+    max-width: 100%;
+  }
+
+  /* ── Token Gaps ────────────────────────────────────────────────────── */
+  .dl-gap-0 {
+    gap: 0;
+  }
+  .dl-gap-1 {
+    gap: var(--space-1, 0.25rem);
+  }
+  .dl-gap-2 {
+    gap: var(--space-2, 0.5rem);
+  }
+  .dl-gap-3 {
+    gap: var(--space-3, 0.75rem);
+  }
+  .dl-gap-4 {
+    gap: var(--space-4, 1rem);
+  }
+  .dl-gap-5 {
+    gap: var(--space-5, 1.25rem);
+  }
+  .dl-gap-6 {
+    gap: var(--space-6, 1.5rem);
+  }
+  .dl-gap-8 {
+    gap: var(--space-8, 2rem);
+  }
+  .dl-gap-10 {
+    gap: var(--space-10, 2.5rem);
+  }
+}

@@ -2,8 +2,8 @@ import path from "node:path";
 
 import chalk from "chalk";
 
-import { ensureDirExists, writeFileIfNotExists } from "../fs";
-import { primitiveTemplates } from "../templates";
+import { ensureDirExists, writeFileIfNotExists } from "@/utils/fs";
+import { primitiveTemplates } from "@/utils/templates";
 
 export const scaffoldPrimitive = (
   uiRoot: string,

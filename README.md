@@ -44,11 +44,11 @@
 
 ### 🎨 UI & Observability
 
-| Package                   | Description                                                                    |
-| :------------------------ | :----------------------------------------------------------------------------- |
-| **`@yuva-devlab/ui`**     | Accessible, styled React component library powered by Radix UI & Tailwind CSS. |
-| **`@yuva-devlab/logger`** | Isomorphic structured JSON logger with context correlation IDs.                |
-| **`@yuva-devlab/sdk`**    | Official TypeScript SDK client for communicating with DevLab platform APIs.    |
+| Package                   | Description                                                                               |
+| :------------------------ | :---------------------------------------------------------------------------------------- |
+| **`@yuva-devlab/ui`**     | Accessible, pure CSS React component & layout library powered by Radix UI & OKLCH tokens. |
+| **`@yuva-devlab/logger`** | Isomorphic structured JSON logger with context correlation IDs.                           |
+| **`@yuva-devlab/sdk`**    | Official TypeScript SDK client for communicating with DevLab platform APIs.               |
 
 ### ⚙️ Workspace & Tooling
 

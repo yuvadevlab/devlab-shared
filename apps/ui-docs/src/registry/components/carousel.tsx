@@ -13,17 +13,17 @@ import { ComponentView, ComponentVariant } from "@/components/component-view";
 const slides = [
   {
     title: "OrchestrAI",
-    color: "from-cyan-500/20 to-blue-500/10",
+    className: "dl-demo-slide--orchestrai",
     subtitle: "Multi-Agent Coordination",
   },
   {
     title: "FinAI",
-    color: "from-emerald-500/20 to-teal-500/10",
+    className: "dl-demo-slide--finai",
     subtitle: "Quantitative Trading & Risk",
   },
   {
     title: "VitalAI",
-    color: "from-rose-500/20 to-amber-500/10",
+    className: "dl-demo-slide--vitalai",
     subtitle: "Diagnostic Pipelines",
   },
 ];
@@ -39,21 +39,15 @@ export default function CarouselDocPage() {
       description:
         "Horizontal touch and keyboard navigated carousel with previous/next action buttons.",
       preview: (
-        <div className="w-full max-w-sm px-10">
-          <Carousel className="w-full">
+        <div className="dl-demo-frame dl-demo-frame--carousel">
+          <Carousel className="dl-demo-frame">
             <CarouselContent>
               {slides.map((s, index) => (
                 <CarouselItem key={index}>
-                  <div
-                    className={`p-6 rounded-xl border border-border bg-gradient-to-br ${s.color} flex flex-col items-center justify-center h-40 text-center`}
-                  >
-                    <span className="text-lg font-bold text-foreground">
-                      {s.title}
-                    </span>
-                    <span className="text-xs text-muted-foreground mt-1">
-                      {s.subtitle}
-                    </span>
-                    <span className="text-[10px] font-mono text-primary mt-2">
+                  <div className={`dl-demo-slide ${s.className}`}>
+                    <span className="dl-demo-title">{s.title}</span>
+                    <span className="dl-demo-desc">{s.subtitle}</span>
+                    <span className="dl-demo-code">
                       Slide {index + 1} of {slides.length}
                     </span>
                   </div>
@@ -65,13 +59,13 @@ export default function CarouselDocPage() {
           </Carousel>
         </div>
       ),
-      codeSnippet: `<Carousel className="w-full max-w-xs">
+      codeSnippet: `<Carousel className="dl-demo-frame dl-demo-frame--xs">
   <CarouselContent>
     <CarouselItem>
-      <div className="p-6 rounded-xl border bg-card">Slide 1</div>
+      <div className="dl-demo-slide">Slide 1</div>
     </CarouselItem>
     <CarouselItem>
-      <div className="p-6 rounded-xl border bg-card">Slide 2</div>
+      <div className="dl-demo-slide">Slide 2</div>
     </CarouselItem>
   </CarouselContent>
   <CarouselPrevious />
@@ -84,16 +78,16 @@ export default function CarouselDocPage() {
       description:
         "Low-profile carousel suitable for compact widget panels or mobile headers.",
       preview: (
-        <div className="w-full max-w-xs px-10">
-          <Carousel className="w-full">
+        <div className="dl-demo-frame dl-demo-frame--carousel-sm">
+          <Carousel className="dl-demo-frame">
             <CarouselContent>
               <CarouselItem>
-                <div className="p-4 rounded-lg border border-border bg-muted/40 text-center text-xs">
+                <div className="dl-demo-slide--compact">
                   Cluster US-East-1 (Healthy)
                 </div>
               </CarouselItem>
               <CarouselItem>
-                <div className="p-4 rounded-lg border border-border bg-muted/40 text-center text-xs">
+                <div className="dl-demo-slide--compact">
                   Cluster EU-Central-1 (Healthy)
                 </div>
               </CarouselItem>

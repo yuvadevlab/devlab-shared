@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { toast, Button } from "@yuva-devlab/ui";
+import { toast, Button, Flex } from "@yuva-devlab/ui";
 import { ComponentView, ComponentVariant } from "@/components/component-view";
 
 /**
@@ -15,7 +15,7 @@ export default function ToasterDocPage() {
       description:
         "Semantic toast notifications indicating success, warning, or error states.",
       preview: (
-        <div className="flex flex-wrap items-center justify-center gap-2 p-4">
+        <Flex wrap="wrap" align="center" justify="center" gap={2}>
           <Button
             size="sm"
             variant="default"
@@ -50,7 +50,7 @@ export default function ToasterDocPage() {
           >
             Error
           </Button>
-        </div>
+        </Flex>
       ),
       codeSnippet: `// Trigger different semantic toasts:
 toast("Workflow initialized.");
@@ -64,7 +64,7 @@ toast.error("Process timeout exceeded.");`,
       description:
         "Toasts supporting inline interactive buttons for immediate retry or cancellation.",
       preview: (
-        <div className="flex items-center justify-center p-4">
+        <Flex align="center" justify="center">
           <Button
             variant="outline"
             onClick={() =>
@@ -79,7 +79,7 @@ toast.error("Process timeout exceeded.");`,
           >
             Trigger Action Toast
           </Button>
-        </div>
+        </Flex>
       ),
       codeSnippet: `toast("Agent deployment failed", {
   description: "Cluster nodepool unschedulable due to quota",

@@ -8,6 +8,9 @@ import {
   SelectValue,
   SelectContent,
   SelectItem,
+  Flex,
+  Stack,
+  Box,
 } from "@yuva-devlab/ui";
 import { ComponentView, ComponentVariant } from "@/components/component-view";
 
@@ -24,14 +27,14 @@ export default function StatusBadgeDocPage() {
       description:
         "Displays color-coded presence and workflow states with an animated status indicator dot.",
       preview: (
-        <div className="flex flex-wrap items-center justify-center gap-3 p-3">
+        <Flex wrap="wrap" align="center" justify="center" gap={3}>
           <StatusBadge status="Active" />
           <StatusBadge status="In Progress" />
           <StatusBadge status="Completed" />
           <StatusBadge status="Needs Approval" />
           <StatusBadge status="Failed" />
           <StatusBadge status="Offline" />
-        </div>
+        </Flex>
       ),
       codeSnippet: `<StatusBadge status="Active" />
 <StatusBadge status="In Progress" />
@@ -46,13 +49,15 @@ export default function StatusBadgeDocPage() {
       description:
         "Live test how the badge automatically adjusts badge border, background, and indicator colors.",
       preview: (
-        <div className="flex flex-col items-center gap-4 p-2">
-          <div className="flex items-center gap-2 text-xs bg-muted/40 p-2.5 rounded-lg border border-border">
-            <span className="text-muted-foreground font-medium">
-              Choose State:
-            </span>
+        <Stack align="center" gap={4}>
+          <Flex
+            align="center"
+            gap={2}
+            className="dl-demo-box dl-demo-box--sm dl-demo-desc"
+          >
+            <span className="dl-demo-heading">Choose State:</span>
             <Select value={selectedStatus} onValueChange={setSelectedStatus}>
-              <SelectTrigger className="h-8 w-36 text-xs">
+              <SelectTrigger className="dl-demo-frame--xs dl-demo-desc">
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
@@ -64,11 +69,11 @@ export default function StatusBadgeDocPage() {
                 <SelectItem value="Offline">Offline</SelectItem>
               </SelectContent>
             </Select>
-          </div>
-          <div className="py-2">
+          </Flex>
+          <Box className="dl-demo-frame dl-demo-frame--xs">
             <StatusBadge status={selectedStatus} />
-          </div>
-        </div>
+          </Box>
+        </Stack>
       ),
       codeSnippet: `<StatusBadge status="${selectedStatus}" />`,
     },

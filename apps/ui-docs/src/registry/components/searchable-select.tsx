@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { SearchableSelect } from "@yuva-devlab/ui";
+import { SearchableSelect, Stack } from "@yuva-devlab/ui";
 import { ComponentView, ComponentVariant } from "@/components/component-view";
 
 const mockModels = [
@@ -37,7 +37,11 @@ export default function SearchableSelectDocPage() {
       description:
         "Fuzzy search with categorized option groups, similar to Ant Design's Select with showSearch and optgroup.",
       preview: (
-        <div className="flex flex-col items-center gap-4 w-full max-w-xs">
+        <Stack
+          align="center"
+          gap={4}
+          className="dl-demo-frame dl-demo-frame--xs"
+        >
           <SearchableSelect
             options={mockModels}
             value={model}
@@ -45,10 +49,10 @@ export default function SearchableSelectDocPage() {
             placeholder="Choose Model..."
             searchPlaceholder="Type to filter..."
           />
-          <div className="text-xs text-muted-foreground font-mono">
-            Selected: <span className="text-primary font-bold">{model}</span>
+          <div className="dl-demo-code">
+            Selected: <strong>{model}</strong>
           </div>
-        </div>
+        </Stack>
       ),
       codeSnippet: `const models = [
   { label: "Claude 3.5 Sonnet", value: "claude-3-5-sonnet", group: "Anthropic" },
@@ -69,17 +73,21 @@ export default function SearchableSelectDocPage() {
       description:
         "Clean single-level searchable select for configuration targets.",
       preview: (
-        <div className="flex flex-col items-center gap-4 w-full max-w-xs">
+        <Stack
+          align="center"
+          gap={4}
+          className="dl-demo-frame dl-demo-frame--xs"
+        >
           <SearchableSelect
             options={mockEnvironments}
             value={env}
             onChange={setEnv}
             placeholder="Choose Deployment..."
           />
-          <div className="text-xs text-muted-foreground font-mono">
-            Target: <span className="text-primary font-bold">{env}</span>
+          <div className="dl-demo-code">
+            Target: <strong>{env}</strong>
           </div>
-        </div>
+        </Stack>
       ),
       codeSnippet: `<SearchableSelect
   options={[

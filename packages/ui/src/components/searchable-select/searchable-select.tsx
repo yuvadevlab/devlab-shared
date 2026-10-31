@@ -1,49 +1,16 @@
 import * as React from "react";
 import { Search, Plus, Check, ChevronDown } from "lucide-react";
-import { Popover, PopoverContent, PopoverTrigger } from "../popover";
-import { Input } from "../input";
-import { Button } from "../button";
-import { cn } from "../../lib/utils";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/popover";
+import { Input } from "@/components/input";
+import { Button } from "@/components/button";
+import { cn } from "@/lib/utils";
+import {
+  SearchableSelectOption,
+  SearchableSelectProps,
+} from "./searchable-select-types";
+import { useSearchableSelect } from "./use-searchable-select";
 
-/**
- * Option item structure for `SearchableSelect`.
- */
-export interface SearchableSelectOption {
-  /** The human-readable text label */
-  label: string;
-  /** The unique value identifier */
-  value: string;
-  /** Optional grouping category */
-  group?: string;
-  /** Optional icon identifier */
-  icon?: string;
-}
-
-/**
- * Props for `SearchableSelect`.
- */
-export interface SearchableSelectProps {
-  /** List of selectable options */
-  options: SearchableSelectOption[];
-  /** Currently selected value */
-  value?: string;
-  /** Callback fired when an option is selected */
-  onChange?: (value: string) => void;
-  /** Placeholder text when nothing is selected */
-  placeholder?: string;
-  /** Search input placeholder text */
-  searchPlaceholder?: string;
-  /** Callback fired when the user adds a new custom option */
-  onAddNew?: (searchQuery: string) => void;
-  /** Custom label for the add-new button */
-  addNewLabel?: string;
-  /** Whether the select dropdown is disabled */
-  disabled?: boolean;
-  /** Additional CSS class names */
-  className?: string;
-  /** Unique HTML id attribute */
-  id?: string;
-}
+export type { SearchableSelectOption, SearchableSelectProps };
 
 /**
  * Searchable select component with live filtering, keyboard navigation, option grouping,
@@ -74,111 +41,21 @@ export function SearchableSelect({
   className,
   id,
 }: SearchableSelectProps) {
-  const [open, setOpen] = React.useState(false);
-  const [search, setSearch] = React.useState("");
-  const [highlightedIndex, setHighlightedIndex] = React.useState<number>(0);
-  const listRef = React.useRef<HTMLDivElement>(null);
-  const selectedOption = React.useMemo(() => {
-    return options.find((opt) => opt.value === value);
-  }, [options, value]);
-
-  const filteredOptions = React.useMemo(() => {
-    if (!search.trim()) return options;
-    const q = search.toLowerCase();
-    return options.filter(
-      (opt) =>
-        opt.label.toLowerCase().includes(q) ||
-        (opt.group && opt.group.toLowerCase().includes(q)),
-    );
-  }, [options, search]);
-
-  const handleOpenChange = (newOpen: boolean) => {
-    setOpen(newOpen);
-    if (newOpen) {
-      const idx = filteredOptions.findIndex((opt) => opt.value === value);
-      setHighlightedIndex(idx >= 0 ? idx : 0);
-    } else {
-      setSearch("");
-    }
-  };
-
-  const handleSearchChange = (q: string) => {
-    setSearch(q);
-    setHighlightedIndex(0);
-  };
-
-  React.useEffect(() => {
-    if (open && listRef.current) {
-      const activeEl = listRef.current.querySelector<HTMLElement>(
-        "[data-highlighted='true']",
-      );
-      if (activeEl) {
-        activeEl.scrollIntoView({ block: "nearest" });
-      }
-    }
-  }, [highlightedIndex, open]);
-
-  const groupedOptions = React.useMemo(() => {
-    const hasGroups = filteredOptions.some((opt) => opt.group);
-    if (!hasGroups) return { Default: filteredOptions };
-
-    return filteredOptions.reduce<Record<string, SearchableSelectOption[]>>(
-      (acc, opt) => {
-        const g = opt.group || "Other";
-        if (!acc[g]) acc[g] = [];
-        acc[g].push(opt);
-        return acc;
-      },
-      {},
-    );
-  }, [filteredOptions]);
-
-  const handleSelect = (val: string) => {
-    onChange?.(val);
-    setOpen(false);
-    setSearch("");
-  };
-  const handleAddNew = () => {
-    onAddNew?.(search.trim());
-    setOpen(false);
-    setSearch("");
-  };
-
-  const handleKeyDown = (e: React.KeyboardEvent) => {
-    if (!open) {
-      if (e.key === "ArrowDown" || e.key === "Enter" || e.key === " ") {
-        e.preventDefault();
-        handleOpenChange(true);
-      }
-      return;
-    }
-
-    switch (e.key) {
-      case "ArrowDown":
-        e.preventDefault();
-        setHighlightedIndex((p) =>
-          p < filteredOptions.length - 1 ? p + 1 : p,
-        );
-        break;
-      case "ArrowUp":
-        e.preventDefault();
-        setHighlightedIndex((p) => (p > 0 ? p - 1 : 0));
-        break;
-      case "Enter":
-        e.preventDefault();
-        if (filteredOptions.length > 0 && filteredOptions[highlightedIndex]) {
-          handleSelect(filteredOptions[highlightedIndex].value);
-        } else if (onAddNew && search.trim()) {
-          handleAddNew();
-        }
-        break;
-      case "Escape":
-      case "Tab":
-        e.preventDefault();
-        handleOpenChange(false);
-        break;
-    }
-  };
+  const {
+    open,
+    search,
+    highlightedIndex,
+    setHighlightedIndex,
+    listRef,
+    selectedOption,
+    filteredOptions,
+    groupedOptions,
+    handleOpenChange,
+    handleSearchChange,
+    handleSelect,
+    handleAddNew,
+    handleKeyDown,
+  } = useSearchableSelect({ options, value, onChange, onAddNew });
 
   let currentIndex = 0;
   return (
@@ -197,7 +74,7 @@ export function SearchableSelect({
             className,
           )}
         >
-          <span className="truncate">
+          <span className="dl-searchable-select-truncate">
             {selectedOption ? selectedOption.label : placeholder}
           </span>
           <ChevronDown className="dl-select-icon" />
@@ -231,7 +108,7 @@ export function SearchableSelect({
             </div>
           ) : (
             Object.entries(groupedOptions).map(([groupName, groupOpts]) => (
-              <div key={groupName} className="py-1">
+              <div key={groupName} className="dl-searchable-select-group">
                 {groupName !== "Default" && (
                   <div className="dl-searchable-select-group-header">
                     {groupName}
@@ -257,7 +134,9 @@ export function SearchableSelect({
                           "dl-searchable-select-item--selected",
                       )}
                     >
-                      <span className="flex-1 truncate">{option.label}</span>
+                      <span className="dl-searchable-select-item-text">
+                        {option.label}
+                      </span>
                       {isSelected && <Check className="dl-select-check" />}
                     </div>
                   );
@@ -274,8 +153,8 @@ export function SearchableSelect({
               onClick={handleAddNew}
               className="dl-searchable-select-add-btn"
             >
-              <Plus className="size-3.5 shrink-0" />
-              <span className="truncate">
+              <Plus className="dl-searchable-select-add-icon" />
+              <span className="dl-searchable-select-truncate">
                 {search.trim()
                   ? `${addNewLabel} "${search.trim()}"`
                   : addNewLabel}

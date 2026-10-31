@@ -6,8 +6,8 @@
 
 import { ForbiddenError, UnauthorizedError } from "@yuva-devlab/errors";
 import { Logger, loggerWithConfig } from "@yuva-devlab/logger";
-import { DEFAULT_API_KEY_CACHE_TTL_MS } from "../constants";
-import type { ApiKeyValidationResult, M2mConfig } from "../types";
+import { DEFAULT_API_KEY_CACHE_TTL_MS } from "@/constants";
+import type { ApiKeyValidationResult, M2mConfig } from "@/types";
 
 const logger = loggerWithConfig(new Logger("M2mApiKeyValidator"));
 

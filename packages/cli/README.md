@@ -191,14 +191,12 @@ export type CardProps = CardPrimitiveProps & {
 ```
 
 ```tsx
-// card.tsx (Tailwind CSS 4 + CVA)
+// card.tsx (Platform CSS + CVA)
 import * as React from "react";
 import { cva, type VariantProps } from "class-variance-authority";
-import { cn } from "../../lib/utils";
+import { cn } from "@/lib/utils";
 
-export const cardVariants = cva(
-  "rounded-xl border bg-card text-card-foreground shadow",
-);
+export const cardVariants = cva("dl-card");
 ```
 
 ### Primitive Component

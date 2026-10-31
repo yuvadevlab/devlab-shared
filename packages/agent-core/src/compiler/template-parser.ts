@@ -4,7 +4,7 @@
  * @module @yuva-devlab/agent-core
  */
 
-import { PROMPT_COMPILER_DEFAULTS } from "../constants";
+import { PROMPT_COMPILER_DEFAULTS } from "@/constants";
 
 /**
  * Replaces double-bracket tokens `{{variable}}` with sanitized values from a dictionary.
