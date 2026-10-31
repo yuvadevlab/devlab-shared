@@ -1,0 +1,238 @@
+.dl-calendar {
+  --cell-size: 2rem;
+  display: inline-block;
+  width: fit-content;
+  max-width: 100%;
+  padding: 0.75rem;
+  box-sizing: border-box;
+  color: var(--foreground);
+}
+
+.dl-calendar .rdp-root {
+  width: fit-content;
+  margin: 0 auto;
+}
+
+.dl-calendar .rdp-months {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  width: calc(var(--cell-size, 2rem) * 7);
+  box-sizing: border-box;
+}
+
+.dl-calendar .rdp-month {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  width: 100%;
+}
+
+.dl-calendar .rdp-month_caption {
+  position: relative;
+  display: flex;
+  height: var(--cell-size, 2rem);
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  padding: 0 var(--cell-size, 2rem);
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--foreground);
+  box-sizing: border-box;
+}
+
+.dl-calendar .rdp-caption_label {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--foreground);
+  line-height: 1;
+}
+
+/* Navigation prev / next arrows */
+.dl-calendar .rdp-nav {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  height: var(--cell-size, 2rem);
+  pointer-events: none;
+}
+
+.dl-calendar .rdp-button_previous,
+.dl-calendar .rdp-button_next {
+  pointer-events: auto;
+  width: var(--cell-size, 2rem) !important;
+  height: var(--cell-size, 2rem) !important;
+  min-width: var(--cell-size, 2rem) !important;
+  padding: 0 !important;
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-md, 0.375rem) !important;
+  border: 1px solid var(--border);
+  background: var(--background);
+  color: var(--muted-foreground);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.dl-calendar .rdp-button_previous:hover,
+.dl-calendar .rdp-button_next:hover {
+  background-color: var(--accent);
+  color: var(--accent-foreground);
+}
+
+.dl-calendar .rdp-button_previous svg,
+.dl-calendar .rdp-button_next svg {
+  width: 1rem;
+  height: 1rem;
+  flex-shrink: 0;
+}
+
+/* Grid Table */
+.dl-calendar table.rdp-month_grid,
+.dl-calendar table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+  margin: 0;
+}
+
+/* Weekday header cells */
+.dl-calendar th.rdp-weekday,
+.dl-calendar th {
+  width: calc(100% / 7);
+  height: var(--cell-size, 2rem);
+  text-align: center;
+  vertical-align: middle;
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--muted-foreground);
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+/* Day table cells */
+.dl-calendar td.rdp-day,
+.dl-calendar td {
+  width: calc(100% / 7);
+  height: var(--cell-size, 2rem);
+  padding: 2px !important;
+  margin: 0;
+  text-align: center;
+  vertical-align: middle;
+  background: transparent !important;
+  background-color: transparent !important;
+  border: none !important;
+  box-sizing: border-box;
+}
+
+/* Day Button inside td */
+.dl-calendar button.rdp-day_button,
+.dl-calendar .dl-calendar__day-button {
+  width: 100% !important;
+  height: 100% !important;
+  min-width: 0 !important;
+  min-height: 0 !important;
+  margin: 0 auto !important;
+  padding: 0 !important;
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-md, 0.375rem) !important;
+  border: none !important;
+  font-size: 0.875rem;
+  font-weight: 400;
+  color: var(--foreground);
+  background: transparent;
+  cursor: pointer;
+  box-sizing: border-box;
+  transition: all 0.15s ease;
+}
+
+.dl-calendar button.rdp-day_button:hover:not(:disabled) {
+  background-color: var(--accent) !important;
+  color: var(--accent-foreground) !important;
+}
+
+/* Selected Date Highlight */
+.dl-calendar td[aria-selected="true"] button.rdp-day_button,
+.dl-calendar td.rdp-selected button.rdp-day_button,
+.dl-calendar button.rdp-day_button[data-selected="true"],
+.dl-calendar button.rdp-day_button[data-selected-single="true"] {
+  background-color: var(--primary) !important;
+  color: var(--primary-foreground) !important;
+  border-radius: var(--radius-md, 0.375rem) !important;
+  font-weight: 600;
+  box-shadow: 0 1px 2px rgb(0 0 0 / 0.12);
+}
+
+.dl-calendar td[aria-selected="true"] button.rdp-day_button:hover,
+.dl-calendar td.rdp-selected button.rdp-day_button:hover,
+.dl-calendar button.rdp-day_button[data-selected="true"]:hover,
+.dl-calendar button.rdp-day_button[data-selected-single="true"]:hover {
+  background-color: color-mix(in oklch, var(--primary) 88%, black) !important;
+  color: var(--primary-foreground) !important;
+}
+
+/* Today indicator (when not selected) */
+.dl-calendar
+  td.rdp-today:not([aria-selected="true"]):not(.rdp-selected)
+  button.rdp-day_button {
+  background-color: color-mix(
+    in oklch,
+    var(--secondary) 60%,
+    transparent
+  ) !important;
+  color: var(--foreground) !important;
+  font-weight: 600;
+  border: 1px solid var(--border) !important;
+}
+
+/* Range selection styles */
+.dl-calendar td.rdp-range_start {
+  background-color: var(--accent) !important;
+  border-top-left-radius: var(--radius-md, 0.375rem) !important;
+  border-bottom-left-radius: var(--radius-md, 0.375rem) !important;
+}
+
+.dl-calendar td.rdp-range_middle {
+  background-color: var(--accent) !important;
+  border-radius: 0 !important;
+}
+
+.dl-calendar td.rdp-range_middle button.rdp-day_button {
+  background: transparent !important;
+  color: var(--accent-foreground) !important;
+  border-radius: 0 !important;
+}
+
+.dl-calendar td.rdp-range_end {
+  background-color: var(--accent) !important;
+  border-top-right-radius: var(--radius-md, 0.375rem) !important;
+  border-bottom-right-radius: var(--radius-md, 0.375rem) !important;
+}
+
+.dl-calendar td.rdp-outside button.rdp-day_button {
+  color: var(--muted-foreground) !important;
+  opacity: 0.35;
+}
+
+.dl-calendar button.rdp-day_button:disabled {
+  color: var(--muted-foreground) !important;
+  opacity: 0.25;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.dl-calendar td.rdp-hidden {
+  visibility: hidden;
+  pointer-events: none;
+}

@@ -26,6 +26,7 @@ export const typescript: Linter.Config[] = [
       "@typescript-eslint": tseslint.plugin,
     },
     rules: {
+      "@typescript-eslint/no-deprecated": "warn",
       "@typescript-eslint/no-unused-vars": [
         "error",
         {

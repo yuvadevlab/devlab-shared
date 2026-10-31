@@ -44,12 +44,12 @@ const preview: Preview = {
           {
             value: "logs",
             title: "DevLab Logs (Matrix Amber)",
-            right: "⚡",
+            right: "💻",
           },
           {
             value: "vitalai",
-            title: "VitalAI (Clinical Teal)",
-            right: "🧬",
+            title: "VitalAI (Volt Kinetic)",
+            right: "💪",
           },
         ],
         dynamicTitle: true,

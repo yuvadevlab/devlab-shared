@@ -2,8 +2,16 @@
 
 import React from "react";
 import Link from "next/link";
-import { Sun, Moon, ExternalLink, BookOpen, Layers } from "lucide-react";
-import { useTheme, type Brand } from "./theme-provider";
+import {
+  Sun,
+  Moon,
+  ExternalLink,
+  BookOpen,
+  Layers,
+  Sparkles,
+} from "lucide-react";
+import { useTheme, type Brand } from "@/components/theme-provider";
+import { SearchTrigger } from "@/components/search-trigger";
 import {
   Button,
   Select,
@@ -11,7 +19,9 @@ import {
   SelectValue,
   SelectContent,
   SelectItem,
+  Switch,
 } from "@yuva-devlab/ui";
+import uiPackage from "@yuva-devlab/ui/package.json";
 
 interface BrandOption {
   value: Brand;
@@ -33,16 +43,17 @@ const BRANDS: readonly BrandOption[] = [
   },
   {
     value: "logs",
-    label: "⚡ DevLab Logs (Matrix Amber)",
+    label: "💻 DevLab Logs (Matrix Amber)",
   },
   {
     value: "vitalai",
-    label: "🧬 VitalAI (Clinical Teal)",
+    label: "💪 VitalAI (Volt Kinetic)",
   },
 ] as const;
 
 export function Header() {
-  const { brand, setBrand, mode, toggleMode } = useTheme();
+  const { brand, setBrand, mode, toggleMode, fullTheme, setFullTheme } =
+    useTheme();
 
   return (
     <header className="border-border bg-card/80 sticky top-0 z-50 flex h-16 w-full items-center justify-between border-b px-6 backdrop-blur-md">
@@ -57,18 +68,28 @@ export function Header() {
           </div>
           <span className="text-foreground text-base">DevLab UI</span>
           <span className="border-border text-muted-foreground rounded-full border px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider">
-            v1.1.0
+            v{uiPackage.version}
           </span>
         </Link>
       </div>
 
+      {/* Global Search Bar (Ant Design Inspired) */}
+      <div className="hidden sm:flex items-center justify-center flex-1 max-w-md px-4">
+        <SearchTrigger variant="header" className="w-full" />
+      </div>
+
       {/* Center/Right Toolbar */}
       <div className="flex items-center gap-3">
+        {/* Mobile Search Button */}
+        <div className="sm:hidden">
+          <SearchTrigger variant="header" className="w-auto px-2" />
+        </div>
+
         {/* Brand Switcher */}
         <div className="flex items-center gap-1.5 text-xs font-medium">
           <span className="text-muted-foreground hidden sm:inline">Brand:</span>
           <Select value={brand} onValueChange={(val) => setBrand(val as Brand)}>
-            <SelectTrigger className="h-8 w-58 text-xs font-medium">
+            <SelectTrigger className="h-8 w-54 text-xs font-medium">
               <SelectValue placeholder="Select Brand" />
             </SelectTrigger>
             <SelectContent>
@@ -79,6 +100,24 @@ export function Header() {
               ))}
             </SelectContent>
           </Select>
+        </div>
+
+        {/* Full Theme Experience Flag */}
+        <div className="flex items-center gap-2 rounded-lg border border-border/80 bg-muted/40 px-2.5 py-1 text-xs">
+          <Switch
+            id="full-theme-toggle"
+            checked={fullTheme}
+            onCheckedChange={setFullTheme}
+          />
+          <label
+            htmlFor="full-theme-toggle"
+            className="cursor-pointer select-none font-medium flex items-center gap-1.5"
+            title="When enabled, adopts the selected brand's complete typography, sizing, spacing and corner radii across the entire documentation app."
+          >
+            <Sparkles className="size-3.5 text-primary" />
+            <span className="hidden lg:inline">Preview Full Theme</span>
+            <span className="lg:hidden hidden sm:inline">Full Theme</span>
+          </label>
         </div>
 
         {/* Storybook Link */}
