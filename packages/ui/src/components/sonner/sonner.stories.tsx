@@ -6,7 +6,6 @@ import { Button } from "@/components/button/button";
 const meta: Meta<typeof Toaster> = {
   title: "Components/Toaster",
   component: Toaster,
-  tags: ["autodocs"],
 };
 
 export default meta;
@@ -14,7 +13,7 @@ type Story = StoryObj<typeof Toaster>;
 
 export const Default: Story = {
   render: () => (
-    <div style={{ display: "flex", gap: "12px", flexWrap: "wrap" }}>
+    <div className="dl-story-row">
       <Toaster />
       <Button
         variant="default"

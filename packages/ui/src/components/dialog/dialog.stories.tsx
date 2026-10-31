@@ -11,11 +11,11 @@ import {
 } from "./dialog";
 import { Button } from "@/components/button/button";
 import { Input } from "@/components/input/input";
+import { Stack } from "@/components/layout/stack";
 
 const meta: Meta<typeof Dialog> = {
   title: "Components/Dialog",
   component: Dialog,
-  tags: ["autodocs"],
 };
 
 export default meta;
@@ -30,7 +30,7 @@ export const Default: Story = {
           <DialogTrigger asChild>
             <Button variant="default">Edit Agent Profile</Button>
           </DialogTrigger>
-          <DialogContent style={{ maxWidth: "450px" }}>
+          <DialogContent className="dl-story-w-md">
             <DialogHeader>
               <DialogTitle>Edit Agent Profile</DialogTitle>
               <DialogDescription>
@@ -38,41 +38,16 @@ export const Default: Story = {
                 save when complete.
               </DialogDescription>
             </DialogHeader>
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                gap: "12px",
-                padding: "16px 0",
-              }}
-            >
+            <Stack gap={3}>
               <div>
-                <label
-                  style={{
-                    display: "block",
-                    fontSize: "12px",
-                    fontWeight: 600,
-                    marginBottom: "4px",
-                  }}
-                >
-                  Agent Name
-                </label>
+                <label className="dl-label">Agent Name</label>
                 <Input defaultValue="DevLab Core Agent" />
               </div>
               <div>
-                <label
-                  style={{
-                    display: "block",
-                    fontSize: "12px",
-                    fontWeight: 600,
-                    marginBottom: "4px",
-                  }}
-                >
-                  Model Endpoint
-                </label>
+                <label className="dl-label">Model Endpoint</label>
                 <Input defaultValue="gemini-2.5-pro" />
               </div>
-            </div>
+            </Stack>
             <DialogFooter>
               <Button variant="outline" onClick={() => setOpen(false)}>
                 Cancel

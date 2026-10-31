@@ -27,12 +27,9 @@ const INSTALLATION_STEPS: InstallationStep[] = [
     codeSnippet: `/* Native W3C Cascade Layers */
 @layer dl-reset, dl-tokens, dl-components, dl-layout, dl-utilities, dl-app;
 
-@import "@yuva-devlab/tokens/preset.css";
+@import "@yuva-devlab/tokens/styles.css";
 @import "@yuva-devlab/tokens/themes/orchestrai.css";
-@import "@yuva-devlab/ui/styles.css";
-
-/* (Optional) If your application uses Tailwind CSS 4: */
-/* @import "tailwindcss"; */`,
+@import "@yuva-devlab/ui/styles.css";`,
     language: "css",
   },
   {

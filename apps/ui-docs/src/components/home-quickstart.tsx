@@ -21,7 +21,7 @@ export function HomeQuickstart() {
           2. Import Platform CSS in globals.css
         </div>
         <pre className="dl-quickstart-block__pre">
-          {`@import "@yuva-devlab/tokens/preset.css";
+          {`@import "@yuva-devlab/tokens/styles.css";
 @import "@yuva-devlab/tokens/themes/orchestrai.css";
 @import "@yuva-devlab/ui/styles.css";`}
         </pre>

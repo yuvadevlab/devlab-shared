@@ -14,7 +14,6 @@ import { Button } from "@/components/button/button";
 const meta: Meta<typeof Table> = {
   title: "Components/Table",
   component: Table,
-  tags: ["autodocs"],
 };
 
 export default meta;
@@ -70,119 +69,52 @@ const executions = [
 
 export const Default: Story = {
   render: () => (
-    <div style={{ width: "100%", maxWidth: "960px" }}>
+    <div className="dl-story-w-xl">
       <Table>
         <TableCaption>
           Autonomous Agent Execution Fleet — Realtime Metrics
         </TableCaption>
         <TableHeader>
           <TableRow>
-            <TableHead
-              style={{
-                width: "110px",
-                fontFamily: "var(--font-mono, monospace)",
-                fontSize: "11px",
-              }}
-            >
-              Execution ID
-            </TableHead>
+            <TableHead className="dl-story-mono">Execution ID</TableHead>
             <TableHead>Agent Name</TableHead>
             <TableHead>Role</TableHead>
-            <TableHead
-              style={{
-                fontFamily: "var(--font-mono, monospace)",
-                fontSize: "11px",
-              }}
-            >
-              Model Engine
-            </TableHead>
+            <TableHead className="dl-story-mono">Model Engine</TableHead>
             <TableHead>Status</TableHead>
-            <TableHead
-              style={{
-                textAlign: "right",
-                fontFamily: "var(--font-mono, monospace)",
-                fontSize: "11px",
-              }}
-            >
+            <TableHead className="dl-story-mono dl-text-right">
               Tokens Used
             </TableHead>
-            <TableHead style={{ textAlign: "right" }}>Runtime</TableHead>
-            <TableHead style={{ textAlign: "right", width: "90px" }}>
-              Actions
-            </TableHead>
+            <TableHead className="dl-text-right">Runtime</TableHead>
+            <TableHead className="dl-text-right">Actions</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
           {executions.map((row) => (
             <TableRow key={row.id}>
-              <TableCell
-                style={{
-                  fontFamily: "var(--font-mono, monospace)",
-                  fontSize: "12px",
-                  color: "var(--primary)",
-                  fontWeight: 500,
-                  whiteSpace: "nowrap",
-                }}
-              >
+              <TableCell className="dl-story-mono dl-whitespace-nowrap">
                 {row.id}
               </TableCell>
-              <TableCell
-                style={{
-                  fontWeight: 500,
-                  fontSize: "12px",
-                  whiteSpace: "nowrap",
-                }}
-              >
+              <TableCell className="dl-whitespace-nowrap">
                 {row.agent}
               </TableCell>
-              <TableCell
-                style={{
-                  fontSize: "12px",
-                  color: "var(--muted-foreground)",
-                  whiteSpace: "nowrap",
-                }}
-              >
-                {row.role}
-              </TableCell>
-              <TableCell
-                style={{
-                  fontFamily: "var(--font-mono, monospace)",
-                  fontSize: "11px",
-                  color: "var(--muted-foreground)",
-                  whiteSpace: "nowrap",
-                }}
-              >
+              <TableCell className="dl-whitespace-nowrap">{row.role}</TableCell>
+              <TableCell className="dl-story-mono dl-whitespace-nowrap">
                 {row.model}
               </TableCell>
-              <TableCell style={{ whiteSpace: "nowrap" }}>
+              <TableCell className="dl-whitespace-nowrap">
                 <StatusBadge status={row.status} />
               </TableCell>
-              <TableCell
-                style={{
-                  textAlign: "right",
-                  fontFamily: "var(--font-mono, monospace)",
-                  fontSize: "12px",
-                  whiteSpace: "nowrap",
-                }}
-              >
+              <TableCell className="dl-story-mono dl-text-right dl-whitespace-nowrap">
                 {row.tokens}
               </TableCell>
-              <TableCell
-                style={{
-                  textAlign: "right",
-                  fontFamily: "var(--font-mono, monospace)",
-                  fontSize: "12px",
-                  color: "var(--muted-foreground)",
-                  whiteSpace: "nowrap",
-                }}
-              >
+              <TableCell className="dl-text-right dl-whitespace-nowrap">
                 {row.runtime}
               </TableCell>
-              <TableCell style={{ textAlign: "right", whiteSpace: "nowrap" }}>
+              <TableCell className="dl-text-right dl-whitespace-nowrap">
                 <Button
                   variant="ghost"
                   size="sm"
-                  style={{ height: "28px", fontSize: "11px" }}
+                  className="dl-story-action-btn"
                 >
                   View Trace
                 </Button>

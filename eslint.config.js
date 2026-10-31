@@ -1,17 +1,9 @@
 import js from "@eslint/js";
 import eslintPluginPrettier from "eslint-plugin-prettier/recommended";
-import tailwindcss from "eslint-plugin-tailwindcss";
 import globals from "globals";
-import path from "node:path";
 import tseslint from "typescript-eslint";
 
 const rootDir = import.meta.dirname;
-const cwd = process.cwd();
-const isUi = cwd.endsWith("packages/ui");
-
-const tailwindFiles = isUi
-  ? ["**/*.{ts,tsx}"]
-  : ["packages/ui/**/*.{ts,tsx}", "**/packages/ui/**/*.{ts,tsx}"];
 
 export default tseslint.config(
   {
@@ -33,22 +25,6 @@ export default tseslint.config(
       "**/storybook-static/**",
       "**/.next/**",
     ],
-  },
-  {
-    // Scope tailwindcss rules strictly to packages with Tailwind CSS
-    ...tailwindcss.configs.recommended,
-    files: tailwindFiles,
-    rules: {
-      ...tailwindcss.configs.recommended.rules,
-      "tailwindcss/classnames-order": "off",
-      "tailwindcss/no-custom-classname": "off",
-    },
-    settings: {
-      tailwindcss: {
-        callees: ["cn", "cva"],
-        cssConfigPath: path.resolve(rootDir, "packages/ui/src/styles.css"),
-      },
-    },
   },
   {
     extends: [js.configs.recommended, ...tseslint.configs.recommended],
@@ -99,7 +75,6 @@ export default tseslint.config(
           ignoreRegExpLiterals: true,
         },
       ],
-      "tailwindcss/no-custom-classname": "off",
     },
   },
   {

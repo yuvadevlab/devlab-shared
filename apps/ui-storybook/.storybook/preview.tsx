@@ -4,6 +4,7 @@ import type { Preview } from "@storybook/react";
 // Import design tokens and scoped component styles
 import "@yuva-devlab/tokens/styles.css";
 import "@yuva-devlab/ui/styles.css";
+import "./preview.css";
 
 const preview: Preview = {
   parameters: {
@@ -90,19 +91,7 @@ const preview: Preview = {
         <div
           data-brand={brand}
           data-theme={brand}
-          className={themeMode === "dark" ? "dark" : ""}
-          style={{
-            minHeight: "100%",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            padding: "2rem",
-            backgroundColor: "var(--background)",
-            color: "var(--foreground)",
-            fontFamily:
-              "var(--font-sans, system-ui, -apple-system, sans-serif)",
-            transition: "background-color 0.15s ease, color 0.15s ease",
-          }}
+          className={`dl-storybook-stage ${themeMode === "dark" ? "dark" : ""}`}
         >
           <Story />
         </div>

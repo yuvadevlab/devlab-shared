@@ -56,14 +56,11 @@ In your application's root stylesheet (e.g. `globals.css` or `app.css`), establi
 @layer dl-reset, dl-tokens, dl-components, dl-layout, dl-utilities, dl-app;
 
 /* 2. Import design tokens & brand theme */
-@import "@yuva-devlab/tokens/preset.css";
+@import "@yuva-devlab/tokens/styles.css";
 @import "@yuva-devlab/tokens/themes/orchestrai.css";
 
 /* 3. Import UI components and layout styles */
 @import "@yuva-devlab/ui/styles.css";
-
-/* (Optional) If your project still uses Tailwind CSS 4 during migration: */
-/* @import "tailwindcss"; */
 ```
 
 > **Tip:** You can import any theme preset from `@yuva-devlab/tokens/themes/*` (`orchestrai`, `vitalai`, `finai`, `logs`, `portal`).

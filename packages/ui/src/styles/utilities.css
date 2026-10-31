@@ -1,440 +1,137 @@
 /**
  * @file src/styles/utilities.css
  * @description Platform Utility Layer (@layer dl-utilities).
- * Provides foundational semantic utilities mapped to design tokens.
+ * Provides semantic, accessibility, icon, and text utilities.
  */
 
 @layer dl-utilities {
-  /* ── Typography & Text Colors ────────────────────────────────────────── */
-  .text-foreground {
-    color: var(--foreground);
-  }
-  .text-muted-foreground {
-    color: var(--muted-foreground);
-  }
-  .text-primary {
-    color: var(--primary);
-  }
-  .text-primary-foreground {
-    color: var(--primary-foreground);
-  }
-  .text-secondary {
-    color: var(--secondary);
-  }
-  .text-destructive {
-    color: var(--destructive);
-  }
-  .text-success {
-    color: var(--success);
-  }
-  .text-warning {
-    color: var(--warning);
-  }
-  .text-info {
-    color: var(--info);
+  /* ── Accessibility ─────────────────────────────────────────────────────── */
+  .dl-sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
   }
 
-  .text-xs {
-    font-size: 0.75rem;
-    line-height: 1rem;
-  }
-  .text-sm {
-    font-size: 0.875rem;
-    line-height: 1.25rem;
-  }
-  .text-base {
-    font-size: 1rem;
-    line-height: 1.5rem;
-  }
-  .text-lg {
-    font-size: 1.125rem;
-    line-height: 1.75rem;
-  }
-  .text-xl {
-    font-size: 1.25rem;
-    line-height: 1.75rem;
-  }
-  .text-2xl {
-    font-size: 1.5rem;
-    line-height: 2rem;
-  }
-  .text-3xl {
-    font-size: 1.875rem;
-    line-height: 2.25rem;
-  }
-  .text-4xl {
-    font-size: 2.25rem;
-    line-height: 2.5rem;
+  .dl-not-sr-only {
+    position: static;
+    width: auto;
+    height: auto;
+    padding: 0;
+    margin: 0;
+    overflow: visible;
+    clip: auto;
+    white-space: normal;
   }
 
-  .font-mono {
-    font-family: var(--font-mono, monospace);
-  }
-  .font-sans {
-    font-family: var(--font-sans, system-ui, sans-serif);
-  }
-  .font-normal {
-    font-weight: 400;
-  }
-  .font-medium {
-    font-weight: 500;
-  }
-  .font-semibold {
-    font-weight: 600;
-  }
-  .font-bold {
-    font-weight: 700;
-  }
-  .font-extrabold {
-    font-weight: 800;
-  }
-
-  .tracking-tight {
-    letter-spacing: -0.025em;
-  }
-  .tracking-wider {
-    letter-spacing: 0.05em;
-  }
-  .uppercase {
-    text-transform: uppercase;
-  }
-  .truncate {
+  /* ── Text Clamping & Truncation ────────────────────────────────────────── */
+  .dl-truncate {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
   }
-  .whitespace-pre {
-    white-space: pre;
-  }
-  .line-clamp-1 {
+
+  .dl-line-clamp-1 {
     display: -webkit-box;
     -webkit-line-clamp: 1;
     -webkit-box-orient: vertical;
     overflow: hidden;
   }
 
-  /* ── Backgrounds & Surfaces ──────────────────────────────────────────── */
-  .bg-background {
-    background-color: var(--background);
-  }
-  .bg-foreground {
-    background-color: var(--foreground);
-  }
-  .bg-card {
-    background-color: var(--card);
-  }
-  .bg-muted {
-    background-color: var(--muted);
-  }
-  .bg-primary {
-    background-color: var(--primary);
-  }
-  .bg-secondary {
-    background-color: var(--secondary);
-  }
-  .bg-accent {
-    background-color: var(--accent);
-  }
-  .bg-transparent {
-    background-color: transparent;
-  }
-
-  /* ── Borders & Radii ─────────────────────────────────────────────────── */
-  .border {
-    border: 1px solid var(--border);
-  }
-  .border-t {
-    border-top: 1px solid var(--border);
-  }
-  .border-b {
-    border-bottom: 1px solid var(--border);
-  }
-  .border-l {
-    border-left: 1px solid var(--border);
-  }
-  .border-r {
-    border-right: 1px solid var(--border);
-  }
-  .border-border {
-    border-color: var(--border);
-  }
-  .border-input {
-    border-color: var(--input);
-  }
-  .border-primary {
-    border-color: var(--primary);
-  }
-  .border-transparent {
-    border-color: transparent;
-  }
-
-  .rounded-none {
-    border-radius: 0;
-  }
-  .rounded-xs {
-    border-radius: var(--radius-xs, 0.125rem);
-  }
-  .rounded-sm {
-    border-radius: var(--radius-sm, 0.25rem);
-  }
-  .rounded-md {
-    border-radius: var(--radius-md, 0.375rem);
-  }
-  .rounded-lg {
-    border-radius: var(--radius-lg, 0.5rem);
-  }
-  .rounded-xl {
-    border-radius: var(--radius-xl, 0.75rem);
-  }
-  .rounded-2xl {
-    border-radius: var(--radius-2xl, 1rem);
-  }
-  .rounded-full {
-    border-radius: 9999px;
-  }
-
-  .shadow-xs {
-    box-shadow: var(--shadow-xs, 0 1px 2px 0 rgb(0 0 0 / 0.05));
-  }
-  .shadow-sm {
-    box-shadow: var(--shadow-sm, 0 1px 3px 0 rgb(0 0 0 / 0.1));
-  }
-  .shadow-md {
-    box-shadow: var(--shadow-md, 0 4px 6px -1px rgb(0 0 0 / 0.1));
-  }
-  .shadow-lg {
-    box-shadow: var(--shadow-lg, 0 10px 15px -3px rgb(0 0 0 / 0.1));
-  }
-
-  /* ── Sizing & Constraints ────────────────────────────────────────────── */
-  .w-full {
-    width: 100%;
-  }
-  .w-auto {
-    width: auto;
-  }
-  .h-full {
-    height: 100%;
-  }
-  .h-screen {
-    height: 100vh;
-  }
-  .min-w-0 {
-    min-width: 0;
-  }
-  .min-h-0 {
-    min-height: 0;
-  }
-
-  .max-w-xs {
-    max-width: 20rem;
-  }
-  .max-w-sm {
-    max-width: 24rem;
-  }
-  .max-w-md {
-    max-width: 28rem;
-  }
-  .max-w-lg {
-    max-width: 32rem;
-  }
-  .max-w-xl {
-    max-width: 36rem;
-  }
-  .max-w-2xl {
-    max-width: 42rem;
-  }
-  .max-w-3xl {
-    max-width: 48rem;
-  }
-  .max-w-4xl {
-    max-width: 56rem;
-  }
-
-  /* ── Icon Sizing & Aspect ────────────────────────────────────────────── */
-  .size-3 {
-    width: 0.75rem;
-    height: 0.75rem;
-  }
-  .size-3\.5,
-  .size-3-5 {
-    width: 0.875rem;
-    height: 0.875rem;
-  }
-  .size-4 {
-    width: 1rem;
-    height: 1rem;
-  }
-  .size-4\.5,
-  .size-4-5 {
-    width: 1.125rem;
-    height: 1.125rem;
-  }
-  .size-5 {
-    width: 1.25rem;
-    height: 1.25rem;
-  }
-  .size-6 {
-    width: 1.5rem;
-    height: 1.5rem;
-  }
-  .size-7 {
-    width: 1.75rem;
-    height: 1.75rem;
-  }
-  .size-8 {
-    width: 2rem;
-    height: 2rem;
-  }
-  .size-9 {
-    width: 2.25rem;
-    height: 2.25rem;
-  }
-  .size-10 {
-    width: 2.5rem;
-    height: 2.5rem;
-  }
-  .size-12 {
-    width: 3rem;
-    height: 3rem;
-  }
-  .size-14 {
-    width: 3.5rem;
-    height: 3.5rem;
-  }
-  .shrink-0 {
-    flex-shrink: 0;
-  }
-  .flex-1 {
-    flex: 1 1 0%;
-  }
-
-  /* ── Layout & Spacing Helpers ────────────────────────────────────────── */
-  .flex {
-    display: flex;
-  }
-  .inline-flex {
-    display: inline-flex;
-  }
-  .grid {
-    display: grid;
-  }
-  .block {
-    display: block;
-  }
-  .hidden {
-    display: none;
-  }
-
-  .flex-col {
-    flex-direction: column;
-  }
-  .flex-row {
-    flex-direction: row;
-  }
-  .flex-wrap {
-    flex-wrap: wrap;
-  }
-  .items-center {
-    align-items: center;
-  }
-  .items-start {
-    align-items: flex-start;
-  }
-  .items-end {
-    align-items: flex-end;
-  }
-  .justify-center {
-    justify-content: center;
-  }
-  .justify-between {
-    justify-content: space-between;
-  }
-  .justify-start {
-    justify-content: flex-start;
-  }
-  .justify-end {
-    justify-content: flex-end;
-  }
-
-  .gap-1 {
-    gap: var(--space-1, 0.25rem);
-  }
-  .gap-1\.5 {
-    gap: 0.375rem;
-  }
-  .gap-2 {
-    gap: var(--space-2, 0.5rem);
-  }
-  .gap-3 {
-    gap: var(--space-3, 0.75rem);
-  }
-  .gap-4 {
-    gap: var(--space-4, 1rem);
-  }
-  .gap-6 {
-    gap: var(--space-6, 1.5rem);
-  }
-  .gap-8 {
-    gap: var(--space-8, 2rem);
-  }
-
-  .p-1 {
-    padding: var(--space-1, 0.25rem);
-  }
-  .p-2 {
-    padding: var(--space-2, 0.5rem);
-  }
-  .p-3 {
-    padding: var(--space-3, 0.75rem);
-  }
-  .p-4 {
-    padding: var(--space-4, 1rem);
-  }
-  .p-6 {
-    padding: var(--space-6, 1.5rem);
-  }
-  .p-8 {
-    padding: var(--space-8, 2rem);
-  }
-  .px-2 {
-    padding-inline: var(--space-2, 0.5rem);
-  }
-  .px-3 {
-    padding-inline: var(--space-3, 0.75rem);
-  }
-  .px-4 {
-    padding-inline: var(--space-4, 1rem);
-  }
-  .px-6 {
-    padding-inline: var(--space-6, 1.5rem);
-  }
-  .py-1 {
-    padding-block: var(--space-1, 0.25rem);
-  }
-  .py-2 {
-    padding-block: var(--space-2, 0.5rem);
-  }
-  .py-3 {
-    padding-block: var(--space-3, 0.75rem);
-  }
-
-  .cursor-pointer {
-    cursor: pointer;
-  }
-  .select-none {
-    user-select: none;
-  }
-  .overflow-hidden {
+  .dl-line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
     overflow: hidden;
   }
-  .overflow-auto {
+
+  .dl-line-clamp-3 {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  /* ── Typography & Alignment ────────────────────────────────────────────── */
+  .dl-text-left {
+    text-align: left;
+  }
+
+  .dl-text-center {
+    text-align: center;
+  }
+
+  .dl-text-right {
+    text-align: right;
+  }
+
+  .dl-whitespace-nowrap {
+    white-space: nowrap;
+  }
+
+  /* ── Standard Icon Dimensions ──────────────────────────────────────────── */
+  .dl-icon-xs {
+    width: var(--icon-xs, 0.875rem);
+    height: var(--icon-xs, 0.875rem);
+    flex-shrink: 0;
+  }
+
+  .dl-icon-sm {
+    width: var(--icon-sm, 1rem);
+    height: var(--icon-sm, 1rem);
+    flex-shrink: 0;
+  }
+
+  .dl-icon-md {
+    width: var(--icon-md, 1.25rem);
+    height: var(--icon-md, 1.25rem);
+    flex-shrink: 0;
+  }
+
+  .dl-icon-lg {
+    width: var(--icon-lg, 1.5rem);
+    height: var(--icon-lg, 1.5rem);
+    flex-shrink: 0;
+  }
+
+  .dl-icon-xl {
+    width: var(--icon-xl, 2rem);
+    height: var(--icon-xl, 2rem);
+    flex-shrink: 0;
+  }
+
+  /* ── Containment & Overflow ────────────────────────────────────────────── */
+  .dl-overflow-hidden {
+    overflow: hidden;
+  }
+
+  .dl-overflow-auto {
     overflow: auto;
   }
-  .overflow-x-auto {
+
+  .dl-overflow-x-auto {
     overflow-x: auto;
   }
-  .overflow-y-auto {
+
+  .dl-overflow-y-auto {
     overflow-y: auto;
+  }
+
+  /* ── Interaction ───────────────────────────────────────────────────────── */
+  .dl-cursor-pointer {
+    cursor: pointer;
+  }
+
+  .dl-cursor-not-allowed {
+    cursor: not-allowed;
+  }
+
+  .dl-select-none {
+    user-select: none;
   }
 }

@@ -40,6 +40,7 @@
     },
     "./preset.css": "./styles/preset.css",
     "./styles.css": "./styles/styles.css",
+    "./utilities.css": "./styles/utilities.css",
     "./root.css": "./styles/root.css",
     "./themes/finai.css": "./styles/themes/finai.css",
     "./themes/orchestrai.css": "./styles/themes/orchestrai.css",

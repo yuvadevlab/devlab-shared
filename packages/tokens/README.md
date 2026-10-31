@@ -38,27 +38,17 @@ yarn add @yuva-devlab/tokens
 
 ### 1. Platform CSS Integration
 
-Import the preset and your chosen brand theme in your root CSS file (e.g. `globals.css` or `app.css`):
+Import the design tokens and your chosen brand theme in your root CSS file (e.g. `globals.css` or `app.css`):
 
 ```css
 /* W3C Cascade Layers */
 @layer dl-reset, dl-tokens, dl-components, dl-layout, dl-utilities, dl-app;
 
-@import "@yuva-devlab/tokens/preset.css";
+@import "@yuva-devlab/tokens/styles.css";
 @import "@yuva-devlab/tokens/themes/orchestrai.css";
 ```
 
-### 2. Optional Tailwind CSS 4 Integration
-
-If your application still utilizes Tailwind CSS 4 during migration, you can layer it together:
-
-```css
-@import "tailwindcss";
-@import "@yuva-devlab/tokens/preset.css";
-@import "@yuva-devlab/tokens/themes/orchestrai.css";
-```
-
-### 3. Available Brand Themes
+### 2. Available Brand Themes
 
 Import any brand theme stylesheet from `@yuva-devlab/tokens/themes/*`:
 

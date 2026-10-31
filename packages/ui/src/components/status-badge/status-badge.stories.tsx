@@ -5,7 +5,6 @@ import { StatusBadge } from "./status-badge";
 const meta: Meta<typeof StatusBadge> = {
   title: "Components/StatusBadge",
   component: StatusBadge,
-  tags: ["autodocs"],
   argTypes: {
     status: {
       control: "text",
@@ -24,14 +23,7 @@ export const Default: Story = {};
 
 export const AllStatuses: Story = {
   render: () => (
-    <div
-      style={{
-        display: "flex",
-        gap: "10px",
-        alignItems: "center",
-        flexWrap: "wrap",
-      }}
-    >
+    <div className="dl-story-row">
       <StatusBadge status="Active" />
       <StatusBadge status="Completed" />
       <StatusBadge status="In Progress" />
