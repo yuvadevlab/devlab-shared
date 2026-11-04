@@ -1,0 +1,26 @@
+import { Meta, Title, Description, Canvas, Controls } from "@storybook/blocks";
+import * as TerminalStories from "./terminal.stories";
+
+<Meta of={TerminalStories} />
+
+<Title />
+
+# Terminal
+
+Shell command execution container mimicking native terminal output with prompt indicator, window dots, and copy action.
+
+## Default
+
+<Canvas of={TerminalStories.Default} />
+
+## Streaming Output
+
+<Canvas of={TerminalStories.StreamingLogs} />
+
+## Custom Composition
+
+<Canvas of={TerminalStories.CustomComposition} />
+
+## Component Properties
+
+<Controls />

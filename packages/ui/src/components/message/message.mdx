@@ -1,0 +1,14 @@
+import { Meta, Title, Description, Canvas } from "@storybook/blocks";
+import * as MessageStories from "./message.stories";
+
+<Meta of={MessageStories} />
+
+<Title />
+
+# Message
+
+Conversational turn wrapper for user, assistant, and system messages with avatar slots, message bubble styling, and action toolbars (copy, retry, feedback).
+
+## Interactive Chat Thread
+
+<Canvas of={MessageStories.Thread} />

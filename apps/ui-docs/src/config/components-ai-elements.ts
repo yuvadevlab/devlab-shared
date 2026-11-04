@@ -61,4 +61,39 @@ export const AI_ELEMENTS_COMPONENTS: ComponentMeta[] = [
       "Syntax-highlighted code container with line numbers and one-click copy.",
     keywords: ["code", "snippet", "syntax", "pre", "terminal", "copy"],
   },
+  {
+    name: "Prompt Input",
+    slug: "prompt-input",
+    href: "/components/prompt-input",
+    category: "AI Elements",
+    description:
+      "Conversational textarea with multi-file attachments, model badges, and stop controls.",
+    keywords: ["prompt", "input", "chat", "attachments", "llm", "textarea"],
+  },
+  {
+    name: "Message",
+    slug: "message",
+    href: "/components/message",
+    category: "AI Elements",
+    description:
+      "Conversation turn component for user, assistant, and system messages with avatar and actions.",
+    keywords: ["message", "chat", "bubble", "turn", "feedback", "rating"],
+  },
+  {
+    name: "Suggestion",
+    slug: "suggestion",
+    href: "/components/suggestion",
+    category: "AI Elements",
+    description: "Clickable starter prompt pills and follow-up inquiry chips.",
+    keywords: ["suggestion", "pills", "quick prompts", "chips", "follow-up"],
+  },
+  {
+    name: "Terminal",
+    slug: "terminal",
+    href: "/components/terminal",
+    category: "AI Elements",
+    description:
+      "CLI container for displaying commands, streamed logs, and process outputs.",
+    keywords: ["terminal", "console", "cli", "shell", "bash", "logs"],
+  },
 ];

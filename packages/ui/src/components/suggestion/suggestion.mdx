@@ -1,0 +1,14 @@
+import { Meta, Title, Description, Canvas } from "@storybook/blocks";
+import * as SuggestionStories from "./suggestion.stories";
+
+<Meta of={SuggestionStories} />
+
+<Title />
+
+# Suggestion
+
+Clickable starter prompt and follow-up query pills designed for empty state conversations or smart follow-up suggestions.
+
+## Suggestion Pills List
+
+<Canvas of={SuggestionStories.Default} />
