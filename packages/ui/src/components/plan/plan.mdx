@@ -1,0 +1,22 @@
+import { Meta, Title, Description, Canvas, Controls } from "@storybook/blocks";
+import * as PlanStories from "./plan.stories";
+
+<Meta of={PlanStories} />
+
+<Title />
+
+# Plan & Task
+
+Hierarchical execution plan and task checklist component for visualizing multi-step AI agent workflows and progress.
+
+## In-Progress Plan
+
+<Canvas of={PlanStories.Default} />
+
+## Completed Plan
+
+<Canvas of={PlanStories.CompletedPlan} />
+
+## Component Properties
+
+<Controls />

@@ -1,0 +1,26 @@
+import { Meta, Title, Description, Canvas, Controls } from "@storybook/blocks";
+import * as ModelSelectorStories from "./model-selector.stories";
+
+<Meta of={ModelSelectorStories} />
+
+<Title />
+
+# Model Selector
+
+Dropdown picker for choosing LLM backends and agent models, complete with provider metadata, capability tags, and filtering.
+
+## Default
+
+<Canvas of={ModelSelectorStories.Default} />
+
+## Small Trigger (Prompt Input Embed)
+
+<Canvas of={ModelSelectorStories.SmallTrigger} />
+
+## Custom Model Catalog
+
+<Canvas of={ModelSelectorStories.CustomModels} />
+
+## Component Properties
+
+<Controls />

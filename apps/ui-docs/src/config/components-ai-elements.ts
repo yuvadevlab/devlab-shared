@@ -96,4 +96,47 @@ export const AI_ELEMENTS_COMPONENTS: ComponentMeta[] = [
       "CLI container for displaying commands, streamed logs, and process outputs.",
     keywords: ["terminal", "console", "cli", "shell", "bash", "logs"],
   },
+  {
+    name: "Model Selector",
+    slug: "model-selector",
+    href: "/components/model-selector",
+    category: "AI Elements",
+    description:
+      "Dropdown picker for selecting LLM models with provider metadata and capability tags.",
+    keywords: ["model", "selector", "llm", "claude", "gpt", "gemini", "ai"],
+  },
+  {
+    name: "Plan",
+    slug: "plan",
+    href: "/components/plan",
+    category: "AI Elements",
+    description:
+      "Hierarchical agent execution plan checklist with task progress states.",
+    keywords: ["plan", "task", "todo", "steps", "agent", "workflow"],
+  },
+  {
+    name: "Sources",
+    slug: "sources",
+    href: "/components/sources",
+    category: "AI Elements",
+    description:
+      "Web citation links, domain cards, and interactive inline citation references.",
+    keywords: ["sources", "citations", "references", "grounding", "links"],
+  },
+  {
+    name: "File Tree",
+    slug: "file-tree",
+    href: "/components/file-tree",
+    category: "AI Elements",
+    description:
+      "Interactive file and directory tree view for codebase exploration.",
+    keywords: [
+      "file tree",
+      "tree",
+      "folder",
+      "directory",
+      "files",
+      "workspace",
+    ],
+  },
 ];
