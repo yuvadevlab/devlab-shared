@@ -1,0 +1,108 @@
+.dl-test-results {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  border-radius: var(--radius-md, 0.375rem);
+  border: 1px solid var(--border);
+  background-color: var(--card, var(--background));
+  overflow: hidden;
+  font-size: 0.8125rem;
+}
+
+.dl-test-results__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.625rem 0.875rem;
+  background-color: var(--muted);
+  border-bottom: 1px solid var(--border);
+}
+
+.dl-test-results__summary {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.dl-test-results__badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-weight: 600;
+  font-size: 0.75rem;
+}
+
+.dl-test-results__badge--passed {
+  color: var(--success);
+}
+
+.dl-test-results__badge--failed {
+  color: var(--destructive);
+}
+
+.dl-test-results__badge--skipped {
+  color: var(--muted-foreground);
+}
+
+.dl-test-results__list {
+  display: flex;
+  flex-direction: column;
+  divide-y: 1px solid var(--border);
+  max-height: 20rem;
+  overflow-y: auto;
+}
+
+.dl-test-case {
+  display: flex;
+  flex-direction: column;
+  padding: 0.5rem 0.875rem;
+  transition: background-color 0.12s ease;
+}
+
+.dl-test-case:hover {
+  background-color: var(--accent);
+}
+
+.dl-test-case__row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.dl-test-case__info {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-width: 0;
+}
+
+.dl-test-case__name {
+  font-weight: 500;
+  color: var(--foreground);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.dl-test-case__duration {
+  font-family: var(--font-mono, ui-monospace, SFMono-Regular, monospace);
+  font-size: 0.6875rem;
+  color: var(--muted-foreground);
+  shrink: 0;
+}
+
+.dl-test-case__error {
+  margin-top: 0.375rem;
+  padding: 0.375rem 0.5rem;
+  background-color: color-mix(
+    in oklch,
+    var(--destructive) 10%,
+    var(--background)
+  );
+  border-radius: var(--radius-sm, 0.25rem);
+  font-family: var(--font-mono, ui-monospace, SFMono-Regular, monospace);
+  font-size: 0.75rem;
+  color: var(--destructive);
+  white-space: pre-wrap;
+}

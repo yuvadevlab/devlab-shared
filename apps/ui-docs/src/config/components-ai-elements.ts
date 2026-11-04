@@ -139,4 +139,49 @@ export const AI_ELEMENTS_COMPONENTS: ComponentMeta[] = [
       "workspace",
     ],
   },
+  {
+    name: "Stack Trace",
+    slug: "stack-trace",
+    href: "/components/stack-trace",
+    category: "AI Elements",
+    description:
+      "Formatted error exception viewer with clickable frames and code excerpts.",
+    keywords: ["stack trace", "error", "exception", "frames", "traceback"],
+  },
+  {
+    name: "Subagent",
+    slug: "subagent",
+    href: "/components/subagent",
+    category: "AI Elements",
+    description:
+      "Subagent lifecycle activity card showing role, status, and execution output.",
+    keywords: ["subagent", "agent", "delegation", "worker", "multi-agent"],
+  },
+  {
+    name: "Context",
+    slug: "context",
+    href: "/components/context",
+    category: "AI Elements",
+    description:
+      "Context window token gauge visualizing consumption metrics and breakdowns.",
+    keywords: ["context", "tokens", "usage", "gauge", "window", "capacity"],
+  },
+  {
+    name: "Queue",
+    slug: "queue",
+    href: "/components/queue",
+    category: "AI Elements",
+    description:
+      "Agent task execution queue container tracking scheduled and running jobs.",
+    keywords: ["queue", "tasks", "jobs", "priority", "execution"],
+  },
+  {
+    name: "Test Results",
+    slug: "test-results",
+    href: "/components/test-results",
+    category: "AI Elements",
+    description:
+      "Test execution dashboard displaying passed, failed, and skipped test outcomes.",
+    keywords: ["test results", "vitest", "jest", "passed", "failed", "tests"],
+  },
 ];
