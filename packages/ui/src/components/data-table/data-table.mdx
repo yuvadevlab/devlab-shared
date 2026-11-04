@@ -1,0 +1,22 @@
+import { Meta, Title, Description, Canvas } from "@storybook/blocks";
+import * as DataTableStories from "./data-table.stories";
+
+<Meta of={DataTableStories} />
+
+<Title />
+
+# Data Table
+
+Enterprise-grade data table uniting `@yuva-devlab/ui` Table and Pagination primitives with column sorting, customizable cell renderers, and empty state fallbacks.
+
+## Default with Pagination
+
+<Canvas of={DataTableStories.Default} />
+
+## Static (No Pagination)
+
+<Canvas of={DataTableStories.WithoutPagination} />
+
+## Empty State Fallback
+
+<Canvas of={DataTableStories.Empty} />

@@ -81,6 +81,17 @@ ${lightColors}
     --sidebar-border: oklch(0.92 0.005 260);
     --sidebar-ring: oklch(0.35 0.04 260);
 
+    /* Toast System Feedback */
+    --toast-bg: var(--card);
+    --toast-fg: var(--cardForeground, var(--foreground));
+    --toast-border: var(--border);
+    --toast-radius: var(--radius-md, 0.375rem);
+    --toast-shadow: 0 8px 32px color-mix(in oklch, var(--foreground) 10%, transparent);
+    --toast-success: var(--success);
+    --toast-destructive: var(--destructive);
+    --toast-warning: var(--warning);
+    --toast-info: var(--info);
+
     /* Charts */
 ${chartLines}
 

@@ -57,6 +57,41 @@ export const DATA_ENTRY_UTILITY_COMPONENTS: ComponentMeta[] = [
     keywords: ["otp", "pin", "code", "2fa", "verification", "digit"],
   },
   {
+    name: "Input Number",
+    slug: "input-number",
+    href: "/components/input-number",
+    category: "Data Entry",
+    description:
+      "Precision numeric stepper control with limits, steps, and prefix/suffix units.",
+    keywords: ["number", "stepper", "quantity", "counter", "decimal", "step"],
+  },
+  {
+    name: "Password Input",
+    slug: "password-input",
+    href: "/components/password-input",
+    category: "Data Entry",
+    description:
+      "Enterprise password field with accessible show/hide eye toggle and design system tokens.",
+    keywords: [
+      "password",
+      "secret",
+      "reveal",
+      "eye",
+      "toggle",
+      "token",
+      "credential",
+    ],
+  },
+  {
+    name: "Search Input",
+    slug: "search-input",
+    href: "/components/search-input",
+    category: "Data Entry",
+    description:
+      "Integrated search field featuring persistent search icon, clear button, and loading spinner.",
+    keywords: ["search", "filter", "find", "query", "clear", "loader"],
+  },
+  {
     name: "Label",
     slug: "label",
     href: "/components/label",
@@ -73,6 +108,22 @@ export const DATA_ENTRY_UTILITY_COMPONENTS: ComponentMeta[] = [
     description:
       "Set of checkable buttons where only one item can be selected at a time.",
     keywords: ["radio", "option", "choice", "single-select"],
+  },
+  {
+    name: "Multi Select",
+    slug: "multi-select",
+    href: "/components/multi-select",
+    category: "Data Entry",
+    description:
+      "Select dropdown supporting multi-option selection, chip badges, and search filtering.",
+    keywords: [
+      "multi-select",
+      "tags",
+      "chips",
+      "combobox",
+      "multiple",
+      "dropdown",
+    ],
   },
   {
     name: "Searchable Select",
