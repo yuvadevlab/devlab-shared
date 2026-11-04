@@ -1,0 +1,18 @@
+import { Meta, Title, Description, Canvas } from "@storybook/blocks";
+import * as TraceStories from "./trace.stories";
+
+<Meta of={TraceStories} />
+
+<Title />
+
+# Trace
+
+Vertical step execution line primitive with status icons, animated running states, and collapsible step groups. Powers Chain of Thought and Tool Call visualizers.
+
+## Default
+
+<Canvas of={TraceStories.Default} />
+
+## Collapsible Trace
+
+<Canvas of={TraceStories.CollapsibleTrace} />

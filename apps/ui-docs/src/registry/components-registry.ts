@@ -20,11 +20,15 @@ const REGISTRY: Record<
   calendar: () => import("@/registry/components/calendar"),
   card: () => import("@/registry/components/card"),
   carousel: () => import("@/registry/components/carousel"),
+  "chain-of-thought": () => import("@/registry/components/chain-of-thought"),
+  checkpoint: () => import("@/registry/components/checkpoint"),
   chart: () => import("@/registry/components/chart"),
   checkbox: () => import("@/registry/components/checkbox"),
+  "code-block": () => import("@/registry/components/code-block"),
   collapsible: () => import("@/registry/components/collapsible"),
   command: () => import("@/registry/components/command"),
   "confirm-dialog": () => import("@/registry/components/confirm-dialog"),
+  confirmation: () => import("@/registry/components/confirmation"),
   container: () => import("@/registry/components/container"),
   "context-menu": () => import("@/registry/components/context-menu"),
   "copy-button": () => import("@/registry/components/copy-button"),
@@ -42,6 +46,7 @@ const REGISTRY: Record<
   input: () => import("@/registry/components/input"),
   "input-number": () => import("@/registry/components/input-number"),
   "input-otp": () => import("@/registry/components/input-otp"),
+  kbd: () => import("@/registry/components/kbd"),
   label: () => import("@/registry/components/label"),
   "loading-state": () => import("@/registry/components/loading-state"),
   menubar: () => import("@/registry/components/menubar"),
@@ -78,6 +83,8 @@ const REGISTRY: Record<
   toggle: () => import("@/registry/components/toggle"),
   "toggle-group": () => import("@/registry/components/toggle-group"),
   tooltip: () => import("@/registry/components/tooltip"),
+  "tool-call": () => import("@/registry/components/tool-call"),
+  trace: () => import("@/registry/components/trace"),
 };
 
 /**

@@ -1,0 +1,26 @@
+import { Meta, Title, Description, Canvas, Controls } from "@storybook/blocks";
+import * as CodeBlockStories from "./code-block.stories";
+
+<Meta of={CodeBlockStories} />
+
+<Title />
+
+# Code Block
+
+Syntax code snippet presentation container with filename badge, language label, line numbers, and one-click copy button.
+
+## Default with Copy & Line Numbers
+
+<Canvas of={CodeBlockStories.Default} />
+
+## Minimal Code Block (Without Header)
+
+<Canvas of={CodeBlockStories.WithoutHeader} />
+
+## Multi-Line SQL Schema
+
+<Canvas of={CodeBlockStories.LineNumbers} />
+
+## Component Properties
+
+<Controls />

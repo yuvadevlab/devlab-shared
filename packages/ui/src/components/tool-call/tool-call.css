@@ -1,0 +1,111 @@
+.dl-tool-call {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  border-radius: var(--radius-md, 0.375rem);
+  border: 1px solid var(--border);
+  background-color: var(--card, var(--background));
+  font-size: 0.8125rem;
+  overflow: hidden;
+}
+
+.dl-tool-call__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 0.5rem 0.75rem;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  font: inherit;
+  color: var(--foreground);
+}
+
+.dl-tool-call__title-wrap {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.dl-tool-call__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.25rem;
+  height: 1.25rem;
+  color: var(--muted-foreground);
+}
+
+.dl-tool-call__name {
+  font-family: var(--font-mono, ui-monospace, SFMono-Regular, monospace);
+  font-weight: 600;
+  font-size: 0.75rem;
+}
+
+.dl-tool-call__actions {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.dl-tool-call__status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: 0.6875rem;
+  font-weight: 500;
+  padding: 0.125rem 0.375rem;
+  border-radius: var(--radius-sm, 0.25rem);
+}
+
+.dl-tool-call__status-badge--running {
+  background-color: color-mix(in oklch, var(--primary) 12%, transparent);
+  color: var(--primary);
+}
+
+.dl-tool-call__status-badge--success {
+  background-color: color-mix(in oklch, var(--success) 12%, transparent);
+  color: var(--success);
+}
+
+.dl-tool-call__status-badge--error {
+  background-color: color-mix(in oklch, var(--destructive) 12%, transparent);
+  color: var(--destructive);
+}
+
+.dl-tool-call__chevron {
+  width: 0.875rem;
+  height: 0.875rem;
+  color: var(--muted-foreground);
+  transition: transform 0.2s ease;
+}
+
+.dl-tool-call[data-state="open"] .dl-tool-call__chevron {
+  transform: rotate(180deg);
+}
+
+.dl-tool-call__body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 0.5rem 0.75rem 0.75rem;
+  border-top: 1px solid var(--border);
+  background-color: var(--secondary, var(--background));
+}
+
+.dl-tool-call__args {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.375rem;
+  font-family: var(--font-mono, ui-monospace, SFMono-Regular, monospace);
+  font-size: 0.6875rem;
+}
+
+.dl-tool-call__arg-pill {
+  padding: 0.125rem 0.375rem;
+  border-radius: var(--radius-sm, 0.25rem);
+  background-color: var(--background);
+  border: 1px solid var(--border);
+}

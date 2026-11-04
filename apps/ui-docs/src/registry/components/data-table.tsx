@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { DataTable, Badge } from "@yuva-devlab/ui";
+import { DataTable, Badge, type DataTableColumn } from "@yuva-devlab/ui";
 import {
   ComponentView,
   type ComponentVariant,
@@ -10,6 +10,7 @@ import {
 } from "@/components/component-view";
 
 interface UserRecord {
+  [key: string]: unknown;
   id: string;
   name: string;
   email: string;
@@ -69,7 +70,7 @@ const sampleUsers: UserRecord[] = [
   },
 ];
 
-const columns = [
+const columns: DataTableColumn<UserRecord>[] = [
   { key: "name", header: "Name", sortable: true },
   { key: "email", header: "Email", sortable: true },
   {

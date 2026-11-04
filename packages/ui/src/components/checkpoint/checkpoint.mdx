@@ -1,0 +1,18 @@
+import { Meta, Title, Description, Canvas } from "@storybook/blocks";
+import * as CheckpointStories from "./checkpoint.stories";
+
+<Meta of={CheckpointStories} />
+
+<Title />
+
+# Checkpoint
+
+Divider marker indicating a significant milestone in conversational history with optional one-click restore capabilities.
+
+## Default with Restore Action
+
+<Canvas of={CheckpointStories.Default} />
+
+## Informational Checkpoint
+
+<Canvas of={CheckpointStories.WithoutRestore} />

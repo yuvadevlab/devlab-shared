@@ -926,6 +926,80 @@
     transform: translateX(-50%) rotate(90deg);
   }
 
+  /* ── chain-of-thought/chain-of-thought.css ── */
+  .dl-cot {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    border-radius: var(--radius-md, 0.375rem);
+    border: 1px solid var(--border);
+    background-color: var(--secondary, var(--card));
+    font-size: 0.8125rem;
+    overflow: hidden;
+    transition: border-color 0.15s ease;
+  }
+
+  .dl-cot:hover {
+    border-color: color-mix(in oklch, var(--primary) 30%, var(--border));
+  }
+
+  .dl-cot__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 0.5rem 0.75rem;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    text-align: left;
+    font: inherit;
+    color: var(--foreground);
+  }
+
+  .dl-cot__summary {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: 500;
+  }
+
+  .dl-cot__chevron {
+    width: 0.875rem;
+    height: 0.875rem;
+    color: var(--muted-foreground);
+    transition: transform 0.2s ease;
+  }
+
+  .dl-cot[data-state="open"] .dl-cot__chevron {
+    transform: rotate(180deg);
+  }
+
+  .dl-cot__content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.375rem;
+    padding: 0.5rem 0.75rem 0.75rem;
+    border-top: 1px solid var(--border);
+    background-color: var(--background);
+  }
+
+  .dl-cot__step {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.75rem;
+    color: var(--muted-foreground);
+  }
+
+  .dl-cot__step--running {
+    color: var(--foreground);
+  }
+
+  .dl-cot__step--error {
+    color: var(--destructive);
+  }
+
   /* ── chart/chart.css ── */
   .dl-chart-container {
     display: flex;
@@ -1092,6 +1166,148 @@
     height: 0.75rem;
   }
 
+  /* ── checkpoint/checkpoint.css ── */
+  .dl-checkpoint {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    margin: 1.25rem 0;
+  }
+
+  .dl-checkpoint::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 50%;
+    height: 1px;
+    background-color: var(--border);
+    z-index: 1;
+  }
+
+  .dl-checkpoint__content {
+    position: relative;
+    z-index: 2;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.25rem 0.75rem;
+    border-radius: 9999px;
+    background-color: var(--background);
+    border: 1px solid var(--border);
+    font-size: 0.75rem;
+    color: var(--muted-foreground);
+    box-shadow: 0 1px 2px rgb(0 0 0 / 0.05);
+  }
+
+  .dl-checkpoint__restore-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    background: transparent;
+    border: none;
+    font: inherit;
+    font-weight: 500;
+    font-size: 0.6875rem;
+    color: var(--primary);
+    cursor: pointer;
+    padding: 0.125rem 0.375rem;
+    border-radius: var(--radius-sm, 0.25rem);
+    transition: all 0.15s ease;
+  }
+
+  .dl-checkpoint__restore-btn:hover {
+    background-color: color-mix(in oklch, var(--primary) 10%, transparent);
+  }
+
+  /* ── code-block/code-block.css ── */
+  .dl-code-block {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    border-radius: var(--radius-md, 0.375rem);
+    border: 1px solid var(--border);
+    background-color: var(--secondary, #0d1117);
+    color: var(--foreground);
+    font-family: var(--font-mono, ui-monospace, SFMono-Regular, monospace);
+    font-size: 0.8125rem;
+    overflow: hidden;
+  }
+
+  .dl-code-block__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.375rem 0.75rem;
+    border-bottom: 1px solid var(--border);
+    background-color: var(--background);
+    font-size: 0.75rem;
+    color: var(--muted-foreground);
+  }
+
+  .dl-code-block__filename {
+    font-weight: 500;
+    color: var(--foreground);
+  }
+
+  .dl-code-block__language {
+    text-transform: uppercase;
+    font-size: 0.6875rem;
+    letter-spacing: 0.05em;
+    opacity: 0.8;
+  }
+
+  .dl-code-block__copy-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.625rem;
+    height: 1.625rem;
+    border-radius: var(--radius-sm, 0.25rem);
+    border: 1px solid transparent;
+    background: transparent;
+    color: var(--muted-foreground);
+    cursor: pointer;
+    transition: all 0.15s ease;
+  }
+
+  .dl-code-block__copy-btn:hover {
+    background-color: var(--accent);
+    color: var(--foreground);
+    border-color: var(--border);
+  }
+
+  .dl-code-block__content {
+    margin: 0;
+    padding: 0.75rem 1rem;
+    overflow-x: auto;
+    line-height: 1.5;
+    tab-size: 2;
+  }
+
+  .dl-code-block__content--wrap {
+    white-space: pre-wrap;
+    word-break: break-all;
+  }
+
+  .dl-code-block__line {
+    display: flex;
+    min-height: 1.25rem;
+  }
+
+  .dl-code-block__line-num {
+    display: inline-block;
+    width: 2rem;
+    padding-right: 0.75rem;
+    text-align: right;
+    color: var(--muted-foreground);
+    opacity: 0.5;
+    user-select: none;
+  }
+
   /* ── command/command.css ── */
   .dl-command {
     display: flex;
@@ -1217,6 +1433,83 @@
     font-size: 0.75rem;
     letter-spacing: 0.1em;
     color: var(--muted-foreground);
+  }
+
+  /* ── confirmation/confirmation.css ── */
+  .dl-confirmation {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    width: 100%;
+    border-radius: var(--radius-md, 0.375rem);
+    padding: 0.75rem 1rem;
+    border: 1px solid var(--border);
+    background-color: var(--card, var(--background));
+    color: var(--card-foreground, var(--foreground));
+    font-size: 0.875rem;
+  }
+
+  .dl-confirmation--sm {
+    padding: 0.5rem 0.75rem;
+    font-size: 0.8125rem;
+  }
+
+  .dl-confirmation--destructive {
+    border-color: color-mix(in oklch, var(--destructive) 40%, transparent);
+    background-color: color-mix(in oklch, var(--destructive) 5%, transparent);
+  }
+
+  .dl-confirmation__body {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex: 1;
+    min-width: 0;
+  }
+
+  .dl-confirmation__media {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2rem;
+    height: 2rem;
+    border-radius: var(--radius-sm, 0.25rem);
+    background-color: var(--secondary);
+    color: var(--secondary-foreground);
+    flex-shrink: 0;
+  }
+
+  .dl-confirmation--destructive .dl-confirmation__media {
+    background-color: color-mix(in oklch, var(--destructive) 15%, transparent);
+    color: var(--destructive);
+  }
+
+  .dl-confirmation__content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.125rem;
+    min-width: 0;
+  }
+
+  .dl-confirmation__title {
+    font-size: 0.875rem;
+    font-weight: 500;
+    line-height: 1.25;
+    color: var(--foreground);
+  }
+
+  .dl-confirmation__description {
+    font-size: 0.75rem;
+    color: var(--muted-foreground);
+    line-height: 1.35;
+  }
+
+  .dl-confirmation__actions {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-shrink: 0;
   }
 
   /* ── context-menu/context-menu.css ── */
@@ -2074,6 +2367,86 @@
     width: 1px;
     background-color: var(--foreground);
     animation: dl-pulse 1s infinite;
+  }
+
+  /* ── kbd/kbd.css ── */
+  .dl-kbd {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(
+      --font-mono,
+      ui-monospace,
+      SFMono-Regular,
+      Menlo,
+      Monaco,
+      Consolas,
+      monospace
+    );
+    font-weight: 500;
+    user-select: none;
+    pointer-events: none;
+    white-space: nowrap;
+    vertical-align: baseline;
+    box-sizing: border-box;
+  }
+
+  /* ── Sizes ── */
+  .dl-kbd--sm {
+    min-width: 1.125rem;
+    height: 1.125rem;
+    padding: 0 0.25rem;
+    font-size: 0.625rem;
+    border-radius: var(--radius-sm, 0.25rem);
+  }
+
+  .dl-kbd--md {
+    min-width: 1.375rem;
+    height: 1.375rem;
+    padding: 0 0.375rem;
+    font-size: 0.6875rem;
+    border-radius: var(--radius-sm, 0.25rem);
+  }
+
+  .dl-kbd--lg {
+    min-width: 1.625rem;
+    height: 1.625rem;
+    padding: 0 0.5rem;
+    font-size: 0.75rem;
+    border-radius: var(--radius-md, 0.375rem);
+  }
+
+  /* ── Variants ── */
+  .dl-kbd--default {
+    background-color: var(--muted);
+    color: var(--muted-foreground);
+    border: 1px solid var(--border);
+    box-shadow: 0 1px 0 0 var(--border);
+  }
+
+  .dl-kbd--outline {
+    background-color: transparent;
+    color: var(--foreground);
+    border: 1px solid var(--border);
+  }
+
+  .dl-kbd--ghost {
+    background-color: transparent;
+    color: var(--muted-foreground);
+    border: none;
+  }
+
+  /* ── KbdGroup ── */
+  .dl-kbd-group {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+  }
+
+  .dl-kbd-separator {
+    color: var(--muted-foreground);
+    font-size: 0.6875rem;
+    user-select: none;
   }
 
   /* ── label/label.css ── */
@@ -4314,6 +4687,119 @@
     gap: 0.25rem;
   }
 
+  /* ── tool-call/tool-call.css ── */
+  .dl-tool-call {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    border-radius: var(--radius-md, 0.375rem);
+    border: 1px solid var(--border);
+    background-color: var(--card, var(--background));
+    font-size: 0.8125rem;
+    overflow: hidden;
+  }
+
+  .dl-tool-call__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 0.5rem 0.75rem;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    text-align: left;
+    font: inherit;
+    color: var(--foreground);
+  }
+
+  .dl-tool-call__title-wrap {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .dl-tool-call__icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.25rem;
+    height: 1.25rem;
+    color: var(--muted-foreground);
+  }
+
+  .dl-tool-call__name {
+    font-family: var(--font-mono, ui-monospace, SFMono-Regular, monospace);
+    font-weight: 600;
+    font-size: 0.75rem;
+  }
+
+  .dl-tool-call__actions {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .dl-tool-call__status-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    font-size: 0.6875rem;
+    font-weight: 500;
+    padding: 0.125rem 0.375rem;
+    border-radius: var(--radius-sm, 0.25rem);
+  }
+
+  .dl-tool-call__status-badge--running {
+    background-color: color-mix(in oklch, var(--primary) 12%, transparent);
+    color: var(--primary);
+  }
+
+  .dl-tool-call__status-badge--success {
+    background-color: color-mix(in oklch, var(--success) 12%, transparent);
+    color: var(--success);
+  }
+
+  .dl-tool-call__status-badge--error {
+    background-color: color-mix(in oklch, var(--destructive) 12%, transparent);
+    color: var(--destructive);
+  }
+
+  .dl-tool-call__chevron {
+    width: 0.875rem;
+    height: 0.875rem;
+    color: var(--muted-foreground);
+    transition: transform 0.2s ease;
+  }
+
+  .dl-tool-call[data-state="open"] .dl-tool-call__chevron {
+    transform: rotate(180deg);
+  }
+
+  .dl-tool-call__body {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 0.5rem 0.75rem 0.75rem;
+    border-top: 1px solid var(--border);
+    background-color: var(--secondary, var(--background));
+  }
+
+  .dl-tool-call__args {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.375rem;
+    font-family: var(--font-mono, ui-monospace, SFMono-Regular, monospace);
+    font-size: 0.6875rem;
+  }
+
+  .dl-tool-call__arg-pill {
+    padding: 0.125rem 0.375rem;
+    border-radius: var(--radius-sm, 0.25rem);
+    background-color: var(--background);
+    border: 1px solid var(--border);
+  }
+
   /* ── tooltip/tooltip.css ── */
   .dl-tooltip {
     z-index: 50;
@@ -4331,6 +4817,108 @@
   }
   .dl-tooltip[data-state="closed"] {
     animation: dl-fade-out 100ms ease;
+  }
+
+  /* ── trace/trace.css ── */
+  .dl-trace {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    font-size: 0.8125rem;
+  }
+
+  .dl-trace-line {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 0.625rem;
+    padding: 0.375rem 0;
+    color: var(--foreground);
+  }
+
+  .dl-trace-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.25rem;
+    height: 1.25rem;
+    border-radius: 9999px;
+    background-color: var(--muted);
+    color: var(--muted-foreground);
+    flex-shrink: 0;
+  }
+
+  .dl-trace-icon--running {
+    background-color: transparent;
+    color: var(--primary);
+    animation: dl-spin 1s linear infinite;
+  }
+
+  .dl-trace-icon--success {
+    background-color: color-mix(in oklch, var(--success) 15%, transparent);
+    color: var(--success);
+  }
+
+  .dl-trace-icon--error {
+    background-color: color-mix(in oklch, var(--destructive) 15%, transparent);
+    color: var(--destructive);
+  }
+
+  .dl-trace-title {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: 500;
+    line-height: 1.25rem;
+    color: var(--foreground);
+  }
+
+  .dl-trace-content {
+    margin-left: 1.875rem;
+    padding: 0.25rem 0 0.5rem;
+    color: var(--muted-foreground);
+  }
+
+  .dl-trace-collapsible-trigger {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    background: transparent;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    text-align: left;
+    font: inherit;
+    color: inherit;
+  }
+
+  .dl-trace-collapsible-trigger:hover .dl-trace-title {
+    color: var(--primary);
+  }
+
+  /* ── Shimmer Animation Utility for AI Streaming ── */
+  @keyframes dl-shimmer-sweep {
+    0% {
+      background-position: -200% 0;
+    }
+    100% {
+      background-position: 200% 0;
+    }
+  }
+
+  .dl-shimmer {
+    background: linear-gradient(
+      90deg,
+      var(--muted-foreground) 0%,
+      var(--foreground) 50%,
+      var(--muted-foreground) 100%
+    );
+    background-size: 200% 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: dl-shimmer-sweep 2.2s infinite linear;
   }
 
   /* ── typography/typography.css ── */
