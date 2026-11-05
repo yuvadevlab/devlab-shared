@@ -9,6 +9,12 @@ import {
   ChevronRight,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { Button } from "@/components/button";
+import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from "@/components/collapsible";
 import {
   FileTreeItem,
   FileTreeProps,
@@ -24,15 +30,15 @@ const getFileIcon = (name: string) => {
     name.endsWith(".js") ||
     name.endsWith(".jsx")
   ) {
-    return <FileCode className="size-3.5 text-primary" />;
+    return <FileCode className="size-4 text-primary" />;
   }
   if (name.endsWith(".json")) {
-    return <FileJson className="size-3.5 text-warning" />;
+    return <FileJson className="size-4 text-warning" />;
   }
   if (name.endsWith(".md") || name.endsWith(".mdx")) {
-    return <FileText className="size-3.5 text-info" />;
+    return <FileText className="size-4 text-info" />;
   }
-  return <File className="size-3.5 text-muted-foreground" />;
+  return <File className="size-4 text-muted-foreground" />;
 };
 
 export const FileTreeNode = React.forwardRef<HTMLDivElement, FileTreeNodeProps>(
@@ -41,57 +47,65 @@ export const FileTreeNode = React.forwardRef<HTMLDivElement, FileTreeNodeProps>(
     const [isOpen, setIsOpen] = React.useState(item.defaultOpen ?? false);
     const isSelected = selectedId === item.id;
 
-    const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
-      e.stopPropagation();
-      if (isFolder) {
-        setIsOpen((prev) => !prev);
-      }
+    const handleSelect = () => {
       onSelect?.(item);
     };
 
+    const button = (
+      <Button
+        type="button"
+        variant="ghost"
+        size="sm"
+        className={cn(
+          "dl-file-tree__node",
+          isSelected && "dl-file-tree__node--active",
+        )}
+        aria-current={isSelected ? "page" : undefined}
+        data-level={level}
+        onClick={handleSelect}
+      >
+        {isFolder && (
+          <ChevronRight
+            className={cn(
+              "size-4 shrink-0 text-muted-foreground transition-transform",
+              isOpen && "rotate-90",
+            )}
+          />
+        )}
+        <span className="dl-file-tree__icon">
+          {isFolder ? (
+            isOpen ? (
+              <FolderOpen className="size-4 shrink-0" />
+            ) : (
+              <Folder className="size-4 shrink-0" />
+            )
+          ) : (
+            getFileIcon(item.name)
+          )}
+        </span>
+        <span className="dl-file-tree__name">{item.name}</span>
+      </Button>
+    );
+
     return (
       <div ref={ref} className={cn("flex flex-col", className)} {...props}>
-        <div
-          className={cn(
-            "dl-file-tree__node",
-            isSelected && "dl-file-tree__node--active",
-          )}
-          onClick={handleClick}
-        >
-          {isFolder && (
-            <ChevronRight
-              className={cn(
-                "size-3 text-muted-foreground transition-transform shrink-0",
-                isOpen && "rotate-90",
-              )}
-            />
-          )}
-          <span className="dl-file-tree__icon">
-            {isFolder ? (
-              isOpen ? (
-                <FolderOpen className="size-3.5 text-warning shrink-0" />
-              ) : (
-                <Folder className="size-3.5 text-warning shrink-0" />
-              )
-            ) : (
-              getFileIcon(item.name)
-            )}
-          </span>
-          <span className="dl-file-tree__name">{item.name}</span>
-        </div>
-
-        {isFolder && isOpen && item.children && (
-          <div className="dl-file-tree__children">
-            {item.children.map((child) => (
-              <FileTreeNode
-                key={child.id}
-                item={child}
-                level={level + 1}
-                selectedId={selectedId}
-                onSelect={onSelect}
-              />
-            ))}
-          </div>
+        {isFolder ? (
+          <Collapsible open={isOpen} onOpenChange={setIsOpen}>
+            <CollapsibleTrigger asChild>{button}</CollapsibleTrigger>
+            <CollapsibleContent className="dl-file-tree__children">
+              {item.children?.map((child) => (
+                <FileTreeNode
+                  key={child.id}
+                  item={child}
+                  level={level + 1}
+                  selectedId={selectedId}
+                  onSelect={onSelect}
+                />
+              ))}
+            </CollapsibleContent>
+          </Collapsible>
+        ) : (
+          button
         )}
       </div>
     );

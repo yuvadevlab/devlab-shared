@@ -9,10 +9,11 @@
   grid-template-columns: 1fr;
   row-gap: 0.25rem;
   align-items: start;
+  color: var(--foreground);
 }
 
 .dl-alert:has(> svg) {
-  grid-template-columns: 1rem 1fr;
+  grid-template-columns: 1rem minmax(0, 1fr);
   column-gap: 0.75rem;
 }
 
@@ -47,12 +48,14 @@
 }
 
 .dl-alert__title {
+  margin: 0;
   font-weight: 600;
   line-height: 1.35;
   letter-spacing: -0.01em;
 }
 
 .dl-alert__desc {
+  margin: 0;
   font-size: 0.875rem;
   color: var(--muted-foreground);
   line-height: 1.5;

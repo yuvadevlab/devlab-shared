@@ -8,6 +8,7 @@ import {
   type PropDefinition,
   type CssClassDefinition,
 } from "@/components/component-view";
+import { createExampleSource } from "@/lib/create-example-source";
 
 const sampleSources: SourceItem[] = [
   {
@@ -58,11 +59,36 @@ export default function SourcesDocPage() {
           </div>
         </div>
       ),
-      codeSnippet: `<p>
-  Turborepo Remote Cache allows you to share build artifacts
-  <InlineCitation index={1} title="Turborepo Docs" />.
-</p>
-<Sources sources={sourcesList} />`,
+      codeSnippet: createExampleSource({
+        imports: ["InlineCitation", "Sources", "type SourceItem"],
+        setup: `const sources: SourceItem[] = [
+  {
+    id: "turbo-cache",
+    index: 1,
+    title: "Configuring Remote Caching",
+    url: "https://turbo.build/repo/docs/core-concepts/caching",
+    domain: "turbo.build",
+    snippet: "Share build results across your team and CI.",
+  },
+  {
+    id: "next-caching",
+    index: 2,
+    title: "Next.js Caching",
+    url: "https://nextjs.org/docs/app/building-your-application/caching",
+    domain: "nextjs.org",
+    snippet: "Understand request and route caching behavior.",
+  },
+];`,
+        body: `<div className="flex max-w-xl flex-col gap-4">
+  <p className="text-sm leading-relaxed">
+    Turborepo Remote Cache shares build artifacts across team members
+    and CI pipelines <InlineCitation index={1} title="Turborepo Docs" />.
+    Next.js also caches route data
+    <InlineCitation index={2} title="Next.js Caching" />.
+  </p>
+  <Sources sources={sources} />
+</div>`,
+      }),
     },
   ];
 

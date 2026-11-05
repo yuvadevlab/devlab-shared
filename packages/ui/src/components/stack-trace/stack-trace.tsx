@@ -1,6 +1,17 @@
 import * as React from "react";
 import { AlertCircle, Copy, Check, ChevronRight } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { CodeBlock } from "@/components/code-block";
+import {
+  Trace,
+  TraceCollapsible,
+  TraceCollapsibleContent,
+  TraceCollapsibleTrigger,
+  TraceContent,
+  TraceIcon,
+  TraceLine,
+  TraceTitle,
+} from "@/components/trace";
 import {
   StackFrameItem,
   StackTraceProps,
@@ -9,49 +20,64 @@ import {
 
 export type { StackFrameItem, StackTraceProps, StackFrameProps };
 
+/**
+ * Renders one call-stack frame with optional collapsible source code.
+ */
 export const StackFrame = React.forwardRef<HTMLDivElement, StackFrameProps>(
   ({ className, frame, defaultExpanded = false, ...props }, ref) => {
     const [expanded, setExpanded] = React.useState(defaultExpanded);
-    const hasSnippet = Boolean(frame.snippet);
-
-    return (
-      <div
-        ref={ref}
+    const location = `${frame.fileName}:${frame.lineNumber}${
+      frame.columnNumber ? `:${frame.columnNumber}` : ""
+    }`;
+    const line = (
+      <TraceLine
         className={cn(
-          "dl-stack-frame",
           frame.isInternal && "dl-stack-frame--internal",
           className,
         )}
         {...props}
       >
-        <div
-          className="dl-stack-frame__header"
-          onClick={() => hasSnippet && setExpanded((prev) => !prev)}
-        >
-          <div className="flex items-center gap-1.5 min-w-0">
-            {hasSnippet && (
-              <ChevronRight
-                className={cn(
-                  "size-3 text-muted-foreground transition-transform shrink-0",
-                  expanded && "rotate-90",
-                )}
-              />
+        {frame.snippet && (
+          <ChevronRight
+            className={cn(
+              "size-4 shrink-0 text-muted-foreground transition-transform",
+              expanded && "rotate-90",
             )}
-            <span className="dl-stack-frame__fn">
-              {frame.functionName ?? "anonymous"}
-            </span>
-          </div>
-          <span className="dl-stack-frame__location">
-            {frame.fileName}:{frame.lineNumber}
-            {frame.columnNumber ? `:${frame.columnNumber}` : ""}
-          </span>
-        </div>
-        {expanded && frame.snippet && (
-          <pre className="dl-stack-frame__snippet">
-            <code>{frame.snippet}</code>
-          </pre>
+          />
         )}
-      </div>
+        <TraceTitle className="min-w-0 flex-1 truncate">
+          {frame.functionName ?? "anonymous"}
+        </TraceTitle>
+        <span className="text-xs text-muted-foreground">{location}</span>
+      </TraceLine>
+    );
+
+    return (
+      <Trace ref={ref}>
+        {frame.snippet ? (
+          <TraceCollapsible
+            open={expanded}
+            onOpenChange={setExpanded}
+            className="dl-stack-frame__disclosure"
+          >
+            <TraceCollapsibleTrigger className="w-full">
+              {line}
+            </TraceCollapsibleTrigger>
+            <TraceCollapsibleContent>
+              <TraceContent>
+                <CodeBlock
+                  code={frame.snippet}
+                  language="text"
+                  copyable={false}
+                  lineNumbers={false}
+                />
+              </TraceContent>
+            </TraceCollapsibleContent>
+          </TraceCollapsible>
+        ) : (
+          line
+        )}
+      </Trace>
     );
   },
 );
@@ -103,15 +129,14 @@ export const StackTrace = React.forwardRef<HTMLDivElement, StackTraceProps>(
     };
 
     return (
-      <div ref={ref} className={cn("dl-stack-trace", className)} {...props}>
-        <div className="dl-stack-trace__header">
-          <div className="flex items-start gap-2 min-w-0">
-            <AlertCircle className="size-4 text-destructive shrink-0 mt-0.5" />
-            <div className="dl-stack-trace__title">
-              <span className="dl-stack-trace__error-type">{errorType}</span>
-              <span className="dl-stack-trace__message">{message}</span>
-            </div>
-          </div>
+      <Trace ref={ref} variant="card" className={className} {...props}>
+        <TraceLine status="error">
+          <TraceIcon>
+            <AlertCircle />
+          </TraceIcon>
+          <TraceTitle>
+            {errorType}: {message}
+          </TraceTitle>
           {copyable && (
             <button
               type="button"
@@ -126,18 +151,18 @@ export const StackTrace = React.forwardRef<HTMLDivElement, StackTraceProps>(
               )}
             </button>
           )}
-        </div>
+        </TraceLine>
 
         {frames.length > 0 && (
-          <div className="dl-stack-trace__frames">
+          <Trace>
             {frames.map((frame) => (
               <StackFrame key={frame.id} frame={frame} />
             ))}
-          </div>
+          </Trace>
         )}
 
         {children}
-      </div>
+      </Trace>
     );
   },
 );

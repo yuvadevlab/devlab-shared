@@ -8,6 +8,7 @@ import {
   type PropDefinition,
   type CssClassDefinition,
 } from "@/components/component-view";
+import { createExampleSource } from "@/lib/create-example-source";
 
 export default function PlanDocPage() {
   const variants: ComponentVariant[] = [
@@ -52,16 +53,32 @@ export default function PlanDocPage() {
           </div>
         </div>
       ),
-      codeSnippet: `<Plan
+      codeSnippet: createExampleSource({
+        imports: ["Plan", "PlanTask"],
+        body: `<Plan
   title="Database Migration"
   status="in-progress"
   currentStep={2}
   totalSteps={4}
 >
-  <PlanTask title="Audit schema" status="completed" />
-  <PlanTask title="Create index" status="running" defaultExpanded />
-  <PlanTask title="Verify plan" status="pending" />
+  <PlanTask
+    title="Audit audit_logs schema and indexes"
+    status="completed"
+    description="Verified 14 indexes across 12 partitions."
+  />
+  <PlanTask
+    title="Create compound index on workspace_id and created_at"
+    status="running"
+    description="Creating the index concurrently on the replica."
+    defaultExpanded
+  >
+    <p className="text-xs text-muted-foreground">
+      Progress: 74% scanned (1.2M rows)
+    </p>
+  </PlanTask>
+  <PlanTask title="Verify query execution plan" status="pending" />
 </Plan>`,
+      }),
     },
     {
       id: "completed",
@@ -93,15 +110,19 @@ export default function PlanDocPage() {
           </div>
         </div>
       ),
-      codeSnippet: `<Plan
+      codeSnippet: createExampleSource({
+        imports: ["Plan", "PlanTask"],
+        body: `<Plan
   title="Package Publish Pipeline"
   status="completed"
   currentStep={3}
   totalSteps={3}
 >
-  <PlanTask title="Build bundles" status="completed" />
-  <PlanTask title="Publish release" status="completed" />
+  <PlanTask title="Build ESM and CJS bundles" status="completed" />
+  <PlanTask title="Verify TypeScript declarations" status="completed" />
+  <PlanTask title="Publish release tags" status="completed" />
 </Plan>`,
+      }),
     },
   ];
 

@@ -1,6 +1,7 @@
 import * as React from "react";
 import { Check, Copy } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { highlightCodeLine } from "./code-block-highlight";
 import {
   CodeBlockProps,
   CodeBlockHeaderProps,
@@ -37,9 +38,9 @@ export const CodeBlockCopyButton = React.forwardRef<
       {...props}
     >
       {copied ? (
-        <Check className="size-3.5 text-success" />
+        <Check className="size-4 text-success" />
       ) : (
-        <Copy className="size-3.5" />
+        <Copy className="size-4" />
       )}
     </button>
   );
@@ -71,11 +72,19 @@ export const CodeBlockContent = React.forwardRef<
   CodeBlockContentProps
 >(
   (
-    { className, wrap = false, lineNumbers = false, children, ...props },
+    {
+      className,
+      wrap = false,
+      lineNumbers = false,
+      language = "tsx",
+      children,
+      ...props
+    },
     ref,
   ) => {
     const rawText = typeof children === "string" ? children : null;
     const lines = rawText && lineNumbers ? rawText.trim().split("\n") : null;
+    let isInsideTag = false;
 
     return (
       <pre
@@ -91,11 +100,36 @@ export const CodeBlockContent = React.forwardRef<
           lines.map((line, idx) => (
             <div key={idx} className="dl-code-block__line">
               <span className="dl-code-block__line-num">{idx + 1}</span>
-              <span>{line}</span>
+              <span>
+                {highlightCodeLine(
+                  line,
+                  language,
+                  (value) => {
+                    isInsideTag = value;
+                  },
+                  isInsideTag,
+                )}
+              </span>
             </div>
           ))
         ) : (
-          <code>{children}</code>
+          <code>
+            {rawText
+              ? rawText.split("\n").map((line, idx) => (
+                  <React.Fragment key={idx}>
+                    {idx > 0 && "\n"}
+                    {highlightCodeLine(
+                      line,
+                      language,
+                      (value) => {
+                        isInsideTag = value;
+                      },
+                      isInsideTag,
+                    )}
+                  </React.Fragment>
+                ))
+              : children}
+          </code>
         )}
       </pre>
     );
@@ -135,7 +169,7 @@ export const CodeBlock = React.forwardRef<HTMLDivElement, CodeBlockProps>(
             {copyable && <CodeBlockCopyButton code={codeString} />}
           </CodeBlockHeader>
         )}
-        <CodeBlockContent lineNumbers={lineNumbers}>
+        <CodeBlockContent lineNumbers={lineNumbers} language={language}>
           {code ?? children}
         </CodeBlockContent>
       </div>

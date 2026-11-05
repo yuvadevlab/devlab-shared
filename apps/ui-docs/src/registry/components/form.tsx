@@ -16,6 +16,7 @@ import {
 } from "@yuva-devlab/ui";
 import { useForm } from "react-hook-form";
 import { ComponentView, ComponentVariant } from "@/components/component-view";
+import { validatedFormExample } from "@/registry/examples/form-example-source";
 
 interface FormData {
   clusterId: string;
@@ -79,29 +80,7 @@ export default function FormDocPage() {
           )}
         </Stack>
       ),
-      codeSnippet: `const form = useForm({ defaultValues: { clusterId: "alpha" } });
-
-<Form {...form}>
-  <form onSubmit={form.handleSubmit(onSubmit)}>
-    <Stack gap="4">
-      <FormField
-        control={form.control}
-        name="clusterId"
-        render={({ field }) => (
-          <FormItem>
-            <FormLabel>Cluster Identifier</FormLabel>
-            <FormControl>
-              <Input {...field} />
-            </FormControl>
-            <FormDescription>Unique workspace ID.</FormDescription>
-            <FormMessage />
-          </FormItem>
-        )}
-      />
-      <Button type="submit">Save</Button>
-    </Stack>
-  </form>
-</Form>`,
+      codeSnippet: validatedFormExample,
     },
     {
       id: "simple",

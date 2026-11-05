@@ -7,7 +7,16 @@ import {
   AlertCircle,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { Button } from "@/components/button";
 import {
+  Trace,
+  TraceCollapsible,
+  TraceCollapsibleContent,
+  TraceIcon,
+  TraceLine,
+  TraceTitle,
+} from "@/components/trace";
+import type {
   ChainOfThoughtProps,
   ChainOfThoughtHeaderProps,
   ChainOfThoughtStepProps,
@@ -24,6 +33,9 @@ const ChainOfThoughtContext = React.createContext<{
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }>({ open: false, setOpen: () => {} });
 
+/**
+ * Toggles the chain-of-thought trace and summarizes current reasoning.
+ */
 export const ChainOfThoughtHeader = React.forwardRef<
   HTMLButtonElement,
   ChainOfThoughtHeaderProps
@@ -31,21 +43,24 @@ export const ChainOfThoughtHeader = React.forwardRef<
   const { open, setOpen } = React.useContext(ChainOfThoughtContext);
 
   return (
-    <button
+    <Button
       ref={ref}
       type="button"
       onClick={() => setOpen((prev) => !prev)}
       aria-expanded={open}
-      className={cn("dl-cot__header", className)}
+      variant="ghost"
+      className={cn("group w-full justify-start", className)}
       {...props}
     >
-      <div className="dl-cot__summary">
-        {isThinking ? (
-          <Loader2 className="size-3.5 text-primary animate-spin" />
-        ) : (
-          <Sparkles className="size-3.5 text-primary" />
-        )}
-        <span>
+      <TraceLine className="w-full">
+        <TraceIcon>
+          {isThinking ? (
+            <Loader2 className="size-4 animate-spin" />
+          ) : (
+            <Sparkles className="size-4" />
+          )}
+        </TraceIcon>
+        <TraceTitle>
           {children ??
             (isThinking
               ? durationSeconds !== undefined
@@ -54,14 +69,17 @@ export const ChainOfThoughtHeader = React.forwardRef<
               : durationSeconds !== undefined
                 ? `Thought for ${durationSeconds}s`
                 : "Thought Process")}
-        </span>
-      </div>
-      <ChevronDown className="dl-cot__chevron" />
-    </button>
+        </TraceTitle>
+        <ChevronDown className="ml-auto size-4 text-muted-foreground transition-transform group-aria-expanded:rotate-180" />
+      </TraceLine>
+    </Button>
   );
 });
 ChainOfThoughtHeader.displayName = "ChainOfThoughtHeader";
 
+/**
+ * Renders one status-bearing step in a chain-of-thought trace.
+ */
 export const ChainOfThoughtStep = React.forwardRef<
   HTMLDivElement,
   ChainOfThoughtStepProps
@@ -69,39 +87,48 @@ export const ChainOfThoughtStep = React.forwardRef<
   let resolvedIcon = icon;
   if (!resolvedIcon) {
     if (status === "running")
-      resolvedIcon = <Loader2 className="size-3 animate-spin text-primary" />;
+      resolvedIcon = <Loader2 className="size-4 animate-spin text-primary" />;
     else if (status === "success")
-      resolvedIcon = <CheckCircle2 className="size-3 text-success" />;
+      resolvedIcon = <CheckCircle2 className="size-4 text-success" />;
     else if (status === "error")
-      resolvedIcon = <AlertCircle className="size-3 text-destructive" />;
+      resolvedIcon = <AlertCircle className="size-4 text-destructive" />;
   }
 
   return (
-    <div
+    <TraceLine
       ref={ref}
-      className={cn("dl-cot__step", `dl-cot__step--${status}`, className)}
+      className={className}
+      status={
+        status === "success"
+          ? "success"
+          : status === "error"
+            ? "error"
+            : status === "running"
+              ? "running"
+              : "default"
+      }
       {...props}
     >
-      {resolvedIcon && <span className="shrink-0">{resolvedIcon}</span>}
-      <span className={cn(status === "running" && "dl-shimmer")}>
+      {resolvedIcon && <TraceIcon>{resolvedIcon}</TraceIcon>}
+      <TraceTitle className={cn(status === "running" && "dl-shimmer")}>
         {children}
-      </span>
-    </div>
+      </TraceTitle>
+    </TraceLine>
   );
 });
 ChainOfThoughtStep.displayName = "ChainOfThoughtStep";
 
+/**
+ * Collapsible trace content containing chain-of-thought steps.
+ */
 export const ChainOfThoughtContent = React.forwardRef<
   HTMLDivElement,
   React.HTMLAttributes<HTMLDivElement>
 >(({ className, children, ...props }, ref) => {
-  const { open } = React.useContext(ChainOfThoughtContext);
-  if (!open) return null;
-
   return (
-    <div ref={ref} className={cn("dl-cot__content", className)} {...props}>
-      {children}
-    </div>
+    <TraceCollapsibleContent keepMounted className={className} {...props}>
+      <Trace ref={ref}>{children}</Trace>
+    </TraceCollapsibleContent>
   );
 });
 ChainOfThoughtContent.displayName = "ChainOfThoughtContent";
@@ -146,24 +173,28 @@ export function ChainOfThought({
   );
 
   return (
-    <ChainOfThoughtContext.Provider value={{ open: isOpen, setOpen }}>
-      <div
-        data-state={isOpen ? "open" : "closed"}
-        className={cn("dl-cot", className)}
-        {...props}
-      >
-        {children ?? (
-          <>
-            <ChainOfThoughtHeader
-              isThinking={isThinking}
-              durationSeconds={durationSeconds}
-            >
-              {title}
-            </ChainOfThoughtHeader>
-            <ChainOfThoughtContent />
-          </>
-        )}
-      </div>
-    </ChainOfThoughtContext.Provider>
+    <TraceCollapsible
+      open={isOpen}
+      onOpenChange={setOpen}
+      className={className}
+      data-state={isOpen ? "open" : "closed"}
+      {...props}
+    >
+      <ChainOfThoughtContext.Provider value={{ open: isOpen, setOpen }}>
+        <Trace>
+          {children ?? (
+            <>
+              <ChainOfThoughtHeader
+                isThinking={isThinking}
+                durationSeconds={durationSeconds}
+              >
+                {title}
+              </ChainOfThoughtHeader>
+              <ChainOfThoughtContent />
+            </>
+          )}
+        </Trace>
+      </ChainOfThoughtContext.Provider>
+    </TraceCollapsible>
   );
 }

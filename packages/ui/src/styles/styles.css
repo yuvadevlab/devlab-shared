@@ -6,12 +6,13 @@
  */
 
 /* ── 0. Establish Layer Precedence ───────────────────────────────────────── */
-@layer dl-reset, dl-tokens, dl-components, dl-layout, dl-utilities;
+@layer dl-reset, dl-base, dl-tokens, dl-components, dl-layout, dl-utilities, dl-app;
 
 /* ── 1. Design Tokens & Theme Baseline ───────────────────────────────────── */
 @import "@yuva-devlab/tokens/styles.css";
 
 /* ── 2. Common Animations & Primitives ───────────────────────────────────── */
+@import "./base.css";
 @import "./common.css";
 
 /* ── 3. Modular Scoped Component Styles ─────────────────────────────────── */

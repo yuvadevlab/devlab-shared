@@ -10,6 +10,12 @@ import type {
   PropDefinition,
   CssClassDefinition,
 } from "@/components/api-table";
+import {
+  datePickerBasicExample,
+  datePickerClearableExample,
+  datePickerDisabledExample,
+  datePickerInlineCalendarExample,
+} from "@/registry/examples/date-picker-example-source";
 
 export const DATE_PICKER_VARIANTS: ComponentVariant[] = [
   {
@@ -18,11 +24,7 @@ export const DATE_PICKER_VARIANTS: ComponentVariant[] = [
     description:
       "Standard date picker with interactive dropdown calendar and timezone-safe date parsing.",
     preview: <BasicDatePickerDemo />,
-    codeSnippet: `<DatePicker
-  value={date}
-  onChange={setDate}
-  placeholder="Select date..."
-/>`,
+    codeSnippet: datePickerBasicExample,
   },
   {
     id: "inline-calendar",
@@ -30,13 +32,7 @@ export const DATE_PICKER_VARIANTS: ComponentVariant[] = [
     description:
       "AntD-inspired full calendar displayed directly in the view for persistent date selection.",
     preview: <InlineCalendarDatePickerDemo />,
-    codeSnippet: `import { Calendar } from "@yuva-devlab/ui";
-
-<Calendar
-  mode="single"
-  selected={date}
-  onSelect={setDate}
-/>`,
+    codeSnippet: datePickerInlineCalendarExample,
   },
   {
     id: "clearable",
@@ -44,12 +40,7 @@ export const DATE_PICKER_VARIANTS: ComponentVariant[] = [
     description:
       "Controlled value with clear action to reset the chosen date back to empty.",
     preview: <ClearableDatePickerDemo />,
-    codeSnippet: `<DatePicker
-  value={date}
-  onChange={setDate}
-  placeholder="Pick a date"
-/>
-<Button onClick={() => setDate("")}>Clear</Button>`,
+    codeSnippet: datePickerClearableExample,
   },
   {
     id: "disabled",
@@ -65,7 +56,7 @@ export const DATE_PICKER_VARIANTS: ComponentVariant[] = [
         />
       </div>
     ),
-    codeSnippet: `<DatePicker disabled value="2026-10-30" />`,
+    codeSnippet: datePickerDisabledExample,
   },
 ];
 

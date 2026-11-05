@@ -8,6 +8,7 @@ import {
   type PropDefinition,
   type CssClassDefinition,
 } from "@/components/component-view";
+import { createExampleSource } from "@/lib/create-example-source";
 
 const sampleTs = `export function getApiKey(name: string): string {
   const key = process.env[name];
@@ -33,13 +34,21 @@ export default function CodeBlockDocPage() {
           />
         </div>
       ),
-      codeSnippet: `<CodeBlock
+      codeSnippet: createExampleSource({
+        imports: ["CodeBlock"],
+        setup: `const code = \`export function getApiKey(name: string): string {
+  const key = process.env[name];
+  if (!key) throw new Error(\`Key \${name} is missing\`);
+  return key;
+}\`;`,
+        body: `<CodeBlock
   filename="auth.ts"
   language="typescript"
-  code={codeSnippet}
+  code={code}
   copyable
   lineNumbers
 />`,
+      }),
     },
     {
       id: "minimal",
@@ -49,11 +58,19 @@ export default function CodeBlockDocPage() {
         <div className="dl-demo-frame dl-demo-frame--md">
           <CodeBlock
             copyable={false}
+            language="sql"
             code='SELECT id, email, role FROM "users" WHERE "tenant_id" = $1;'
           />
         </div>
       ),
-      codeSnippet: `<CodeBlock code="SELECT * FROM users;" copyable={false} />`,
+      codeSnippet: createExampleSource({
+        imports: ["CodeBlock"],
+        body: `<CodeBlock
+  code='SELECT id, email, role FROM "users" WHERE "tenant_id" = $1;'
+  language="sql"
+  copyable={false}
+/>`,
+      }),
     },
   ];
 
@@ -74,7 +91,8 @@ export default function CodeBlockDocPage() {
       name: "language",
       type: "string",
       default: "—",
-      description: "Programming language badge indicator.",
+      description:
+        "Programming language badge; syntax colors are applied automatically.",
     },
     {
       name: "copyable",

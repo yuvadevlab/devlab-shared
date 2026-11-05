@@ -1,0 +1,25 @@
+.dl-bubble {
+  width: fit-content;
+  max-width: min(85%, 42rem);
+  padding: var(--space-3, 0.75rem) var(--space-4, 1rem);
+  border: 1px solid var(--border);
+  border-radius: var(--radius, 0.5rem);
+  background: var(--card);
+  color: var(--card-foreground);
+  font-family: var(--font-sans, inherit);
+  font-size: 0.875rem;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+}
+.dl-bubble--user {
+  margin-inline-start: auto;
+  border-color: var(--primary);
+  background: var(--primary);
+  color: var(--primary-foreground);
+}
+.dl-bubble--system {
+  margin-inline: auto;
+  border-style: dashed;
+  background: var(--muted);
+  color: var(--muted-foreground);
+}

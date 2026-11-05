@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { getComponentMetadata } from "@/services/metadata-service";
-import { highlightCode } from "@/services/highlight-service";
 import { ComponentDocView } from "@/components/component-doc-view";
 import {
   BADGE_VARIANTS,
@@ -12,16 +11,9 @@ export const metadata: Metadata = getComponentMetadata("badge");
 
 /**
  * Ultra-thin page route wrapper for the Badge component documentation.
- * Follows the FinAI / OrchestrAI SSR architecture with server syntax highlighting.
+ * The shared demo card generates complete source from each preview.
  */
-export default async function BadgeDocPage() {
-  const highlightedVariants = await Promise.all(
-    BADGE_VARIANTS.map(async (v) => ({
-      ...v,
-      highlightedHtml: await highlightCode(v.codeSnippet, "tsx"),
-    })),
-  );
-
+export default function BadgeDocPage() {
   return (
     <ComponentDocView
       component={{
@@ -30,7 +22,7 @@ export default async function BadgeDocPage() {
         description:
           "Semantic status pill indicators supporting color variants, live presence dots (StatusBadge), and interactive filter chips (StatusChip).",
         category: "Data Display",
-        variants: highlightedVariants,
+        variants: BADGE_VARIANTS,
         propsList: BADGE_PROPS,
         cssClasses: BADGE_CSS,
       }}

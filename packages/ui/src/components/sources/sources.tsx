@@ -2,58 +2,23 @@ import * as React from "react";
 import { ExternalLink, Globe, BookOpen } from "lucide-react";
 import { cn } from "@/lib/utils";
 import {
-  SourceItem,
-  InlineCitationProps,
-  SourcesProps,
-  SourceCardProps,
-} from "./sources-types";
+  Trace,
+  TraceCollapsible,
+  TraceCollapsibleContent,
+  TraceCollapsibleTrigger,
+  TraceIcon,
+  TraceLine,
+  TraceTitle,
+} from "@/components/trace";
+import { SourceItem, SourcesProps, SourceCardProps } from "./sources-types";
 
-export type { SourceItem, InlineCitationProps, SourcesProps, SourceCardProps };
-
-/**
- * Clickable citation reference badge embedded inline in AI-generated answers.
- *
- * @example
- * ```tsx
- * <span>According to PostgreSQL official docs <InlineCitation index={1} title="MVCC Concurrency" /></span>
- * ```
- */
-export const InlineCitation = React.forwardRef<
-  HTMLButtonElement,
-  InlineCitationProps
->(
-  (
-    { className, index, title, url, snippet, onCitationClick, ...props },
-    ref,
-  ) => {
-    const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
-      props.onClick?.(e);
-      onCitationClick?.(index);
-      if (!props.onClick && !onCitationClick && url) {
-        window.open(url, "_blank", "noopener,noreferrer");
-      }
-    };
-
-    const tooltipText = [title, snippet].filter(Boolean).join(" — ");
-
-    return (
-      <button
-        ref={ref}
-        type="button"
-        title={tooltipText || `Source [${index}]`}
-        onClick={handleClick}
-        className={cn("dl-citation", className)}
-        {...props}
-      >
-        {index}
-      </button>
-    );
-  },
-);
-InlineCitation.displayName = "InlineCitation";
+export type { SourceItem, SourcesProps, SourceCardProps };
 
 /**
  * Card representing an external referenced source or documentation link.
+ */
+/**
+ * Renders one external source link in a trace-compatible row.
  */
 export const SourceCard = React.forwardRef<HTMLAnchorElement, SourceCardProps>(
   ({ className, source, ...props }, ref) => {
@@ -76,15 +41,18 @@ export const SourceCard = React.forwardRef<HTMLAnchorElement, SourceCardProps>(
         className={cn("dl-source-card", className)}
         {...props}
       >
-        <div className="dl-source-card__meta">
-          <span className="dl-source-card__index">{source.index}</span>
-          <Globe className="size-3 text-muted-foreground shrink-0" />
-          <span className="dl-source-card__domain">{domain}</span>
-          <ExternalLink className="size-2.5 ml-auto text-muted-foreground shrink-0 opacity-70" />
-        </div>
-        <div className="dl-source-card__title" title={source.title}>
-          {source.title}
-        </div>
+        <TraceLine className="p-0">
+          <span className="text-xs text-muted-foreground">{source.index}</span>
+          <TraceIcon>
+            <Globe />
+          </TraceIcon>
+          <TraceTitle className="min-w-0 flex-1">{source.title}</TraceTitle>
+          <span className="text-xs text-muted-foreground">{domain}</span>
+          <ExternalLink
+            className="size-4 shrink-0 text-muted-foreground"
+            aria-hidden="true"
+          />
+        </TraceLine>
       </a>
     );
   },
@@ -104,21 +72,29 @@ export const Sources = React.forwardRef<HTMLDivElement, SourcesProps>(
     if (sources.length === 0) return null;
 
     return (
-      <div ref={ref} className={cn("dl-sources", className)} {...props}>
-        <div className="dl-sources__header">
-          <BookOpen className="size-3.5 text-primary" />
-          <span>Sources ({sources.length})</span>
-        </div>
-        <div className="dl-sources__grid">
-          {sources.map((src) => (
-            <SourceCard
-              key={src.id}
-              source={src}
-              onClick={() => onSourceClick?.(src)}
-            />
-          ))}
-        </div>
-      </div>
+      <Trace ref={ref} className={cn("dl-sources", className)} {...props}>
+        <TraceCollapsible defaultOpen>
+          <TraceCollapsibleTrigger className="w-full">
+            <TraceLine>
+              <TraceIcon>
+                <BookOpen />
+              </TraceIcon>
+              <TraceTitle>Sources ({sources.length})</TraceTitle>
+            </TraceLine>
+          </TraceCollapsibleTrigger>
+          <TraceCollapsibleContent>
+            <Trace>
+              {sources.map((src) => (
+                <SourceCard
+                  key={src.id}
+                  source={src}
+                  onClick={() => onSourceClick?.(src)}
+                />
+              ))}
+            </Trace>
+          </TraceCollapsibleContent>
+        </TraceCollapsible>
+      </Trace>
     );
   },
 );

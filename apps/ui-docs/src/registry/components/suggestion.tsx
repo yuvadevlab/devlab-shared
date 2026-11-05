@@ -8,6 +8,7 @@ import {
   type PropDefinition,
   type CssClassDefinition,
 } from "@/components/component-view";
+import { createExampleSource } from "@/lib/create-example-source";
 
 export default function SuggestionDocPage() {
   const [selected, setSelected] = useState<string>("");
@@ -23,20 +24,18 @@ export default function SuggestionDocPage() {
           <div className="w-full max-w-xl space-y-3">
             <SuggestionList>
               <Suggestion
-                label="How do I add SSO via Okta?"
-                onClick={() => setSelected("How do I add SSO via Okta?")}
+                label="Explain the latest build failure"
+                onClick={() => setSelected("Explain the latest build failure")}
               />
               <Suggestion
-                label="Generate TypeScript types for audit_logs"
+                label="Add a loading state to the dashboard"
                 onClick={() =>
-                  setSelected("Generate TypeScript types for audit_logs")
+                  setSelected("Add a loading state to the dashboard")
                 }
               />
               <Suggestion
-                label="Run security benchmark on PostgreSQL"
-                onClick={() =>
-                  setSelected("Run security benchmark on PostgreSQL")
-                }
+                label="Summarize the recent changes"
+                onClick={() => setSelected("Summarize the recent changes")}
               />
             </SuggestionList>
             {selected && (
@@ -48,16 +47,28 @@ export default function SuggestionDocPage() {
           </div>
         </div>
       ),
-      codeSnippet: `<SuggestionList>
-  <Suggestion
-    label="How do I add SSO via Okta?"
-    onClick={() => setPrompt("How do I add SSO via Okta?")}
-  />
-  <Suggestion
-    label="Generate TypeScript types"
-    onClick={() => setPrompt("Generate TypeScript types")}
-  />
-</SuggestionList>`,
+      codeSnippet: createExampleSource({
+        externalImports: ['import { useState } from "react";'],
+        imports: ["Suggestion", "SuggestionList"],
+        setup: `const [prompt, setPrompt] = useState("");`,
+        body: `<div className="flex flex-col gap-3">
+  <SuggestionList>
+    <Suggestion
+      label="Explain the latest build failure"
+      onClick={() => setPrompt("Explain the latest build failure")}
+    />
+    <Suggestion
+      label="Add a loading state to the dashboard"
+      onClick={() => setPrompt("Add a loading state to the dashboard")}
+    />
+    <Suggestion
+      label="Summarize the recent changes"
+      onClick={() => setPrompt("Summarize the recent changes")}
+    />
+  </SuggestionList>
+  {prompt && <p className="text-sm text-muted-foreground">Selected: {prompt}</p>}
+</div>`,
+      }),
     },
     {
       id: "with-descriptions",
@@ -82,12 +93,19 @@ export default function SuggestionDocPage() {
           </div>
         </div>
       ),
-      codeSnippet: `<SuggestionList layout="scroll">
+      codeSnippet: createExampleSource({
+        imports: ["Suggestion", "SuggestionList"],
+        body: `<SuggestionList layout="scroll">
   <Suggestion
     label="Fix linting errors"
     description="4 files affected"
   />
+  <Suggestion
+    label="Optimize Dockerfile"
+    description="Reduce image size"
+  />
 </SuggestionList>`,
+      }),
     },
   ];
 

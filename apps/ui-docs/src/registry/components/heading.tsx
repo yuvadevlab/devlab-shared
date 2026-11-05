@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { getComponentMetadata } from "@/services/metadata-service";
-import { highlightCode } from "@/services/highlight-service";
 import { ComponentDocView } from "@/components/component-doc-view";
 import {
   HEADING_VARIANTS,
@@ -13,14 +12,7 @@ export const metadata: Metadata = getComponentMetadata("heading");
 /**
  * Page route wrapper for the Heading component documentation.
  */
-export default async function HeadingDocPage() {
-  const highlightedVariants = await Promise.all(
-    HEADING_VARIANTS.map(async (v) => ({
-      ...v,
-      highlightedHtml: await highlightCode(v.codeSnippet, "tsx"),
-    })),
-  );
-
+export default function HeadingDocPage() {
   return (
     <ComponentDocView
       component={{
@@ -29,7 +21,7 @@ export default async function HeadingDocPage() {
         description:
           "Accessible heading primitive that decouples semantic DOM hierarchy (as='h1') from visual presentation styling (size='h3').",
         category: "General",
-        variants: highlightedVariants,
+        variants: HEADING_VARIANTS,
         propsList: HEADING_PROPS,
         cssClasses: HEADING_CSS,
       }}

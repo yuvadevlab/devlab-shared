@@ -32,7 +32,7 @@ export function CopyCodeButton({ code, className }: CopyCodeButtonProps) {
       size="sm"
       onClick={handleCopy}
       className={`dl-copy-code-btn ${className ?? ""}`.trim()}
-      title="Copy code to clipboard"
+      title="Copy complete example code to clipboard"
     >
       {copied ? (
         <Check className="dl-copy-code-btn__icon dl-copy-code-btn__icon--success" />

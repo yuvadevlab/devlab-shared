@@ -8,6 +8,7 @@ import {
   type PropDefinition,
   type CssClassDefinition,
 } from "@/components/component-view";
+import { createExampleSource } from "@/lib/create-example-source";
 
 const sampleFiles: FileTreeItem[] = [
   {
@@ -79,11 +80,41 @@ export default function FileTreeDocPage() {
           </div>
         </div>
       ),
-      codeSnippet: `<FileTree
-  data={treeData}
-  selectedId={selected}
-  onSelect={(item) => setSelected(item.id)}
-/>`,
+      codeSnippet: createExampleSource({
+        externalImports: ['import { useState } from "react";'],
+        imports: ["FileTree", "type FileTreeItem"],
+        setup: `const [selected, setSelected] = useState("app-page");
+const tree: FileTreeItem[] = [
+  {
+    id: "apps",
+    name: "apps",
+    type: "folder",
+    defaultOpen: true,
+    children: [
+      {
+        id: "app",
+        name: "web",
+        type: "folder",
+        children: [
+          { id: "app-page", name: "page.tsx", type: "file" },
+          { id: "app-layout", name: "layout.tsx", type: "file" },
+        ],
+      },
+    ],
+  },
+  { id: "package-json", name: "package.json", type: "file" },
+];`,
+        body: `<div className="flex flex-col gap-3">
+  <FileTree
+    data={tree}
+    selectedId={selected}
+    onSelect={(item) => setSelected(item.id)}
+  />
+  <p className="text-xs text-muted-foreground">
+    Selected file: <span className="font-mono text-foreground">{selected}</span>
+  </p>
+</div>`,
+      }),
     },
   ];
 

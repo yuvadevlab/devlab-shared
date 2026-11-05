@@ -8,6 +8,7 @@ import {
   type PropDefinition,
   type CssClassDefinition,
 } from "@/components/component-view";
+import { createExampleSource } from "@/lib/create-example-source";
 
 export default function SubagentDocPage() {
   const variants: ComponentVariant[] = [
@@ -47,16 +48,31 @@ export default function SubagentDocPage() {
           </div>
         </div>
       ),
-      codeSnippet: `<Subagent
+      codeSnippet: createExampleSource({
+        imports: ["Subagent"],
+        body: `<div className="flex max-w-xl flex-col gap-3">
+  <Subagent
   name="Security Auditor"
-  role="Vulnerability Scanner"
+  role="Vulnerability and dependency scanner"
   status="running"
   model="flash"
   conversationId="c4918e9"
   defaultOpen
 >
-  <div>• Scanned 120 production dependencies</div>
-</Subagent>`,
+    <div className="space-y-1 text-xs text-muted-foreground">
+      <p>Scanned 120 production dependencies.</p>
+      <p>Reviewing the token refresh flow.</p>
+    </div>
+  </Subagent>
+  <Subagent
+    name="Database Debugger"
+    role="PostgreSQL query optimizer"
+    status="completed"
+    model="pro"
+    conversationId="a82190f"
+  />
+</div>`,
+      }),
     },
   ];
 

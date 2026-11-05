@@ -138,7 +138,11 @@ export const Carousel = React.forwardRef<
         <div
           ref={ref}
           onKeyDownCapture={handleKeyDown}
-          className={cn("dl-carousel", className)}
+          className={cn(
+            "dl-carousel",
+            orientation === "vertical" && "dl-carousel--vertical",
+            className,
+          )}
           role="region"
           aria-roledescription="carousel"
           {...props}

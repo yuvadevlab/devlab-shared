@@ -24,7 +24,7 @@ Time:     1.624s`;
 export const Default: Story = {
   render: () => (
     <div className="dl-story-w-lg">
-      <Terminal command="pnpm build" output={sampleOutput} />
+      <Terminal command="pnpm build" output={sampleOutput} defaultOpen />
     </div>
   ),
 };
@@ -34,6 +34,8 @@ export const StreamingLogs: Story = {
     <div className="dl-story-w-lg">
       <Terminal
         command="docker compose up -d"
+        isStreaming
+        defaultOpen
         output={`[+] Running 3/3
  ✔ Network devlab-network        Created
  ✔ Container devlab-postgres-1   Started

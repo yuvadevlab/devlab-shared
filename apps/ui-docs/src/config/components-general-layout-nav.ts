@@ -44,33 +44,6 @@ export const GENERAL_LAYOUT_NAV_COMPONENTS: ComponentMeta[] = [
       "typography",
     ],
   },
-  {
-    name: "Heading",
-    slug: "heading",
-    href: "/components/heading",
-    category: "General",
-    description:
-      "Accessible heading primitive decoupling semantic hierarchy from visual size.",
-    keywords: ["title", "h1", "h2", "h3", "heading", "typography", "header"],
-  },
-  {
-    name: "Text",
-    slug: "text",
-    href: "/components/text",
-    category: "General",
-    description:
-      "Multi-variant text primitive for body copy, captions, code, and metrics.",
-    keywords: [
-      "paragraph",
-      "text",
-      "body",
-      "caption",
-      "code",
-      "metric",
-      "typography",
-    ],
-  },
-
   // Layout
   {
     name: "Box",

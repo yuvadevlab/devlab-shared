@@ -33,7 +33,7 @@ export const UTILITIES_CSS = `
   }
 
   .glass {
-    background-color: var(--surface);
+    background-color: var(--surface, var(--card));
     backdrop-filter: blur(16px) saturate(140%);
     -webkit-backdrop-filter: blur(16px) saturate(140%);
     border: 1px solid var(--border);

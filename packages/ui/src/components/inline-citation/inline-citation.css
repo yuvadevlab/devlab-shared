@@ -1,0 +1,33 @@
+.dl-citation {
+  display: inline-flex;
+  min-width: 1.25rem;
+  height: 1.25rem;
+  align-items: center;
+  justify-content: center;
+  margin-inline: 0.125rem;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--muted);
+  padding-inline: 0.25rem;
+  color: var(--muted-foreground);
+  font-size: 0.6875rem;
+  font-weight: 500;
+  font-family: var(--font-sans, inherit);
+  line-height: 1;
+  vertical-align: baseline;
+  cursor: pointer;
+  transition:
+    border-color 0.15s ease,
+    background-color 0.15s ease,
+    color 0.15s ease;
+}
+.dl-citation:hover,
+.dl-citation:focus-visible {
+  border-color: var(--ring);
+  background: var(--accent);
+  color: var(--accent-foreground);
+}
+.dl-citation:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+}

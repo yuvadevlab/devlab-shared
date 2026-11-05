@@ -1,15 +1,16 @@
 .dl-checkbox {
   display: flex;
-  height: 1rem;
-  width: 1rem;
+  height: var(--icon-sm, 1rem);
+  width: var(--icon-sm, 1rem);
   flex-shrink: 0;
   align-items: center;
   justify-content: center;
-  border-radius: var(--radius-sm, 0.25rem);
+  border-radius: var(--radius-xs, 0.125rem);
   border: 1px solid var(--primary);
   box-shadow: 0 1px 2px rgb(0 0 0/0.05);
   cursor: pointer;
   background: transparent;
+  color: var(--foreground);
   padding: 0;
   transition: background-color 0.15s ease;
 }
@@ -33,6 +34,6 @@
 }
 
 .dl-checkbox-icon {
-  width: 0.75rem;
-  height: 0.75rem;
+  width: calc(var(--icon-xs, 0.875rem) * 0.75);
+  height: calc(var(--icon-xs, 0.875rem) * 0.75);
 }

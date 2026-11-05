@@ -1,103 +1,177 @@
 "use client";
 
-import React, { useState } from "react";
-import { Queue, type QueueTask } from "@yuva-devlab/ui";
+import React from "react";
+import {
+  Queue,
+  Trace,
+  TraceCollapsible,
+  TraceCollapsibleContent,
+  TraceCollapsibleTrigger,
+  TraceIcon,
+  TraceLine,
+  TraceTitle,
+} from "@yuva-devlab/ui";
+import {
+  Circle,
+  CircleCheck,
+  CircleDot,
+  ListChecks,
+  ListTodo,
+} from "lucide-react";
 import {
   ComponentView,
   type ComponentVariant,
   type PropDefinition,
   type CssClassDefinition,
 } from "@/components/component-view";
-
-const initialTasks: QueueTask[] = [
-  {
-    id: "q-1",
-    title: "Parse workspace dependency graph",
-    priority: "high",
-    status: "active",
-    estimatedDuration: "1.2s",
-  },
-  {
-    id: "q-2",
-    title: "Synthesize API endpoints in apps/api",
-    priority: "normal",
-    status: "waiting",
-    estimatedDuration: "4.5s",
-  },
-  {
-    id: "q-3",
-    title: "Run integration tests across packages",
-    priority: "low",
-    status: "waiting",
-    estimatedDuration: "12s",
-  },
-];
+import { createExampleSource } from "@/lib/create-example-source";
 
 export default function QueueDocPage() {
-  const [tasks, setTasks] = useState(initialTasks);
-
   const variants: ComponentVariant[] = [
     {
       id: "default",
-      title: "Interactive Task Queue",
+      title: "Pending and Completed Tasks",
       description:
-        "Execution queue displaying running, scheduled, and paused tasks with removal actions.",
+        "Trace-based queue with collapsible groups for remaining and completed work.",
       preview: (
         <div className="dl-demo-frame dl-demo-frame--md">
-          <div className="w-full max-w-lg">
-            <Queue
-              tasks={tasks}
-              onRemoveTask={(id) =>
-                setTasks((prev) => prev.filter((t) => t.id !== id))
-              }
-            />
-          </div>
+          <Queue aria-label="Theme update tasks" className="w-full max-w-lg">
+            <TraceCollapsible defaultOpen>
+              <TraceCollapsibleTrigger>
+                <TraceLine>
+                  <TraceIcon>
+                    <ListTodo />
+                  </TraceIcon>
+                  <TraceTitle>2 to do</TraceTitle>
+                </TraceLine>
+              </TraceCollapsibleTrigger>
+              <TraceCollapsibleContent>
+                <Trace>
+                  <TraceLine status="running">
+                    <TraceIcon>
+                      <CircleDot />
+                    </TraceIcon>
+                    <TraceTitle>Read theme configuration</TraceTitle>
+                  </TraceLine>
+                  <TraceLine>
+                    <TraceIcon>
+                      <Circle />
+                    </TraceIcon>
+                    <TraceTitle>Add appearance preference</TraceTitle>
+                  </TraceLine>
+                </Trace>
+              </TraceCollapsibleContent>
+            </TraceCollapsible>
+            <TraceCollapsible defaultOpen>
+              <TraceCollapsibleTrigger>
+                <TraceLine>
+                  <TraceIcon>
+                    <ListChecks />
+                  </TraceIcon>
+                  <TraceTitle>1 completed</TraceTitle>
+                </TraceLine>
+              </TraceCollapsibleTrigger>
+              <TraceCollapsibleContent>
+                <Trace>
+                  <TraceLine>
+                    <TraceIcon>
+                      <CircleCheck />
+                    </TraceIcon>
+                    <TraceTitle>Define semantic color tokens</TraceTitle>
+                  </TraceLine>
+                </Trace>
+              </TraceCollapsibleContent>
+            </TraceCollapsible>
+          </Queue>
         </div>
       ),
-      codeSnippet: `<Queue
-  tasks={tasks}
-  onRemoveTask={(id) => removeTask(id)}
-/>`,
+      codeSnippet: createExampleSource({
+        externalImports: [
+          'import { Circle, CircleCheck, CircleDot, ListChecks, ListTodo } from "lucide-react";',
+        ],
+        imports: [
+          "Queue",
+          "Trace",
+          "TraceCollapsible",
+          "TraceCollapsibleContent",
+          "TraceCollapsibleTrigger",
+          "TraceIcon",
+          "TraceLine",
+          "TraceTitle",
+        ],
+        body: `<Queue aria-label="Theme update tasks">
+  <TraceCollapsible defaultOpen>
+    <TraceCollapsibleTrigger>
+      <TraceLine>
+        <TraceIcon><ListTodo /></TraceIcon>
+        <TraceTitle>2 to do</TraceTitle>
+      </TraceLine>
+    </TraceCollapsibleTrigger>
+    <TraceCollapsibleContent>
+      <Trace>
+        <TraceLine status="running">
+          <TraceIcon><CircleDot /></TraceIcon>
+          <TraceTitle>Read theme configuration</TraceTitle>
+        </TraceLine>
+        <TraceLine>
+          <TraceIcon><Circle /></TraceIcon>
+          <TraceTitle>Add appearance preference</TraceTitle>
+        </TraceLine>
+      </Trace>
+    </TraceCollapsibleContent>
+  </TraceCollapsible>
+  <TraceCollapsible defaultOpen>
+    <TraceCollapsibleTrigger>
+      <TraceLine>
+        <TraceIcon><ListChecks /></TraceIcon>
+        <TraceTitle>1 completed</TraceTitle>
+      </TraceLine>
+    </TraceCollapsibleTrigger>
+    <TraceCollapsibleContent>
+      <Trace>
+        <TraceLine>
+          <TraceIcon><CircleCheck /></TraceIcon>
+          <TraceTitle>Define semantic color tokens</TraceTitle>
+        </TraceLine>
+      </Trace>
+    </TraceCollapsibleContent>
+  </TraceCollapsible>
+</Queue>`,
+      }),
     },
   ];
 
   const propsList: PropDefinition[] = [
     {
+      name: "children",
+      type: "React.ReactNode",
+      default: "—",
+      description:
+        "Trace lines and collapsible groups composing the agent's queue.",
+    },
+    {
       name: "tasks",
       type: "QueueTask[]",
-      default: "[]",
-      description:
-        "Array of queue items with title, priority, status, and duration.",
-    },
-    {
-      name: "title",
-      type: "string",
-      default: '"Execution Queue"',
-      description: "Header title of the queue container.",
-    },
-    {
-      name: "onRemoveTask",
-      type: "(taskId: string) => void",
-      default: "—",
-      description: "Callback fired when clicking the task remove icon.",
+      default: "undefined",
+      description: "Optional backwards-compatible data-driven task list.",
     },
   ];
 
   const cssClasses: CssClassDefinition[] = [
     {
-      name: ".dl-queue",
-      description: "Outer card container for execution queue.",
+      name: ".dl-trace",
+      description: "Outer container for grouped queue activity.",
     },
     {
-      name: ".dl-queue-item",
-      description: "Individual task row with index and priority pill.",
+      name: ".dl-trace-line",
+      description: "Individual pending or completed task row.",
     },
   ];
 
   return (
     <ComponentView
       title="Queue"
-      description="Agent task execution queue container tracking scheduled, running, and queued jobs with priority indicators and cancellation actions."
+      description="Trace-based queue pattern for grouped pending and completed agent work."
       variants={variants}
       propsList={propsList}
       cssClasses={cssClasses}

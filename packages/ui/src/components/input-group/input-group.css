@@ -1,0 +1,38 @@
+.dl-input-group {
+  display: flex;
+  min-height: var(--control-height-md, 2.25rem);
+  align-items: center;
+  border: 1px solid var(--input);
+  border-radius: var(--radius, 0.5rem);
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans, inherit);
+  box-shadow: 0 1px 2px rgb(0 0 0 / 0.05);
+  transition:
+    border-color 0.15s ease,
+    box-shadow 0.15s ease;
+}
+.dl-input-group:focus-within {
+  border-color: var(--ring);
+  outline: 2px solid color-mix(in srgb, var(--ring) 25%, transparent);
+  outline-offset: 1px;
+}
+.dl-input-group > input,
+.dl-input-group > textarea {
+  min-width: 0;
+  flex: 1;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: var(--foreground);
+  font: inherit;
+}
+.dl-input-group__addon {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2, 0.5rem);
+  padding-inline: var(--space-3, 0.75rem);
+  color: var(--muted-foreground);
+  font-family: var(--font-sans, inherit);
+  font-size: 0.875rem;
+}

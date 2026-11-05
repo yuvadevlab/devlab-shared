@@ -1,16 +1,17 @@
 .dl-radio-group {
   display: grid;
-  gap: 0.5rem;
+  gap: var(--space-2, 0.5rem);
 }
 .dl-radio-item {
   aspect-ratio: 1;
-  height: 1rem;
-  width: 1rem;
-  border-radius: 9999px;
+  height: var(--icon-sm, 1rem);
+  width: var(--icon-sm, 1rem);
+  border-radius: var(--radius-full, 9999px);
   border: 1px solid var(--primary);
   box-shadow: 0 1px 2px rgb(0 0 0/0.05);
   cursor: pointer;
   background: transparent;
+  color: var(--foreground);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -24,6 +25,10 @@
   cursor: not-allowed;
   opacity: 0.5;
 }
+.dl-radio-item[data-state="checked"] {
+  border-color: var(--primary);
+  color: var(--primary);
+}
 .dl-radio-item__indicator {
   display: flex;
   align-items: center;
@@ -32,6 +37,6 @@
 .dl-radio-item__indicator svg {
   fill: var(--primary);
   color: var(--primary);
-  width: 0.5625rem;
-  height: 0.5625rem;
+  width: calc(var(--icon-xs, 0.875rem) * 0.625);
+  height: calc(var(--icon-xs, 0.875rem) * 0.625);
 }

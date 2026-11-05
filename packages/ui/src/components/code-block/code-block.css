@@ -5,8 +5,8 @@
   width: 100%;
   border-radius: var(--radius-md, 0.375rem);
   border: 1px solid var(--border);
-  background-color: var(--secondary, #0d1117);
-  color: var(--foreground);
+  background-color: var(--code-block-background, #0d1117);
+  color: var(--code-block-foreground, #e1e4e8);
   font-family: var(--font-mono, ui-monospace, SFMono-Regular, monospace);
   font-size: 0.8125rem;
   overflow: hidden;
@@ -61,6 +61,34 @@
   overflow-x: auto;
   line-height: 1.5;
   tab-size: 2;
+}
+
+.dl-code-block__token--comment {
+  color: #8b949e;
+}
+
+.dl-code-block__token--string {
+  color: #9ecbff;
+}
+
+.dl-code-block__token--keyword {
+  color: #f97583;
+}
+
+.dl-code-block__token--number {
+  color: #79b8ff;
+}
+
+.dl-code-block__token--tag {
+  color: #85e89d;
+}
+
+.dl-code-block__token--attribute {
+  color: #79b8ff;
+}
+
+.dl-code-block__token--function {
+  color: #b392f0;
 }
 
 .dl-code-block__content--wrap {

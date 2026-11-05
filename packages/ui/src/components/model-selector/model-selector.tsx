@@ -1,6 +1,20 @@
 import * as React from "react";
-import { Sparkles, ChevronDown, Check, Search, Bot } from "lucide-react";
+import { Sparkles, Check, Bot } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { Button } from "@/components/button";
+import {
+  Command,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+  CommandList,
+} from "@/components/command";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuTrigger,
+} from "@/components/dropdown-menu";
 import { AIModel, ModelSelectorProps } from "./model-selector-types";
 
 export type { AIModel, ModelSelectorProps };
@@ -75,12 +89,6 @@ export const ModelSelector = React.forwardRef<
     );
     const [isOpen, setIsOpen] = React.useState(false);
     const [query, setQuery] = React.useState("");
-    const containerRef = React.useRef<HTMLDivElement>(null);
-
-    React.useImperativeHandle(
-      ref,
-      () => containerRef.current as HTMLDivElement,
-    );
 
     const activeId = isControlled ? propValue : selectedId;
     const currentModel = models.find((m) => m.id === activeId);
@@ -92,140 +100,90 @@ export const ModelSelector = React.forwardRef<
       setQuery("");
     };
 
-    // Close on outside click
-    React.useEffect(() => {
-      const handleOutsideClick = (e: MouseEvent) => {
-        if (
-          containerRef.current &&
-          !containerRef.current.contains(e.target as Node)
-        ) {
-          setIsOpen(false);
-        }
-      };
-      if (isOpen) {
-        document.addEventListener("mousedown", handleOutsideClick);
-      }
-      return () =>
-        document.removeEventListener("mousedown", handleOutsideClick);
-    }, [isOpen]);
-
-    const filteredModels = React.useMemo(() => {
-      if (!query.trim()) return models;
-      const lower = query.toLowerCase();
-      return models.filter(
-        (m) =>
-          m.name.toLowerCase().includes(lower) ||
-          m.provider.toLowerCase().includes(lower) ||
-          m.tags?.some((t) => t.toLowerCase().includes(lower)),
-      );
-    }, [models, query]);
-
     return (
-      <div
-        ref={containerRef}
-        className={cn("dl-model-selector", className)}
-        {...props}
-      >
-        <button
-          type="button"
-          disabled={disabled}
-          onClick={() => setIsOpen((prev) => !prev)}
-          className={cn(
-            "dl-model-selector__trigger",
-            size === "sm" && "dl-model-selector__trigger--sm",
-          )}
-          aria-haspopup="listbox"
-          aria-expanded={isOpen}
+      <div ref={ref} className={cn("dl-model-selector", className)} {...props}>
+        <DropdownMenu
+          open={isOpen}
+          onOpenChange={(open) => {
+            setIsOpen(open);
+            if (!open) setQuery("");
+          }}
         >
-          <div className="flex items-center gap-1.5">
-            {currentModel?.icon ?? <Bot className="size-3.5 text-primary" />}
-            <span className="font-semibold text-foreground">
-              {currentModel ? currentModel.name : placeholder}
-            </span>
-          </div>
-          <ChevronDown
-            className={cn(
-              "size-3 text-muted-foreground transition-transform duration-200",
-              isOpen && "rotate-180",
-            )}
-          />
-        </button>
-
-        {isOpen && (
-          <div className="dl-model-selector__content" role="listbox">
-            {models.length > 3 && (
-              <div className="relative">
-                <Search className="absolute left-2 top-2.5 size-3 text-muted-foreground" />
-                <input
-                  type="text"
+          <DropdownMenuTrigger asChild>
+            <Button
+              type="button"
+              variant="outline"
+              size={size === "sm" ? "sm" : "default"}
+              disabled={disabled}
+            >
+              <span className="flex min-w-0 items-center gap-2">
+                {currentModel?.icon ?? <Bot className="size-4 shrink-0" />}
+                <span className="truncate">
+                  {currentModel ? currentModel.name : placeholder}
+                </span>
+              </span>
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="start" className="w-72 p-0">
+            <Command>
+              {models.length > 3 && (
+                <CommandInput
                   placeholder="Filter models..."
                   value={query}
-                  onChange={(e) => setQuery(e.target.value)}
-                  className="dl-model-selector__search w-full pl-7"
-                  autoFocus
+                  onValueChange={setQuery}
                 />
-              </div>
-            )}
-
-            <div className="flex flex-col gap-0.5">
-              {filteredModels.length === 0 ? (
-                <div className="p-3 text-center text-xs text-muted-foreground">
-                  No matching models found
-                </div>
-              ) : (
-                filteredModels.map((model) => {
-                  const isSelected = model.id === activeId;
-                  return (
-                    <div
-                      key={model.id}
-                      role="option"
-                      aria-selected={isSelected}
-                      data-disabled={model.disabled}
-                      onClick={() => !model.disabled && handleSelect(model.id)}
-                      className={cn(
-                        "dl-model-selector__item",
-                        isSelected && "dl-model-selector__item--active",
-                        model.disabled && "opacity-50 cursor-not-allowed",
-                      )}
-                    >
-                      <div className="dl-model-selector__item-info">
-                        <div className="dl-model-selector__item-title">
-                          {model.icon ?? (
-                            <Sparkles className="size-3 text-primary" />
-                          )}
-                          <span>{model.name}</span>
-                          <span className="text-xs text-muted-foreground font-normal">
-                            ({model.provider})
-                          </span>
-                        </div>
-                        {model.description && (
-                          <div className="dl-model-selector__item-desc">
-                            {model.description}
-                          </div>
-                        )}
-                        {model.tags && model.tags.length > 0 && (
-                          <div className="dl-model-selector__item-tags">
-                            {model.tags.map((tag) => (
-                              <span
-                                key={tag}
-                                className="dl-model-selector__tag"
-                              >
-                                {tag}
-                              </span>
-                            ))}
-                          </div>
-                        )}
-                      </div>
-                      {isSelected && (
-                        <Check className="size-4 text-primary shrink-0 mt-0.5" />
-                      )}
-                    </div>
-                  );
-                })
               )}
-            </div>
-          </div>
-        )}
+              <CommandList>
+                <CommandEmpty>No matching models found.</CommandEmpty>
+                <CommandGroup>
+                  {models.map((model) => {
+                    const isSelected = model.id === activeId;
+                    const searchValue = [
+                      model.name,
+                      model.provider,
+                      ...(model.tags ?? []),
+                    ].join(" ");
+                    return (
+                      <CommandItem
+                        key={model.id}
+                        value={searchValue}
+                        disabled={model.disabled}
+                        onSelect={() => handleSelect(model.id)}
+                        className="items-start"
+                      >
+                        {model.icon ?? <Sparkles className="mt-0.5 size-4" />}
+                        <span className="min-w-0 flex-1">
+                          <span className="flex items-center gap-1">
+                            <span>{model.name}</span>
+                            <span className="text-xs text-muted-foreground">
+                              ({model.provider})
+                            </span>
+                          </span>
+                          {model.description && (
+                            <span className="block text-xs text-muted-foreground">
+                              {model.description}
+                            </span>
+                          )}
+                          {model.tags && model.tags.length > 0 && (
+                            <span className="block text-xs text-muted-foreground">
+                              {model.tags.join(" · ")}
+                            </span>
+                          )}
+                        </span>
+                        {isSelected && (
+                          <Check
+                            className="ml-auto size-4 shrink-0"
+                            aria-hidden="true"
+                          />
+                        )}
+                      </CommandItem>
+                    );
+                  })}
+                </CommandGroup>
+              </CommandList>
+            </Command>
+          </DropdownMenuContent>
+        </DropdownMenu>
       </div>
     );
   },

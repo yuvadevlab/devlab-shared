@@ -11,6 +11,9 @@
 /* Modular Documentation Architecture */
 @import "@/styles/layers.css";
 @import "@/styles/docs-shell.css";
+@import "@/styles/docs-header.css";
+@import "@/styles/docs-header-settings.css";
+@import "@/styles/docs-header-responsive.css";
 @import "@/styles/docs-sidebar.css";
 @import "@/styles/docs-buttons.css";
 @import "@/styles/search-trigger.css";

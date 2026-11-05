@@ -1,6 +1,7 @@
 import * as React from "react";
 import { Sparkles } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { Button } from "@/components/button";
 import { SuggestionProps, SuggestionListProps } from "./suggestion-types";
 
 export type { SuggestionProps, SuggestionListProps };
@@ -16,20 +17,22 @@ export type { SuggestionProps, SuggestionListProps };
 export const Suggestion = React.forwardRef<HTMLButtonElement, SuggestionProps>(
   ({ className, icon, label, description, children, ...props }, ref) => {
     return (
-      <button
+      <Button
         ref={ref}
         type="button"
+        variant="outline"
+        size="sm"
         className={cn("dl-suggestion", className)}
         {...props}
       >
         <span className="dl-suggestion__icon">
-          {icon ?? <Sparkles className="size-3" />}
+          {icon ?? <Sparkles className="size-4" />}
         </span>
         <span>{label ?? children}</span>
         {description && (
           <span className="dl-suggestion__description">· {description}</span>
         )}
-      </button>
+      </Button>
     );
   },
 );
@@ -49,7 +52,6 @@ export const SuggestionList = React.forwardRef<
       `dl-suggestion-list--${layout}`,
       className,
     )}
-    role="list"
     {...props}
   />
 ));

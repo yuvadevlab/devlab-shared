@@ -6,6 +6,10 @@ import type {
   PropDefinition,
   CssClassDefinition,
 } from "@/components/api-table";
+import {
+  calendarFixedExample,
+  calendarInteractiveExample,
+} from "@/registry/examples/calendar-example-source";
 
 export const CALENDAR_VARIANTS: ComponentVariant[] = [
   {
@@ -14,13 +18,7 @@ export const CALENDAR_VARIANTS: ComponentVariant[] = [
     description:
       "Full month grid with keyboard accessibility and day selection.",
     preview: <CalendarInteractiveDemo />,
-    codeSnippet: `const [date, setDate] = useState<Date | undefined>(new Date());
-
-<Calendar
-  mode="single"
-  selected={date}
-  onSelect={setDate}
-/>`,
+    codeSnippet: calendarInteractiveExample,
   },
   {
     id: "fixed",
@@ -32,10 +30,7 @@ export const CALENDAR_VARIANTS: ComponentVariant[] = [
         <Calendar mode="single" selected={new Date()} />
       </div>
     ),
-    codeSnippet: `<Calendar
-  mode="single"
-  selected={new Date()}
-/>`,
+    codeSnippet: calendarFixedExample,
   },
 ];
 

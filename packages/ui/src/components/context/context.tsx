@@ -1,13 +1,25 @@
 import * as React from "react";
 import { Gauge } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { ContextUsageProps, TokenUsageBreakdown } from "./context-types";
+import type {
+  ContextContentProps,
+  ContextProps,
+  ContextTriggerProps,
+  ContextUsageProps,
+  TokenUsageBreakdown,
+} from "./context-types";
 
-export type { ContextUsageProps, TokenUsageBreakdown };
-
-const formatNumber = (num: number) => {
-  return new Intl.NumberFormat("en-US").format(num);
+export * from "./context-popover";
+export type {
+  ContextContentProps,
+  ContextProps,
+  ContextTriggerProps,
+  ContextUsageProps,
+  TokenUsageBreakdown,
 };
+
+const formatNumber = (num: number): string =>
+  new Intl.NumberFormat("en-US").format(num);
 
 /**
  * Context window token utilization gauge displaying consumption metrics and breakdown.
@@ -35,10 +47,10 @@ export const ContextUsage = React.forwardRef<HTMLDivElement, ContextUsageProps>(
     },
     ref,
   ) => {
-    const percentage = Math.min(
-      100,
-      Math.round((usedTokens / maxTokens) * 100),
-    );
+    const percentage =
+      maxTokens > 0
+        ? Math.max(0, Math.min(100, Math.round((usedTokens / maxTokens) * 100)))
+        : 0;
 
     let fillStatusClass = "";
     if (percentage >= 90) {

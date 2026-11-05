@@ -1,14 +1,69 @@
 .dl-terminal {
-  display: flex;
-  flex-direction: column;
   width: 100%;
-  border-radius: var(--radius-md, 0.375rem);
-  border: 1px solid var(--border);
-  background-color: var(--secondary, #0d1117);
   color: var(--foreground);
-  font-family: var(--font-mono, ui-monospace, SFMono-Regular, monospace);
-  font-size: 0.8125rem;
-  overflow: hidden;
+}
+
+.dl-terminal__trace {
+  font-family: var(--font-sans, inherit);
+}
+
+.dl-terminal__line {
+  padding: 0;
+}
+
+.dl-terminal__trigger {
+  gap: 0.625rem;
+  min-height: 2rem;
+  padding: 0.25rem 0;
+}
+
+.dl-terminal__dots {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  flex: none;
+}
+
+.dl-terminal__dot {
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 9999px;
+  background-color: var(--muted-foreground);
+  opacity: 0.5;
+}
+
+.dl-terminal__trigger .dl-trace-title {
+  min-width: 0;
+  flex: 1;
+  gap: 0.375rem;
+  color: var(--muted-foreground);
+  font-size: 0.875rem;
+  font-weight: 400;
+}
+
+.dl-terminal__trigger:hover .dl-trace-title {
+  color: var(--foreground);
+}
+
+.dl-terminal__spinner {
+  flex: none;
+  color: var(--primary);
+  animation: dl-spin 1s linear infinite;
+}
+
+.dl-terminal__chevron {
+  flex: none;
+  color: var(--muted-foreground);
+  transition: transform 0.2s ease;
+}
+
+.dl-terminal__trigger[aria-expanded="true"] .dl-terminal__chevron {
+  transform: rotate(180deg);
+}
+
+.dl-terminal__content {
+  margin-left: 1.875rem;
+  padding: 0.25rem 0 0.5rem;
 }
 
 .dl-terminal__header {
@@ -46,6 +101,8 @@
 .dl-terminal__output {
   margin: 0;
   padding: 0.75rem 1rem;
+  max-height: 16rem;
+  max-height: attr(data-max-height type(<length>), 16rem);
   overflow-y: auto;
   line-height: 1.5;
   white-space: pre-wrap;
@@ -57,4 +114,28 @@
   color: var(--primary);
   font-weight: 600;
   margin-bottom: 0.25rem;
+}
+
+.dl-terminal .dl-terminal__code-block {
+  max-height: 16rem;
+  max-height: attr(data-max-height type(<length>), 16rem);
+  overflow-y: auto;
+  border: 0;
+  border-radius: var(--radius-md, 0.375rem);
+  background-color: var(--background);
+}
+
+.dl-terminal__code-block .dl-code-block__header {
+  min-height: 2rem;
+  justify-content: flex-end;
+  padding: 0.25rem 0.5rem;
+  border-bottom-color: var(--border);
+  background-color: var(--muted);
+}
+
+.dl-terminal__code-block .dl-code-block__content {
+  overflow: visible;
+  padding: 0.75rem;
+  color: var(--foreground);
+  font-family: var(--font-mono, ui-monospace, SFMono-Regular, monospace);
 }

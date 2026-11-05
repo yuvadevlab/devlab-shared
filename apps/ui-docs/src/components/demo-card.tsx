@@ -1,8 +1,8 @@
-import React from "react";
 import { Code2 } from "lucide-react";
-import { Flex, Stack } from "@yuva-devlab/ui";
+import { CodeBlock, Flex, Stack } from "@yuva-devlab/ui";
 import type { ComponentVariant } from "@/types/component-doc";
 import { CopyCodeButton } from "@/components/copy-code-button";
+import { createPreviewSource } from "@/lib/create-preview-source";
 
 export type { ComponentVariant };
 
@@ -14,10 +14,11 @@ export interface DemoCardProps {
 /**
  * Server component rendering a demo showcase card for a component variant.
  * Features an interactive preview canvas, variant title/description, clipboard copy action,
- * and a server-rendered syntax highlighted disclosure block.
+ * and a syntax-highlighted CodeBlock disclosure.
  */
 export function DemoCard({ variant, index }: DemoCardProps) {
   const id = variant.id || `demo-${index}`;
+  const codeSnippet = createPreviewSource(variant.preview, variant.codeSnippet);
 
   return (
     <div id={id} className="dl-demo-card">
@@ -42,7 +43,7 @@ export function DemoCard({ variant, index }: DemoCardProps) {
         </Stack>
 
         <div className="dl-demo-card__actions">
-          <CopyCodeButton code={variant.codeSnippet} />
+          <CopyCodeButton code={codeSnippet} />
         </div>
       </Flex>
 
@@ -51,20 +52,17 @@ export function DemoCard({ variant, index }: DemoCardProps) {
         <summary className="dl-demo-card__summary">
           <Flex align="center" gap={2}>
             <Code2 className="dl-demo-card__icon-sm" />
-            <span>View Source</span>
+            <span>View Example Code</span>
           </Flex>
           <span className="dl-demo-card__arrow">▼</span>
         </summary>
 
         <div className="dl-demo-card__code">
-          {variant.highlightedHtml ? (
-            <div
-              className="dl-demo-card__code-highlighted"
-              dangerouslySetInnerHTML={{ __html: variant.highlightedHtml }}
-            />
-          ) : (
-            <pre className="dl-demo-card__code-raw">{variant.codeSnippet}</pre>
-          )}
+          <CodeBlock
+            code={codeSnippet}
+            copyable={false}
+            className="dl-demo-card__code-block"
+          />
         </div>
       </details>
     </div>

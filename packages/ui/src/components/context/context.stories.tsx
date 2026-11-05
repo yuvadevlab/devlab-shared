@@ -1,48 +1,34 @@
 import React from "react";
 import type { Meta, StoryObj } from "@storybook/react";
-import { ContextUsage } from "./context";
+import {
+  Context,
+  ContextContent,
+  ContextContentBody,
+  ContextContentHeader,
+  ContextTrigger,
+} from "./context";
 
-const meta: Meta<typeof ContextUsage> = {
-  title: "AI Elements/ContextUsage",
-  component: ContextUsage,
+const meta: Meta<typeof Context> = {
+  title: "AI Elements/Context",
+  component: Context,
 };
 
 export default meta;
-type Story = StoryObj<typeof ContextUsage>;
+type Story = StoryObj<typeof Context>;
 
 export const Default: Story = {
   render: () => (
-    <div className="dl-story-w-md space-y-4">
-      <ContextUsage
-        label="Claude 3.5 Sonnet (200k)"
-        usedTokens={48200}
-        maxTokens={200000}
-        breakdown={{
-          inputTokens: 42000,
-          outputTokens: 6200,
-          cachedTokens: 38000,
-        }}
-      />
-
-      <ContextUsage
-        label="Context Warning (78%)"
-        usedTokens={156000}
-        maxTokens={200000}
-        breakdown={{
-          inputTokens: 142000,
-          outputTokens: 14000,
-        }}
-      />
-
-      <ContextUsage
-        label="Context Near Limit (94%)"
-        usedTokens={188000}
-        maxTokens={200000}
-        breakdown={{
-          inputTokens: 170000,
-          outputTokens: 18000,
-        }}
-      />
-    </div>
+    <Context
+      usedTokens={10660}
+      maxTokens={128000}
+      modelId="Model context"
+      usage={{ inputTokens: 8420, outputTokens: 1260, reasoningTokens: 980 }}
+    >
+      <ContextTrigger />
+      <ContextContent>
+        <ContextContentHeader />
+        <ContextContentBody />
+      </ContextContent>
+    </Context>
   ),
 };

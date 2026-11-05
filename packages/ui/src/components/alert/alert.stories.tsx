@@ -1,6 +1,9 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { AlertCircle, Info } from "lucide-react";
+import { AlertCircle, Info, RefreshCw } from "lucide-react";
 import { Alert, AlertTitle, AlertDescription } from "./alert";
+import { Button } from "@/components/button";
+import { Flex } from "@/components/layout/flex";
+import { Stack } from "@/components/layout/stack";
 
 const meta: Meta<typeof Alert> = {
   title: "Components/Alert",
@@ -45,6 +48,30 @@ export const Destructive: Story = {
           Process terminated abruptly: Execution timeout exceeded (30,000ms
           limit).
         </AlertDescription>
+      </Alert>
+    </div>
+  ),
+};
+
+export const WithAction: Story = {
+  render: () => (
+    <div className="dl-story-w-md">
+      <Alert variant="default">
+        <Flex align="center" justify="between" className="w-full">
+          <Stack gap={1}>
+            <Flex align="center" gap={2}>
+              <Info className="size-4 shrink-0" />
+              <AlertTitle>Configuration is out of date</AlertTitle>
+            </Flex>
+            <AlertDescription>
+              A newer configuration is available for this workspace.
+            </AlertDescription>
+          </Stack>
+          <Button size="sm" variant="outline">
+            <RefreshCw className="size-4 shrink-0" />
+            <span>Sync</span>
+          </Button>
+        </Flex>
       </Alert>
     </div>
   ),

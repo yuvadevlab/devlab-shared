@@ -1,0 +1,62 @@
+/**
+ * @file docs-header-settings.css
+ * @description Compact header settings popover content.
+ */
+
+@layer dl-app {
+  .dl-docs-header__settings-trigger {
+    display: none;
+    width: 2rem;
+    height: 2rem;
+    padding: 0;
+  }
+
+  .dl-docs-header__settings-popover {
+    display: flex;
+    flex-direction: column;
+    gap: 0.625rem;
+    width: min(18rem, calc(100vw - 1.5rem));
+  }
+
+  .dl-docs-header__settings-title {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--popover-foreground);
+  }
+
+  .dl-docs-header__settings-label {
+    margin-bottom: -0.375rem;
+    color: var(--muted-foreground);
+    font-size: 0.75rem;
+    font-weight: 500;
+  }
+
+  .dl-docs-header__settings-select {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .dl-docs-header__settings-theme {
+    display: flex;
+    align-items: center;
+    gap: 0.625rem;
+    border-top: 1px solid var(--border);
+    padding-top: 0.625rem;
+  }
+
+  .dl-docs-header__settings-theme label,
+  .dl-docs-header__settings-storybook {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--popover-foreground);
+    font-size: 0.8125rem;
+    font-weight: 500;
+    text-decoration: none;
+  }
+
+  .dl-docs-header__settings-storybook {
+    border-top: 1px solid var(--border);
+    padding-top: 0.625rem;
+  }
+}

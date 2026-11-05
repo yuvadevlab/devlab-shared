@@ -1,0 +1,83 @@
+/**
+ * @file docs-header-responsive.css
+ * @description Compact header layout for mobile and tablet viewports.
+ */
+
+@layer dl-app {
+  @media (max-width: 1199px) {
+    .dl-docs-header {
+      display: flex;
+      height: 4rem;
+      min-height: 4rem;
+      gap: 0.5rem;
+      padding-inline: 1rem;
+    }
+
+    .dl-docs-header__brand-wrap {
+      flex: 0 0 auto;
+    }
+
+    .dl-docs-header__toolbar {
+      flex: 1 1 auto;
+      justify-content: flex-end;
+      min-width: 0;
+      gap: 0.5rem;
+    }
+
+    .dl-docs-header__mobile-settings,
+    .dl-docs-header__storybook-btn {
+      display: none;
+    }
+
+    .dl-docs-header__actions {
+      flex: 0 0 auto;
+      gap: 0.25rem;
+    }
+
+    .dl-docs-header__settings-trigger {
+      display: inline-flex;
+    }
+
+    .dl-docs-header__search-mobile {
+      display: block;
+    }
+
+    .dl-docs-header .dl-docs-header__search-mobile-trigger {
+      width: 2rem;
+      height: 2rem;
+      justify-content: center;
+      padding: 0;
+    }
+
+    .dl-docs-header__search-mobile-trigger .dl-search-trigger__text,
+    .dl-docs-header__search-mobile-trigger .dl-search-trigger__kbd {
+      display: none;
+    }
+  }
+
+  @media (max-width: 639px) {
+    .dl-docs-header {
+      gap: 0.5rem;
+      padding-inline: 0.75rem;
+    }
+
+    .dl-docs-header__version-pill,
+    .dl-docs-header__theme-text-full,
+    .dl-docs-header__theme-text-short {
+      display: none;
+    }
+  }
+
+  @media (max-width: 379px) {
+    .dl-docs-header__brand-name {
+      display: none;
+    }
+  }
+
+  @media (min-width: 1200px) {
+    .dl-docs-header__search-mobile,
+    .dl-docs-header__settings-trigger {
+      display: none;
+    }
+  }
+}

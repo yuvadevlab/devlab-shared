@@ -4,6 +4,47 @@
  */
 
 import type { BrandDefinition } from "../src/schema/tokens.schema";
+import { CONTROL_HEIGHTS, ICON_SIZES, SPACING_GRID } from "../src/core";
+
+const DENSITY_SCALE = {
+  compact: 0.875,
+  standard: 1,
+  spacious: 1.125,
+} as const;
+
+const DENSITY_SPACING_ALIASES = {
+  "card-padding": "space-4",
+  "dialog-padding": "space-5",
+  "form-field-gap": "space-3",
+  "section-gap": "space-5",
+  "table-row-padding-x": "space-4",
+  "table-row-padding-y": "space-3",
+} as const;
+
+function scaleRemToken(value: string, scale: number): string {
+  const match = /^(-?\d+(?:\.\d+)?)rem$/.exec(value);
+  if (!match) {
+    throw new Error(`Cannot scale unsupported density token value: ${value}`);
+  }
+
+  const scaledValue = Number((Number(match[1]) * scale).toFixed(3));
+  return `${scaledValue}rem`;
+}
+
+function formatDensityTokens(brand: BrandDefinition): string {
+  const scale = DENSITY_SCALE[brand.density];
+  const tokens = { ...SPACING_GRID, ...CONTROL_HEIGHTS, ...ICON_SIZES };
+
+  return Object.entries(tokens)
+    .map(([name, value]) => `  --${name}: ${scaleRemToken(value, scale)};`)
+    .concat(
+      Object.entries(DENSITY_SPACING_ALIASES).map(
+        ([alias, token]) =>
+          `  --${alias}: ${scaleRemToken(tokens[token], scale)};`,
+      ),
+    )
+    .join("\n");
+}
 
 /**
  * Formats brand extensions into CSS custom property declarations.
@@ -48,6 +89,7 @@ export function formatExtensions(
 export function generateBrandCss(brand: BrandDefinition): string {
   const lightExt = formatExtensions(brand, "light");
   const darkExt = formatExtensions(brand, "dark");
+  const densityTokens = formatDensityTokens(brand);
 
   return `/**
  * @file styles/themes/${brand.name}.css
@@ -67,6 +109,8 @@ export function generateBrandCss(brand: BrandDefinition): string {
   --theme-font-sans: ${brand.fontSans};
   --theme-font-display: ${brand.fontDisplay};
   --theme-font-mono: ${brand.fontMono};
+
+${densityTokens}
 
   --background: ${brand.light.background};
   --foreground: ${brand.light.foreground};
@@ -119,6 +163,8 @@ export function generateBrandCss(brand: BrandDefinition): string {
 :root.dark[data-brand="${brand.name}"],
 :root.dark[data-theme="${brand.name}"] {
   --radius: ${brand.radius};
+${densityTokens}
+
   --background: ${brand.dark.background};
   --foreground: ${brand.dark.foreground};
   --card: ${brand.dark.card};

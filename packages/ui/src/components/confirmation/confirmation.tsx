@@ -1,6 +1,14 @@
 import * as React from "react";
 import { cn } from "@/lib/utils";
 import {
+  Item,
+  ItemActions,
+  ItemContent,
+  ItemDescription,
+  ItemMedia,
+  ItemTitle,
+} from "@/components/item";
+import {
   ConfirmationProps,
   ConfirmationMediaProps,
   ConfirmationContentProps,
@@ -22,9 +30,13 @@ export const ConfirmationMedia = React.forwardRef<
   HTMLDivElement,
   ConfirmationMediaProps
 >(({ className, children, ...props }, ref) => (
-  <div ref={ref} className={cn("dl-confirmation__media", className)} {...props}>
+  <ItemMedia
+    ref={ref}
+    className={cn("dl-confirmation__media", className)}
+    {...props}
+  >
     {children}
-  </div>
+  </ItemMedia>
 ));
 ConfirmationMedia.displayName = "ConfirmationMedia";
 
@@ -32,7 +44,7 @@ export const ConfirmationTitle = React.forwardRef<
   HTMLHeadingElement,
   ConfirmationTitleProps
 >(({ className, ...props }, ref) => (
-  <h4
+  <ItemTitle
     ref={ref}
     className={cn("dl-confirmation__title", className)}
     {...props}
@@ -44,7 +56,7 @@ export const ConfirmationDescription = React.forwardRef<
   HTMLParagraphElement,
   ConfirmationDescriptionProps
 >(({ className, ...props }, ref) => (
-  <p
+  <ItemDescription
     ref={ref}
     className={cn("dl-confirmation__description", className)}
     {...props}
@@ -56,7 +68,7 @@ export const ConfirmationContent = React.forwardRef<
   HTMLDivElement,
   ConfirmationContentProps
 >(({ className, ...props }, ref) => (
-  <div
+  <ItemContent
     ref={ref}
     className={cn("dl-confirmation__content", className)}
     {...props}
@@ -68,7 +80,7 @@ export const ConfirmationActions = React.forwardRef<
   HTMLDivElement,
   ConfirmationActionsProps
 >(({ className, ...props }, ref) => (
-  <div
+  <ItemActions
     ref={ref}
     className={cn("dl-confirmation__actions", className)}
     {...props}
@@ -99,7 +111,7 @@ export const Confirmation = React.forwardRef<HTMLDivElement, ConfirmationProps>(
     { className, variant = "outline", size = "md", children, ...props },
     ref,
   ) => (
-    <div
+    <Item
       ref={ref}
       className={cn(
         "dl-confirmation",
@@ -110,7 +122,7 @@ export const Confirmation = React.forwardRef<HTMLDivElement, ConfirmationProps>(
       {...props}
     >
       <div className="dl-confirmation__body">{children}</div>
-    </div>
+    </Item>
   ),
 );
 Confirmation.displayName = "Confirmation";

@@ -1,88 +1,90 @@
 import * as React from "react";
-import { ListOrdered, X, Clock, Loader2, Pause } from "lucide-react";
+import { X, Clock, Loader2, Pause } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { Button } from "@/components/button";
+import { Trace, TraceIcon, TraceLine, TraceTitle } from "@/components/trace";
 import { QueueProps, QueueItemProps, QueueTask } from "./queue-types";
 
 export type { QueueProps, QueueItemProps, QueueTask };
 
+/**
+ * Renders one data-driven queue task as a trace line.
+ *
+ * @param props - Task details, position, and optional removal callback.
+ * @returns A themed trace line for the queue task.
+ */
 export const QueueItem = React.forwardRef<HTMLDivElement, QueueItemProps>(
   ({ className, task, index, onRemove, ...props }, ref) => {
-    const renderStatusIcon = () => {
+    const renderStatusIcon = (): React.ReactNode => {
       switch (task.status) {
         case "active":
-          return (
-            <Loader2 className="size-3 text-primary animate-spin shrink-0" />
-          );
+          return <Loader2 className="size-4 animate-spin" aria-hidden="true" />;
         case "paused":
-          return <Pause className="size-3 text-warning shrink-0" />;
+          return <Pause className="size-4" aria-hidden="true" />;
         case "waiting":
         default:
-          return <Clock className="size-3 text-muted-foreground shrink-0" />;
+          return <Clock className="size-4" aria-hidden="true" />;
       }
     };
 
     return (
-      <div ref={ref} className={cn("dl-queue-item", className)} {...props}>
-        <div className="dl-queue-item__info">
-          <span className="dl-queue-item__index">{index + 1}</span>
-          {renderStatusIcon()}
-          <span className="dl-queue-item__title">{task.title}</span>
-        </div>
-
-        <div className="dl-queue-item__actions">
-          {task.priority && (
-            <span
-              className={cn(
-                "px-1.5 py-0.5 rounded text-[10px] font-semibold uppercase tracking-wider",
-                task.priority === "high" &&
-                  "bg-destructive/15 text-destructive",
-                task.priority === "normal" && "bg-primary/15 text-primary",
-                task.priority === "low" && "bg-muted text-muted-foreground",
-              )}
-            >
-              {task.priority}
-            </span>
-          )}
-          {task.estimatedDuration && (
-            <span className="text-xs text-muted-foreground font-mono">
-              {task.estimatedDuration}
-            </span>
-          )}
-          {onRemove && (
-            <button
-              type="button"
-              onClick={onRemove}
-              aria-label="Remove task"
-              className="text-muted-foreground hover:text-foreground p-0.5 rounded"
-            >
-              <X className="size-3.5" />
-            </button>
-          )}
-        </div>
-      </div>
+      <TraceLine
+        ref={ref}
+        className={cn("group", className)}
+        aria-posinset={index + 1}
+        {...props}
+      >
+        <TraceIcon>{renderStatusIcon()}</TraceIcon>
+        <TraceTitle className="min-w-0 flex-1 truncate">
+          {task.title}
+        </TraceTitle>
+        {task.priority && (
+          <span className="text-xs text-muted-foreground capitalize">
+            {task.priority}
+          </span>
+        )}
+        {task.estimatedDuration && (
+          <span className="text-xs text-muted-foreground">
+            {task.estimatedDuration}
+          </span>
+        )}
+        {onRemove && (
+          <Button
+            type="button"
+            variant="ghost"
+            size="icon"
+            onClick={onRemove}
+            aria-label={`Remove ${task.title}`}
+            className="size-7 opacity-0 group-hover:opacity-100 focus-visible:opacity-100"
+          >
+            <X className="size-4" />
+          </Button>
+        )}
+      </TraceLine>
     );
   },
 );
 QueueItem.displayName = "QueueItem";
 
 /**
- * Agent task execution queue container tracking scheduled, running, and queued jobs.
+ * Queue trace container. Compose Trace parts as children, or pass `tasks` for
+ * the backwards-compatible data-driven task list.
  *
  * @example
  * ```tsx
- * <Queue
- *   tasks={[
- *     { id: "1", title: "Index codebase", priority: "high", status: "active" },
- *     { id: "2", title: "Generate tests", priority: "normal", status: "waiting" }
- *   ]}
- * />
+ * <Queue>
+ *   <TraceLine>
+ *     <TraceIcon><CircleCheck /></TraceIcon>
+ *     <TraceTitle>Updated token definitions</TraceTitle>
+ *   </TraceLine>
+ * </Queue>
  * ```
  */
 export const Queue = React.forwardRef<HTMLDivElement, QueueProps>(
   (
     {
       className,
-      tasks = [],
+      tasks,
       title = "Execution Queue",
       onRemoveTask,
       children,
@@ -91,19 +93,9 @@ export const Queue = React.forwardRef<HTMLDivElement, QueueProps>(
     ref,
   ) => {
     return (
-      <div ref={ref} className={cn("dl-queue", className)} {...props}>
-        <div className="dl-queue__header">
-          <div className="flex items-center gap-1.5">
-            <ListOrdered className="size-4 text-primary" />
-            <span>{title}</span>
-          </div>
-          <span className="text-xs text-muted-foreground font-normal">
-            {tasks.length} item{tasks.length === 1 ? "" : "s"}
-          </span>
-        </div>
-
-        <div className="dl-queue__list">
-          {tasks.map((task, idx) => (
+      <Trace ref={ref} className={className} aria-label={title} {...props}>
+        {children ??
+          tasks?.map((task, idx) => (
             <QueueItem
               key={task.id}
               task={task}
@@ -111,10 +103,7 @@ export const Queue = React.forwardRef<HTMLDivElement, QueueProps>(
               onRemove={onRemoveTask ? () => onRemoveTask(task.id) : undefined}
             />
           ))}
-        </div>
-
-        {children}
-      </div>
+      </Trace>
     );
   },
 );

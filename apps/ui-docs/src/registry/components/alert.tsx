@@ -25,7 +25,7 @@ export default function AlertDocPage() {
       preview: (
         <div className="dl-demo-frame dl-demo-frame--md">
           <Alert variant="default">
-            <Info className="dl-demo-icon dl-demo-icon--sm" />
+            <Info className="size-4" />
             <AlertTitle>Cluster Synchronization Scheduled</AlertTitle>
             <AlertDescription>
               OrchestrAI model checkpoints will be committed automatically at
@@ -48,7 +48,7 @@ export default function AlertDocPage() {
       preview: (
         <div className="dl-demo-frame dl-demo-frame--md">
           <Alert variant="destructive">
-            <AlertCircle className="dl-demo-icon dl-demo-icon--sm" />
+            <AlertCircle />
             <AlertTitle>Critical Tool Step Failure</AlertTitle>
             <AlertDescription>
               Cluster agent execution terminated due to budget limit exhaustion.
@@ -66,14 +66,14 @@ export default function AlertDocPage() {
       id: "with-action",
       title: "Alert with Action Button",
       description:
-        "AntD-inspired actionable banner allowing users to immediately trigger recovery.",
+        "Actionable alert with an icon, status message, and recovery control.",
       preview: (
         <div className="dl-demo-frame dl-demo-frame--md">
           <Alert variant="default">
             <Flex align="center" justify="between" className="dl-demo-frame">
               <Stack gap={1}>
                 <Flex align="center" gap={2}>
-                  <Info className="dl-demo-icon dl-demo-icon--sm" />
+                  <Info className="size-4 shrink-0" />
                   <AlertTitle>Configuration Stale</AlertTitle>
                 </Flex>
                 <AlertDescription>
@@ -81,20 +81,26 @@ export default function AlertDocPage() {
                 </AlertDescription>
               </Stack>
               <Button size="sm" variant="outline">
-                <RefreshCw className="dl-demo-icon dl-demo-icon--xs" />
+                <RefreshCw className="size-4 shrink-0" />
                 <span>Sync</span>
               </Button>
             </Flex>
           </Alert>
         </div>
       ),
-      codeSnippet: `<Alert>
+      codeSnippet: `<Alert variant="default">
   <Flex align="center" justify="between">
     <Stack gap={1}>
+      <Flex align="center" gap={2}>
+        <Info className="size-4" />
       <AlertTitle>Configuration Stale</AlertTitle>
+      </Flex>
       <AlertDescription>New schema revision available.</AlertDescription>
     </Stack>
-    <Button size="sm" variant="outline">Sync</Button>
+    <Button size="sm" variant="outline">
+      <RefreshCw className="size-4" />
+      Sync
+    </Button>
   </Flex>
 </Alert>`,
     },

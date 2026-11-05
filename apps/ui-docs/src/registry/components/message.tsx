@@ -13,6 +13,7 @@ import {
   type PropDefinition,
   type CssClassDefinition,
 } from "@/components/component-view";
+import { createExampleSource } from "@/lib/create-example-source";
 
 export default function MessageDocPage() {
   const [feedback, setFeedback] = useState<string>("");
@@ -66,21 +67,36 @@ export default function MessageDocPage() {
           </div>
         </div>
       ),
-      codeSnippet: `<Message role="assistant">
+      codeSnippet: createExampleSource({
+        imports: [
+          "Message",
+          "MessageActions",
+          "MessageAvatar",
+          "MessageContent",
+        ],
+        body: `<div className="flex flex-col gap-4">
+  <Message role="user">
+    <MessageAvatar role="user" fallback="JD" />
+    <div className="space-y-1">
+      <div className="text-xs font-medium text-muted-foreground">You</div>
+      <MessageContent>Can you review this database migration?</MessageContent>
+    </div>
+  </Message>
+  <Message role="assistant">
   <MessageAvatar role="assistant" />
   <div className="space-y-1">
-    <div className="text-xs font-semibold text-muted-foreground">DevLab Assistant</div>
-    <MessageContent>
-      I recommend adding a Redis caching layer...
-    </MessageContent>
+    <div className="text-xs font-medium text-muted-foreground">Assistant</div>
+    <MessageContent>The migration is safe. Add an index on tenant_id for faster lookups.</MessageContent>
     <MessageActions
-      copyText="I recommend adding a Redis caching layer..."
-      onRetry={() => regenerate()}
-      onThumbsUp={() => track(true)}
-      onThumbsDown={() => track(false)}
+      copyText="The migration is safe. Add an index on tenant_id for faster lookups."
+      onRetry={() => console.log("Retry response")}
+      onThumbsUp={() => console.log("Positive feedback")}
+      onThumbsDown={() => console.log("Negative feedback")}
     />
   </div>
-</Message>`,
+</Message>
+</div>`,
+      }),
     },
     {
       id: "system",
@@ -99,11 +115,14 @@ export default function MessageDocPage() {
           </div>
         </div>
       ),
-      codeSnippet: `<Message role="system">
+      codeSnippet: createExampleSource({
+        imports: ["Message", "MessageContent"],
+        body: `<Message role="system">
   <MessageContent>
-    Workspace context loaded: 24 packages, Node.js v22.14
+    Workspace context loaded: 24 packages, Node.js v22.14.
   </MessageContent>
 </Message>`,
+      }),
     },
   ];
 

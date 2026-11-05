@@ -1,5 +1,6 @@
 .dl-accordion-item {
   border-bottom: 1px solid var(--border);
+  color: var(--foreground);
 }
 .dl-accordion-header {
   display: flex;
@@ -10,22 +11,34 @@
   width: 100%;
   align-items: center;
   justify-content: space-between;
-  padding: 1rem 0;
+  padding: var(--space-4, 1rem) 0;
+  border-radius: var(--radius-sm, 0.25rem);
+  color: var(--foreground);
   font-size: 0.875rem;
   font-weight: 500;
   cursor: pointer;
   background: transparent;
   border: none;
   text-align: left;
-  font-family: inherit;
+  font-family: var(--font-sans, inherit);
   transition: color 0.15s ease;
 }
 .dl-accordion-trigger:hover {
+  color: var(--accent-foreground);
   text-decoration: underline;
 }
+.dl-accordion-trigger:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+}
+.dl-accordion-trigger:disabled {
+  color: var(--muted-foreground);
+  opacity: 0.5;
+  cursor: not-allowed;
+}
 .dl-accordion-trigger svg {
-  height: 1rem;
-  width: 1rem;
+  height: var(--icon-sm, 1rem);
+  width: var(--icon-sm, 1rem);
   flex-shrink: 0;
   color: var(--muted-foreground);
   transition: transform 0.2s ease;
@@ -35,6 +48,8 @@
 }
 .dl-accordion-content {
   overflow: hidden;
+  color: var(--foreground);
+  font-family: var(--font-sans, inherit);
   font-size: 0.875rem;
 }
 .dl-accordion-content[data-state="open"] {
@@ -44,6 +59,6 @@
   animation: dl-accordion-up 200ms ease;
 }
 .dl-accordion-content__inner {
-  padding-bottom: 1rem;
+  padding-bottom: var(--space-4, 1rem);
   padding-top: 0;
 }

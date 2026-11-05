@@ -8,6 +8,7 @@ import {
   type PropDefinition,
   type CssClassDefinition,
 } from "@/components/component-view";
+import { createExampleSource } from "@/lib/create-example-source";
 
 const sampleFrames: StackFrameItem[] = [
   {
@@ -54,11 +55,32 @@ export default function StackTraceDocPage() {
           </div>
         </div>
       ),
-      codeSnippet: `<StackTrace
+      codeSnippet: createExampleSource({
+        imports: ["StackTrace", "type StackFrameItem"],
+        setup: `const frames: StackFrameItem[] = [
+  {
+    id: "frame-1",
+    functionName: "renderRows",
+    fileName: "src/components/data-table.tsx",
+    lineNumber: 142,
+    columnNumber: 21,
+    snippet: \`  141 | const rows = data.map((item) => {
+> 142 |   return columns.map((column) => column.render(item));
+  143 | });\`,
+  },
+  {
+    id: "frame-2",
+    functionName: "DataTable",
+    fileName: "src/components/data-table.tsx",
+    lineNumber: 86,
+  },
+];`,
+        body: `<StackTrace
   errorType="TypeError"
-  message="Cannot read properties of undefined"
+  message="Cannot read properties of undefined (reading 'render')"
   frames={frames}
 />`,
+      }),
     },
   ];
 

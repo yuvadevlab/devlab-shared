@@ -40,14 +40,26 @@
 
   .dl-demo-frame--carousel {
     width: 100%;
-    max-width: 24rem;
-    padding-inline: 2.5rem;
+    max-width: 30rem;
+    padding-inline: var(--space-12, 3rem);
   }
 
   .dl-demo-frame--carousel-sm {
     width: 100%;
+    max-width: 26rem;
+    padding-inline: var(--space-12, 3rem);
+  }
+
+  .dl-demo-frame--carousel-vertical {
+    width: 100%;
     max-width: 20rem;
-    padding-inline: 2.5rem;
+    height: 22rem;
+    margin-inline: auto;
+    padding-block: var(--space-12, 3rem);
+  }
+
+  .dl-demo-frame--carousel-vertical .dl-carousel-viewport {
+    height: 16rem;
   }
 
   /* Preview Surface Boxes */

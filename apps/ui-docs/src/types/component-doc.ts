@@ -28,7 +28,6 @@ export interface ComponentVariant {
   description?: string;
   preview: ReactNode;
   codeSnippet: string;
-  highlightedHtml?: string;
 }
 
 /**

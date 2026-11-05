@@ -12,6 +12,10 @@ import {
   ComponentView,
   type ComponentVariant,
 } from "@/components/component-view";
+import {
+  chartAreaExample,
+  chartBarExample,
+} from "@/registry/examples/chart-example-source";
 
 const chartData = [
   { month: "Jan", tokens: 1860, cost: 80 },
@@ -67,14 +71,7 @@ export default function ChartDocPage() {
           </ChartContainer>
         </div>
       ),
-      codeSnippet: `<ChartContainer config={chartConfig} className="dl-demo-chart">
-  <BarChart data={chartData}>
-    <XAxis dataKey="month" />
-    <YAxis />
-    <ChartTooltip content={<ChartTooltipContent />} />
-    <Bar dataKey="tokens" fill="var(--color-tokens)" radius={4} />
-  </BarChart>
-</ChartContainer>`,
+      codeSnippet: chartBarExample,
     },
     {
       id: "area",
@@ -118,13 +115,7 @@ export default function ChartDocPage() {
           </ChartContainer>
         </div>
       ),
-      codeSnippet: `<ChartContainer config={chartConfig} className="dl-demo-chart">
-  <AreaChart data={chartData}>
-    <XAxis dataKey="month" />
-    <ChartTooltip content={<ChartTooltipContent />} />
-    <Area type="monotone" dataKey="tokens" stroke="var(--color-tokens)" fill="url(#tokenGradient)" />
-  </AreaChart>
-</ChartContainer>`,
+      codeSnippet: chartAreaExample,
     },
   ];
 

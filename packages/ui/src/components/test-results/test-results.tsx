@@ -7,6 +7,17 @@ import {
   FlaskConical,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { CodeBlock } from "@/components/code-block";
+import {
+  Trace,
+  TraceCollapsible,
+  TraceCollapsibleContent,
+  TraceCollapsibleTrigger,
+  TraceContent,
+  TraceIcon,
+  TraceLine,
+  TraceTitle,
+} from "@/components/trace";
 import {
   TestCaseItem,
   TestCaseStatus,
@@ -16,11 +27,12 @@ import {
 
 export type { TestCaseItem, TestCaseStatus, TestResultsProps, TestCaseProps };
 
+/**
+ * Renders one test result and expandable failure detail.
+ */
 export const TestCase = React.forwardRef<HTMLDivElement, TestCaseProps>(
   ({ className, test, defaultExpanded = false, ...props }, ref) => {
     const [expanded, setExpanded] = React.useState(defaultExpanded);
-    const hasError = Boolean(test.errorMessage);
-
     const renderIcon = () => {
       switch (test.status) {
         case "passed":
@@ -35,38 +47,62 @@ export const TestCase = React.forwardRef<HTMLDivElement, TestCaseProps>(
       }
     };
 
-    return (
-      <div ref={ref} className={cn("dl-test-case", className)} {...props}>
-        <div
-          className={cn("dl-test-case__row", hasError && "cursor-pointer")}
-          onClick={() => hasError && setExpanded((prev) => !prev)}
-        >
-          <div className="dl-test-case__info">
-            {renderIcon()}
-            <span className="dl-test-case__name">{test.name}</span>
-          </div>
-
-          <div className="flex items-center gap-2">
-            {test.durationMs !== undefined && (
-              <span className="dl-test-case__duration">
-                {test.durationMs}ms
-              </span>
-            )}
-            {hasError && (
-              <ChevronRight
-                className={cn(
-                  "size-3 text-muted-foreground transition-transform",
-                  expanded && "rotate-90",
-                )}
-              />
-            )}
-          </div>
-        </div>
-
-        {expanded && test.errorMessage && (
-          <div className="dl-test-case__error">{test.errorMessage}</div>
+    const line = (
+      <TraceLine
+        className={className}
+        status={
+          test.status === "failed"
+            ? "error"
+            : test.status === "passed"
+              ? "success"
+              : "default"
+        }
+        {...props}
+      >
+        <TraceIcon>{renderIcon()}</TraceIcon>
+        <TraceTitle className="min-w-0 flex-1">{test.name}</TraceTitle>
+        {test.durationMs !== undefined && (
+          <span className="text-xs text-muted-foreground">
+            {test.durationMs}ms
+          </span>
         )}
-      </div>
+        {test.errorMessage && (
+          <ChevronRight
+            className={cn(
+              "size-4 text-muted-foreground transition-transform",
+              expanded && "rotate-90",
+            )}
+          />
+        )}
+      </TraceLine>
+    );
+
+    return (
+      <Trace ref={ref}>
+        {test.errorMessage ? (
+          <TraceCollapsible
+            open={expanded}
+            onOpenChange={setExpanded}
+            defaultOpen={defaultExpanded}
+          >
+            <TraceCollapsibleTrigger className="w-full">
+              {line}
+            </TraceCollapsibleTrigger>
+            <TraceCollapsibleContent>
+              <TraceContent>
+                <CodeBlock
+                  code={test.errorMessage}
+                  language="text"
+                  copyable={false}
+                  lineNumbers={false}
+                />
+              </TraceContent>
+            </TraceCollapsibleContent>
+          </TraceCollapsible>
+        ) : (
+          line
+        )}
+      </Trace>
     );
   },
 );
@@ -104,43 +140,28 @@ export const TestResults = React.forwardRef<HTMLDivElement, TestResultsProps>(
     const skipped = tests.filter((t) => t.status === "skipped").length;
 
     return (
-      <div ref={ref} className={cn("dl-test-results", className)} {...props}>
-        <div className="dl-test-results__header">
-          <div className="flex items-center gap-2">
-            <FlaskConical className="size-4 text-primary" />
-            <span className="font-semibold text-foreground">{title}</span>
-            {duration && (
-              <span className="text-xs text-muted-foreground font-mono">
-                in {duration}
-              </span>
-            )}
-          </div>
-
-          <div className="dl-test-results__summary">
-            <span className="dl-test-results__badge dl-test-results__badge--passed">
-              {passed} passed
-            </span>
-            {failed > 0 && (
-              <span className="dl-test-results__badge dl-test-results__badge--failed">
-                {failed} failed
-              </span>
-            )}
-            {skipped > 0 && (
-              <span className="dl-test-results__badge dl-test-results__badge--skipped">
-                {skipped} skipped
-              </span>
-            )}
-          </div>
-        </div>
-
-        <div className="dl-test-results__list">
+      <Trace ref={ref} className={className} {...props}>
+        <TraceLine>
+          <TraceIcon>
+            <FlaskConical />
+          </TraceIcon>
+          <TraceTitle>{title}</TraceTitle>
+          {duration && (
+            <span className="text-xs text-muted-foreground">in {duration}</span>
+          )}
+          <span className="ml-auto text-xs text-muted-foreground">
+            {passed} passed{failed > 0 ? ` · ${failed} failed` : ""}
+            {skipped > 0 ? ` · ${skipped} skipped` : ""}
+          </span>
+        </TraceLine>
+        <Trace>
           {tests.map((test) => (
             <TestCase key={test.id} test={test} />
           ))}
-        </div>
+        </Trace>
 
         {children}
-      </div>
+      </Trace>
     );
   },
 );

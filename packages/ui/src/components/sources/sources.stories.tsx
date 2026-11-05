@@ -1,6 +1,8 @@
 import React from "react";
 import type { Meta, StoryObj } from "@storybook/react";
-import { Sources, InlineCitation, SourceItem } from "./sources";
+import { InlineCitation } from "@/components/inline-citation";
+import { Sources } from "./sources";
+import type { SourceItem } from "./sources-types";
 
 const meta: Meta<typeof Sources> = {
   title: "AI Elements/Sources",

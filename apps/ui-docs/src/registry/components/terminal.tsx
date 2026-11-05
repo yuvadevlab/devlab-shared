@@ -8,6 +8,7 @@ import {
   type PropDefinition,
   type CssClassDefinition,
 } from "@/components/component-view";
+import { createExampleSource } from "@/lib/create-example-source";
 
 const sampleBuildOutput = `turbo 2.4.4
 • Running build in 3 packages
@@ -24,19 +25,31 @@ export default function TerminalDocPage() {
       id: "default",
       title: "Command Execution Log",
       description:
-        "Terminal window container displaying executed command, window control buttons, and logs.",
+        "Expandable command trace with a copyable, scrollable output block.",
       preview: (
         <div className="dl-demo-frame dl-demo-frame--md">
           <div className="w-full max-w-xl">
-            <Terminal command="pnpm build" output={sampleBuildOutput} />
+            <Terminal
+              command="pnpm build"
+              output={sampleBuildOutput}
+              defaultOpen
+            />
           </div>
         </div>
       ),
-      codeSnippet: `<Terminal
+      codeSnippet: createExampleSource({
+        imports: ["Terminal"],
+        setup: `const output = \`turbo 2.4.4
+• Running build in 3 packages
+@yuva-devlab/ui:build: ✓ built in 842ms
+Tasks: 3 successful, 3 total
+Time: 1.624s\`;`,
+        body: `<Terminal
   command="pnpm build"
-  output={\`turbo 2.4.4
-@yuva-devlab/ui:build: ✓ built in 842ms\`}
+  output={output}
+  defaultOpen
 />`,
+      }),
     },
     {
       id: "streaming",
@@ -47,6 +60,8 @@ export default function TerminalDocPage() {
           <div className="w-full max-w-xl">
             <Terminal
               command="docker compose up -d"
+              isStreaming
+              defaultOpen
               output={`[+] Running 3/3
  ✔ Network devlab-network        Created
  ✔ Container devlab-postgres-1   Started
@@ -55,10 +70,19 @@ export default function TerminalDocPage() {
           </div>
         </div>
       ),
-      codeSnippet: `<Terminal
+      codeSnippet: createExampleSource({
+        imports: ["Terminal"],
+        setup: `const output = \`[+] Running 3/3
+✔ Network devlab-network        Created
+✔ Container devlab-postgres-1   Started
+✔ Container devlab-redis-1      Started\`;`,
+        body: `<Terminal
   command="docker compose up -d"
-  output="[+] Running 3/3..."
+  output={output}
+  isStreaming
+  defaultOpen
 />`,
+      }),
     },
   ];
 
@@ -67,7 +91,7 @@ export default function TerminalDocPage() {
       name: "command",
       type: "string",
       default: "—",
-      description: "CLI command string displayed in title and prompt line.",
+      description: "Command displayed in the trace line and output.",
     },
     {
       name: "output",
@@ -82,29 +106,44 @@ export default function TerminalDocPage() {
       description: "Maximum height for the terminal scrollable area.",
     },
     {
+      name: "isStreaming",
+      type: "boolean",
+      default: "false",
+      description: "Shows a running indicator and opens output initially.",
+    },
+    {
+      name: "defaultOpen",
+      type: "boolean",
+      default: "isStreaming",
+      description: "Controls whether output is expanded on initial render.",
+    },
+    {
+      name: "status",
+      type: '"default" | "running" | "success" | "error"',
+      default: "inferred from isStreaming and output",
+      description: "Execution state used for the trace line styling.",
+    },
+    {
       name: "windowControls",
       type: "boolean",
-      default: "true",
-      description: "Whether to render Mac-style 3 dots in the terminal header.",
+      default: "false",
+      description: "Whether to render legacy window dots in the command row.",
     },
   ];
 
   const cssClasses: CssClassDefinition[] = [
     {
       name: ".dl-terminal",
-      description: "Monospace dark card container with border styling.",
+      description: "Wrapper for the command trace and output block.",
     },
     {
-      name: ".dl-terminal__header",
-      description: "Top bar with window dots, title, and copy action.",
+      name: ".dl-terminal__trigger",
+      description:
+        "Interactive trace row that expands or collapses the output.",
     },
     {
-      name: ".dl-terminal__output",
-      description: "Preformatted scrolling area for shell output.",
-    },
-    {
-      name: ".dl-terminal__prompt-line",
-      description: "Highlighted dollar prompt ($) command line.",
+      name: ".dl-terminal__code-block",
+      description: "Theme-aware, scrollable code block for terminal output.",
     },
   ];
 

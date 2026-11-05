@@ -1,6 +1,11 @@
 import * as React from "react";
-import { ArrowUp, Square, Paperclip, X, FileText } from "lucide-react";
+import { ArrowUp, Square, Paperclip } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { Attachment } from "@/components/attachment";
+import { Button } from "@/components/button";
+import { Input } from "@/components/input";
+import { InputGroup } from "@/components/input-group";
+import { Textarea } from "@/components/textarea";
 import {
   PromptInputProps,
   PromptInputAttachmentItem,
@@ -63,14 +68,8 @@ export const PromptInput = React.forwardRef<HTMLFormElement, PromptInputProps>(
       onAttachmentsChange?.(next);
     };
 
-    const handleInput = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    const handleInput = (e: React.ChangeEvent<HTMLTextAreaElement>) =>
       updateText(e.target.value);
-      // Auto-resize
-      if (textareaRef.current) {
-        textareaRef.current.style.height = "auto";
-        textareaRef.current.style.height = `${Math.min(textareaRef.current.scrollHeight, 224)}px`;
-      }
-    };
 
     const handleFormSubmit = (e: React.FormEvent) => {
       e.preventDefault();
@@ -84,15 +83,12 @@ export const PromptInput = React.forwardRef<HTMLFormElement, PromptInputProps>(
       onSubmit?.(text, files);
       updateText("");
       updateFiles([]);
-      if (textareaRef.current) {
-        textareaRef.current.style.height = "auto";
-      }
     };
 
     const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
       if (e.key === "Enter" && !e.shiftKey) {
         e.preventDefault();
-        handleFormSubmit(e);
+        e.currentTarget.form?.requestSubmit();
       }
     };
 
@@ -133,80 +129,89 @@ export const PromptInput = React.forwardRef<HTMLFormElement, PromptInputProps>(
       >
         {/* Attachments preview row */}
         {files.length > 0 && (
-          <div className="dl-prompt-input__attachments">
+          <div
+            className="dl-prompt-input__attachments"
+            role="group"
+            aria-label="Attachments"
+          >
             {files.map((file) => (
-              <span key={file.id} className="dl-prompt-input__chip">
-                <FileText className="size-3 text-muted-foreground" />
-                <span className="dl-prompt-input__chip-name">{file.name}</span>
-                <button
-                  type="button"
-                  onClick={() => handleRemoveFile(file.id)}
-                  aria-label={`Remove ${file.name}`}
-                  className="dl-prompt-input__chip-remove"
-                >
-                  <X className="size-3" />
-                </button>
-              </span>
+              <Attachment
+                key={file.id}
+                name={file.name}
+                size={
+                  typeof file.size === "number"
+                    ? `${(file.size / 1024).toFixed(1)} KB`
+                    : file.size
+                }
+                onRemove={() => handleRemoveFile(file.id)}
+                className="dl-prompt-input__chip"
+              />
             ))}
           </div>
         )}
 
-        {/* Textarea */}
-        <textarea
-          ref={textareaRef}
-          value={text}
-          onChange={handleInput}
-          onKeyDown={handleKeyDown}
-          placeholder={placeholder}
-          disabled={disabled}
-          rows={1}
-          className="dl-prompt-input__textarea"
-        />
+        <InputGroup className="dl-prompt-input__group">
+          <Textarea
+            ref={textareaRef}
+            value={text}
+            onChange={handleInput}
+            onKeyDown={handleKeyDown}
+            placeholder={placeholder}
+            disabled={disabled}
+            rows={1}
+            className="dl-prompt-input__textarea"
+          />
 
-        {/* Action Toolbar */}
-        <div className="dl-prompt-input__toolbar">
-          <div className="dl-prompt-input__left-actions">
-            <input
-              type="file"
-              ref={fileInputRef}
-              onChange={handleFileSelect}
-              multiple
-              className="hidden"
-            />
-            <button
-              type="button"
-              onClick={() => fileInputRef.current?.click()}
-              disabled={disabled || files.length >= maxAttachments}
-              aria-label="Attach file"
-              className="dl-prompt-input__btn"
-            >
-              <Paperclip className="size-3.5" />
-            </button>
-            {modelSelector}
-          </div>
-
-          <div className="dl-prompt-input__right-actions">
-            {isGenerating ? (
-              <button
+          <div className="dl-prompt-input__toolbar">
+            <div className="dl-prompt-input__left-actions">
+              <Input
+                type="file"
+                ref={fileInputRef}
+                onChange={handleFileSelect}
+                multiple
+                className="hidden"
+              />
+              <Button
                 type="button"
-                onClick={onStop}
-                aria-label="Stop generation"
-                className="dl-prompt-input__btn dl-prompt-input__btn--stop"
+                onClick={() => fileInputRef.current?.click()}
+                disabled={disabled || files.length >= maxAttachments}
+                aria-label="Attach file"
+                variant="ghost"
+                size="icon"
+                className="dl-prompt-input__btn"
               >
-                <Square className="size-3 fill-current" />
-              </button>
-            ) : (
-              <button
-                type="submit"
-                disabled={!canSubmit}
-                aria-label="Send message"
-                className="dl-prompt-input__btn dl-prompt-input__btn--send"
-              >
-                <ArrowUp className="size-3.5 stroke-[2.5]" />
-              </button>
-            )}
+                <Paperclip className="size-4" />
+              </Button>
+              {modelSelector}
+            </div>
+
+            <div className="dl-prompt-input__right-actions">
+              {isGenerating ? (
+                <Button
+                  type="button"
+                  onClick={onStop}
+                  aria-label="Stop generation"
+                  variant="destructive"
+                  size="icon"
+                  className="dl-prompt-input__btn dl-prompt-input__btn--stop"
+                >
+                  <Square className="size-4 fill-current" />
+                </Button>
+              ) : (
+                <Button
+                  type="submit"
+                  disabled={!canSubmit}
+                  aria-label="Send message"
+                  variant="default"
+                  size="icon"
+                  className="dl-prompt-input__btn dl-prompt-input__btn--send"
+                >
+                  <ArrowUp className="size-4 stroke-[2.5]" />
+                </Button>
+              )}
+            </div>
           </div>
-        </div>
+        </InputGroup>
       </form>
     );
   },

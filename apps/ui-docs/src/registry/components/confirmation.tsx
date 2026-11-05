@@ -17,6 +17,7 @@ import {
   type PropDefinition,
   type CssClassDefinition,
 } from "@/components/component-view";
+import { createExampleSource } from "@/lib/create-example-source";
 
 export default function ConfirmationDocPage() {
   const variants: ComponentVariant[] = [
@@ -46,17 +47,31 @@ export default function ConfirmationDocPage() {
           </Confirmation>
         </div>
       ),
-      codeSnippet: `<Confirmation>
-  <ConfirmationMedia><Terminal /></ConfirmationMedia>
+      codeSnippet: createExampleSource({
+        externalImports: ['import { Terminal } from "lucide-react";'],
+        imports: [
+          "Button",
+          "Confirmation",
+          "ConfirmationActions",
+          "ConfirmationContent",
+          "ConfirmationDescription",
+          "ConfirmationMedia",
+          "ConfirmationTitle",
+        ],
+        body: `<Confirmation>
+  <ConfirmationMedia><Terminal className="size-4" /></ConfirmationMedia>
   <ConfirmationContent>
     <ConfirmationTitle>Run git push origin main?</ConfirmationTitle>
-    <ConfirmationDescription>Pushes 3 commits to production.</ConfirmationDescription>
+    <ConfirmationDescription>
+      Pushes 3 commits to the remote production repository.
+    </ConfirmationDescription>
   </ConfirmationContent>
   <ConfirmationActions>
     <Button variant="outline" size="sm">Deny</Button>
     <Button size="sm">Approve</Button>
   </ConfirmationActions>
-</Confirmation>`,
+  </Confirmation>`,
+      }),
     },
     {
       id: "destructive",
@@ -88,15 +103,31 @@ export default function ConfirmationDocPage() {
           </Confirmation>
         </div>
       ),
-      codeSnippet: `<Confirmation variant="destructive">
-  <ConfirmationMedia><AlertTriangle /></ConfirmationMedia>
+      codeSnippet: createExampleSource({
+        externalImports: ['import { AlertTriangle } from "lucide-react";'],
+        imports: [
+          "Button",
+          "Confirmation",
+          "ConfirmationActions",
+          "ConfirmationContent",
+          "ConfirmationDescription",
+          "ConfirmationMedia",
+          "ConfirmationTitle",
+        ],
+        body: `<Confirmation variant="destructive">
+  <ConfirmationMedia><AlertTriangle className="size-4" /></ConfirmationMedia>
   <ConfirmationContent>
-    <ConfirmationTitle>Drop database table?</ConfirmationTitle>
+    <ConfirmationTitle>Drop database table audit_logs?</ConfirmationTitle>
+    <ConfirmationDescription>
+      This permanently deletes 142,000 rows and cannot be undone.
+    </ConfirmationDescription>
   </ConfirmationContent>
   <ConfirmationActions>
+    <Button variant="outline" size="sm">Cancel</Button>
     <Button variant="destructive" size="sm">Confirm</Button>
   </ConfirmationActions>
-</Confirmation>`,
+  </Confirmation>`,
+      }),
     },
   ];
 

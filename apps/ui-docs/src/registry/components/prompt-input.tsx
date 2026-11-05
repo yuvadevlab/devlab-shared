@@ -1,23 +1,25 @@
 "use client";
 
 import React, { useState } from "react";
-import { PromptInput, Badge } from "@yuva-devlab/ui";
+import { ModelSelector, PromptInput } from "@yuva-devlab/ui";
 import {
   ComponentView,
   type ComponentVariant,
   type PropDefinition,
   type CssClassDefinition,
 } from "@/components/component-view";
+import { createExampleSource } from "@/lib/create-example-source";
 
 export default function PromptInputDocPage() {
   const [submitted, setSubmitted] = useState<string>("");
+  const [model, setModel] = useState("claude-3-5-sonnet");
 
   const variants: ComponentVariant[] = [
     {
       id: "default",
       title: "Interactive Prompt Bar",
       description:
-        "Auto-expanding input with file attachment capabilities, Enter submission, and Stop generation action.",
+        "Theme-aware prompt composer built from the shared Textarea, Input, Attachment, and Button primitives.",
       preview: (
         <div className="dl-demo-frame dl-demo-frame--md">
           <div className="w-full max-w-xl space-y-3">
@@ -35,37 +37,60 @@ export default function PromptInputDocPage() {
           </div>
         </div>
       ),
-      codeSnippet: `<PromptInput
+      codeSnippet: createExampleSource({
+        imports: ["PromptInput"],
+        body: `<PromptInput
   placeholder="Ask anything or request code edits..."
-  onSubmit={(val, files) => handlePrompt(val, files)}
+  onSubmit={(value, files) => {
+    console.log("Prompt:", value, "Attachments:", files);
+  }}
 />`,
+      }),
     },
     {
       id: "with-model",
-      title: "With Model Badge & Generating State",
+      title: "With Attachments, Model Selector & Generating State",
       description:
-        "Display active model selection pill and square stop button during generation.",
+        "Compose file attachments, a compact model selector, and the stop action.",
       preview: (
         <div className="dl-demo-frame dl-demo-frame--md">
           <div className="w-full max-w-xl">
             <PromptInput
-              defaultValue="Analyze current database query performance"
-              isGenerating={true}
+              defaultValue="Review the attached query plan and schema."
+              isGenerating
               onStop={() => alert("Generation cancelled")}
+              attachments={[
+                { id: "plan", name: "query-plan.json" },
+                { id: "schema", name: "schema.prisma" },
+              ]}
               modelSelector={
-                <Badge variant="outline" className="text-xs">
-                  Claude 3.5 Sonnet
-                </Badge>
+                <ModelSelector
+                  size="sm"
+                  value={model}
+                  onValueChange={setModel}
+                />
               }
             />
           </div>
         </div>
       ),
-      codeSnippet: `<PromptInput
-  isGenerating={true}
-  onStop={() => abortController.abort()}
-  modelSelector={<Badge variant="outline">Claude 3.5 Sonnet</Badge>}
+      codeSnippet: createExampleSource({
+        externalImports: ['import { useState } from "react";'],
+        imports: ["ModelSelector", "PromptInput"],
+        setup: `const [model, setModel] = useState("claude-3-5-sonnet");`,
+        body: `<PromptInput
+  defaultValue="Review the attached query plan and schema."
+  attachments={[
+    { id: "plan", name: "query-plan.json" },
+    { id: "schema", name: "schema.prisma" },
+  ]}
+  modelSelector={
+    <ModelSelector size="sm" value={model} onValueChange={setModel} />
+  }
+  isGenerating
+  onStop={() => console.log("Stop generation")}
 />`,
+      }),
     },
   ];
 
@@ -115,15 +140,16 @@ export default function PromptInputDocPage() {
     },
     {
       name: ".dl-prompt-input__textarea",
-      description: "Auto-resizing clean textarea.",
+      description: "Token-styled, content-sizing Textarea primitive.",
     },
     {
-      name: ".dl-prompt-input__footer",
-      description: "Bottom action bar housing attachments and submit button.",
+      name: ".dl-prompt-input__toolbar",
+      description: "Bottom action bar housing attachment and submit controls.",
     },
     {
-      name: ".dl-prompt-input__submit-btn",
-      description: "Circular submit or stop icon button.",
+      name: ".dl-prompt-input__btn",
+      description:
+        "Button primitive styled for attachment, send, and stop actions.",
     },
   ];
 

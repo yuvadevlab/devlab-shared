@@ -41,7 +41,7 @@
     margin: 0;
   }
 
-  .dl-code-block {
+  .dl-installation-code-block {
     position: relative;
     border-radius: var(--radius-xl, 0.75rem);
     border: 1px solid var(--border);
@@ -50,7 +50,7 @@
     box-shadow: 0 1px 2px rgb(0 0 0 / 0.05);
   }
 
-  .dl-code-block__action {
+  .dl-installation-code-block__action {
     position: absolute;
     right: 0.75rem;
     top: 0.75rem;
@@ -59,24 +59,24 @@
     transition: opacity 0.15s ease;
   }
 
-  .dl-code-block:hover .dl-code-block__action {
+  .dl-installation-code-block:hover .dl-installation-code-block__action {
     opacity: 1;
   }
 
-  .dl-code-block__content {
+  .dl-installation-code-block__content {
     padding: 1rem;
     font-size: 0.75rem;
     font-family: var(--font-mono, monospace);
     overflow-x: auto;
   }
 
-  .dl-code-block__content pre {
+  .dl-installation-code-block__content pre {
     background: transparent !important;
     margin: 0;
     padding: 0;
   }
 
-  .dl-code-block__raw {
+  .dl-installation-code-block__raw {
     padding: 1rem;
     font-size: 0.75rem;
     font-family: var(--font-mono, monospace);

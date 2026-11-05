@@ -6,6 +6,12 @@ import type {
   PropDefinition,
   CssClassDefinition,
 } from "@/types/component-doc";
+import {
+  buttonDisabledExample,
+  buttonIconsExample,
+  buttonSizesExample,
+  buttonStylesExample,
+} from "@/registry/examples/button-example-source";
 
 export const BUTTON_VARIANTS: ComponentVariant[] = [
   {
@@ -23,12 +29,7 @@ export const BUTTON_VARIANTS: ComponentVariant[] = [
         <Button variant="link">Link Style</Button>
       </Flex>
     ),
-    codeSnippet: `<Button variant="default">Primary</Button>
-<Button variant="secondary">Secondary</Button>
-<Button variant="outline">Outline</Button>
-<Button variant="ghost">Ghost</Button>
-<Button variant="destructive">Destructive</Button>
-<Button variant="link">Link Style</Button>`,
+    codeSnippet: buttonStylesExample,
   },
   {
     id: "sizes",
@@ -45,10 +46,7 @@ export const BUTTON_VARIANTS: ComponentVariant[] = [
         </Button>
       </Flex>
     ),
-    codeSnippet: `<Button size="sm">Small (sm)</Button>
-<Button size="default">Default (md)</Button>
-<Button size="lg">Large (lg)</Button>
-<Button size="icon" variant="outline"><Sparkles /></Button>`,
+    codeSnippet: buttonSizesExample,
   },
   {
     id: "icons",
@@ -75,14 +73,7 @@ export const BUTTON_VARIANTS: ComponentVariant[] = [
         </Button>
       </Flex>
     ),
-    codeSnippet: `<Button>
-  <Sparkles />
-  <span>Generate with AI</span>
-</Button>
-<Button variant="secondary">
-  <span>Continue</span>
-  <ArrowRight />
-</Button>`,
+    codeSnippet: buttonIconsExample,
   },
   {
     id: "disabled",
@@ -105,9 +96,7 @@ export const BUTTON_VARIANTS: ComponentVariant[] = [
         </Button>
       </Flex>
     ),
-    codeSnippet: `<Button disabled variant="default">Disabled Primary</Button>
-<Button disabled variant="secondary">Disabled Secondary</Button>
-<Button disabled variant="outline">Disabled Outline</Button>`,
+    codeSnippet: buttonDisabledExample,
   },
 ];
 

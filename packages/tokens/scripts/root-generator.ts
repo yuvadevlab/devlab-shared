@@ -35,12 +35,20 @@ export function generateRootCss(): string {
   const semanticSpaceLines = Object.entries(SEMANTIC_SPACING)
     .map(([k, v]) => `    --${k}: ${v};`)
     .join("\n");
-  const lightColors = Object.entries(ROOT_LIGHT_PALETTE)
-    .map(([k, v]) => `    --${k}: ${v};`)
-    .join("\n");
-  const darkColors = Object.entries(ROOT_DARK_PALETTE)
-    .map(([k, v]) => `    --${k}: ${v};`)
-    .join("\n");
+  const formatPalette = (palette: typeof ROOT_LIGHT_PALETTE) =>
+    Object.entries(palette)
+      .map(([key, value]) => {
+        const kebabKey = key.replace(
+          /[A-Z]/g,
+          (letter) => `-${letter.toLowerCase()}`,
+        );
+        return kebabKey === key
+          ? `    --${key}: ${value};`
+          : `    --${key}: ${value};\n    --${kebabKey}: ${value};`;
+      })
+      .join("\n");
+  const lightColors = formatPalette(ROOT_LIGHT_PALETTE);
+  const darkColors = formatPalette(ROOT_DARK_PALETTE);
   const chartLines = Object.entries(ROOT_CHARTS)
     .map(([k, v]) => `    --${k}: ${v};`)
     .join("\n");
@@ -51,7 +59,9 @@ export function generateRootCss(): string {
  * Governed by W3C Cascade Layers.
  */
 
-@layer dl-tokens {
+ @layer dl-reset, dl-base, dl-tokens, dl-components, dl-layout, dl-utilities, dl-app;
+
+ @layer dl-tokens {
   :root {
     --radius: 0.5rem;
 ${radiiLines}
@@ -148,6 +158,8 @@ export function generateStylesCss(brandNames: readonly string[]): string {
  * @description Master stylesheet for @yuva-devlab/tokens.
  * Contains base CSS custom properties, utility classes, and brand theme definitions.
  */
+
+@layer dl-reset, dl-base, dl-tokens, dl-components, dl-layout, dl-utilities, dl-app;
 
 @import "./root.css";
 @import "./typography.css";

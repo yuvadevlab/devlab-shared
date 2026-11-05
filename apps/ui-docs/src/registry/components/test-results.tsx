@@ -8,6 +8,7 @@ import {
   type PropDefinition,
   type CssClassDefinition,
 } from "@/components/component-view";
+import { createExampleSource } from "@/lib/create-example-source";
 
 const suiteTests: TestCaseItem[] = [
   {
@@ -61,11 +62,34 @@ export default function TestResultsDocPage() {
           </div>
         </div>
       ),
-      codeSnippet: `<TestResults
-  title="AI Elements Vitest Suite"
+      codeSnippet: createExampleSource({
+        imports: ["TestResults", "type TestCaseItem"],
+        setup: `const tests: TestCaseItem[] = [
+  {
+    id: "test-1",
+    name: "renders a completed task",
+    status: "passed",
+    durationMs: 14,
+  },
+  {
+    id: "test-2",
+    name: "shows a useful error when loading fails",
+    status: "failed",
+    durationMs: 45,
+    errorMessage: "Expected the request to succeed, but it returned 500.",
+  },
+  {
+    id: "test-3",
+    name: "skips browser-only checks in Node",
+    status: "skipped",
+  },
+];`,
+        body: `<TestResults
+  title="AI Elements test suite"
   duration="182ms"
-  tests={testCases}
+  tests={tests}
 />`,
+      }),
     },
   ];
 

@@ -2,6 +2,39 @@ import type { ComponentMeta } from "@/config/meta-types";
 
 export const AI_ELEMENTS_COMPONENTS: ComponentMeta[] = [
   {
+    name: "Chat",
+    slug: "chat",
+    href: "/components/chat",
+    category: "AI Elements",
+    description: "Conversation shell with message and composer regions.",
+    keywords: ["chat", "conversation", "assistant", "messages"],
+  },
+  {
+    name: "Inline Citation",
+    slug: "inline-citation",
+    href: "/components/inline-citation",
+    category: "AI Elements",
+    description: "Clickable in-text reference badge connected to a source.",
+    keywords: ["citation", "source", "reference", "grounding"],
+  },
+  {
+    name: "Reasoning",
+    slug: "reasoning",
+    href: "/components/reasoning",
+    category: "AI Elements",
+    description: "Collapsible disclosure for model reasoning and progress.",
+    keywords: ["reasoning", "thinking", "chain", "model"],
+  },
+  {
+    name: "Task",
+    slug: "task",
+    href: "/components/task",
+    category: "AI Elements",
+    description:
+      "Task status row for pending, running, completed, or failed work.",
+    keywords: ["task", "agent", "status", "progress"],
+  },
+  {
     name: "Chain of Thought",
     slug: "chain-of-thought",
     href: "/components/chain-of-thought",

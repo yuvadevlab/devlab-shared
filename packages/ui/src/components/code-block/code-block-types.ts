@@ -25,4 +25,6 @@ export interface CodeBlockContentProps extends React.HTMLAttributes<HTMLPreEleme
   wrap?: boolean;
   /** Whether line numbers are rendered */
   lineNumbers?: boolean;
+  /** Source language used for syntax colors */
+  language?: string;
 }

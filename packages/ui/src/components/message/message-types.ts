@@ -13,7 +13,13 @@ export interface MessageAvatarProps extends React.HTMLAttributes<HTMLDivElement>
   fallback?: React.ReactNode;
 }
 
-export type MessageContentProps = React.HTMLAttributes<HTMLDivElement>;
+/**
+ * Props for a message body; its role is inherited from the parent Message.
+ */
+export type MessageContentProps = Omit<
+  React.HTMLAttributes<HTMLDivElement>,
+  "role"
+>;
 
 export interface MessageActionsProps extends React.HTMLAttributes<HTMLDivElement> {
   /** Text content for copy action */

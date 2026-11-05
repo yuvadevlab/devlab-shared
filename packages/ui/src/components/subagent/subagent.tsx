@@ -7,42 +7,31 @@ import {
   XCircle,
   Circle,
 } from "lucide-react";
-import { cn } from "@/lib/utils";
+import {
+  Trace,
+  TraceCollapsible,
+  TraceCollapsibleContent,
+  TraceCollapsibleTrigger,
+  TraceContent,
+  TraceIcon,
+  TraceLine,
+  TraceTitle,
+} from "@/components/trace";
 import { SubagentProps, SubagentStatus } from "./subagent-types";
 
 export type { SubagentProps, SubagentStatus };
 
-const getStatusBadge = (status: SubagentStatus) => {
+const getStatusIcon = (status: SubagentStatus): React.ReactNode => {
   switch (status) {
     case "running":
-      return (
-        <span className="flex items-center gap-1 text-xs text-primary font-medium">
-          <Loader2 className="size-3 animate-spin" />
-          <span>Running</span>
-        </span>
-      );
+      return <Loader2 className="size-4 animate-spin" />;
     case "completed":
-      return (
-        <span className="flex items-center gap-1 text-xs text-success font-medium">
-          <CheckCircle2 className="size-3" />
-          <span>Done</span>
-        </span>
-      );
+      return <CheckCircle2 className="size-4" />;
     case "failed":
-      return (
-        <span className="flex items-center gap-1 text-xs text-destructive font-medium">
-          <XCircle className="size-3" />
-          <span>Failed</span>
-        </span>
-      );
+      return <XCircle className="size-4" />;
     case "idle":
     default:
-      return (
-        <span className="flex items-center gap-1 text-xs text-muted-foreground">
-          <Circle className="size-3" />
-          <span>Idle</span>
-        </span>
-      );
+      return <Circle className="size-4" />;
   }
 };
 
@@ -74,52 +63,57 @@ export const Subagent = React.forwardRef<HTMLDivElement, SubagentProps>(
     },
     ref,
   ) => {
-    const [open, setOpen] = React.useState(defaultOpen);
     const hasChildren = Boolean(children);
+    const line = (
+      <TraceLine
+        status={
+          status === "running"
+            ? "running"
+            : status === "failed"
+              ? "error"
+              : status === "completed"
+                ? "success"
+                : "default"
+        }
+      >
+        <TraceIcon>
+          <Bot />
+        </TraceIcon>
+        <TraceTitle>{name}</TraceTitle>
+        {role && <span className="text-xs text-muted-foreground">{role}</span>}
+        {model && (
+          <span className="text-xs text-muted-foreground">{model}</span>
+        )}
+        {conversationId && (
+          <span className="font-mono text-xs text-muted-foreground">
+            #{conversationId.slice(0, 6)}
+          </span>
+        )}
+        <span className="ml-auto flex items-center gap-1 text-xs text-muted-foreground">
+          {getStatusIcon(status)}
+          {status}
+        </span>
+        {hasChildren && (
+          <ChevronRight className="size-4 text-muted-foreground transition-transform group-aria-expanded:rotate-90" />
+        )}
+      </TraceLine>
+    );
 
     return (
-      <div ref={ref} className={cn("dl-subagent", className)} {...props}>
-        <div
-          className="dl-subagent__header"
-          onClick={() => hasChildren && setOpen((prev) => !prev)}
-        >
-          <div className="dl-subagent__title-area">
-            <div className="dl-subagent__avatar">
-              <Bot className="size-3.5" />
-            </div>
-            <div className="dl-subagent__meta">
-              <span className="dl-subagent__name">{name}</span>
-              {role && <span className="dl-subagent__role">{role}</span>}
-            </div>
-          </div>
-
-          <div className="dl-subagent__badges">
-            {model && (
-              <span className="px-1.5 py-0.5 rounded text-[10px] font-mono bg-muted text-muted-foreground border border-border">
-                {model}
-              </span>
-            )}
-            {conversationId && (
-              <span className="px-1.5 py-0.5 rounded text-[10px] font-mono bg-muted text-muted-foreground">
-                #{conversationId.slice(0, 6)}
-              </span>
-            )}
-            {getStatusBadge(status)}
-            {hasChildren && (
-              <ChevronRight
-                className={cn(
-                  "size-3.5 text-muted-foreground transition-transform shrink-0 ml-1",
-                  open && "rotate-90",
-                )}
-              />
-            )}
-          </div>
-        </div>
-
-        {open && hasChildren && (
-          <div className="dl-subagent__content">{children}</div>
+      <Trace ref={ref} className={className} {...props}>
+        {hasChildren ? (
+          <TraceCollapsible defaultOpen={defaultOpen}>
+            <TraceCollapsibleTrigger className="group w-full">
+              {line}
+            </TraceCollapsibleTrigger>
+            <TraceCollapsibleContent keepMounted>
+              <TraceContent>{children}</TraceContent>
+            </TraceCollapsibleContent>
+          </TraceCollapsible>
+        ) : (
+          line
         )}
-      </div>
+      </Trace>
     );
   },
 );

@@ -1,9 +1,10 @@
 import React from "react";
 import type { Meta, StoryObj } from "@storybook/react";
-import { DataTable } from "./data-table";
+import { DataTable, type DataTableColumn } from "./data-table";
 import { Badge } from "@/components/badge";
 
 interface MockUser {
+  [key: string]: string;
   id: string;
   name: string;
   email: string;
@@ -98,7 +99,7 @@ const mockUsers: MockUser[] = [
   },
 ];
 
-const columns = [
+const columns: DataTableColumn<MockUser>[] = [
   { key: "name", header: "Name", sortable: true },
   { key: "email", header: "Email", sortable: true },
   {

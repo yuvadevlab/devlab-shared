@@ -68,7 +68,7 @@ Import the baseline styles and your desired brand theme in your root CSS file (e
 
 | Brand Theme       | Import Path                                 | Signature Aesthetic                               | Default Density |
 | :---------------- | :------------------------------------------ | :------------------------------------------------ | :-------------- |
-| **FinAI**         | `@yuva-devlab/tokens/themes/finai.css`      | High-Finance Emerald (`oklch(0.68 0.2 155)`)      | Spacious        |
+| **FinAI**         | `@yuva-devlab/tokens/themes/finai.css`      | High-Finance Emerald (`oklch(0.68 0.2 155)`)      | Compact         |
 | **VitalAI**       | `@yuva-devlab/tokens/themes/vitalai.css`    | Athletic Volt Kinetic (`oklch(0.93 0.23 125)`)    | Spacious        |
 | **DevLab Logs**   | `@yuva-devlab/tokens/themes/logs.css`       | High-Density Matrix Amber (`oklch(0.78 0.18 75)`) | Compact / High  |
 | **OrchestrAI**    | `@yuva-devlab/tokens/themes/orchestrai.css` | Midnight Neon Violet (`oklch(0.65 0.24 285)`)     | Standard        |
@@ -145,6 +145,8 @@ Every brand provides an identical set of core semantic CSS variables:
 - **Geometry**: `--radius`, `--radius-sm`, `--radius-md`, `--radius-lg`, `--radius-xl`, `--radius-2xl`
 - **Control Heights**: `--control-height-xs`, `--control-height-sm`, `--control-height-md`, `--control-height-lg`, `--control-height-xl`
 - **Spacing**: `--space-1` (0.25rem) through `--space-16` (4rem)
+
+Brand density scales the spacing, control-height, icon-size, and derived semantic-spacing tokens while preserving their names: compact uses `0.875×`, standard `1×`, and spacious `1.125×` the base values. Components using these tokens therefore adapt automatically to the active brand.
 
 ---
 

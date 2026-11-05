@@ -9,6 +9,7 @@ import {
   type PropDefinition,
   type CssClassDefinition,
 } from "@/components/component-view";
+import { createExampleSource } from "@/lib/create-example-source";
 
 const mockQueryResult = JSON.stringify(
   [
@@ -32,19 +33,32 @@ export default function ToolCallDocPage() {
             name="query_database"
             status="success"
             defaultOpen
-            icon={<Database className="size-3.5 text-primary" />}
+            icon={<Database className="size-4" />}
             args={{ table: "users", limit: 2 }}
             result={mockQueryResult}
           />
         </div>
       ),
-      codeSnippet: `<ToolCall
+      codeSnippet: createExampleSource({
+        externalImports: ['import { Database } from "lucide-react";'],
+        imports: ["ToolCall"],
+        setup: `const result = JSON.stringify(
+  [
+    { id: "usr_1", name: "Alice", role: "admin" },
+    { id: "usr_2", name: "Bob", role: "developer" },
+  ],
+  null,
+  2,
+);`,
+        body: `<ToolCall
   name="query_database"
   status="success"
   defaultOpen
+  icon={<Database className="size-4" />}
   args={{ table: "users", limit: 2 }}
-  result={JSON.stringify(users, null, 2)}
+  result={result}
 />`,
+      }),
     },
     {
       id: "running",
@@ -56,16 +70,22 @@ export default function ToolCallDocPage() {
             name="npm_run_test"
             status="running"
             defaultOpen
-            icon={<Terminal className="size-3.5 text-primary" />}
+            icon={<Terminal className="size-4" />}
             args={{ suite: "auth-guard.spec.ts", watch: false }}
           />
         </div>
       ),
-      codeSnippet: `<ToolCall
-  name="npm_run_test"
+      codeSnippet: createExampleSource({
+        externalImports: ['import { Terminal } from "lucide-react";'],
+        imports: ["ToolCall"],
+        body: `<ToolCall
+  name="run_tests"
   status="running"
-  args={{ suite: "auth.spec.ts" }}
+  defaultOpen
+  icon={<Terminal className="size-4" />}
+  args={{ suite: "auth.spec.ts", watch: false }}
 />`,
+      }),
     },
   ];
 

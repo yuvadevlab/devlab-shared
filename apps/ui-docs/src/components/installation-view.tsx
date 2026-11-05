@@ -40,17 +40,17 @@ export function InstallationView({
                 {step.description && (
                   <p className="dl-guide-step__desc">{step.description}</p>
                 )}
-                <div className="dl-code-block">
-                  <div className="dl-code-block__action">
+                <div className="dl-installation-code-block">
+                  <div className="dl-installation-code-block__action">
                     <CopyCodeButton code={step.codeSnippet} />
                   </div>
                   {step.highlightedHtml ? (
                     <div
-                      className="dl-code-block__content"
+                      className="dl-installation-code-block__content"
                       dangerouslySetInnerHTML={{ __html: step.highlightedHtml }}
                     />
                   ) : (
-                    <pre className="dl-code-block__raw">
+                    <pre className="dl-installation-code-block__raw">
                       <code>{step.codeSnippet}</code>
                     </pre>
                   )}

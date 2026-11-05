@@ -104,24 +104,13 @@
   }
 
   .dl-demo-card__code {
-    background-color: color-mix(in oklch, var(--muted) 40%, transparent);
-    padding: 1rem;
     border-top: 1px solid var(--border);
     overflow-x: auto;
-    font-family: var(--font-mono, monospace);
-    font-size: 0.75rem;
   }
 
-  .dl-demo-card__code-highlighted pre {
-    margin: 0;
-    padding: 0;
-    background: transparent !important;
-  }
-
-  .dl-demo-card__code-raw {
-    margin: 0;
-    color: var(--foreground);
-    white-space: pre;
+  .dl-demo-card__code-block {
+    border: 0;
+    border-radius: 0;
   }
 
   .dl-demo-card__icon-sm {

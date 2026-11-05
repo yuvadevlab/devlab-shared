@@ -14,25 +14,22 @@
 }
 
 .dl-suggestion {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.375rem;
-  padding: 0.375rem 0.75rem;
-  border-radius: 9999px;
-  border: 1px solid var(--border);
-  background-color: var(--secondary, var(--background));
+  height: var(--control-height-sm, 2rem);
+  padding: 0 0.75rem;
+  border: 1px solid var(--input);
+  border-radius: var(--radius-md, 0.375rem);
+  background-color: var(--background);
   color: var(--foreground);
   font-size: 0.75rem;
   font-weight: 500;
-  cursor: pointer;
   text-align: left;
-  transition: all 0.15s ease;
   white-space: nowrap;
 }
 
 .dl-suggestion:hover {
   background-color: var(--accent);
-  border-color: color-mix(in oklch, var(--primary) 30%, var(--border));
+  border-color: var(--input);
+  color: var(--accent-foreground);
 }
 
 .dl-suggestion__icon {
@@ -40,10 +37,6 @@
   align-items: center;
   justify-content: center;
   color: var(--muted-foreground);
-}
-
-.dl-suggestion:hover .dl-suggestion__icon {
-  color: var(--primary);
 }
 
 .dl-suggestion__description {

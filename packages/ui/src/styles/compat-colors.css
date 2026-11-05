@@ -1,0 +1,29 @@
+@layer dl-utilities {
+  .bg-card {
+    background-color: var(--card);
+  }
+
+  .bg-muted {
+    background-color: var(--muted);
+  }
+
+  .bg-destructive\/15 {
+    background-color: color-mix(in oklch, var(--destructive) 15%, transparent);
+  }
+
+  .bg-primary\/15 {
+    background-color: color-mix(in oklch, var(--primary) 15%, transparent);
+  }
+
+  .bg-success\/15 {
+    background-color: color-mix(in oklch, var(--success) 15%, transparent);
+  }
+
+  .border-border {
+    border-color: var(--border);
+  }
+
+  .border-primary\/40 {
+    border-color: color-mix(in oklch, var(--primary) 40%, transparent);
+  }
+}

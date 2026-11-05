@@ -1,0 +1,16 @@
+@layer dl-base {
+  :where(p) {
+    margin: 0;
+  }
+
+  :where([class^="dl-"], [class*=" dl-"]) {
+    box-sizing: border-box;
+    color: var(--foreground, inherit);
+    font-family: var(--font-sans, inherit);
+  }
+
+  :where([class^="dl-"], [class*=" dl-"])::before,
+  :where([class^="dl-"], [class*=" dl-"])::after {
+    box-sizing: inherit;
+  }
+}

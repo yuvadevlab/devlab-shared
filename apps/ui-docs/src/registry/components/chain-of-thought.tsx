@@ -13,6 +13,7 @@ import {
   type PropDefinition,
   type CssClassDefinition,
 } from "@/components/component-view";
+import { createExampleSource } from "@/lib/create-example-source";
 
 export default function ChainOfThoughtDocPage() {
   const variants: ComponentVariant[] = [
@@ -39,13 +40,25 @@ export default function ChainOfThoughtDocPage() {
           </ChainOfThought>
         </div>
       ),
-      codeSnippet: `<ChainOfThought durationSeconds={3.4} defaultOpen>
+      codeSnippet: createExampleSource({
+        imports: [
+          "ChainOfThought",
+          "ChainOfThoughtContent",
+          "ChainOfThoughtHeader",
+          "ChainOfThoughtStep",
+        ],
+        body: `<ChainOfThought durationSeconds={3.4} defaultOpen>
   <ChainOfThoughtHeader />
   <ChainOfThoughtContent>
-    <ChainOfThoughtStep status="success">Read workspace dependencies</ChainOfThoughtStep>
-    <ChainOfThoughtStep status="success">Compiled bundles</ChainOfThoughtStep>
+    <ChainOfThoughtStep status="success">
+      Read workspace dependencies
+    </ChainOfThoughtStep>
+    <ChainOfThoughtStep status="success">
+      Compiled ESM and CJS bundles
+    </ChainOfThoughtStep>
   </ChainOfThoughtContent>
 </ChainOfThought>`,
+      }),
     },
     {
       id: "streaming",
@@ -67,14 +80,22 @@ export default function ChainOfThoughtDocPage() {
           </ChainOfThought>
         </div>
       ),
-      codeSnippet: `<ChainOfThought isThinking durationSeconds={1.8} defaultOpen>
+      codeSnippet: createExampleSource({
+        imports: [
+          "ChainOfThought",
+          "ChainOfThoughtContent",
+          "ChainOfThoughtHeader",
+          "ChainOfThoughtStep",
+        ],
+        body: `<ChainOfThought isThinking durationSeconds={1.8} defaultOpen>
   <ChainOfThoughtHeader />
   <ChainOfThoughtContent>
     <ChainOfThoughtStep status="running">
-      Synthesizing mitigation strategy...
+      Comparing the latest package versions...
     </ChainOfThoughtStep>
   </ChainOfThoughtContent>
 </ChainOfThought>`,
+      }),
     },
   ];
 

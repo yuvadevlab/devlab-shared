@@ -4,8 +4,11 @@
  * Provides semantic, accessibility, icon, and text utilities.
  */
 
+@import "./compat-utilities.css";
+
 @layer dl-utilities {
   /* ── Accessibility ─────────────────────────────────────────────────────── */
+  .sr-only,
   .dl-sr-only {
     position: absolute;
     width: 1px;
@@ -18,6 +21,7 @@
     border-width: 0;
   }
 
+  .not-sr-only,
   .dl-not-sr-only {
     position: static;
     width: auto;

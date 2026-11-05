@@ -9,6 +9,16 @@ import {
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import {
+  Trace,
+  TraceCollapsible,
+  TraceCollapsibleContent,
+  TraceCollapsibleTrigger,
+  TraceContent,
+  TraceIcon,
+  TraceLine,
+  TraceTitle,
+} from "@/components/trace";
+import {
   PlanProps,
   PlanHeaderProps,
   PlanTaskProps,
@@ -29,13 +39,13 @@ export const PlanHeader = React.forwardRef<HTMLDivElement, PlanHeaderProps>(
     },
     ref,
   ) => (
-    <div ref={ref} className={cn("dl-plan__header", className)} {...props}>
-      <div className="dl-plan__header-title">
-        <ListTodo className="size-4 text-primary" />
-        <span>{title}</span>
-      </div>
-      <div className="dl-plan__header-meta">
-        {progress && <span>{progress}</span>}
+    <TraceLine ref={ref} className={className} {...props}>
+      <TraceIcon>
+        <ListTodo />
+      </TraceIcon>
+      <TraceTitle>{title}</TraceTitle>
+      <div className="ml-auto flex items-center gap-2 text-xs">
+        {progress && <span className="text-muted-foreground">{progress}</span>}
         {status && (
           <span
             className={cn(
@@ -51,7 +61,7 @@ export const PlanHeader = React.forwardRef<HTMLDivElement, PlanHeaderProps>(
         )}
         {children}
       </div>
-    </div>
+    </TraceLine>
   ),
 );
 PlanHeader.displayName = "PlanHeader";
@@ -86,47 +96,58 @@ export const PlanTask = React.forwardRef<HTMLDivElement, PlanTaskProps>(
       }
     };
 
-    return (
-      <div
+    const traceStatus =
+      status === "completed"
+        ? "success"
+        : status === "failed"
+          ? "error"
+          : status === "running"
+            ? "running"
+            : "pending";
+    const line = (
+      <TraceLine
         ref={ref}
-        className={cn(
-          "dl-plan__task",
-          status === "completed" && "dl-plan__task--completed",
-          className,
-        )}
+        status={traceStatus}
+        className={className}
         {...props}
       >
-        <div
-          className="dl-plan__task-header"
-          onClick={() => hasChildren && setExpanded((prev) => !prev)}
-        >
-          <div className="dl-plan__task-icon">{renderIcon()}</div>
-          <div className="dl-plan__task-body">
-            <span className="dl-plan__task-title">{title}</span>
-            {description && !expanded && (
-              <span className="dl-plan__task-desc line-clamp-1">
-                {description}
-              </span>
-            )}
-          </div>
-          {hasChildren && (
-            <ChevronRight
-              className={cn(
-                "size-3.5 text-muted-foreground transition-transform shrink-0 mt-0.5",
-                expanded && "rotate-90",
-              )}
-            />
+        <TraceIcon>{renderIcon()}</TraceIcon>
+        <div className="flex min-w-0 flex-col gap-1">
+          <TraceTitle>{title}</TraceTitle>
+          {description && !expanded && (
+            <span className="truncate text-xs text-muted-foreground">
+              {description}
+            </span>
           )}
         </div>
-        {expanded && hasChildren && (
-          <div className="dl-plan__task-details">
-            {description && (
-              <div className="mb-2 leading-relaxed">{description}</div>
+        {hasChildren && (
+          <ChevronRight
+            className={cn(
+              "ml-auto size-4 shrink-0 text-muted-foreground transition-transform",
+              expanded && "rotate-90",
             )}
-            {children}
-          </div>
+          />
         )}
-      </div>
+      </TraceLine>
+    );
+
+    if (!hasChildren) return line;
+    return (
+      <TraceCollapsible
+        open={expanded}
+        onOpenChange={setExpanded}
+        className="dl-plan__task-group"
+      >
+        <TraceCollapsibleTrigger className="w-full">
+          {line}
+        </TraceCollapsibleTrigger>
+        <TraceCollapsibleContent keepMounted>
+          <TraceContent>
+            {description}
+            {children}
+          </TraceContent>
+        </TraceCollapsibleContent>
+      </TraceCollapsible>
     );
   },
 );
@@ -166,12 +187,12 @@ export const Plan = React.forwardRef<HTMLDivElement, PlanProps>(
         : undefined;
 
     return (
-      <div ref={ref} className={cn("dl-plan", className)} {...props}>
+      <Trace ref={ref} className={className} {...props}>
         {title && (
           <PlanHeader title={title} status={status} progress={progressText} />
         )}
-        <div className="dl-plan__tasks">{children}</div>
-      </div>
+        <Trace>{children}</Trace>
+      </Trace>
     );
   },
 );

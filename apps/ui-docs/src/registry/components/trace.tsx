@@ -17,6 +17,7 @@ import {
   type PropDefinition,
   type CssClassDefinition,
 } from "@/components/component-view";
+import { createExampleSource } from "@/lib/create-example-source";
 
 export default function TraceDocPage() {
   const variants: ComponentVariant[] = [
@@ -45,16 +46,25 @@ export default function TraceDocPage() {
           </Trace>
         </div>
       ),
-      codeSnippet: `<Trace>
+      codeSnippet: createExampleSource({
+        imports: ["Trace", "TraceIcon", "TraceLine", "TraceTitle"],
+        body: `<Trace>
   <TraceLine status="success">
     <TraceIcon status="success" />
-    <TraceTitle>Resolved dependencies</TraceTitle>
+    <TraceTitle>Resolved workspace dependencies</TraceTitle>
+  </TraceLine>
+  <TraceLine status="success">
+    <TraceIcon status="success" />
+    <TraceTitle>Validated TypeScript declarations</TraceTitle>
   </TraceLine>
   <TraceLine status="running">
     <TraceIcon status="running" />
-    <TraceTitle className="dl-shimmer">Running unit tests...</TraceTitle>
+    <TraceTitle className="dl-shimmer">
+      Running unit tests across 12 packages...
+    </TraceTitle>
   </TraceLine>
 </Trace>`,
+      }),
     },
     {
       id: "collapsible",
@@ -89,18 +99,37 @@ export default function TraceDocPage() {
           </Trace>
         </div>
       ),
-      codeSnippet: `<Trace variant="card">
+      codeSnippet: createExampleSource({
+        imports: [
+          "Trace",
+          "TraceCollapsible",
+          "TraceCollapsibleContent",
+          "TraceCollapsibleTrigger",
+          "TraceContent",
+          "TraceIcon",
+          "TraceLine",
+          "TraceTitle",
+        ],
+        body: `<Trace variant="card">
   <TraceCollapsible defaultOpen>
     <TraceCollapsibleTrigger>
       <TraceLine status="success">
+        <TraceIcon status="success" />
         <TraceTitle>Researched in 3 steps</TraceTitle>
       </TraceLine>
     </TraceCollapsibleTrigger>
     <TraceCollapsibleContent>
-      <TraceContent>...</TraceContent>
+      <TraceContent>
+        <div className="mt-1 flex flex-col gap-1.5 border-l border-border pl-4">
+          <span className="text-xs text-muted-foreground">1. Queried database schema</span>
+          <span className="text-xs text-muted-foreground">2. Checked authentication token scopes</span>
+          <span className="text-xs text-muted-foreground">3. Formatted JSON payload</span>
+        </div>
+      </TraceContent>
     </TraceCollapsibleContent>
   </TraceCollapsible>
 </Trace>`,
+      }),
     },
   ];
 

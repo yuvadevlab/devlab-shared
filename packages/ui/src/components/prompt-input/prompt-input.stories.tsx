@@ -1,7 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import type { Meta, StoryObj } from "@storybook/react";
 import { PromptInput } from "./prompt-input";
-import { Badge } from "@/components/badge";
+import { ModelSelector } from "@/components/model-selector";
 
 const meta: Meta<typeof PromptInput> = {
   title: "AI Elements/PromptInput",
@@ -25,18 +25,23 @@ export const Default: Story = {
 };
 
 export const WithAttachmentsAndModel: Story = {
-  render: () => (
-    <div className="dl-story-w-lg">
-      <PromptInput
-        defaultValue="Analyze query performance on the users index"
-        modelSelector={<Badge variant="outline">Claude 3.5 Sonnet</Badge>}
-        attachments={[
-          { id: "1", name: "query-plan.json" },
-          { id: "2", name: "schema.prisma" },
-        ]}
-      />
-    </div>
-  ),
+  render: () => {
+    const [model, setModel] = useState("claude-3-5-sonnet");
+    return (
+      <div className="dl-story-w-lg">
+        <PromptInput
+          defaultValue="Review the attached query plan and schema."
+          modelSelector={
+            <ModelSelector size="sm" value={model} onValueChange={setModel} />
+          }
+          attachments={[
+            { id: "1", name: "query-plan.json" },
+            { id: "2", name: "schema.prisma" },
+          ]}
+        />
+      </div>
+    );
+  },
 };
 
 export const StreamingState: Story = {

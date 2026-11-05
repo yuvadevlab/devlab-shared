@@ -8,6 +8,7 @@ import {
   type PropDefinition,
   type CssClassDefinition,
 } from "@/components/component-view";
+import { createExampleSource } from "@/lib/create-example-source";
 
 export default function ModelSelectorDocPage() {
   const [model, setModel] = useState("claude-3-5-sonnet");
@@ -29,10 +30,17 @@ export default function ModelSelectorDocPage() {
           </div>
         </div>
       ),
-      codeSnippet: `<ModelSelector
-  value={model}
-  onValueChange={(id) => setModel(id)}
-/>`,
+      codeSnippet: createExampleSource({
+        externalImports: ['import { useState } from "react";'],
+        imports: ["ModelSelector"],
+        setup: `const [model, setModel] = useState("claude-3-5-sonnet");`,
+        body: `<div className="flex flex-col gap-3">
+  <ModelSelector value={model} onValueChange={setModel} />
+  <p className="text-sm text-muted-foreground">
+    Selected model: <span className="font-mono text-foreground">{model}</span>
+  </p>
+</div>`,
+      }),
     },
     {
       id: "small",
@@ -46,7 +54,10 @@ export default function ModelSelectorDocPage() {
           </div>
         </div>
       ),
-      codeSnippet: `<ModelSelector size="sm" defaultValue="gemini-2-0-flash" />`,
+      codeSnippet: createExampleSource({
+        imports: ["ModelSelector"],
+        body: `<ModelSelector size="sm" defaultValue="gemini-2-0-flash" />`,
+      }),
     },
   ];
 

@@ -1,13 +1,16 @@
 import * as React from "react";
-import {
-  Wrench,
-  ChevronDown,
-  Loader2,
-  CheckCircle2,
-  AlertCircle,
-} from "lucide-react";
+import { Wrench, ChevronDown, Loader2, AlertCircle } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { CodeBlock } from "@/components/code-block";
+import {
+  Trace,
+  TraceCollapsible,
+  TraceCollapsibleContent,
+  TraceContent,
+  TraceIcon,
+  TraceLine,
+  TraceTitle,
+} from "@/components/trace";
 import {
   ToolCallProps,
   ToolCallHeaderProps,
@@ -29,6 +32,9 @@ const ToolCallContext = React.createContext<{
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }>({ open: false, setOpen: () => {} });
 
+/**
+ * Expandable trace heading for a tool execution.
+ */
 export const ToolCallHeader = React.forwardRef<
   HTMLButtonElement,
   ToolCallHeaderProps
@@ -55,35 +61,41 @@ export const ToolCallHeader = React.forwardRef<
         className={cn("dl-tool-call__header", className)}
         {...props}
       >
-        <div className="dl-tool-call__title-wrap">
-          <span className="dl-tool-call__icon">
-            {icon ?? <Wrench className="size-3.5" />}
+        <TraceLine
+          className="w-full"
+          status={
+            status === "error"
+              ? "error"
+              : status === "running"
+                ? "running"
+                : "success"
+          }
+        >
+          <TraceIcon>
+            {icon ??
+              (status === "running" ? (
+                <Loader2 className="size-4 animate-spin" />
+              ) : status === "error" ? (
+                <AlertCircle className="size-4" />
+              ) : (
+                <Wrench className="size-4" />
+              ))}
+          </TraceIcon>
+          <TraceTitle>{name}</TraceTitle>
+          <span className="ml-auto text-xs text-muted-foreground">
+            {status}
           </span>
-          <span className="dl-tool-call__name">{name}</span>
-        </div>
-
-        <div className="dl-tool-call__actions">
-          <span
-            className={cn(
-              "dl-tool-call__status-badge",
-              `dl-tool-call__status-badge--${status}`,
-            )}
-          >
-            {status === "running" && (
-              <Loader2 className="size-3 animate-spin" />
-            )}
-            {status === "success" && <CheckCircle2 className="size-3" />}
-            {status === "error" && <AlertCircle className="size-3" />}
-            <span>{status}</span>
-          </span>
-          <ChevronDown className="dl-tool-call__chevron" />
-        </div>
+          <ChevronDown className="dl-tool-call__chevron size-4" />
+        </TraceLine>
       </button>
     );
   },
 );
 ToolCallHeader.displayName = "ToolCallHeader";
 
+/**
+ * Displays arguments passed to a tool as compact key-value data.
+ */
 export const ToolCallArgs = React.forwardRef<HTMLDivElement, ToolCallArgsProps>(
   ({ className, args, ...props }, ref) => {
     const isObject = typeof args === "object" && args !== null;
@@ -105,6 +117,9 @@ export const ToolCallArgs = React.forwardRef<HTMLDivElement, ToolCallArgsProps>(
 );
 ToolCallArgs.displayName = "ToolCallArgs";
 
+/**
+ * Displays a tool result in the shared CodeBlock.
+ */
 export const ToolCallResult = React.forwardRef<
   HTMLDivElement,
   ToolCallResultProps
@@ -157,21 +172,25 @@ export function ToolCall({
   );
 
   return (
-    <ToolCallContext.Provider value={{ open: isOpen, setOpen }}>
-      <div
-        data-state={isOpen ? "open" : "closed"}
-        className={cn("dl-tool-call", className)}
-        {...props}
-      >
-        <ToolCallHeader name={name} status={status} icon={icon} />
-        {isOpen && (
-          <div className="dl-tool-call__body">
-            {args && <ToolCallArgs args={args} />}
-            {result && <ToolCallResult result={result} />}
-            {children}
-          </div>
-        )}
-      </div>
-    </ToolCallContext.Provider>
+    <TraceCollapsible
+      open={isOpen}
+      onOpenChange={setOpen}
+      className={className}
+      data-state={isOpen ? "open" : "closed"}
+      {...props}
+    >
+      <ToolCallContext.Provider value={{ open: isOpen, setOpen }}>
+        <Trace>
+          <ToolCallHeader name={name} status={status} icon={icon} />
+          <TraceCollapsibleContent keepMounted>
+            <TraceContent className="space-y-3">
+              {args && <ToolCallArgs args={args} />}
+              {result && <ToolCallResult result={result} />}
+              {children}
+            </TraceContent>
+          </TraceCollapsibleContent>
+        </Trace>
+      </ToolCallContext.Provider>
+    </TraceCollapsible>
   );
 }

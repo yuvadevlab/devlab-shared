@@ -8,6 +8,7 @@ import {
   type PropDefinition,
   type CssClassDefinition,
 } from "@/components/component-view";
+import { createExampleSource } from "@/lib/create-example-source";
 
 export default function CheckpointDocPage() {
   const variants: ComponentVariant[] = [
@@ -24,10 +25,13 @@ export default function CheckpointDocPage() {
           />
         </div>
       ),
-      codeSnippet: `<Checkpoint
+      codeSnippet: createExampleSource({
+        imports: ["Checkpoint"],
+        body: `<Checkpoint
   label="Checkpoint: Before schema migration"
-  onRestore={() => handleRestore()}
+  onRestore={() => console.log("Restore checkpoint")}
 />`,
+      }),
     },
     {
       id: "info",
@@ -39,7 +43,10 @@ export default function CheckpointDocPage() {
           <Checkpoint label="Switched model to Claude 3.5 Sonnet (v2)" />
         </div>
       ),
-      codeSnippet: `<Checkpoint label="Switched model to Claude 3.5 Sonnet" />`,
+      codeSnippet: createExampleSource({
+        imports: ["Checkpoint"],
+        body: `<Checkpoint label="Switched model to Claude 3.5 Sonnet" />`,
+      }),
     },
   ];
 

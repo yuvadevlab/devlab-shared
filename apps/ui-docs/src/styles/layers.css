@@ -3,7 +3,7 @@
  * @description W3C Cascade Layer declarations, baseline resets, and full theme typography.
  */
 
-@layer dl-reset, dl-tokens, dl-components, dl-layout, dl-utilities, dl-app;
+@layer dl-reset, dl-base, dl-tokens, dl-components, dl-layout, dl-utilities, dl-app;
 
 @layer dl-reset {
   * {

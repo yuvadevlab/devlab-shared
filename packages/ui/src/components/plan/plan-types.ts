@@ -1,5 +1,8 @@
 import * as React from "react";
 
+/**
+ * Execution state shared by plan steps and individual AI tasks.
+ */
 export type TaskStatus = "pending" | "running" | "completed" | "failed";
 
 export interface PlanTaskItem {

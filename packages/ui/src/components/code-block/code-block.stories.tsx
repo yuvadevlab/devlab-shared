@@ -47,6 +47,7 @@ export const WithoutHeader: Story = {
     <div className="dl-story-w-md">
       <CodeBlock
         copyable={false}
+        language="sql"
         code={`SELECT * FROM "users" WHERE "role" = 'admin';`}
       />
     </div>

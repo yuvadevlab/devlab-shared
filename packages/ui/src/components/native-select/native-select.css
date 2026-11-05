@@ -1,0 +1,40 @@
+.dl-native-select {
+  position: relative;
+  display: flex;
+  min-width: 8rem;
+  align-items: center;
+  font-family: var(--font-sans, inherit);
+}
+.dl-native-select__control {
+  width: 100%;
+  min-height: var(--control-height-md, 2.25rem);
+  appearance: none;
+  border: 1px solid var(--input);
+  border-radius: var(--radius, 0.5rem);
+  background: var(--background);
+  padding: 0 var(--control-height-md, 2.25rem) 0 var(--space-3, 0.75rem);
+  color: var(--foreground);
+  font: inherit;
+  font-size: 0.875rem;
+  box-shadow: 0 1px 2px rgb(0 0 0 / 0.05);
+  cursor: pointer;
+  transition:
+    border-color 0.15s ease,
+    box-shadow 0.15s ease;
+}
+.dl-native-select__control:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+}
+.dl-native-select__control:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+.dl-native-select__icon {
+  position: absolute;
+  inset-inline-end: var(--space-3, 0.75rem);
+  width: var(--icon-sm, 1rem);
+  height: var(--icon-sm, 1rem);
+  color: var(--muted-foreground);
+  pointer-events: none;
+}

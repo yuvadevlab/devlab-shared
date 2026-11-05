@@ -1,6 +1,9 @@
 import * as React from "react";
 import { History } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { Button } from "@/components/button";
+import { Marker } from "@/components/marker";
+import { Trace, TraceIcon, TraceLine, TraceTitle } from "@/components/trace";
 import { CheckpointProps } from "./checkpoint-types";
 
 export type { CheckpointProps };
@@ -26,22 +29,22 @@ export const Checkpoint = React.forwardRef<HTMLDivElement, CheckpointProps>(
     ref,
   ) => {
     return (
-      <div ref={ref} className={cn("dl-checkpoint", className)} {...props}>
-        <div className="dl-checkpoint__content">
-          <History className="size-3 text-muted-foreground" />
-          <span>{label}</span>
+      <Trace ref={ref} className={cn("dl-checkpoint", className)} {...props}>
+        <TraceLine>
+          <TraceIcon>
+            <History />
+          </TraceIcon>
+          <TraceTitle>
+            <Marker>{label}</Marker>
+          </TraceTitle>
           {onRestore && (
-            <button
-              type="button"
-              onClick={onRestore}
-              className="dl-checkpoint__restore-btn"
-            >
+            <Button type="button" onClick={onRestore} variant="ghost" size="sm">
               {restoreLabel}
-            </button>
+            </Button>
           )}
           {children}
-        </div>
-      </div>
+        </TraceLine>
+      </Trace>
     );
   },
 );

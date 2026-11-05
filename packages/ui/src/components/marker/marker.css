@@ -1,0 +1,6 @@
+.dl-marker {
+  border-radius: var(--radius, 0.5rem);
+  padding-inline: 0.125em;
+  background: color-mix(in srgb, var(--primary) 16%, transparent);
+  color: var(--foreground);
+}

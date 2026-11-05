@@ -1,6 +1,21 @@
 import * as React from "react";
-import { Terminal as TerminalIcon, Copy, Check } from "lucide-react";
+import {
+  Terminal as TerminalIcon,
+  Copy,
+  Check,
+  ChevronDown,
+  Loader2,
+} from "lucide-react";
 import { cn } from "@/lib/utils";
+import {
+  Trace,
+  TraceCollapsible,
+  TraceCollapsibleContent,
+  TraceCollapsibleTrigger,
+  TraceIcon,
+  TraceLine,
+} from "@/components/trace";
+import { CodeBlock } from "@/components/code-block";
 import {
   TerminalProps,
   TerminalHeaderProps,
@@ -17,7 +32,7 @@ export const TerminalHeader = React.forwardRef<
     {
       className,
       command,
-      windowControls = true,
+      windowControls = false,
       output = "",
       children,
       ...props
@@ -49,7 +64,7 @@ export const TerminalHeader = React.forwardRef<
             </div>
           )}
           <div className="dl-terminal__title">
-            <TerminalIcon className="size-3.5" />
+            <TerminalIcon className="size-4" />
             <span>{command ?? "Terminal"}</span>
           </div>
         </div>
@@ -61,9 +76,9 @@ export const TerminalHeader = React.forwardRef<
             className="dl-code-block__copy-btn"
           >
             {copied ? (
-              <Check className="size-3.5 text-success" />
+              <Check className="size-4 text-success" />
             ) : (
-              <Copy className="size-3.5" />
+              <Copy className="size-4" />
             )}
           </button>
           {children}
@@ -80,12 +95,14 @@ export const TerminalOutput = React.forwardRef<
 >(({ className, command, maxHeight = "16rem", children, ...props }, ref) => (
   <pre
     ref={ref}
-    style={{ maxHeight }}
+    data-max-height={maxHeight}
     className={cn("dl-terminal__output", className)}
     {...props}
   >
-    {command && <div className="dl-terminal__prompt-line">$ {command}</div>}
-    <code>{children}</code>
+    <code>
+      {command && `$ ${command}\n`}
+      {children}
+    </code>
   </pre>
 ));
 TerminalOutput.displayName = "TerminalOutput";
@@ -105,22 +122,69 @@ export const Terminal = React.forwardRef<HTMLDivElement, TerminalProps>(
       command,
       output,
       maxHeight = "16rem",
-      windowControls = true,
+      windowControls = false,
+      status,
+      isStreaming = false,
+      defaultOpen,
       children,
       ...props
     },
     ref,
   ) => {
+    const resolvedStatus =
+      status ?? (isStreaming ? "running" : output ? "success" : "default");
+    const isRunning = resolvedStatus === "running";
+    const outputContent = output ?? children;
+    const code =
+      typeof outputContent === "string"
+        ? `${command ? `$ ${command}\n` : ""}${outputContent}`
+        : undefined;
+
     return (
       <div ref={ref} className={cn("dl-terminal", className)} {...props}>
-        <TerminalHeader
-          command={command}
-          output={output}
-          windowControls={windowControls}
-        />
-        <TerminalOutput command={command} maxHeight={maxHeight}>
-          {output ?? children}
-        </TerminalOutput>
+        <Trace variant="default" className="dl-terminal__trace">
+          <TraceCollapsible defaultOpen={defaultOpen ?? isRunning}>
+            <TraceLine status={resolvedStatus} className="dl-terminal__line">
+              <TraceCollapsibleTrigger className="dl-terminal__trigger">
+                {windowControls && (
+                  <span className="dl-terminal__dots" aria-hidden="true">
+                    <span className="dl-terminal__dot" />
+                    <span className="dl-terminal__dot" />
+                    <span className="dl-terminal__dot" />
+                  </span>
+                )}
+                <TraceIcon>
+                  <TerminalIcon className="size-4" />
+                </TraceIcon>
+                <span className="dl-trace-title">
+                  {command
+                    ? `${isRunning ? "Running" : resolvedStatus === "default" ? "Run" : "Ran"} ${command}`
+                    : "Terminal"}
+                </span>
+                {isRunning && (
+                  <Loader2
+                    className="dl-terminal__spinner size-4"
+                    aria-label="Command is running"
+                  />
+                )}
+                <ChevronDown
+                  className="dl-terminal__chevron size-4"
+                  aria-hidden="true"
+                />
+              </TraceCollapsibleTrigger>
+            </TraceLine>
+            <TraceCollapsibleContent className="dl-terminal__content">
+              <CodeBlock
+                code={code}
+                copyable={Boolean(code)}
+                className="dl-terminal__code-block"
+                data-max-height={maxHeight}
+              >
+                {outputContent}
+              </CodeBlock>
+            </TraceCollapsibleContent>
+          </TraceCollapsible>
+        </Trace>
       </div>
     );
   },

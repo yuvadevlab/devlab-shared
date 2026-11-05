@@ -1,0 +1,21 @@
+.dl-spinner {
+  display: inline-block;
+  width: var(--icon-sm, 1rem);
+  height: var(--icon-sm, 1rem);
+  flex: none;
+  border: 2px solid currentColor;
+  border-inline-end-color: transparent;
+  border-radius: 50%;
+  animation: dl-spinner-turn 0.7s linear infinite;
+  animation-play-state: running;
+}
+@keyframes dl-spinner-turn {
+  to {
+    transform: rotate(1turn);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .dl-spinner {
+    animation-duration: 1.4s;
+  }
+}

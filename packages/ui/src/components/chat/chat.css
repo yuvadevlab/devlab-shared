@@ -1,0 +1,50 @@
+.dl-chat {
+  display: flex;
+  min-height: 16rem;
+  flex-direction: column;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  border-radius: var(--radius, 0.5rem);
+  background: var(--card);
+  color: var(--card-foreground);
+  font-family: var(--font-sans, inherit);
+  box-shadow: 0 1px 2px rgb(0 0 0 / 0.05);
+}
+.dl-chat__messages {
+  display: flex;
+  min-height: 0;
+  flex: 1;
+  flex-direction: column;
+  gap: var(--space-4, 1rem);
+  overflow-y: auto;
+  padding: var(--space-4, 1rem);
+}
+.dl-chat__composer {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2, 0.5rem);
+  padding: var(--space-3, 0.75rem);
+  border-top: 1px solid var(--border);
+  background: var(--background);
+}
+.dl-chat__composer:focus-within {
+  border-radius: var(--radius-sm, 0.25rem);
+  outline: 2px solid var(--ring);
+  outline-offset: -2px;
+}
+.dl-chat__composer > input,
+.dl-chat__composer > textarea {
+  min-width: 0;
+  min-height: var(--control-height-sm, 2rem);
+  flex: 1;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: var(--foreground);
+  font: inherit;
+  font-size: 0.875rem;
+}
+.dl-chat__composer > input::placeholder,
+.dl-chat__composer > textarea::placeholder {
+  color: var(--muted-foreground);
+}

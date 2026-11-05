@@ -58,13 +58,27 @@ pnpm add react@^19.0.0 react-dom@^19.0.0 sonner@^2.0.0
 
 ## Quick Start
 
+### Tree-Shakeable Component Imports
+
+The package root export remains available for compatibility. To include only the
+components an application uses, import them from their component entry points:
+
+```tsx
+import { Button } from "@yuva-devlab/ui/components/button";
+import { Card, CardContent } from "@yuva-devlab/ui/components/card";
+```
+
+Each component entry point publishes ESM, CommonJS, and TypeScript declarations.
+Component CSS remains available from the matching stylesheet subpath, such as
+`@yuva-devlab/ui/components/button/button.css`.
+
 ### 1. Configure Styles
 
 In your application's root stylesheet (e.g. `globals.css` or `app.css`), establish the W3C Cascade Layer order and import your desired tokens and styles:
 
 ```css
 /* 1. Establish W3C Cascade Layer hierarchy */
-@layer dl-base, dl-tokens, dl-components, dl-layout, dl-utilities, dl-app;
+@layer dl-reset, dl-base, dl-tokens, dl-components, dl-layout, dl-utilities, dl-app;
 
 /* 2. Import design tokens & brand theme */
 @import "@yuva-devlab/tokens/styles.css";
@@ -75,6 +89,8 @@ In your application's root stylesheet (e.g. `globals.css` or `app.css`), establi
 ```
 
 > **Tip:** You can import any theme preset from `@yuva-devlab/tokens/themes/*` (`finai`, `vitalai`, `logs`, `orchestrai`, `portal`).
+
+The UI stylesheet includes a shared component baseline for token-based foreground color, typography, and box sizing. Individually imported component stylesheets are also emitted into `@layer dl-components`, so they follow the same cascade order as the bundled stylesheet.
 
 ### 2. Render Components & Typography Primitives
 

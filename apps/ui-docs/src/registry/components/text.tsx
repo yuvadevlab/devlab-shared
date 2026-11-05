@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { getComponentMetadata } from "@/services/metadata-service";
-import { highlightCode } from "@/services/highlight-service";
 import { ComponentDocView } from "@/components/component-doc-view";
 import {
   TEXT_VARIANTS,
@@ -13,14 +12,7 @@ export const metadata: Metadata = getComponentMetadata("text");
 /**
  * Page route wrapper for the Text component documentation.
  */
-export default async function TextDocPage() {
-  const highlightedVariants = await Promise.all(
-    TEXT_VARIANTS.map(async (v) => ({
-      ...v,
-      highlightedHtml: await highlightCode(v.codeSnippet, "tsx"),
-    })),
-  );
-
+export default function TextDocPage() {
   return (
     <ComponentDocView
       component={{
@@ -29,7 +21,7 @@ export default async function TextDocPage() {
         description:
           "Standard body, caption, code, and metric typography primitive consuming cross-brand design tokens.",
         category: "General",
-        variants: highlightedVariants,
+        variants: TEXT_VARIANTS,
         propsList: TEXT_PROPS,
         cssClasses: TEXT_CSS,
       }}

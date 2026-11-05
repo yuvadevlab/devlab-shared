@@ -37,6 +37,8 @@
   display: inline-flex;
   align-items: center;
   gap: 0.25rem;
+  height: auto;
+  min-height: 1.5rem;
   background: transparent;
   border: none;
   font: inherit;

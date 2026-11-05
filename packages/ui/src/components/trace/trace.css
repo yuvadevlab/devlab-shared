@@ -10,8 +10,8 @@
   position: relative;
   display: flex;
   align-items: center;
-  gap: 0.625rem;
-  padding: 0.375rem 0;
+  gap: 0.5rem;
+  padding: 0.25rem 0;
   color: var(--foreground);
 }
 
@@ -19,10 +19,10 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 1.25rem;
-  height: 1.25rem;
+  width: 1rem;
+  height: 1rem;
   border-radius: 9999px;
-  background-color: var(--muted);
+  background-color: transparent;
   color: var(--muted-foreground);
   flex-shrink: 0;
 }
@@ -34,13 +34,18 @@
 }
 
 .dl-trace-icon--success {
-  background-color: color-mix(in oklch, var(--success) 15%, transparent);
-  color: var(--success);
+  background-color: transparent;
+  color: var(--foreground);
 }
 
 .dl-trace-icon--error {
-  background-color: color-mix(in oklch, var(--destructive) 15%, transparent);
+  background-color: transparent;
   color: var(--destructive);
+}
+
+.dl-trace-icon svg {
+  width: 1rem;
+  height: 1rem;
 }
 
 .dl-trace-title {
@@ -52,8 +57,14 @@
   color: var(--foreground);
 }
 
+.dl-trace-description {
+  color: var(--muted-foreground);
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+
 .dl-trace-content {
-  margin-left: 1.875rem;
+  margin-left: 1.5rem;
   padding: 0.25rem 0 0.5rem;
   color: var(--muted-foreground);
 }
@@ -69,6 +80,16 @@
   text-align: left;
   font: inherit;
   color: inherit;
+}
+
+.dl-trace-collapsible-content[hidden] {
+  display: none;
+}
+
+.dl-trace-collapsible-content {
+  margin-left: 1.5rem;
+  border-left: 1px solid var(--border);
+  padding-left: 0.75rem;
 }
 
 .dl-trace-collapsible-trigger:hover .dl-trace-title {
