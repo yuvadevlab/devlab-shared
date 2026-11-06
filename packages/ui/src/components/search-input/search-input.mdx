@@ -1,0 +1,30 @@
+import { Meta, Title, Description, Canvas, Controls } from "@storybook/blocks";
+import * as SearchInputStories from "./search-input.stories";
+
+<Meta of={SearchInputStories} />
+
+<Title />
+
+# Search Input
+
+Standardized search field equipped with a persistent search icon, an instant-clear action, and an asynchronous loading spinner.
+
+## Default
+
+<Canvas of={SearchInputStories.Default} />
+
+## With Query & Clear Action
+
+<Canvas of={SearchInputStories.WithValue} />
+
+## Background Loading State
+
+<Canvas of={SearchInputStories.LoadingState} />
+
+## Disabled State
+
+<Canvas of={SearchInputStories.Disabled} />
+
+## Component Properties
+
+<Controls />

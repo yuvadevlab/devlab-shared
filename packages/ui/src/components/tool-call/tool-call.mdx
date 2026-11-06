@@ -1,0 +1,22 @@
+import { Meta, Title, Description, Canvas } from "@storybook/blocks";
+import * as ToolCallStories from "./tool-call.stories";
+
+<Meta of={ToolCallStories} />
+
+<Title />
+
+# Tool Call
+
+Visualizer card for agent tool executions, displaying tool name, parameter pills, live execution status badge, and expandable return payloads.
+
+## Completed Success with Output Payload
+
+<Canvas of={ToolCallStories.Default} />
+
+## Live Running Execution
+
+<Canvas of={ToolCallStories.Running} />
+
+## Error State with Exception Details
+
+<Canvas of={ToolCallStories.ErrorState} />

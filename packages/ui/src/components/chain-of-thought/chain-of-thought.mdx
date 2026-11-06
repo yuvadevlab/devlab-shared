@@ -1,0 +1,18 @@
+import { Meta, Title, Description, Canvas } from "@storybook/blocks";
+import * as ChainOfThoughtStories from "./chain-of-thought.stories";
+
+<Meta of={ChainOfThoughtStories} />
+
+<Title />
+
+# Chain of Thought
+
+Visual presentation for AI model reasoning processes, featuring execution duration timers, live animated thinking states, and expandable step lists.
+
+## Default Completed Thought
+
+<Canvas of={ChainOfThoughtStories.Default} />
+
+## Live Streaming / Currently Thinking
+
+<Canvas of={ChainOfThoughtStories.CurrentlyThinking} />

@@ -2,7 +2,8 @@ import React, { createContext, useContext, useEffect, useState } from "react";
 
 export type Theme = "dark" | "light" | "system" | string;
 export type ThemeMode = "light" | "dark" | "system";
-export type Brand = "finai" | "orchestrai" | string;
+export type Brand =
+  "finai" | "orchestrai" | "logs" | "vitalai" | "portal" | string;
 
 export interface ThemeProviderProps {
   children: React.ReactNode;

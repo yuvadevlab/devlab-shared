@@ -1,0 +1,18 @@
+import { Meta, Title, Description, Canvas, Controls } from "@storybook/blocks";
+import * as SubagentStories from "./subagent.stories";
+
+<Meta of={SubagentStories} />
+
+<Title />
+
+# Subagent
+
+Lifecycle and activity card for delegated subagent tasks, showing status, conversation ID, model, and message stream.
+
+## Default
+
+<Canvas of={SubagentStories.Default} />
+
+## Component Properties
+
+<Controls />

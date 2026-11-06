@@ -1,33 +1,33 @@
 .dl-toaster {
   font-family: inherit;
-  --normal-bg: var(--card, var(--background));
-  --normal-text: var(--card-foreground, var(--foreground));
-  --normal-border: var(--border);
+  --normal-bg: var(--toast-bg, var(--card, var(--background)));
+  --normal-text: var(--toast-fg, var(--card-foreground, var(--foreground)));
+  --normal-border: var(--toast-border, var(--border));
 }
 
 [data-sonner-toaster][data-sonner-theme="dark"],
 .dark [data-sonner-toaster],
 [data-theme*="dark"] [data-sonner-toaster] {
-  --normal-bg: var(--card, var(--background));
-  --normal-text: var(--card-foreground, var(--foreground));
-  --normal-border: var(--border);
+  --normal-bg: var(--toast-bg, var(--card, var(--background)));
+  --normal-text: var(--toast-fg, var(--card-foreground, var(--foreground)));
+  --normal-border: var(--toast-border, var(--border));
 }
 
 [data-sonner-toaster][data-sonner-theme="light"],
 .light [data-sonner-toaster],
 [data-theme*="light"] [data-sonner-toaster] {
-  --normal-bg: var(--card, var(--background));
-  --normal-text: var(--card-foreground, var(--foreground));
-  --normal-border: var(--border);
+  --normal-bg: var(--toast-bg, var(--card, var(--background)));
+  --normal-text: var(--toast-fg, var(--card-foreground, var(--foreground)));
+  --normal-border: var(--toast-border, var(--border));
 }
 
 .dl-toaster .dl-toast,
 [data-sonner-toaster] [data-sonner-toast][data-styled="true"] {
-  border-radius: var(--radius-md, 0.375rem);
-  border: 1px solid var(--border);
-  background-color: var(--card, var(--background));
-  color: var(--card-foreground, var(--foreground));
-  box-shadow: 0 8px 32px rgb(0 0 0 / 0.15);
+  border-radius: var(--toast-radius, var(--radius-md, 0.375rem));
+  border: 1px solid var(--toast-border, var(--border));
+  background-color: var(--toast-bg, var(--card, var(--background)));
+  color: var(--toast-fg, var(--card-foreground, var(--foreground)));
+  box-shadow: var(--toast-shadow, 0 8px 32px rgb(0 0 0 / 0.15));
 }
 
 .dl-toaster .dl-toast__desc,
@@ -48,7 +48,58 @@
 }
 
 [data-sonner-toaster] [data-sonner-toast] [data-close-button] {
-  background-color: var(--card, var(--background));
-  border-color: var(--border);
-  color: var(--card-foreground, var(--foreground));
+  background-color: var(--toast-bg, var(--card, var(--background)));
+  border-color: var(--toast-border, var(--border));
+  color: var(--toast-fg, var(--card-foreground, var(--foreground)));
+}
+
+/* ── FinAI Semantic Feedback (Text & Icon Colors, Subtle Borders via CSS Variables) ── */
+[data-sonner-toaster] [data-sonner-toast][data-type="success"] {
+  border-color: color-mix(
+    in oklch,
+    var(--toast-success, var(--success)) 35%,
+    transparent
+  );
+}
+
+[data-sonner-toaster] [data-sonner-toast][data-type="success"] [data-icon] {
+  color: var(--toast-success, var(--success));
+}
+
+[data-sonner-toaster] [data-sonner-toast][data-type="error"],
+[data-sonner-toaster] [data-sonner-toast][data-type="destructive"] {
+  border-color: color-mix(
+    in oklch,
+    var(--toast-destructive, var(--destructive)) 35%,
+    transparent
+  );
+}
+
+[data-sonner-toaster] [data-sonner-toast][data-type="error"] [data-icon],
+[data-sonner-toaster] [data-sonner-toast][data-type="destructive"] [data-icon] {
+  color: var(--toast-destructive, var(--destructive));
+}
+
+[data-sonner-toaster] [data-sonner-toast][data-type="warning"] {
+  border-color: color-mix(
+    in oklch,
+    var(--toast-warning, var(--warning)) 35%,
+    transparent
+  );
+}
+
+[data-sonner-toaster] [data-sonner-toast][data-type="warning"] [data-icon] {
+  color: var(--toast-warning, var(--warning));
+}
+
+[data-sonner-toaster] [data-sonner-toast][data-type="info"] {
+  border-color: color-mix(
+    in oklch,
+    var(--toast-info, var(--info)) 35%,
+    transparent
+  );
+}
+
+[data-sonner-toaster] [data-sonner-toast][data-type="info"] [data-icon] {
+  color: var(--toast-info, var(--info));
 }

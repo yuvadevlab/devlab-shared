@@ -1,0 +1,21 @@
+.dl-search-clear-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  color: var(--muted-foreground);
+  transition: color 0.15s ease;
+}
+
+.dl-search-clear-btn:hover {
+  color: var(--foreground);
+}
+
+.dl-search-clear-btn:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm, 0.25rem);
+}

@@ -1,0 +1,71 @@
+.dl-data-table-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  border-radius: var(--radius-md, 0.375rem);
+  border: 1px solid var(--border);
+  background-color: var(--card, var(--background));
+  overflow: hidden;
+}
+
+.dl-data-table-wrapper {
+  overflow-x: auto;
+  width: 100%;
+}
+
+.dl-data-table-sort-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  background: transparent;
+  border: none;
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+  padding: 0;
+  user-select: none;
+}
+
+.dl-data-table-sort-btn:hover {
+  color: var(--foreground);
+}
+
+.dl-data-table-sort-icon {
+  width: 0.875rem;
+  height: 0.875rem;
+  color: var(--muted-foreground);
+  transition: color 0.15s ease;
+}
+
+.dl-data-table-sort-btn:hover .dl-data-table-sort-icon {
+  color: var(--foreground);
+}
+
+.dl-data-table-row--clickable {
+  cursor: pointer;
+}
+
+.dl-data-table-footer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.75rem 1rem;
+  border-top: 1px solid var(--border);
+  background-color: var(--background);
+  font-size: 0.8125rem;
+  color: var(--muted-foreground);
+}
+
+.dl-data-table-summary {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.dl-data-table-empty {
+  padding: 3rem 1rem;
+  text-align: center;
+  color: var(--muted-foreground);
+}

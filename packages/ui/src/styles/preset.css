@@ -2,5 +2,4 @@
  * @file src/styles/preset.css
  * @description Composite preset importing tokens and UI component styles.
  */
-@import "@yuva-devlab/tokens/styles.css";
 @import "./styles.css";

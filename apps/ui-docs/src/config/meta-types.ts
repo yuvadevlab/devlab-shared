@@ -9,7 +9,8 @@ export interface ComponentMeta {
     | "Data Entry"
     | "Data Display"
     | "Feedback & Overlays"
-    | "Utility";
+    | "Utility"
+    | "AI Elements";
   description: string;
   keywords: string[];
 }
@@ -22,6 +23,7 @@ export const ALL_CATEGORIES = [
   "Data Display",
   "Feedback & Overlays",
   "Utility",
+  "AI Elements",
 ] as const;
 
 export type ComponentCategory = (typeof ALL_CATEGORIES)[number];

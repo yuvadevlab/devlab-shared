@@ -1,0 +1,18 @@
+import { Meta, Title, Description, Canvas, Controls } from "@storybook/blocks";
+import * as ContextStories from "./context.stories";
+
+<Meta of={ContextStories} />
+
+<Title />
+
+# Context Usage
+
+Token gauge visualizing context window consumption, remaining capacity thresholds, and token category breakdowns (input, output, reasoning, cache).
+
+## Default
+
+<Canvas of={ContextStories.Default} />
+
+## Component Properties
+
+<Controls />

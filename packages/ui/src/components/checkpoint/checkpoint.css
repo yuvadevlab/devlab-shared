@@ -1,0 +1,54 @@
+.dl-checkpoint {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  margin: 1.25rem 0;
+}
+
+.dl-checkpoint::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  height: 1px;
+  background-color: var(--border);
+  z-index: 1;
+}
+
+.dl-checkpoint__content {
+  position: relative;
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  background-color: var(--background);
+  border: 1px solid var(--border);
+  font-size: 0.75rem;
+  color: var(--muted-foreground);
+  box-shadow: 0 1px 2px rgb(0 0 0 / 0.05);
+}
+
+.dl-checkpoint__restore-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  background: transparent;
+  border: none;
+  font: inherit;
+  font-weight: 500;
+  font-size: 0.6875rem;
+  color: var(--primary);
+  cursor: pointer;
+  padding: 0.125rem 0.375rem;
+  border-radius: var(--radius-sm, 0.25rem);
+  transition: all 0.15s ease;
+}
+
+.dl-checkpoint__restore-btn:hover {
+  background-color: color-mix(in oklch, var(--primary) 10%, transparent);
+}

@@ -129,6 +129,15 @@ export const DISPLAY_FEEDBACK_COMPONENTS: ComponentMeta[] = [
     keywords: ["chip", "pill", "state", "dot", "tag"],
   },
   {
+    name: "Data Table",
+    slug: "data-table",
+    href: "/components/data-table",
+    category: "Data Display",
+    description:
+      "Enterprise tabular data view with built-in sorting, pagination, and empty state.",
+    keywords: ["table", "grid", "data-table", "pagination", "sort", "records"],
+  },
+  {
     name: "Table",
     slug: "table",
     href: "/components/table",

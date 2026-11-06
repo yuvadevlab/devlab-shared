@@ -1,0 +1,18 @@
+import { Meta, Title, Description, Canvas, Controls } from "@storybook/blocks";
+import * as TestResultsStories from "./test-results.stories";
+
+<Meta of={TestResultsStories} />
+
+<Title />
+
+# Test Results
+
+Test execution results dashboard displaying passed, failed, and skipped unit/integration test outcomes and error traces.
+
+## Default
+
+<Canvas of={TestResultsStories.Default} />
+
+## Component Properties
+
+<Controls />

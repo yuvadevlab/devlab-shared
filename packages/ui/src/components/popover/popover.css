@@ -15,8 +15,3 @@
 .dl-popover[data-state="closed"] {
   animation: dl-fade-out 150ms ease;
 }
-
-.dl-popover.dl-date-picker-content {
-  width: auto;
-  padding: 0;
-}

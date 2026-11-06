@@ -1,0 +1,100 @@
+.dl-trace {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  font-size: 0.8125rem;
+}
+
+.dl-trace-line {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  padding: 0.375rem 0;
+  color: var(--foreground);
+}
+
+.dl-trace-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.25rem;
+  height: 1.25rem;
+  border-radius: 9999px;
+  background-color: var(--muted);
+  color: var(--muted-foreground);
+  flex-shrink: 0;
+}
+
+.dl-trace-icon--running {
+  background-color: transparent;
+  color: var(--primary);
+  animation: dl-spin 1s linear infinite;
+}
+
+.dl-trace-icon--success {
+  background-color: color-mix(in oklch, var(--success) 15%, transparent);
+  color: var(--success);
+}
+
+.dl-trace-icon--error {
+  background-color: color-mix(in oklch, var(--destructive) 15%, transparent);
+  color: var(--destructive);
+}
+
+.dl-trace-title {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 500;
+  line-height: 1.25rem;
+  color: var(--foreground);
+}
+
+.dl-trace-content {
+  margin-left: 1.875rem;
+  padding: 0.25rem 0 0.5rem;
+  color: var(--muted-foreground);
+}
+
+.dl-trace-collapsible-trigger {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  background: transparent;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  text-align: left;
+  font: inherit;
+  color: inherit;
+}
+
+.dl-trace-collapsible-trigger:hover .dl-trace-title {
+  color: var(--primary);
+}
+
+/* ── Shimmer Animation Utility for AI Streaming ── */
+@keyframes dl-shimmer-sweep {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.dl-shimmer {
+  background: linear-gradient(
+    90deg,
+    var(--muted-foreground) 0%,
+    var(--foreground) 50%,
+    var(--muted-foreground) 100%
+  );
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: dl-shimmer-sweep 2.2s infinite linear;
+}

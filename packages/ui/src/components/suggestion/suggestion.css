@@ -1,0 +1,52 @@
+.dl-suggestion-list {
+  display: flex;
+  gap: 0.5rem;
+  width: 100%;
+}
+
+.dl-suggestion-list--wrap {
+  flex-wrap: wrap;
+}
+
+.dl-suggestion-list--scroll {
+  overflow-x: auto;
+  padding-bottom: 0.25rem;
+}
+
+.dl-suggestion {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.375rem 0.75rem;
+  border-radius: 9999px;
+  border: 1px solid var(--border);
+  background-color: var(--secondary, var(--background));
+  color: var(--foreground);
+  font-size: 0.75rem;
+  font-weight: 500;
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.15s ease;
+  white-space: nowrap;
+}
+
+.dl-suggestion:hover {
+  background-color: var(--accent);
+  border-color: color-mix(in oklch, var(--primary) 30%, var(--border));
+}
+
+.dl-suggestion__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--muted-foreground);
+}
+
+.dl-suggestion:hover .dl-suggestion__icon {
+  color: var(--primary);
+}
+
+.dl-suggestion__description {
+  color: var(--muted-foreground);
+  font-weight: 400;
+}

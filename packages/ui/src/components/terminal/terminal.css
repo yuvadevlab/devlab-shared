@@ -1,0 +1,60 @@
+.dl-terminal {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  border-radius: var(--radius-md, 0.375rem);
+  border: 1px solid var(--border);
+  background-color: var(--secondary, #0d1117);
+  color: var(--foreground);
+  font-family: var(--font-mono, ui-monospace, SFMono-Regular, monospace);
+  font-size: 0.8125rem;
+  overflow: hidden;
+}
+
+.dl-terminal__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.375rem 0.75rem;
+  border-bottom: 1px solid var(--border);
+  background-color: var(--background);
+  font-size: 0.75rem;
+}
+
+.dl-terminal__dots {
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
+}
+
+.dl-terminal__dot {
+  width: 0.625rem;
+  height: 0.625rem;
+  border-radius: 9999px;
+  background-color: var(--muted-foreground);
+  opacity: 0.4;
+}
+
+.dl-terminal__title {
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
+  font-weight: 500;
+  color: var(--muted-foreground);
+}
+
+.dl-terminal__output {
+  margin: 0;
+  padding: 0.75rem 1rem;
+  overflow-y: auto;
+  line-height: 1.5;
+  white-space: pre-wrap;
+  word-break: break-all;
+  color: var(--foreground);
+}
+
+.dl-terminal__prompt-line {
+  color: var(--primary);
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+}
