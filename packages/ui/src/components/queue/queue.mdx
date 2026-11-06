@@ -1,0 +1,18 @@
+import { Meta, Title, Description, Canvas, Controls } from "@storybook/blocks";
+import * as QueueStories from "./queue.stories";
+
+<Meta of={QueueStories} />
+
+<Title />
+
+# Queue
+
+Agent task execution queue container tracking scheduled, running, and queued jobs with priority indicators.
+
+## Default
+
+<Canvas of={QueueStories.Default} />
+
+## Component Properties
+
+<Controls />

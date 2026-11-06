@@ -1,0 +1,22 @@
+import { Meta, Title, Description, Canvas } from "@storybook/blocks";
+import * as ConfirmationStories from "./confirmation.stories";
+
+<Meta of={ConfirmationStories} />
+
+<Title />
+
+# Confirmation
+
+Human-in-the-loop action approval card for sensitive or destructive AI agent actions, with title, risk description, and contextual approve/deny actions.
+
+## Default Command Approval
+
+<Canvas of={ConfirmationStories.Default} />
+
+## Destructive Resource Deletion
+
+<Canvas of={ConfirmationStories.Destructive} />
+
+## IAM Policy Approval
+
+<Canvas of={ConfirmationStories.PolicyApproval} />

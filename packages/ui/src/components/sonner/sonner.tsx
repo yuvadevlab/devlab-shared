@@ -20,7 +20,11 @@ export type ToastTheme = ThemeMode;
  * toast.error("Failed to execute agent workflow.");
  * ```
  */
-const Toaster = ({ theme: propTheme, ...props }: ToasterProps) => {
+const Toaster = ({
+  theme: propTheme,
+  position = "bottom-right",
+  ...props
+}: ToasterProps) => {
   const [resolvedTheme, setResolvedTheme] = useState<ThemeMode>("system");
 
   useEffect(() => {
@@ -54,6 +58,7 @@ const Toaster = ({ theme: propTheme, ...props }: ToasterProps) => {
   return (
     <Sonner
       theme={propTheme ?? resolvedTheme}
+      position={position}
       className="dl-toaster"
       toastOptions={{
         classNames: {

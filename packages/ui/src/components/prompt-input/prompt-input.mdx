@@ -1,0 +1,22 @@
+import { Meta, Title, Description, Canvas } from "@storybook/blocks";
+import * as PromptInputStories from "./prompt-input.stories";
+
+<Meta of={PromptInputStories} />
+
+<Title />
+
+# Prompt Input
+
+Comprehensive message composition control for conversational AI, with auto-resizing textarea, Enter submission, file attachments, model selectors, and stop generation controls.
+
+## Default Input
+
+<Canvas of={PromptInputStories.Default} />
+
+## With Files and Model Tag
+
+<Canvas of={PromptInputStories.WithAttachmentsAndModel} />
+
+## Generation / Streaming State
+
+<Canvas of={PromptInputStories.StreamingState} />

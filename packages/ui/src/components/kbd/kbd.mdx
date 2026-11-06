@@ -1,0 +1,30 @@
+import { Meta, Title, Description, Canvas, Controls } from "@storybook/blocks";
+import * as KbdStories from "./kbd.stories";
+
+<Meta of={KbdStories} />
+
+<Title />
+
+# Kbd
+
+Semantic keycap element and sequence container for displaying keyboard shortcuts and hotkeys.
+
+## Default
+
+<Canvas of={KbdStories.Default} />
+
+## Sizes
+
+<Canvas of={KbdStories.Sizes} />
+
+## Variants
+
+<Canvas of={KbdStories.Variants} />
+
+## Shortcut Combination Groups
+
+<Canvas of={KbdStories.ShortcutGroup} />
+
+## Component Properties
+
+<Controls />

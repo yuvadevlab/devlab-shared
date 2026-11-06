@@ -1,0 +1,30 @@
+import { Meta, Title, Description, Canvas, Controls } from "@storybook/blocks";
+import * as MultiSelectStories from "./multi-select.stories";
+
+<Meta of={MultiSelectStories} />
+
+<Title />
+
+# Multi Select
+
+Select component enabling users to filter, select, and manage multiple items represented as dismissible tags in the trigger.
+
+## Default
+
+<Canvas of={MultiSelectStories.Default} />
+
+## With Preset Selections
+
+<Canvas of={MultiSelectStories.WithPresetSelections} />
+
+## Compact Chip Truncation
+
+<Canvas of={MultiSelectStories.CompactMaxChips} />
+
+## Disabled State
+
+<Canvas of={MultiSelectStories.Disabled} />
+
+## Component Properties
+
+<Controls />

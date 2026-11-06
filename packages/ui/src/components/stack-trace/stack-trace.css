@@ -1,0 +1,105 @@
+.dl-stack-trace {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  border-radius: var(--radius-md, 0.375rem);
+  border: 1px solid var(--border);
+  background-color: var(--card, var(--background));
+  overflow: hidden;
+  font-family: var(--font-mono, ui-monospace, SFMono-Regular, monospace);
+  font-size: 0.8125rem;
+}
+
+.dl-stack-trace__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: 0.625rem 0.875rem;
+  background-color: color-mix(
+    in oklch,
+    var(--destructive) 10%,
+    var(--background)
+  );
+  border-bottom: 1px solid var(--border);
+  gap: 0.75rem;
+}
+
+.dl-stack-trace__title {
+  display: flex;
+  flex-direction: column;
+  gap: 0.125rem;
+}
+
+.dl-stack-trace__error-type {
+  font-weight: 700;
+  color: var(--destructive);
+  font-size: 0.875rem;
+}
+
+.dl-stack-trace__message {
+  color: var(--foreground);
+  font-size: 0.8125rem;
+  line-height: 1.4;
+  word-break: break-word;
+}
+
+.dl-stack-trace__frames {
+  display: flex;
+  flex-direction: column;
+  divide-y: 1px solid var(--border);
+  max-height: 22rem;
+  overflow-y: auto;
+}
+
+.dl-stack-frame {
+  display: flex;
+  flex-direction: column;
+  padding: 0.5rem 0.875rem;
+  border-bottom: 1px solid var(--border);
+  transition: background-color 0.12s ease;
+}
+
+.dl-stack-frame:last-child {
+  border-bottom: none;
+}
+
+.dl-stack-frame:hover {
+  background-color: var(--accent);
+}
+
+.dl-stack-frame--internal {
+  opacity: 0.65;
+}
+
+.dl-stack-frame__header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.5rem;
+  cursor: pointer;
+  user-select: none;
+}
+
+.dl-stack-frame__fn {
+  font-weight: 600;
+  color: var(--primary);
+}
+
+.dl-stack-frame__location {
+  color: var(--muted-foreground);
+  font-size: 0.75rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.dl-stack-frame__snippet {
+  margin-top: 0.375rem;
+  padding: 0.375rem 0.5rem;
+  background-color: var(--muted);
+  border-radius: var(--radius-sm, 0.25rem);
+  font-size: 0.75rem;
+  line-height: 1.4;
+  white-space: pre-wrap;
+  color: var(--foreground);
+}

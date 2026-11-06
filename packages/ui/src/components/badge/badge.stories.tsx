@@ -1,6 +1,9 @@
 import React from "react";
 import type { Meta, StoryObj } from "@storybook/react";
+import { Bell, Mail } from "lucide-react";
 import { Badge } from "./badge";
+import { Button } from "@/components/button";
+import { Avatar, AvatarFallback } from "@/components/avatar";
 
 const meta: Meta<typeof Badge> = {
   title: "Components/Badge",
@@ -19,9 +22,13 @@ const meta: Meta<typeof Badge> = {
       ],
       description: "Visual style variant of the badge",
     },
-    children: {
-      control: "text",
-      description: "Text inside the badge",
+    count: {
+      control: "number",
+      description: "Numeric count for notification badge",
+    },
+    dot: {
+      control: "boolean",
+      description: "Whether to render a status dot",
     },
   },
   args: {
@@ -45,6 +52,34 @@ export const AllVariants: Story = {
       <Badge variant="warning">Pending / Warning</Badge>
       <Badge variant="info">Syncing / Info</Badge>
       <Badge variant="destructive">Error / Failed</Badge>
+    </div>
+  ),
+};
+
+export const NotificationCounts: Story = {
+  render: () => (
+    <div className="dl-story-row">
+      <Badge count={5}>
+        <Button variant="outline" size="icon">
+          <Bell className="size-4" />
+        </Button>
+      </Badge>
+
+      <Badge count={120} overflowCount={99}>
+        <Button variant="outline" size="icon">
+          <Mail className="size-4" />
+        </Button>
+      </Badge>
+
+      <Badge dot>
+        <Avatar>
+          <AvatarFallback>YP</AvatarFallback>
+        </Avatar>
+      </Badge>
+
+      <Badge count={3} variant="default">
+        <Button variant="secondary">Messages</Button>
+      </Badge>
     </div>
   ),
 };

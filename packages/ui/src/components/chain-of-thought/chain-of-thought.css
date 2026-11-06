@@ -1,0 +1,72 @@
+.dl-cot {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  border-radius: var(--radius-md, 0.375rem);
+  border: 1px solid var(--border);
+  background-color: var(--secondary, var(--card));
+  font-size: 0.8125rem;
+  overflow: hidden;
+  transition: border-color 0.15s ease;
+}
+
+.dl-cot:hover {
+  border-color: color-mix(in oklch, var(--primary) 30%, var(--border));
+}
+
+.dl-cot__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 0.5rem 0.75rem;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  font: inherit;
+  color: var(--foreground);
+}
+
+.dl-cot__summary {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 500;
+}
+
+.dl-cot__chevron {
+  width: 0.875rem;
+  height: 0.875rem;
+  color: var(--muted-foreground);
+  transition: transform 0.2s ease;
+}
+
+.dl-cot[data-state="open"] .dl-cot__chevron {
+  transform: rotate(180deg);
+}
+
+.dl-cot__content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.375rem;
+  padding: 0.5rem 0.75rem 0.75rem;
+  border-top: 1px solid var(--border);
+  background-color: var(--background);
+}
+
+.dl-cot__step {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.75rem;
+  color: var(--muted-foreground);
+}
+
+.dl-cot__step--running {
+  color: var(--foreground);
+}
+
+.dl-cot__step--error {
+  color: var(--destructive);
+}

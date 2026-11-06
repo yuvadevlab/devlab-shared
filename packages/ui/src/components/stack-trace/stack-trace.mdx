@@ -1,0 +1,18 @@
+import { Meta, Title, Description, Canvas, Controls } from "@storybook/blocks";
+import * as StackTraceStories from "./stack-trace.stories";
+
+<Meta of={StackTraceStories} />
+
+<Title />
+
+# Stack Trace
+
+Formatted exception and error trace presentation container highlighting error messages, source file frames, and code excerpts.
+
+## Default
+
+<Canvas of={StackTraceStories.Default} />
+
+## Component Properties
+
+<Controls />
