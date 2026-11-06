@@ -1,6 +1,6 @@
 {
   "name": "@yuva-devlab/ui",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "description": "Production-ready, accessible React 19 component library built on Radix UI and semantic design tokens for Yuva DevLab",
   "repository": {
     "type": "git",
