@@ -19,6 +19,14 @@ export default defineConfig({
     };
   },
   async onSuccess() {
+    // Ensure dist subdirectories are clean before copying
+    if (fs.existsSync("dist/components")) {
+      fs.rmSync("dist/components", { recursive: true, force: true });
+    }
+    if (fs.existsSync("dist/styles")) {
+      fs.rmSync("dist/styles", { recursive: true, force: true });
+    }
+
     fs.cpSync("src/styles", "dist/styles", { recursive: true });
     fs.copyFileSync("src/styles/styles.css", "dist/styles.css");
     fs.copyFileSync("src/styles/root.css", "dist/root.css");
@@ -88,6 +96,6 @@ ${layoutContent}
     }
 
     fs.writeFileSync("dist/components.css", finalCss, "utf8");
-    fs.writeFileSync("src/styles/components.css", finalCss, "utf8");
+    fs.writeFileSync("dist/styles/components.css", finalCss, "utf8");
   },
 });

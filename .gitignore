@@ -9,3 +9,5 @@ coverage
 *.tsbuildinfo
 packages/tokens/styles
 packages/tokens/css-data.json
+packages/ui/src/styles/components.css
+

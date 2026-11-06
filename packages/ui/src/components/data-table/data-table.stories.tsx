@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { DataTable } from "./data-table";
 import { Badge } from "@/components/badge";
 
-interface MockUser {
+interface MockUser extends Record<string, unknown> {
   id: string;
   name: string;
   email: string;
