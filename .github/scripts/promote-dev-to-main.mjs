@@ -16,38 +16,50 @@ function exec(cmd) {
 }
 
 /** Formats UTC date string (e.g. "Nov 6, 2026") */
-function formatDate(d) {
-  return d.toLocaleDateString("en-US", {
+const formatDate = (d) =>
+  d.toLocaleDateString("en-US", {
     month: "short",
     day: "numeric",
     year: "numeric",
     timeZone: "UTC",
   });
+
+/** Determines if a commit subject is an automated reverse sync commit */
+function isSyncCommit(subject) {
+  const s = subject.trim().toLowerCase();
+  return (
+    s.includes("sync/main-to-dev") ||
+    s.includes("reverse merge main into dev") ||
+    s.startsWith("chore(sync):") ||
+    s.startsWith("merge branch 'main'") ||
+    s.startsWith("merge branch 'sync/main-to-dev'") ||
+    /merge pull request #\d+ from .*\/sync\/main-to-dev/i.test(subject)
+  );
 }
 
 /** Parses changesets from .changeset directory */
 function getChangesets() {
   const dir = path.resolve(".changeset");
-  const releases = [];
-  if (!fs.existsSync(dir)) return releases;
-  const files = fs
+  if (!fs.existsSync(dir)) return [];
+  return fs
     .readdirSync(dir)
-    .filter((f) => f.endsWith(".md") && f !== "README.md");
-  for (const f of files) {
-    const content = fs.readFileSync(path.join(dir, f), "utf8");
-    const m = content.match(/^---\n([\s\S]*?)\n---/);
-    if (!m) continue;
-    m[1]
-      .split("\n")
-      .filter((l) => l.trim())
-      .forEach((l) => {
-        const [pkg, bump] = l
-          .split(":")
-          .map((s) => s.trim().replace(/["']/g, ""));
-        if (pkg && bump) releases.push({ pkg, bump, file: f });
-      });
-  }
-  return releases;
+    .filter((f) => f.endsWith(".md") && f !== "README.md")
+    .flatMap((f) => {
+      const m = fs
+        .readFileSync(path.join(dir, f), "utf8")
+        .match(/^---\n([\s\S]*?)\n---/);
+      if (!m) return [];
+      return m[1]
+        .split("\n")
+        .filter((l) => l.trim())
+        .map((l) => {
+          const [pkg, bump] = l
+            .split(":")
+            .map((s) => s.trim().replace(/["']/g, ""));
+          return pkg && bump ? { pkg, bump, file: f } : null;
+        })
+        .filter(Boolean);
+    });
 }
 
 /** Groups commits by Conventional Commit category */
@@ -62,11 +74,11 @@ function groupCommits(commits) {
   };
   for (const c of commits) {
     const s = c.subject.trim();
-    if (/^feat(\(.*?\))?:/i.test(s)) groups.features.push(c);
-    else if (/^fix(\(.*?\))?:/i.test(s)) groups.fixes.push(c);
-    else if (/^refactor(\(.*?\))?:/i.test(s)) groups.refactors.push(c);
-    else if (/^docs(\(.*?\))?:/i.test(s)) groups.docs.push(c);
-    else if (/^(chore|ci|test|perf|style|build)(\(.*?\))?:/i.test(s))
+    if (/^feat/i.test(s)) groups.features.push(c);
+    else if (/^fix/i.test(s)) groups.fixes.push(c);
+    else if (/^refactor/i.test(s)) groups.refactors.push(c);
+    else if (/^docs/i.test(s)) groups.docs.push(c);
+    else if (/^(chore|ci|test|perf|style|build)/i.test(s))
       groups.chores.push(c);
     else groups.other.push(c);
   }
@@ -79,20 +91,36 @@ async function main() {
     exec("git fetch origin main dev");
   } catch {}
 
-  let count = 0;
+  // 1. Verify actual file tree difference between origin/main and origin/dev
+  let diff = "";
   try {
-    count =
-      parseInt(exec("git rev-list --count origin/main..origin/dev"), 10) || 0;
+    diff = exec("git diff --name-only origin/main..origin/dev");
   } catch {
-    count = parseInt(exec("git rev-list --count origin/main..HEAD"), 10) || 0;
+    diff = exec("git diff --name-only origin/main..HEAD");
   }
 
-  console.log(`📊 Commits in dev ahead of main: ${count}`);
-  if (count === 0) {
-    console.log("✅ 'dev' is up to date with 'main'. No PR needed.");
+  const changedFiles = diff
+    .split("\n")
+    .map((s) => s.trim())
+    .filter(Boolean);
+  if (changedFiles.length === 0) {
+    console.log("✅ 'dev' and 'main' have identical file trees. No PR needed.");
+    try {
+      const out = exec(
+        "gh pr list --base main --head dev --state open --json number,url",
+      );
+      const arr = JSON.parse(out || "[]");
+      if (arr.length > 0) {
+        console.log(`ℹ️ Closing PR #${arr[0].number} (${arr[0].url})...`);
+        exec(
+          `gh pr close ${arr[0].number} --comment "Automatically closed: dev and main are identical."`,
+        );
+      }
+    } catch {}
     return;
   }
 
+  // 2. Fetch commit history and filter out sync-back commits
   let raw = "";
   try {
     raw = exec('git log origin/main..origin/dev --pretty=format:"%h%x09%s"');
@@ -100,7 +128,7 @@ async function main() {
     raw = exec('git log origin/main..HEAD --pretty=format:"%h%x09%s"');
   }
 
-  const commits = raw
+  const allCommits = raw
     ? raw
         .split("\n")
         .filter(Boolean)
@@ -109,6 +137,17 @@ async function main() {
           return { hash: h, subject: s.join("\t") };
         })
     : [];
+  const commits = allCommits.filter((c) => !isSyncCommit(c.subject));
+
+  console.log(
+    `📊 Ahead: ${allCommits.length}, Promotable: ${commits.length}, Files: ${changedFiles.length}`,
+  );
+  if (commits.length === 0) {
+    console.log(
+      "✅ No promotable commits between dev and main (only sync-back commits). No PR needed.",
+    );
+    return;
+  }
 
   const groups = groupCommits(commits);
   const releases = getChangesets();
@@ -129,9 +168,9 @@ async function main() {
   ];
 
   if (releases.length > 0) {
-    sections.push("### 📦 Pending Package Releases\n");
-    sections.push("| Package | Release Type | Changeset |");
-    sections.push("| :--- | :--- | :--- |");
+    sections.push(
+      "### 📦 Pending Package Releases\n\n| Package | Release Type | Changeset |\n| :--- | :--- | :--- |",
+    );
     for (const r of releases) {
       const b =
         r.bump === "major"
@@ -145,28 +184,19 @@ async function main() {
   }
 
   sections.push(`### 📝 Included Commits (${commits.length})\n`);
-  if (groups.features.length)
-    sections.push("#### 🚀 Features\n" + list(groups.features) + "\n");
-  if (groups.fixes.length)
-    sections.push("#### 🐛 Bug Fixes\n" + list(groups.fixes) + "\n");
-  if (groups.refactors.length)
-    sections.push("#### ♻️ Refactoring\n" + list(groups.refactors) + "\n");
-  if (groups.docs.length)
-    sections.push("#### 📝 Documentation\n" + list(groups.docs) + "\n");
-  if (groups.chores.length)
-    sections.push(
-      "#### ⚙️ Maintenance & Chores\n" + list(groups.chores) + "\n",
-    );
-  if (groups.other.length)
-    sections.push("#### 📦 Other Commits\n" + list(groups.other) + "\n");
+  const addCategory = (name, items) => {
+    if (items.length) sections.push(`#### ${name}\n` + list(items) + "\n");
+  };
+  addCategory("🚀 Features", groups.features);
+  addCategory("🐛 Bug Fixes", groups.fixes);
+  addCategory("♻️ Refactoring", groups.refactors);
+  addCategory("📝 Documentation", groups.docs);
+  addCategory("⚙️ Maintenance & Chores", groups.chores);
+  addCategory("📦 Other Commits", groups.other);
 
   sections.push("### 🛡️ Quality Gate & Release Flow");
-  sections.push(
-    "- ✅ Validates W3C Cascade Layers, design tokens, and the 250-line rule.",
-  );
-  sections.push(
-    "- 📦 Merging into `main` triggers automated versioning and package publishing.",
-  );
+  sections.push("- ✅ Validates branch protections and CI quality gates.");
+  sections.push("- 📦 Merging into `main` stages production releases.");
   sections.push("- 🔄 Release commits will be reverse-synced back to `dev`.\n");
   sections.push(`*Last automated update: ${new Date().toISOString()}*`);
 
