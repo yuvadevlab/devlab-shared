@@ -226,7 +226,7 @@ async function main() {
         `🔄 Updating existing PR #${existing.number} (${existing.url})...`,
       );
       exec(
-        `gh pr edit ${existing.number} --title "${prTitle}" --body-file "${tmpPath}"`,
+        `gh api repos/:owner/:repo/pulls/${existing.number} -X PATCH -F title="${prTitle}" -F body=@"${tmpPath}"`,
       );
       console.log(`✅ Successfully updated PR #${existing.number}`);
     } else {
