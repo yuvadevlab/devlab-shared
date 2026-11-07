@@ -86,3 +86,4 @@ export * from "./copy-button";
 export * from "./secret-reveal-card";
 export * from "./typography";
 export * from "./layout";
+export * from "./legal-footer";

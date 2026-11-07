@@ -1,0 +1,38 @@
+import { Meta, Title, Description, Canvas, Controls } from "@storybook/blocks";
+import * as LegalFooterStories from "./legal-footer.stories";
+
+<Meta of={LegalFooterStories} />
+
+<Title />
+
+# Legal Footer
+
+Universal enterprise legal, copyright, and compliance footer. Dynamically adopts host application themes, OKLCH tokens, and dark mode palettes.
+
+## Login Screen Variant
+
+Standard centered legal footer for authentication, single sign-on (SSO), and public landing views.
+
+<Canvas of={LegalFooterStories.DefaultLogin} />
+
+## FinAI Branded Login
+
+Shows host application name prefixing the legal navigation links.
+
+<Canvas of={LegalFooterStories.FinAILogin} />
+
+## Sidebar Navigation Variant
+
+Compact single-row footer designed for docking at the base of primary left-hand navigation rails.
+
+<Canvas of={LegalFooterStories.SidebarVariant} />
+
+## Settings / About Platform Variant
+
+Summary block suitable for Settings dialogs, About modals, and system telemetry drawers.
+
+<Canvas of={LegalFooterStories.SettingsVariant} />
+
+## Component Properties
+
+<Controls />
