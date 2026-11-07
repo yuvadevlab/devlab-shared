@@ -159,6 +159,22 @@ export const GENERAL_LAYOUT_NAV_COMPONENTS: ComponentMeta[] = [
     description: "Visual or semantic divider between interface elements.",
     keywords: ["divider", "rule", "line", "hr", "split"],
   },
+  {
+    name: "Legal Footer",
+    slug: "legal-footer",
+    href: "/components/legal-footer",
+    category: "Layout",
+    description:
+      "Universal enterprise legal, copyright, and compliance footer with host theme adaptation.",
+    keywords: [
+      "copyright",
+      "footer",
+      "legal",
+      "terms",
+      "privacy",
+      "compliance",
+    ],
+  },
 
   // Navigation
   {

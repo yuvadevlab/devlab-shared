@@ -50,6 +50,7 @@ const REGISTRY: Record<
   "input-otp": () => import("@/registry/components/input-otp"),
   kbd: () => import("@/registry/components/kbd"),
   label: () => import("@/registry/components/label"),
+  "legal-footer": () => import("@/registry/components/legal-footer"),
   "loading-state": () => import("@/registry/components/loading-state"),
   menubar: () => import("@/registry/components/menubar"),
   message: () => import("@/registry/components/message"),
