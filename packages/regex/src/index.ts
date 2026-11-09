@@ -14,3 +14,4 @@ export * from "./uuid.regex";
 export * from "./security.regex";
 export * from "./pii.regex";
 export * from "./uri.regex";
+export * from "./ansi.regex";
