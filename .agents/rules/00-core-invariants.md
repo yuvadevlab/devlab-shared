@@ -2,6 +2,12 @@
 
 These invariants are mandatory and non-negotiable across all packages and applications in the DevLab Shared repository.
 
+## 0. Strict Git Commit & Push Restriction
+
+- **NEVER** run `git commit`, `git push`, or create pull requests without explicit, affirmative user authorization.
+- General task triggers like "start", "proceed", or "fix" authorize code authoring, linting, and testing ONLY.
+- Changes must remain in the working tree or staging until the user explicitly says to commit.
+
 ## 1. Hard 250-Line Maximum Rule
 
 - Every source file (`.ts`, `.tsx`, `.js`, `.jsx`) and stylesheet (`.css`) across `packages/*/src/` and `apps/*/src/` must remain strictly under 250 lines of code.

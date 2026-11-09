@@ -4,6 +4,7 @@ Master guidelines for AI agents developing on **DevLab Shared (Core Foundation P
 
 All agents must adhere to:
 
+0. **Zero Commits Without Explicit Confirmation**: NEVER execute `git commit`, `git push`, or open pull requests without explicit, affirmative user confirmation. Directives such as "start" or "fix" authorize code implementation and testing only, NEVER committing.
 1. **Hard 250-Line Maximum Rule**: No source file (TypeScript or CSS) across `packages/*/src/` or `apps/*/src/` may exceed 250 lines. Decompose early at 200 lines.
 2. **Detailed JSDoc Comments**: Every exported function, class, interface, and type MUST have comprehensive JSDoc.
 3. **Strict Package Boundaries**: Zero circular internal workspace dependencies.

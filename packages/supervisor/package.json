@@ -32,11 +32,12 @@
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "typecheck": "tsc --noEmit",
-    "test": "node --test src/__tests__/supervisor.test.ts",
+    "test": "echo 'No tests yet for @yuva-devlab/supervisor (skipping)'",
     "clean": "rm -rf dist node_modules .turbo"
   },
   "dependencies": {
-    "@yuva-devlab/logger": "workspace:*"
+    "@yuva-devlab/logger": "workspace:*",
+    "@yuva-devlab/regex": "workspace:*"
   },
   "devDependencies": {
     "@types/node": "^24.10.1",

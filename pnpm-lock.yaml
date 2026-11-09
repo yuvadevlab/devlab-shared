@@ -916,6 +916,9 @@ importers:
       '@yuva-devlab/logger':
         specifier: workspace:*
         version: link:../logger
+      '@yuva-devlab/regex':
+        specifier: workspace:*
+        version: link:../regex
     devDependencies:
       '@types/node':
         specifier: ^24.10.1
