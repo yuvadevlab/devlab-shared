@@ -1,0 +1,51 @@
+{
+  "name": "@yuva-devlab/supervisor",
+  "version": "0.1.0",
+  "description": "High-performance process supervisor and lifecycle orchestrator for DevLab applications",
+  "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": {
+        "import": "./dist/index.d.ts",
+        "require": "./dist/index.d.cts"
+      },
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    },
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "license": "MIT",
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "lint": "eslint src",
+    "lint:fix": "eslint src --fix",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "typecheck": "tsc --noEmit",
+    "test": "node --test src/__tests__/supervisor.test.ts",
+    "clean": "rm -rf dist node_modules .turbo"
+  },
+  "dependencies": {
+    "@yuva-devlab/logger": "workspace:*"
+  },
+  "devDependencies": {
+    "@types/node": "^24.10.1",
+    "@yuva-devlab/eslint-config": "workspace:*",
+    "@yuva-devlab/prettier-config": "workspace:*",
+    "@yuva-devlab/typescript-config": "workspace:*",
+    "eslint": "^9.39.1",
+    "prettier": "^3.9.8",
+    "tsup": "^8.5.1",
+    "typescript": "^6.0.3"
+  }
+}
