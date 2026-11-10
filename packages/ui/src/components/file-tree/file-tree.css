@@ -56,3 +56,42 @@
   padding-left: 0.5rem;
   border-left: 1px solid var(--border);
 }
+
+.dl-file-tree__item {
+  display: flex;
+  flex-direction: column;
+}
+
+.dl-file-tree__chevron {
+  width: 0.75rem;
+  height: 0.75rem;
+  color: var(--muted-foreground);
+  transition: transform 0.15s ease;
+  flex-shrink: 0;
+}
+
+.dl-file-tree__chevron--open {
+  transform: rotate(90deg);
+}
+
+.dl-file-tree__glyph {
+  width: 0.875rem;
+  height: 0.875rem;
+  flex-shrink: 0;
+}
+
+.dl-file-tree__glyph--muted {
+  color: var(--muted-foreground);
+}
+
+.dl-file-tree__glyph--warning {
+  color: var(--warning, #eab308);
+}
+
+.dl-file-tree__glyph--info {
+  color: var(--info, #3b82f6);
+}
+
+.dl-file-tree__glyph--primary {
+  color: var(--primary);
+}

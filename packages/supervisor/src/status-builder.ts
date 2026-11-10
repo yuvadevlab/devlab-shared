@@ -7,7 +7,14 @@
 
 import type { ChildProcess } from "node:child_process";
 import { PortProber } from "./port-prober";
-import type { AppProcessConfig, ProcessState, ProcessStatus } from "./types";
+import type { RuntimeStore } from "./runtime-store";
+import type {
+  AppProcessConfig,
+  DependencyStatus,
+  ExecutionMode,
+  ProcessState,
+  ProcessStatus,
+} from "./types";
 
 export interface ActiveProcessMeta {
   process?: ChildProcess;
@@ -15,6 +22,7 @@ export interface ActiveProcessMeta {
   pgid: number | null;
   startedAt: string;
   state: ProcessState;
+  mode?: ExecutionMode;
   exitCode: number | null;
   error: string | null;
   readinessAbortController?: AbortController;
@@ -28,6 +36,7 @@ export async function buildProcessStatus(
   appId: string,
   config?: AppProcessConfig,
   meta?: ActiveProcessMeta,
+  dependencyStatuses?: DependencyStatus[],
 ): Promise<ProcessStatus> {
   const ports = config?.ports || [];
   const portStatuses = await PortProber.checkPorts(ports);
@@ -44,6 +53,7 @@ export async function buildProcessStatus(
   return {
     appId,
     state: meta?.state || "STOPPED",
+    mode: meta?.mode || config?.executionMode || "dev",
     pid: meta?.pid || null,
     pgid: meta?.pgid || null,
     exitCode: meta?.exitCode ?? null,
@@ -51,6 +61,29 @@ export async function buildProcessStatus(
     uptimeSeconds,
     ports,
     portStatuses,
+    dependencyStatuses,
     error: meta?.error || null,
   };
+}
+
+/**
+ * Restores and reconnects living processes from persistent runtime cache into memory.
+ */
+export async function restoreRuntimeProcesses(
+  runtimeStore: RuntimeStore,
+  processes: Map<string, ActiveProcessMeta>,
+  onReattached?: (appId: string, pid: number) => void,
+): Promise<void> {
+  await runtimeStore.restoreActive((rec) => {
+    onReattached?.(rec.appId, rec.pid);
+    processes.set(rec.appId, {
+      pid: rec.pid,
+      pgid: rec.pgid,
+      startedAt: rec.startedAt,
+      state: "RUNNING",
+      exitCode: null,
+      error: null,
+      consecutiveCrashes: 0,
+    });
+  });
 }

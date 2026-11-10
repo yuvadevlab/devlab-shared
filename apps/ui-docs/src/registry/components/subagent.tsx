@@ -18,7 +18,15 @@ export default function SubagentDocPage() {
         "Subagent activity card showing name, role, model, conversation ID, and live task output.",
       preview: (
         <div className="dl-demo-frame dl-demo-frame--md">
-          <div className="w-full max-w-xl space-y-3">
+          <div
+            style={{
+              width: "100%",
+              maxWidth: "36rem",
+              display: "flex",
+              flexDirection: "column",
+              gap: "0.75rem",
+            }}
+          >
             <Subagent
               name="Security Auditor"
               role="Vulnerability & Dependency Scanner"
@@ -27,7 +35,15 @@ export default function SubagentDocPage() {
               conversationId="c4918e9"
               defaultOpen
             >
-              <div className="space-y-1 text-xs text-muted-foreground">
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: "0.25rem",
+                  fontSize: "0.75rem",
+                  color: "var(--muted-foreground)",
+                }}
+              >
                 <div>
                   • Scanned 120 production dependencies in pnpm-lock.yaml
                 </div>

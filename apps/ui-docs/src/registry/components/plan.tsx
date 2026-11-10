@@ -36,7 +36,15 @@ export default function PlanDocPage() {
                 description="Executing concurrent index creation on replica..."
                 defaultExpanded
               >
-                <div className="text-xs text-muted-foreground border-l-2 border-primary/40 pl-2">
+                <div
+                  style={{
+                    fontSize: "0.75rem",
+                    color: "var(--muted-foreground)",
+                    borderLeft:
+                      "2px solid color-mix(in oklch, var(--primary) 40%, transparent)",
+                    paddingLeft: "0.5rem",
+                  }}
+                >
                   Progress: 74% scanned (1.2M rows)
                 </div>
               </PlanTask>

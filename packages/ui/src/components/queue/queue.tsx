@@ -14,10 +14,28 @@ export const QueueItem = React.forwardRef<HTMLDivElement, QueueItemProps>(
             <Loader2 className="size-3 text-primary animate-spin shrink-0" />
           );
         case "paused":
-          return <Pause className="size-3 text-warning shrink-0" />;
+          return (
+            <Pause
+              style={{
+                width: "0.75rem",
+                height: "0.75rem",
+                color: "var(--warning, #eab308)",
+                flexShrink: 0,
+              }}
+            />
+          );
         case "waiting":
         default:
-          return <Clock className="size-3 text-muted-foreground shrink-0" />;
+          return (
+            <Clock
+              style={{
+                width: "0.75rem",
+                height: "0.75rem",
+                color: "var(--muted-foreground)",
+                flexShrink: 0,
+              }}
+            />
+          );
       }
     };
 
@@ -33,18 +51,17 @@ export const QueueItem = React.forwardRef<HTMLDivElement, QueueItemProps>(
           {task.priority && (
             <span
               className={cn(
-                "px-1.5 py-0.5 rounded text-[10px] font-semibold uppercase tracking-wider",
-                task.priority === "high" &&
-                  "bg-destructive/15 text-destructive",
-                task.priority === "normal" && "bg-primary/15 text-primary",
-                task.priority === "low" && "bg-muted text-muted-foreground",
+                "dl-queue-item__priority",
+                task.priority === "high" && "dl-queue-item__priority--high",
+                task.priority === "normal" && "dl-queue-item__priority--normal",
+                task.priority === "low" && "dl-queue-item__priority--low",
               )}
             >
               {task.priority}
             </span>
           )}
           {task.estimatedDuration && (
-            <span className="text-xs text-muted-foreground font-mono">
+            <span className="dl-queue-item__duration">
               {task.estimatedDuration}
             </span>
           )}
@@ -53,9 +70,9 @@ export const QueueItem = React.forwardRef<HTMLDivElement, QueueItemProps>(
               type="button"
               onClick={onRemove}
               aria-label="Remove task"
-              className="text-muted-foreground hover:text-foreground p-0.5 rounded"
+              className="dl-queue-item__remove-btn"
             >
-              <X className="size-3.5" />
+              <X style={{ width: "0.875rem", height: "0.875rem" }} />
             </button>
           )}
         </div>
@@ -93,11 +110,13 @@ export const Queue = React.forwardRef<HTMLDivElement, QueueProps>(
     return (
       <div ref={ref} className={cn("dl-queue", className)} {...props}>
         <div className="dl-queue__header">
-          <div className="flex items-center gap-1.5">
-            <ListOrdered className="size-4 text-primary" />
+          <div className="dl-queue__header-left">
+            <ListOrdered
+              style={{ width: "1rem", height: "1rem", color: "var(--primary)" }}
+            />
             <span>{title}</span>
           </div>
-          <span className="text-xs text-muted-foreground font-normal">
+          <span className="dl-queue__header-count">
             {tasks.length} item{tasks.length === 1 ? "" : "s"}
           </span>
         </div>

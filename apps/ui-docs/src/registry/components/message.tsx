@@ -25,11 +25,31 @@ export default function MessageDocPage() {
         "Standard conversational stream format with user query, assistant reply, and feedback actions.",
       preview: (
         <div className="dl-demo-frame dl-demo-frame--md">
-          <div className="w-full max-w-xl space-y-4">
+          <div
+            style={{
+              width: "100%",
+              maxWidth: "36rem",
+              display: "flex",
+              flexDirection: "column",
+              gap: "1rem",
+            }}
+          >
             <Message role="user">
               <MessageAvatar role="user" />
-              <div className="space-y-1">
-                <div className="text-xs font-semibold text-muted-foreground">
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: "0.25rem",
+                }}
+              >
+                <div
+                  style={{
+                    fontSize: "0.75rem",
+                    fontWeight: 600,
+                    color: "var(--muted-foreground)",
+                  }}
+                >
                   You
                 </div>
                 <MessageContent>
@@ -41,8 +61,20 @@ export default function MessageDocPage() {
 
             <Message role="assistant">
               <MessageAvatar role="assistant" />
-              <div className="space-y-1">
-                <div className="text-xs font-semibold text-muted-foreground">
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: "0.25rem",
+                }}
+              >
+                <div
+                  style={{
+                    fontSize: "0.75rem",
+                    fontWeight: 600,
+                    color: "var(--muted-foreground)",
+                  }}
+                >
                   DevLab Assistant
                 </div>
                 <MessageContent>
@@ -57,7 +89,13 @@ export default function MessageDocPage() {
                   onThumbsDown={() => setFeedback("Disliked")}
                 />
                 {feedback && (
-                  <span className="text-xs text-primary font-medium">
+                  <span
+                    style={{
+                      fontSize: "0.75rem",
+                      color: "var(--primary)",
+                      fontWeight: 500,
+                    }}
+                  >
                     Feedback: {feedback}
                   </span>
                 )}
@@ -68,8 +106,8 @@ export default function MessageDocPage() {
       ),
       codeSnippet: `<Message role="assistant">
   <MessageAvatar role="assistant" />
-  <div className="space-y-1">
-    <div className="text-xs font-semibold text-muted-foreground">DevLab Assistant</div>
+  <div style={{ display: "flex", flexDirection: "column", gap: "0.25rem" }}>
+    <div style={{ fontSize: "0.75rem", fontWeight: 600, color: "var(--muted-foreground)" }}>DevLab Assistant</div>
     <MessageContent>
       I recommend adding a Redis caching layer...
     </MessageContent>

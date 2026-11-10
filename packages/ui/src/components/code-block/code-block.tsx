@@ -54,11 +54,11 @@ export const CodeBlockHeader = React.forwardRef<
   CodeBlockHeaderProps
 >(({ className, filename, language, children, ...props }, ref) => (
   <div ref={ref} className={cn("dl-code-block__header", className)} {...props}>
-    <div className="flex items-center gap-2">
+    <div className="dl-code-block__header-meta">
       {filename && <span className="dl-code-block__filename">{filename}</span>}
       {language && <span className="dl-code-block__language">{language}</span>}
     </div>
-    <div className="flex items-center gap-1.5">{children}</div>
+    <div className="dl-code-block__header-actions">{children}</div>
   </div>
 ));
 CodeBlockHeader.displayName = "CodeBlockHeader";

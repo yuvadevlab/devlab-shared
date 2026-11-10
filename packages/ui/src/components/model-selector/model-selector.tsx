@@ -137,16 +137,24 @@ export const ModelSelector = React.forwardRef<
           aria-haspopup="listbox"
           aria-expanded={isOpen}
         >
-          <div className="flex items-center gap-1.5">
-            {currentModel?.icon ?? <Bot className="size-3.5 text-primary" />}
-            <span className="font-semibold text-foreground">
+          <div className="dl-model-selector__trigger-label">
+            {currentModel?.icon ?? (
+              <Bot
+                style={{
+                  width: "0.875rem",
+                  height: "0.875rem",
+                  color: "var(--primary)",
+                }}
+              />
+            )}
+            <span style={{ fontWeight: 600, color: "var(--foreground)" }}>
               {currentModel ? currentModel.name : placeholder}
             </span>
           </div>
           <ChevronDown
             className={cn(
-              "size-3 text-muted-foreground transition-transform duration-200",
-              isOpen && "rotate-180",
+              "dl-model-selector__chevron",
+              isOpen && "dl-model-selector__chevron--open",
             )}
           />
         </button>
@@ -154,22 +162,23 @@ export const ModelSelector = React.forwardRef<
         {isOpen && (
           <div className="dl-model-selector__content" role="listbox">
             {models.length > 3 && (
-              <div className="relative">
-                <Search className="absolute left-2 top-2.5 size-3 text-muted-foreground" />
+              <div className="dl-model-selector__search-wrapper">
+                <Search className="dl-model-selector__search-icon" />
                 <input
                   type="text"
                   placeholder="Filter models..."
                   value={query}
                   onChange={(e) => setQuery(e.target.value)}
-                  className="dl-model-selector__search w-full pl-7"
+                  className="dl-model-selector__search"
+                  style={{ width: "100%", paddingLeft: "1.75rem" }}
                   autoFocus
                 />
               </div>
             )}
 
-            <div className="flex flex-col gap-0.5">
+            <div className="dl-model-selector__list">
               {filteredModels.length === 0 ? (
-                <div className="p-3 text-center text-xs text-muted-foreground">
+                <div className="dl-model-selector__empty">
                   No matching models found
                 </div>
               ) : (
@@ -185,16 +194,23 @@ export const ModelSelector = React.forwardRef<
                       className={cn(
                         "dl-model-selector__item",
                         isSelected && "dl-model-selector__item--active",
-                        model.disabled && "opacity-50 cursor-not-allowed",
+                        model.disabled && "dl-cursor-not-allowed",
                       )}
+                      style={model.disabled ? { opacity: 0.5 } : undefined}
                     >
                       <div className="dl-model-selector__item-info">
                         <div className="dl-model-selector__item-title">
                           {model.icon ?? (
-                            <Sparkles className="size-3 text-primary" />
+                            <Sparkles
+                              style={{
+                                width: "0.75rem",
+                                height: "0.75rem",
+                                color: "var(--primary)",
+                              }}
+                            />
                           )}
                           <span>{model.name}</span>
-                          <span className="text-xs text-muted-foreground font-normal">
+                          <span className="dl-model-selector__provider">
                             ({model.provider})
                           </span>
                         </div>

@@ -16,7 +16,10 @@ export default function KbdDocPage() {
       title: "Keycap Sizes",
       description: "Keyboard keycaps in small, medium, and large dimensions.",
       preview: (
-        <div className="dl-demo-frame dl-demo-frame--sm flex items-center gap-3">
+        <div
+          className="dl-demo-frame dl-demo-frame--sm"
+          style={{ display: "flex", alignItems: "center", gap: "0.75rem" }}
+        >
           <Kbd size="sm">⌘K</Kbd>
           <Kbd size="md">⌘K</Kbd>
           <Kbd size="lg">⌘K</Kbd>
@@ -33,7 +36,7 @@ export default function KbdDocPage() {
         "Visual variants (default, outline, ghost) and multi-key groups with delimiters.",
       preview: (
         <Stack gap={3} className="dl-demo-frame dl-demo-frame--sm">
-          <div className="flex items-center gap-2">
+          <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
             <Kbd variant="default">Ctrl</Kbd>
             <Kbd variant="outline">Alt</Kbd>
             <Kbd variant="ghost">Shift</Kbd>

@@ -136,7 +136,7 @@ export const PromptInput = React.forwardRef<HTMLFormElement, PromptInputProps>(
           <div className="dl-prompt-input__attachments">
             {files.map((file) => (
               <span key={file.id} className="dl-prompt-input__chip">
-                <FileText className="size-3 text-muted-foreground" />
+                <FileText className="dl-prompt-input__chip-icon" />
                 <span className="dl-prompt-input__chip-name">{file.name}</span>
                 <button
                   type="button"
@@ -144,7 +144,7 @@ export const PromptInput = React.forwardRef<HTMLFormElement, PromptInputProps>(
                   aria-label={`Remove ${file.name}`}
                   className="dl-prompt-input__chip-remove"
                 >
-                  <X className="size-3" />
+                  <X className="dl-prompt-input__chip-icon" />
                 </button>
               </span>
             ))}

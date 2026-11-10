@@ -13,14 +13,28 @@ import { RingBuffer } from "./ring-buffer";
 import { ProcessTreeManager } from "./process-tree";
 import { RuntimeStore } from "./runtime-store";
 import { StreamHandler } from "./stream-handler";
-import { ReadinessProber } from "./readiness-prober";
-import { buildProcessStatus, type ActiveProcessMeta } from "./status-builder";
-import { executeProcessSpawn, resolveProcessExit } from "./process-runner";
+import {
+  buildProcessStatus,
+  restoreRuntimeProcesses,
+  type ActiveProcessMeta,
+} from "./status-builder";
+import { executeProcessSpawn } from "./process-runner";
+import { executeAppBuild } from "./supervisor-build";
+import { resolveAppDependencies } from "./supervisor-dependencies";
+import {
+  pushAppLog,
+  appendAppSystemLog,
+  emitAppState,
+  pollAppReadiness,
+  handleProcessError,
+  handleProcessExit,
+  type EventCoordinatorContext,
+} from "./supervisor-events";
 import type {
   AppProcessConfig,
+  DependencyStatus,
+  ExecutionMode,
   ProcessLogEntry,
-  ProcessLogLevel,
-  ProcessState,
   ProcessStatus,
   SupervisorOptions,
 } from "./types";
@@ -49,21 +63,27 @@ export class ProcessSupervisor extends EventEmitter {
     this.healthPollIntervalMs = options.healthPollIntervalMs || 500;
   }
 
+  private get eventContext(): EventCoordinatorContext {
+    return {
+      buffers: this.buffers,
+      processes: this.processes,
+      streamHandler: this.streamHandler,
+      maxBufferSize: this.maxBufferSize,
+      healthPollIntervalMs: this.healthPollIntervalMs,
+      emit: this.emit.bind(this),
+      getStatus: this.getStatus.bind(this),
+    };
+  }
+
   async init(): Promise<void> {
     if (this.initialized) return;
     try {
-      await this.runtimeStore.restoreActive((rec) => {
-        this.logger.info(`Re-attached to '${rec.appId}' (PID ${rec.pid})`);
-        this.processes.set(rec.appId, {
-          pid: rec.pid,
-          pgid: rec.pgid,
-          startedAt: rec.startedAt,
-          state: "RUNNING",
-          exitCode: null,
-          error: null,
-          consecutiveCrashes: 0,
-        });
-      });
+      await restoreRuntimeProcesses(
+        this.runtimeStore,
+        this.processes,
+        (appId, pid) =>
+          this.logger.info(`Re-attached to '${appId}' (PID ${pid})`),
+      );
     } catch (err) {
       this.logger.warn("Failed to restore runtime records", err);
     }
@@ -85,7 +105,11 @@ export class ProcessSupervisor extends EventEmitter {
     return this.configs.get(appId);
   }
 
-  async start(appId: string): Promise<ProcessStatus> {
+  async checkDependencies(appId: string): Promise<DependencyStatus[]> {
+    return resolveAppDependencies(this.configs, this.processes, appId);
+  }
+
+  async start(appId: string, mode?: ExecutionMode): Promise<ProcessStatus> {
     const config = this.configs.get(appId);
     if (!config) throw new Error(`Application '${appId}' is not registered`);
 
@@ -101,19 +125,28 @@ export class ProcessSupervisor extends EventEmitter {
       const meta = await executeProcessSpawn({
         appId,
         config,
+        mode,
         runtimeStore: this.runtimeStore,
         streamHandler: this.streamHandler,
-        onLog: (entry) => this.pushLog(appId, entry),
-        onSystemLog: (lvl, msg) => this.appendSystemLog(appId, lvl, msg),
-        onError: (err) => this.handleProcessError(appId, err),
-        onExit: (code, signal) => this.handleProcessExit(appId, code, signal),
+        onLog: (entry) => pushAppLog(this.eventContext, appId, entry),
+        onSystemLog: (lvl, msg) =>
+          appendAppSystemLog(this.eventContext, appId, lvl, msg),
+        onError: (err) => handleProcessError(this.eventContext, appId, err),
+        onExit: (code, sig) =>
+          handleProcessExit(
+            this.eventContext,
+            this.runtimeStore,
+            appId,
+            code,
+            sig,
+          ),
       });
 
       this.processes.set(appId, meta);
-      this.emitState(appId, "STARTING");
-
+      await emitAppState(this.eventContext, appId, "STARTING");
       if (config.healthUrl) {
-        this.pollReadinessAsync(
+        pollAppReadiness(
+          this.eventContext,
           appId,
           config.healthUrl,
           config.readinessTimeoutMs || 30000,
@@ -122,17 +155,28 @@ export class ProcessSupervisor extends EventEmitter {
         setTimeout(() => {
           if (this.processes.get(appId)?.state === "STARTING") {
             meta.state = "RUNNING";
-            this.emitState(appId, "RUNNING");
+            emitAppState(this.eventContext, appId, "RUNNING");
           }
         }, 1500);
       }
       return await this.getStatus(appId);
     } catch (err) {
       const msg = err instanceof Error ? err.message : String(err);
-      this.appendSystemLog(appId, "error", `Startup failed: ${msg}`);
-      this.emitState(appId, "CRASHED");
+      appendAppSystemLog(
+        this.eventContext,
+        appId,
+        "error",
+        `Startup failed: ${msg}`,
+      );
+      await emitAppState(this.eventContext, appId, "CRASHED");
       throw err;
     }
+  }
+
+  async build(appId: string): Promise<{ success: boolean; exitCode: number }> {
+    const config = this.configs.get(appId);
+    if (!config) throw new Error(`Application '${appId}' is not registered`);
+    return executeAppBuild(this.eventContext, config);
   }
 
   async stop(appId: string, force = false): Promise<ProcessStatus> {
@@ -145,8 +189,9 @@ export class ProcessSupervisor extends EventEmitter {
       : config?.gracefulShutdownTimeoutMs || 4000;
 
     meta.state = "STOPPING";
-    this.emitState(appId, "STOPPING");
-    this.appendSystemLog(
+    await emitAppState(this.eventContext, appId, "STOPPING");
+    appendAppSystemLog(
+      this.eventContext,
       appId,
       "info",
       `Stopping process (PID ${meta.pid})...`,
@@ -155,18 +200,17 @@ export class ProcessSupervisor extends EventEmitter {
 
     if (meta.pid > 0)
       await ProcessTreeManager.killTree(meta.pid, gracefulTimeout);
-
     meta.state = "STOPPED";
     meta.error = null;
     await this.runtimeStore.remove(appId);
-    this.appendSystemLog(appId, "info", "Process stopped.");
-    this.emitState(appId, "STOPPED");
+    appendAppSystemLog(this.eventContext, appId, "info", "Process stopped.");
+    await emitAppState(this.eventContext, appId, "STOPPED");
     return this.getStatus(appId);
   }
 
-  async restart(appId: string): Promise<ProcessStatus> {
+  async restart(appId: string, mode?: ExecutionMode): Promise<ProcessStatus> {
     await this.stop(appId, false);
-    return this.start(appId);
+    return this.start(appId, mode);
   }
 
   async shutdownAll(): Promise<void> {
@@ -180,11 +224,10 @@ export class ProcessSupervisor extends EventEmitter {
   }
 
   async getStatus(appId: string): Promise<ProcessStatus> {
-    return buildProcessStatus(
-      appId,
-      this.configs.get(appId),
-      this.processes.get(appId),
-    );
+    const config = this.configs.get(appId);
+    const meta = this.processes.get(appId);
+    const dependencyStatuses = await this.checkDependencies(appId);
+    return buildProcessStatus(appId, config, meta, dependencyStatuses);
   }
 
   async getAllStatuses(): Promise<ProcessStatus[]> {
@@ -199,80 +242,5 @@ export class ProcessSupervisor extends EventEmitter {
 
   clearLogs(appId: string): void {
     this.buffers.get(appId)?.clear();
-  }
-
-  private handleProcessError(appId: string, err: Error): void {
-    const meta = this.processes.get(appId);
-    if (!meta) return;
-    meta.error = err.message;
-    meta.state = "CRASHED";
-    this.appendSystemLog(appId, "error", `Process error: ${err.message}`);
-    this.emitState(appId, "CRASHED");
-  }
-
-  private async handleProcessExit(
-    appId: string,
-    code: number | null,
-    signal: string | null,
-  ): Promise<void> {
-    const meta = this.processes.get(appId);
-    if (!meta) return;
-    await this.runtimeStore.remove(appId);
-    const { state, message, isCrash } = resolveProcessExit(meta, code, signal);
-    this.appendSystemLog(appId, isCrash ? "error" : "info", message);
-    await this.emitState(appId, state);
-  }
-
-  private async pollReadinessAsync(
-    appId: string,
-    healthUrl: string,
-    timeoutMs: number,
-  ): Promise<void> {
-    const meta = this.processes.get(appId);
-    if (!meta) return;
-    const controller = new AbortController();
-    meta.readinessAbortController = controller;
-
-    await ReadinessProber.verifyReadiness(
-      healthUrl,
-      timeoutMs,
-      this.healthPollIntervalMs,
-      controller.signal,
-      (msg, lvl) => this.appendSystemLog(appId, lvl, msg),
-    );
-
-    if (meta.state === "STARTING") {
-      meta.state = "RUNNING";
-      await this.emitState(appId, "RUNNING");
-    }
-  }
-
-  private pushLog(appId: string, entry: ProcessLogEntry): void {
-    let buffer = this.buffers.get(appId);
-    if (!buffer) {
-      buffer = new RingBuffer(this.maxBufferSize);
-      this.buffers.set(appId, buffer);
-    }
-    buffer.push(entry);
-    this.emit("log", appId, entry);
-  }
-
-  private appendSystemLog(
-    appId: string,
-    level: ProcessLogLevel,
-    msg: string,
-  ): void {
-    const entry = this.streamHandler.createEntry(appId, msg, "system", level);
-    this.pushLog(appId, entry);
-    this.streamHandler.writeToDisk(appId, entry).catch(() => {});
-  }
-
-  private async emitState(appId: string, state: ProcessState): Promise<void> {
-    try {
-      const status = await this.getStatus(appId);
-      this.emit("stateChanged", appId, state, status);
-    } catch {
-      // Ignored
-    }
   }
 }

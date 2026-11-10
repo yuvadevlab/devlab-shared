@@ -56,3 +56,8 @@ uv run ruff format --check .
 # Strict typechecking (zero any, strict mode)
 uv run mypy src
 ```
+
+## Author & Attribution
+
+- **Author**: Yuva DevLab (`yuva.devlab@gmail.com`)
+- **License**: MIT

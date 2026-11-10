@@ -16,7 +16,19 @@ export default function LegalFooterDocPage() {
       description:
         "Centered legal footer designed for login cards, SSO handoff screens, and public landing pages.",
       preview: (
-        <div className="w-full max-w-md rounded-xl border border-border/80 bg-card/60 p-4 backdrop-blur-sm">
+        <div
+          style={{
+            width: "100%",
+            maxWidth: "28rem",
+            borderRadius: "var(--radius-xl, 0.75rem)",
+            border:
+              "1px solid color-mix(in oklab, var(--border) 80%, transparent)",
+            backgroundColor:
+              "color-mix(in oklab, var(--card) 60%, transparent)",
+            padding: "1rem",
+            backdropFilter: "blur(4px)",
+          }}
+        >
           <LegalFooter
             appName="DevLab Portal"
             variant="login"
@@ -36,7 +48,19 @@ export default function LegalFooterDocPage() {
       description:
         "Demonstrates automatic host theme adoption when rendered with application branding.",
       preview: (
-        <div className="w-full max-w-md rounded-xl border border-border/80 bg-card/60 p-4 backdrop-blur-sm">
+        <div
+          style={{
+            width: "100%",
+            maxWidth: "28rem",
+            borderRadius: "var(--radius-xl, 0.75rem)",
+            border:
+              "1px solid color-mix(in oklab, var(--border) 80%, transparent)",
+            backgroundColor:
+              "color-mix(in oklab, var(--card) 60%, transparent)",
+            padding: "1rem",
+            backdropFilter: "blur(4px)",
+          }}
+        >
           <LegalFooter appName="FinAI" variant="login" showLinks={true} />
         </div>
       ),
@@ -52,8 +76,23 @@ export default function LegalFooterDocPage() {
       description:
         "Compact single-row layout docked at the base of desktop and tablet navigation sidebars.",
       preview: (
-        <div className="w-64 rounded-lg border border-border/80 bg-card/60">
-          <div className="p-3 text-xs text-muted-foreground">
+        <div
+          style={{
+            width: "16rem",
+            borderRadius: "var(--radius-lg, 0.5rem)",
+            border:
+              "1px solid color-mix(in oklab, var(--border) 80%, transparent)",
+            backgroundColor:
+              "color-mix(in oklab, var(--card) 60%, transparent)",
+          }}
+        >
+          <div
+            style={{
+              padding: "0.75rem",
+              fontSize: "0.75rem",
+              color: "var(--muted-foreground)",
+            }}
+          >
             Navigation Rail
           </div>
           <LegalFooter
@@ -75,7 +114,17 @@ export default function LegalFooterDocPage() {
       description:
         "Structured platform summary block suitable for settings views and about drawers.",
       preview: (
-        <div className="w-80 rounded-lg border border-border/80 bg-card/60 p-4">
+        <div
+          style={{
+            width: "20rem",
+            borderRadius: "var(--radius-lg, 0.5rem)",
+            border:
+              "1px solid color-mix(in oklab, var(--border) 80%, transparent)",
+            backgroundColor:
+              "color-mix(in oklab, var(--card) 60%, transparent)",
+            padding: "1rem",
+          }}
+        >
           <LegalFooter
             appName="VitalAI Enterprise"
             version="v2.1.0-prod"

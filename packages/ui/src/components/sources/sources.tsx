@@ -78,9 +78,9 @@ export const SourceCard = React.forwardRef<HTMLAnchorElement, SourceCardProps>(
       >
         <div className="dl-source-card__meta">
           <span className="dl-source-card__index">{source.index}</span>
-          <Globe className="size-3 text-muted-foreground shrink-0" />
+          <Globe className="dl-source-card__icon" />
           <span className="dl-source-card__domain">{domain}</span>
-          <ExternalLink className="size-2.5 ml-auto text-muted-foreground shrink-0 opacity-70" />
+          <ExternalLink className="dl-source-card__external" />
         </div>
         <div className="dl-source-card__title" title={source.title}>
           {source.title}

@@ -288,13 +288,13 @@ console.log(THEME_CONFIGS.finai);
 Ensure your root stylesheet establishes W3C Cascade Layers:
 
 ```diff
-- /* Legacy Tailwind @utility or custom imports */
+- /* Legacy ad-hoc utility or custom imports */
 + @layer dl-base, dl-tokens, dl-components, dl-layout, dl-utilities, dl-app;
 + @import "@yuva-devlab/tokens/styles.css";
 + @import "@yuva-devlab/tokens/themes/finai.css";
 ```
 
-### 2. Replace Legacy Tailwind Typography Classes
+### 2. Replace Legacy Utility Typography Classes
 
 Replace arbitrary utility combinations with standardized DevLab typography classes or `<Heading>` / `<Text>` primitives from `@yuva-devlab/ui`:
 
@@ -316,6 +316,7 @@ Replace hardcoded hex or OKLCH strings in Recharts components with typed brand c
 
 ---
 
-## License
+## Author & Attribution
 
-MIT © [Yuva DevLab](https://github.com/yuvadevlab)
+- **Author**: Yuva DevLab (`yuva.devlab@gmail.com`)
+- **License**: MIT

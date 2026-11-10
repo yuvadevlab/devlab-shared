@@ -28,12 +28,12 @@ export const StackFrame = React.forwardRef<HTMLDivElement, StackFrameProps>(
           className="dl-stack-frame__header"
           onClick={() => hasSnippet && setExpanded((prev) => !prev)}
         >
-          <div className="flex items-center gap-1.5 min-w-0">
+          <div className="dl-stack-frame__fn-wrapper">
             {hasSnippet && (
               <ChevronRight
                 className={cn(
-                  "size-3 text-muted-foreground transition-transform shrink-0",
-                  expanded && "rotate-90",
+                  "dl-stack-frame__chevron",
+                  expanded && "dl-stack-frame__chevron--expanded",
                 )}
               />
             )}

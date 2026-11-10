@@ -127,7 +127,7 @@ export function MultiSelect({
                       aria-label={`Remove ${opt.label}`}
                       className="dl-multi-select-chip__remove"
                     >
-                      <X className="size-3" />
+                      <X className="dl-multi-select-chip__icon" />
                     </button>
                   </span>
                 ))}
@@ -139,7 +139,7 @@ export function MultiSelect({
               </>
             )}
           </div>
-          <ChevronDown className="size-4 shrink-0 text-muted-foreground" />
+          <ChevronDown className="dl-multi-select-chevron" />
         </div>
       </PopoverTrigger>
       <PopoverContent align="start" className="dl-multi-select-content">
