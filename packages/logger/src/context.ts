@@ -8,7 +8,13 @@ import { AsyncLocalStorage } from "node:async_hooks";
 import { randomUUID } from "node:crypto";
 import type { CorrelationContext } from "./types";
 
-const asyncLocalStorage = new AsyncLocalStorage<CorrelationContext>();
+const AsyncLocalStorageClass =
+  typeof AsyncLocalStorage === "function" ? AsyncLocalStorage : null;
+const asyncLocalStorage = AsyncLocalStorageClass
+  ? new AsyncLocalStorageClass<CorrelationContext>()
+  : null;
+
+let fallbackContext: CorrelationContext | undefined = undefined;
 
 /**
  * Retrieves the active correlation context for the current asynchronous call stack.
@@ -16,7 +22,7 @@ const asyncLocalStorage = new AsyncLocalStorage<CorrelationContext>();
  * @returns The active CorrelationContext or undefined if running outside a context.
  */
 export function getCorrelationContext(): CorrelationContext | undefined {
-  return asyncLocalStorage.getStore();
+  return asyncLocalStorage ? asyncLocalStorage.getStore() : fallbackContext;
 }
 
 /**
@@ -27,7 +33,16 @@ export function getCorrelationContext(): CorrelationContext | undefined {
  * @returns The return value of the callback.
  */
 export function runWithContext<T>(context: CorrelationContext, fn: () => T): T {
-  return asyncLocalStorage.run(context, fn);
+  if (asyncLocalStorage) {
+    return asyncLocalStorage.run(context, fn);
+  }
+  const prev = fallbackContext;
+  fallbackContext = context;
+  try {
+    return fn();
+  } finally {
+    fallbackContext = prev;
+  }
 }
 
 /**
@@ -39,7 +54,7 @@ export function runWithContext<T>(context: CorrelationContext, fn: () => T): T {
 export function updateCorrelationContext(
   partial: Partial<CorrelationContext>,
 ): void {
-  const current = asyncLocalStorage.getStore();
+  const current = getCorrelationContext();
   if (current) {
     Object.assign(current, partial);
   }
@@ -49,14 +64,28 @@ export function updateCorrelationContext(
  * Generates a standard trace identifier (UUID v4).
  */
 export function generateTraceId(): string {
-  return randomUUID();
+  if (
+    typeof crypto !== "undefined" &&
+    typeof crypto.randomUUID === "function"
+  ) {
+    return crypto.randomUUID();
+  }
+  try {
+    return randomUUID();
+  } catch {
+    return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, (c) => {
+      const r = (Math.random() * 16) | 0;
+      const v = c === "x" ? r : (r & 0x3) | 0x8;
+      return v.toString(16);
+    });
+  }
 }
 
 /**
  * Generates a standard request identifier (UUID v4 or truncated).
  */
 export function generateRequestId(): string {
-  return randomUUID();
+  return generateTraceId();
 }
 
 /**
