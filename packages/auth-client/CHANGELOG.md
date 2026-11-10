@@ -1,5 +1,12 @@
 # @yuva-devlab/auth-client
 
+## 1.1.3
+
+### Patch Changes
+
+- Updated dependencies [a44d7b6]
+  - @yuva-devlab/logger@1.3.1
+
 ## 1.1.2
 
 ### Patch Changes

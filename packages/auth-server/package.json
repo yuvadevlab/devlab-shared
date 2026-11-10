@@ -1,6 +1,6 @@
 {
   "name": "@yuva-devlab/auth-server",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Server-side authentication guards, cached JWKS validator, and kill-switch middleware for DevLab",
   "type": "module",
   "main": "./dist/index.cjs",

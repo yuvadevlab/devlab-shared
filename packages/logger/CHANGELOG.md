@@ -1,5 +1,11 @@
 # @yuva-devlab/logger
 
+## 1.3.1
+
+### Patch Changes
+
+- a44d7b6: fix(logger): guard AsyncLocalStorage and Node.js built-ins for safe isomorphic execution in browser environments
+
 ## 1.3.0
 
 ### Minor Changes
