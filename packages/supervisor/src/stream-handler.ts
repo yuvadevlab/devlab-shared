@@ -9,8 +9,8 @@ import path from "node:path";
 import fs from "node:fs/promises";
 import type { ChildProcess } from "node:child_process";
 import { stripAnsi } from "./ansi";
-import type {
-  ProcessLogEntry,
+import {
+  type ProcessLogEntry,
   ProcessLogLevel,
   ProcessLogStream,
 } from "./types";
@@ -35,13 +35,15 @@ export class StreamHandler {
    */
   classifyLevel(
     line: string,
-    defaultStream: ProcessLogStream = "stdout",
+    defaultStream: ProcessLogStream = ProcessLogStream.STDOUT,
   ): ProcessLogLevel {
     const clean = stripAnsi(line);
-    if (ERROR_PATTERN.test(clean)) return "error";
-    if (WARN_PATTERN.test(clean)) return "warn";
-    if (DEBUG_PATTERN.test(clean)) return "debug";
-    return defaultStream === "stderr" ? "warn" : "info";
+    if (ERROR_PATTERN.test(clean)) return ProcessLogLevel.ERROR;
+    if (WARN_PATTERN.test(clean)) return ProcessLogLevel.WARN;
+    if (DEBUG_PATTERN.test(clean)) return ProcessLogLevel.DEBUG;
+    return defaultStream === ProcessLogStream.STDERR
+      ? ProcessLogLevel.WARN
+      : ProcessLogLevel.INFO;
   }
 
   /**
@@ -99,7 +101,7 @@ export class StreamHandler {
       stdoutBuffer = lines.pop() || "";
       for (const line of lines) {
         if (line.trim().length > 0) {
-          const entry = this.createEntry(appId, line, "stdout");
+          const entry = this.createEntry(appId, line, ProcessLogStream.STDOUT);
           onLog(entry);
           this.writeToDisk(appId, entry).catch(() => {});
         }
@@ -112,7 +114,7 @@ export class StreamHandler {
       stderrBuffer = lines.pop() || "";
       for (const line of lines) {
         if (line.trim().length > 0) {
-          const entry = this.createEntry(appId, line, "stderr");
+          const entry = this.createEntry(appId, line, ProcessLogStream.STDERR);
           onLog(entry);
           this.writeToDisk(appId, entry).catch(() => {});
         }

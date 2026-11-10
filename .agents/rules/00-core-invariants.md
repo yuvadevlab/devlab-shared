@@ -77,3 +77,26 @@ These invariants are mandatory and non-negotiable across all packages and applic
 - Branch naming must strictly follow: `^(feat|fix|refactor|perf|chore|docs|test|ci|hotfix)/[a-z0-9-]+$`.
 - Pull Requests must conform to the 5-section high-signal template in `yuvadevlab/.github` (Summary, Changes, How to Test, Proof of Verification, Risks).
 - Author and committer metadata standardized to `yuva.devlab@gmail.com`.
+
+## 12. NPM Packages Environment Isolation Rule
+
+- NPM packages (`packages/*`) must **NEVER** access `process.env` directly.
+- The consumer application is responsible for managing its environment and passing URLs, credentials, or flags via props/options.
+- Any canonical URLs or endpoint paths must be declared as package constants in `src/constants/` so they can be changed in a single location.
+
+## 13. Zero Hardcoded Strings & UI Copy Catalogs
+
+- UI components must never include hardcoded user-facing strings (labels, buttons, titles, descriptions, error banners).
+- All user-facing copy must be cataloged in centralized copy constant dictionaries.
+
+## 14. Enums Over Raw String Unions (Change Resilience)
+
+- Avoid declaring types as raw string literal unions (e.g. `type Status = "ACTIVE" | "INACTIVE"`).
+- Always declare TypeScript `enum`s or key-value object dictionaries (`as const`).
+- This ensures underlying runtime string values can be modified in a single location without modifying symbol references across consumers.
+
+## 15. URL Query Parameters & Key Centralization
+
+- Raw URL search parameter names and prefixes (e.g. `"?redirect="`, `"?app="`, `"token"`, `"access_token"`) must never be hardcoded in application logic.
+- All query parameters, route paths, HTTP headers, and browser storage keys must be declared in dedicated enums/constants files (e.g. `AuthQueryParamKey.REDIRECT`, `AuthStorageKey.TOKEN`).
+- URLs and query strings must be assembled using `URLSearchParams` or helper functions referencing the enum keys.
