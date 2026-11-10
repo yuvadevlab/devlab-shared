@@ -7,6 +7,14 @@
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { AppUnavailableScreen } from "@/components/app-unavailable-screen";
 import {
+  AuthQueryParamKey,
+  AuthStorageKey,
+  DEFAULT_PORTAL_API_URL,
+  DEFAULT_PORTAL_WEB_URL,
+  PLATFORM_APP_STATUS_ENDPOINT,
+  APP_STATUS_POLL_INTERVAL_MS,
+} from "@/constants";
+import {
   AppStatus,
   type AuthUser,
   type DevLabAuthContextValue,
@@ -14,9 +22,6 @@ import {
 } from "@/types";
 import { DevLabAuthContext } from "./auth-context";
 import {
-  STORAGE_KEY_TOKEN,
-  STORAGE_KEY_USER,
-  STORAGE_SYNC_EVENT,
   parseJwtPayload,
   persistSession,
   purgeSession,
@@ -39,13 +44,8 @@ export const DevLabAuthProvider: React.FC<DevLabAuthProviderProps> = ({
   customUnavailableScreen,
 }) => {
   const effectiveClientId = clientId || appId || "";
-  const effectiveAuthUrl =
-    authUrl ||
-    portalUrl ||
-    gatewayUrl ||
-    (typeof process !== "undefined"
-      ? process.env?.NEXT_PUBLIC_DEVLAB_PORTAL_WEB_URL
-      : undefined);
+  const effectiveAuthUrl = authUrl || portalUrl || DEFAULT_PORTAL_WEB_URL;
+  const effectiveApiUrl = gatewayUrl || portalUrl || DEFAULT_PORTAL_API_URL;
 
   const [token, setToken] = useState<string | null>(null);
   const [user, setUser] = useState<AuthUser | null>(null);
@@ -53,9 +53,41 @@ export const DevLabAuthProvider: React.FC<DevLabAuthProviderProps> = ({
   const [appStatus, setAppStatus] = useState<AppStatus>(AppStatus.ACTIVE);
 
   const refreshAppStatus = useCallback(async () => {
-    // Pure client auth: defaults to ACTIVE; status changes are driven by API error interceptors
-    setAppStatus(AppStatus.ACTIVE);
-  }, []);
+    if (!effectiveClientId) return;
+    try {
+      const apiBase = (effectiveApiUrl || "").replace(/\/+$/, "");
+      if (!apiBase) return;
+      const res = await fetch(
+        `${apiBase}${PLATFORM_APP_STATUS_ENDPOINT}/${encodeURIComponent(effectiveClientId)}/status`,
+        { headers: { Accept: "application/json" } },
+      );
+      if (res.ok) {
+        const data = (await res.json()) as {
+          status?: string;
+          isActive?: boolean;
+        };
+        if (data.status === "INACTIVE" || data.isActive === false) {
+          setAppStatus(AppStatus.INACTIVE);
+          return;
+        }
+        if (data.status === "MAINTENANCE") {
+          setAppStatus(AppStatus.MAINTENANCE);
+          return;
+        }
+        setAppStatus(AppStatus.ACTIVE);
+      }
+    } catch {
+      // In offline / network glitch scenarios, fail gracefully
+    }
+  }, [effectiveClientId, effectiveApiUrl]);
+
+  useEffect(() => {
+    void refreshAppStatus();
+    const interval = setInterval(() => {
+      void refreshAppStatus();
+    }, APP_STATUS_POLL_INTERVAL_MS);
+    return () => clearInterval(interval);
+  }, [refreshAppStatus]);
 
   const login = useCallback((newToken: string, newUser: AuthUser) => {
     setToken(newToken);
@@ -73,7 +105,9 @@ export const DevLabAuthProvider: React.FC<DevLabAuthProviderProps> = ({
     try {
       if (typeof window !== "undefined") {
         const params = new URLSearchParams(window.location.search);
-        const urlToken = params.get("token") || params.get("access_token");
+        const urlToken =
+          params.get(AuthQueryParamKey.TOKEN) ||
+          params.get(AuthQueryParamKey.ACCESS_TOKEN);
 
         if (urlToken) {
           const payload = parseJwtPayload(urlToken);
@@ -105,8 +139,8 @@ export const DevLabAuthProvider: React.FC<DevLabAuthProviderProps> = ({
             };
             login(urlToken, parsedUser);
 
-            params.delete("token");
-            params.delete("access_token");
+            params.delete(AuthQueryParamKey.TOKEN);
+            params.delete(AuthQueryParamKey.ACCESS_TOKEN);
             const newQuery = params.toString();
             const newUrl =
               window.location.pathname +
@@ -119,9 +153,9 @@ export const DevLabAuthProvider: React.FC<DevLabAuthProviderProps> = ({
         }
 
         const storedToken =
-          localStorage.getItem(STORAGE_KEY_TOKEN) ||
-          localStorage.getItem("devlab_access_token");
-        const storedUser = localStorage.getItem(STORAGE_KEY_USER);
+          localStorage.getItem(AuthStorageKey.TOKEN) ||
+          localStorage.getItem(AuthStorageKey.ACCESS_TOKEN_LEGACY);
+        const storedUser = localStorage.getItem(AuthStorageKey.USER);
         if (storedToken && storedUser) {
           setToken(storedToken);
           setUser(JSON.parse(storedUser) as AuthUser);
@@ -136,15 +170,15 @@ export const DevLabAuthProvider: React.FC<DevLabAuthProviderProps> = ({
 
   useEffect(() => {
     const handleStorageChange = (e: StorageEvent) => {
-      if (e.key === STORAGE_SYNC_EVENT) {
+      if (e.key === AuthStorageKey.SYNC) {
         if (!e.newValue) {
           setToken(null);
           setUser(null);
         } else {
           const storedToken =
-            localStorage.getItem(STORAGE_KEY_TOKEN) ||
-            localStorage.getItem("devlab_access_token");
-          const storedUser = localStorage.getItem(STORAGE_KEY_USER);
+            localStorage.getItem(AuthStorageKey.TOKEN) ||
+            localStorage.getItem(AuthStorageKey.ACCESS_TOKEN_LEGACY);
+          const storedUser = localStorage.getItem(AuthStorageKey.USER);
           if (storedToken && storedUser) {
             setToken(storedToken);
             setUser(JSON.parse(storedUser) as AuthUser);

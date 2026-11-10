@@ -5,10 +5,17 @@
  */
 
 import type { AuthUser } from "@/types";
+import {
+  AuthQueryParamKey,
+  AuthStorageKey,
+  DEFAULT_PORTAL_WEB_URL,
+  PLATFORM_FORGOT_PASSWORD_PATH,
+  PLATFORM_LOGIN_PATH,
+} from "@/constants";
 
-export const STORAGE_KEY_TOKEN = "devlab_auth_token";
-export const STORAGE_KEY_USER = "devlab_auth_user";
-export const STORAGE_SYNC_EVENT = "devlab_auth_sync";
+export const STORAGE_KEY_TOKEN = AuthStorageKey.TOKEN;
+export const STORAGE_KEY_USER = AuthStorageKey.USER;
+export const STORAGE_SYNC_EVENT = AuthStorageKey.SYNC;
 
 /**
  * Decodes base64url JWT payload safely in the browser.
@@ -38,25 +45,13 @@ export function redirectToPortalLogin(
   authUrl?: string,
 ): void {
   if (typeof window === "undefined") return;
-  const baseUrl =
-    authUrl ||
-    (typeof process !== "undefined"
-      ? process.env?.NEXT_PUBLIC_DEVLAB_PORTAL_WEB_URL
-      : undefined);
-
-  if (!baseUrl) {
-    throw new Error(
-      "DevLabAuth: authUrl or NEXT_PUBLIC_DEVLAB_PORTAL_WEB_URL must be configured to trigger SSO redirects",
-    );
-  }
+  const baseUrl = (authUrl || DEFAULT_PORTAL_WEB_URL).replace(/\/+$/, "");
 
   const currentUrl = window.location.href;
-  window.location.href =
-    baseUrl +
-    "/login?app=" +
-    encodeURIComponent(clientId) +
-    "&redirect=" +
-    encodeURIComponent(currentUrl);
+  const targetUrl = new URL(PLATFORM_LOGIN_PATH, baseUrl);
+  targetUrl.searchParams.set(AuthQueryParamKey.APP, clientId);
+  targetUrl.searchParams.set(AuthQueryParamKey.REDIRECT, currentUrl);
+  window.location.href = targetUrl.toString();
 }
 
 /**
@@ -64,16 +59,13 @@ export function redirectToPortalLogin(
  */
 export function persistSession(token: string, user: AuthUser): void {
   try {
-    localStorage.setItem(STORAGE_KEY_TOKEN, token);
-    localStorage.setItem("devlab_access_token", token);
+    localStorage.setItem(AuthStorageKey.TOKEN, token);
+    localStorage.setItem(AuthStorageKey.ACCESS_TOKEN_LEGACY, token);
     if (typeof document !== "undefined") {
-      document.cookie =
-        "devlab_access_token=" +
-        encodeURIComponent(token) +
-        "; path=/; max-age=604800; SameSite=Lax";
+      document.cookie = `${AuthStorageKey.ACCESS_TOKEN_LEGACY}=${encodeURIComponent(token)}; path=/; max-age=604800; SameSite=Lax`;
     }
-    localStorage.setItem(STORAGE_KEY_USER, JSON.stringify(user));
-    localStorage.setItem(STORAGE_SYNC_EVENT, String(Date.now()));
+    localStorage.setItem(AuthStorageKey.USER, JSON.stringify(user));
+    localStorage.setItem(AuthStorageKey.SYNC, String(Date.now()));
   } catch {
     // Ignore storage errors in restricted contexts
   }
@@ -84,13 +76,13 @@ export function persistSession(token: string, user: AuthUser): void {
  */
 export function purgeSession(): void {
   try {
-    localStorage.removeItem(STORAGE_KEY_TOKEN);
-    localStorage.removeItem("devlab_access_token");
+    localStorage.removeItem(AuthStorageKey.TOKEN);
+    localStorage.removeItem(AuthStorageKey.ACCESS_TOKEN_LEGACY);
     if (typeof document !== "undefined") {
-      document.cookie = "devlab_access_token=; path=/; max-age=0; SameSite=Lax";
+      document.cookie = `${AuthStorageKey.ACCESS_TOKEN_LEGACY}=; path=/; max-age=0; SameSite=Lax`;
     }
-    localStorage.removeItem(STORAGE_KEY_USER);
-    localStorage.setItem(STORAGE_SYNC_EVENT, "");
+    localStorage.removeItem(AuthStorageKey.USER);
+    localStorage.setItem(AuthStorageKey.SYNC, "");
   } catch {
     // Ignore storage errors
   }
@@ -112,25 +104,20 @@ export function resolveForgotPasswordUrl(
     return customUrl;
   }
 
-  const centralAuth =
-    authUrl ||
-    (typeof process !== "undefined"
-      ? process.env?.NEXT_PUBLIC_DEVLAB_PORTAL_WEB_URL
-      : undefined);
+  const centralAuth = (authUrl || DEFAULT_PORTAL_WEB_URL).replace(/\/+$/, "");
 
   // If central auth provider URL is known and running in browser, build central SSO recovery link
   if (centralAuth && typeof window !== "undefined") {
     const returnUrl = window.location.href;
-    const appQuery = clientId ? "&app=" + encodeURIComponent(clientId) : "";
-    return (
-      centralAuth +
-      "/forgot-password?redirect=" +
-      encodeURIComponent(returnUrl) +
-      appQuery
-    );
+    const targetUrl = new URL(PLATFORM_FORGOT_PASSWORD_PATH, centralAuth);
+    targetUrl.searchParams.set(AuthQueryParamKey.REDIRECT, returnUrl);
+    if (clientId) {
+      targetUrl.searchParams.set(AuthQueryParamKey.APP, clientId);
+    }
+    return targetUrl.toString();
   }
 
-  return "/forgot-password";
+  return PLATFORM_FORGOT_PASSWORD_PATH;
 }
 
 /**
