@@ -1,5 +1,12 @@
 # @yuva-devlab/auth-client
 
+## 1.1.4
+
+### Patch Changes
+
+- 03b48ed: feat(auth-client): enforce environment variable isolation, centralize auth query parameter enums, storage keys, endpoints, and UI copy
+  feat(supervisor): introduce change-resilient TypeScript enums with backward-compatible template literal union types
+
 ## 1.1.3
 
 ### Patch Changes
