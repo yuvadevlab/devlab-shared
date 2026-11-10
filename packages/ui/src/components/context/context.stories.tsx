@@ -12,7 +12,10 @@ type Story = StoryObj<typeof ContextUsage>;
 
 export const Default: Story = {
   render: () => (
-    <div className="dl-story-w-md space-y-4">
+    <div
+      className="dl-story-w-md"
+      style={{ display: "flex", flexDirection: "column", gap: "1rem" }}
+    >
       <ContextUsage
         label="Claude 3.5 Sonnet (200k)"
         usedTokens={48200}

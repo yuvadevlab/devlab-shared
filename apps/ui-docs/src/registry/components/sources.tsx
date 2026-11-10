@@ -45,8 +45,22 @@ export default function SourcesDocPage() {
         "Clickable superscript references embedded directly in AI text with an expandable source card footer.",
       preview: (
         <div className="dl-demo-frame dl-demo-frame--md">
-          <div className="w-full max-w-xl space-y-4">
-            <p className="text-sm leading-relaxed text-foreground">
+          <div
+            style={{
+              width: "100%",
+              maxWidth: "36rem",
+              display: "flex",
+              flexDirection: "column",
+              gap: "1rem",
+            }}
+          >
+            <p
+              style={{
+                fontSize: "0.875rem",
+                lineHeight: 1.625,
+                color: "var(--foreground)",
+              }}
+            >
               Turborepo Remote Cache allows you to share build artifacts across
               team members and CI pipelines{" "}
               <InlineCitation index={1} title="Turborepo Docs" />. Furthermore,

@@ -21,6 +21,23 @@
   font-size: 0.75rem;
 }
 
+.dl-terminal__header-left {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.dl-terminal__header-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
+}
+
+.dl-terminal__icon {
+  width: 0.875rem;
+  height: 0.875rem;
+}
+
 .dl-terminal__dots {
   display: flex;
   align-items: center;

@@ -23,6 +23,18 @@
   color: var(--muted-foreground);
 }
 
+.dl-code-block__header-meta {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.dl-code-block__header-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
+}
+
 .dl-code-block__filename {
   font-weight: 500;
   color: var(--foreground);

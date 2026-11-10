@@ -40,7 +40,7 @@ export const TerminalHeader = React.forwardRef<
         className={cn("dl-terminal__header", className)}
         {...props}
       >
-        <div className="flex items-center gap-2">
+        <div className="dl-terminal__header-left">
           {windowControls && (
             <div className="dl-terminal__dots" aria-hidden="true">
               <span className="dl-terminal__dot" />
@@ -49,11 +49,11 @@ export const TerminalHeader = React.forwardRef<
             </div>
           )}
           <div className="dl-terminal__title">
-            <TerminalIcon className="size-3.5" />
+            <TerminalIcon className="dl-terminal__icon" />
             <span>{command ?? "Terminal"}</span>
           </div>
         </div>
-        <div className="flex items-center gap-1.5">
+        <div className="dl-terminal__header-actions">
           <button
             type="button"
             onClick={handleCopy}
@@ -61,9 +61,12 @@ export const TerminalHeader = React.forwardRef<
             className="dl-code-block__copy-btn"
           >
             {copied ? (
-              <Check className="size-3.5 text-success" />
+              <Check
+                className="dl-terminal__icon"
+                style={{ color: "var(--success, #22c55e)" }}
+              />
             ) : (
-              <Copy className="size-3.5" />
+              <Copy className="dl-terminal__icon" />
             )}
           </button>
           {children}

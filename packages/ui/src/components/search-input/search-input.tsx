@@ -56,15 +56,12 @@ export const SearchInput = React.forwardRef<HTMLInputElement, SearchInputProps>(
           aria-label="Clear search query"
           tabIndex={-1}
         >
-          <X className="size-4" aria-hidden="true" />
+          <X className="dl-search-icon" aria-hidden="true" />
         </button>
       ) : null;
 
     const trailingIcon = loading ? (
-      <Loader2
-        className="size-4 animate-spin text-muted-foreground"
-        aria-hidden="true"
-      />
+      <Loader2 className="dl-search-spinner" aria-hidden="true" />
     ) : (
       (clearButton ?? endIcon)
     );

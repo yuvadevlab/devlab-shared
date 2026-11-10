@@ -1,23 +1,48 @@
 # 🪵 @yuva-devlab/logger
 
-Lightweight, zero-dependency, isomorphic TypeScript logger and Express HTTP request logging middleware for the Yuva DevLab ecosystem.
+[![npm version](https://img.shields.io/npm/v/@yuva-devlab/logger.svg)](https://www.npmjs.com/package/@yuva-devlab/logger)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+[![TypeScript 6](https://img.shields.io/badge/TypeScript-6.x-3178c6.svg)](https://www.typescriptlang.org)
+
+> Enterprise, zero-dependency, isomorphic TypeScript logger, native `AsyncLocalStorage` request/user/tenant correlation context, method-level `@LogMethod()` decorator, dual ANSI/JSON formatters, and non-blocking HTTP batch transport to `devlab-logs`.
+
+---
 
 ## Features
 
-- 🎨 **Colored Console Output**: Distinct terminal colors for `DEBUG`, `INFO`, `WARN`, and `ERROR` levels with ISO-8601 timestamps.
-- 🏷️ **Context Support**: Tag logs with component or service contexts (e.g., `[AuthService]`, `[HTTP]`).
-- 📁 **File Persistence**: Optional disk persistence using asynchronous Node.js file streams (`LOG_PERSIST=true`).
-- 🌐 **HTTP Request Middleware**: Ready-to-use Express middleware tracking request methods, URLs, status codes, and execution durations.
-- ⚙️ **Environment Aware**: Configurable through standard environment variables or explicit config options.
-- 📦 **Dual ESM & CJS Build**: Works seamlessly across both modern ESM runtimes and legacy CommonJS environments.
+- 🔗 **Native `AsyncLocalStorage` Correlation Context**: Seamlessly propagates `correlationId`, `requestId`, `userId`, `tenantId`, and `appId` across asynchronous promise chains and concurrent operations without manual argument drilling.
+- 🎯 **Method-Level `@LogMethod()` Decorator**: Automatically records function entry, parameters (with sensitive data masking for passwords/tokens), execution duration in milliseconds, return values, and structured error stack traces.
+- 🎨 **Dual Formatters (ANSI & Canonical JSON)**:
+  - **Text Mode**: Highly readable ANSI colors for terminal debugging: `[timestamp] LEVEL [context] [req:..][usr:..][ten:..]: message`
+  - **Canonical JSON Mode**: Machine-parseable JSON format matching `devlab-logs` schema for ingestion and Datadog/Splunk indexing.
+- 🚀 **Non-Blocking Transports**:
+  - `ConsoleTransport`: High-throughput standard stdout/stderr logging.
+  - `FileTransport`: Streamed disk persistence using Node.js filesystem buffers.
+  - `HttpBatchTransport`: Background queue sending batched JSON logs (`POST /api/v1/logs/batch`) to `devlab-logs` with flush intervals and backoff retry.
+- 🌐 **Express & Fastify Middleware**: `correlationMiddleware` (extracts/generates `x-correlation-id`, `x-request-id`, `traceparent`) and `requestLogger` with execution timing.
+- 📦 **Dual ESM & CJS Build**: Works seamlessly across modern ESM runtimes, legacy CommonJS environments, and browser contexts.
+
+---
+
+## Table of Contents
+
+1. [Installation](#installation)
+2. [Quick Start](#quick-start)
+3. [End-to-End Request Correlation](#end-to-end-request-correlation)
+4. [Method Decorator (`@LogMethod`)](#method-decorator-logmethod)
+5. [HTTP Batch Transport to `devlab-logs`](#http-batch-transport-to-devlab-logs)
+6. [Express & NestJS Middleware](#express--nestjs-middleware)
+7. [Author & Attribution](#author--attribution)
 
 ---
 
 ## Installation
 
 ```bash
+# pnpm (recommended)
 pnpm add @yuva-devlab/logger
-# or
+
+# npm
 npm install @yuva-devlab/logger
 ```
 
@@ -38,79 +63,133 @@ logger.error("Failed to authenticate user", new Error("Token expired"));
 logger.debug("Decoded JWT payload", { sub: "user_123" });
 ```
 
-### Configured Logger (with Environment Variables)
+---
+
+## End-to-End Request Correlation
+
+Track an individual user's complete request flow across dozens of concurrent asynchronous operations using native Node.js `AsyncLocalStorage`:
 
 ```typescript
-import { createLogger } from "@yuva-devlab/logger";
+import {
+  Logger,
+  runWithContext,
+  updateCorrelationContext,
+} from "@yuva-devlab/logger";
 
-const logger = createLogger({
-  level: "info",
-  enabled: true,
-  file: "./logs/app.log",
-});
+const logger = new Logger("OrderService");
 
-logger.info("Application initialized");
+async function handleInboundRequest(req: Request) {
+  // Bind request-scoped correlation context
+  return runWithContext(
+    {
+      correlationId: req.headers.get("x-correlation-id") || crypto.randomUUID(),
+      requestId: crypto.randomUUID(),
+      appId: "finai",
+    },
+    async () => {
+      // 1. Initial log - automatically carries correlationId & requestId
+      logger.info("Processing order request");
+
+      // 2. Update context once user identity is verified
+      updateCorrelationContext({ userId: "usr_4402", tenantId: "tenant_apex" });
+
+      // 3. Subsequent logs carry userId & tenantId automatically through all nested calls!
+      await executeOrder();
+    },
+  );
+}
+
+async function executeOrder() {
+  // Zero manual parameter passing — context is preserved!
+  logger.info("Order executed successfully");
+}
 ```
 
-### Express Request Logger Middleware
+---
+
+## Method Decorator (`@LogMethod`)
+
+Decorate methods to automatically log entry parameters, execution timing, and errors:
+
+```typescript
+import { LogMethod } from "@yuva-devlab/logger";
+
+export class PortfolioService {
+  @LogMethod({
+    logArgs: true,
+    logResult: false,
+    maskFields: ["pin", "ssn", "apiKey"],
+  })
+  async rebalancePortfolio(
+    portfolioId: string,
+    targetAllocations: Record<string, number>,
+  ) {
+    // Automatically logs:
+    // [INFO] [PortfolioService.rebalancePortfolio] ENTRY args={"portfolioId":"...","targetAllocations":{...}}
+    // ... execution ...
+    // [INFO] [PortfolioService.rebalancePortfolio] EXIT duration=142ms
+    return { success: true };
+  }
+}
+```
+
+---
+
+## HTTP Batch Transport to `devlab-logs`
+
+Stream structured logs directly to the DevLab telemetry ingestion cluster without blocking request threads:
+
+```typescript
+import {
+  Logger,
+  HttpBatchTransport,
+  ConsoleTransport,
+} from "@yuva-devlab/logger";
+
+const devlabLogsTransport = new HttpBatchTransport({
+  endpoint: "http://localhost:5000/api/v1/logs/batch",
+  apiKey: process.env.DEVLAB_LOGS_API_KEY,
+  batchSize: 50,
+  flushIntervalMs: 2000,
+});
+
+const logger = new Logger("ExecutionEngine", {
+  format: "json", // Ingest canonical JSON
+  transports: [new ConsoleTransport(), devlabLogsTransport],
+});
+```
+
+---
+
+## Express & NestJS Middleware
+
+Mount correlation middleware and HTTP request logger:
 
 ```typescript
 import express from "express";
-import { requestLogger, Logger } from "@yuva-devlab/logger";
+import {
+  correlationMiddleware,
+  requestLogger,
+  Logger,
+} from "@yuva-devlab/logger";
 
 const app = express();
 const httpLogger = new Logger("HTTP");
 
-// Attach the middleware
+// 1. Mount correlation middleware first to establish AsyncLocalStorage scope
+app.use(correlationMiddleware({ defaultAppId: "portal-api" }));
+
+// 2. Mount request logger to record method, URL, status code, and latency
 app.use(requestLogger(httpLogger));
 
-app.get("/api/users", (req, res) => {
-  res.json([{ id: 1, name: "Alice" }]);
-});
-
-app.listen(3000, () => {
-  httpLogger.info("Server started on port 3000");
+app.get("/api/v1/status", (req, res) => {
+  res.json({ ok: true });
 });
 ```
 
 ---
 
-## Environment Variables
+## Author & Attribution
 
-| Variable      | Type      | Default     | Description                                                         |
-| :------------ | :-------- | :---------- | :------------------------------------------------------------------ |
-| `LOG_ENABLED` | `boolean` | `true`      | Enable or disable all log output (`"false"` to mute).               |
-| `LOG_LEVEL`   | `string`  | `"info"`    | Minimum log level (`"debug"`, `"info"`, `"warn"`, `"error"`).       |
-| `LOG_PERSIST` | `boolean` | `false`     | When `"true"`, appends log output to disk file.                     |
-| `LOG_FILE`    | `string`  | `undefined` | File path to write log entries to (required if `LOG_PERSIST=true`). |
-
----
-
-## API Reference
-
-### `Logger`
-
-- `constructor(context?: string)`
-- `log(message: any, ...optionalParams: any[]): void`
-- `info(message: any, ...optionalParams: any[]): void`
-- `warn(message: any, ...optionalParams: any[]): void`
-- `error(message: any, ...optionalParams: any[]): void`
-- `debug(message: any, ...optionalParams: any[]): void` (suppressed automatically in `NODE_ENV === "production"`)
-
-### `createLogger(config?: LoggerConfig): Logger`
-
-Creates a configured logger honoring runtime configuration and environment variables.
-
-### `loggerWithConfig(base: Logger, config?: LoggerConfig): Logger`
-
-Wraps an existing logger instance to respect runtime level gating and file persistence.
-
-### `requestLogger(loggerInstance?: Logger): ExpressMiddleware`
-
-Express middleware logging incoming HTTP requests upon completion with status code-based log levels.
-
----
-
-## License
-
-MIT © Yuva DevLab
+- **Author**: Yuva DevLab (`yuva.devlab@gmail.com`)
+- **License**: MIT

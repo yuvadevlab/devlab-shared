@@ -55,14 +55,38 @@ export const CollapsibleTrace: Story = {
           </TraceCollapsibleTrigger>
           <TraceCollapsibleContent>
             <TraceContent>
-              <div className="flex flex-col gap-2 pl-4 border-l border-border mt-2">
-                <div className="text-xs text-muted-foreground">
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: "0.5rem",
+                  paddingLeft: "1rem",
+                  borderLeft: "1px solid var(--border)",
+                  marginTop: "0.5rem",
+                }}
+              >
+                <div
+                  style={{
+                    fontSize: "0.75rem",
+                    color: "var(--muted-foreground)",
+                  }}
+                >
                   1. Queried database schema for users table
                 </div>
-                <div className="text-xs text-muted-foreground">
+                <div
+                  style={{
+                    fontSize: "0.75rem",
+                    color: "var(--muted-foreground)",
+                  }}
+                >
                   2. Verified JWT revocation list
                 </div>
-                <div className="text-xs text-muted-foreground">
+                <div
+                  style={{
+                    fontSize: "0.75rem",
+                    color: "var(--muted-foreground)",
+                  }}
+                >
                   3. Generated migration script
                 </div>
               </div>

@@ -66,15 +66,32 @@ export default function FileTreeDocPage() {
         "Expandable directory folders with file extension icons and item selection tracking.",
       preview: (
         <div className="dl-demo-frame dl-demo-frame--md">
-          <div className="w-full max-w-sm space-y-3">
+          <div
+            style={{
+              width: "100%",
+              maxWidth: "24rem",
+              display: "flex",
+              flexDirection: "column",
+              gap: "0.75rem",
+            }}
+          >
             <FileTree
               data={sampleFiles}
               selectedId={selected}
               onSelect={(item) => setSelected(item.id)}
             />
-            <p className="text-xs text-muted-foreground">
+            <p
+              style={{ fontSize: "0.75rem", color: "var(--muted-foreground)" }}
+            >
               Selected:{" "}
-              <span className="font-mono text-foreground">{selected}</span>
+              <span
+                style={{
+                  fontFamily: "var(--font-mono, monospace)",
+                  color: "var(--foreground)",
+                }}
+              >
+                {selected}
+              </span>
             </p>
           </div>
         </div>

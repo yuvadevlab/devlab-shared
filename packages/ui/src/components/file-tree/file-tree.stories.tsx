@@ -67,15 +67,30 @@ export const Default: Story = {
   render: () => {
     const [selected, setSelected] = useState<string>("p-page");
     return (
-      <div className="dl-story-w-md p-4 space-y-3">
+      <div
+        className="dl-story-w-md"
+        style={{
+          padding: "1rem",
+          display: "flex",
+          flexDirection: "column",
+          gap: "0.75rem",
+        }}
+      >
         <FileTree
           data={workspaceFiles}
           selectedId={selected}
           onSelect={(item) => setSelected(item.id)}
         />
-        <div className="text-xs text-muted-foreground">
+        <div style={{ fontSize: "0.75rem", color: "var(--muted-foreground)" }}>
           Selected Node:{" "}
-          <span className="font-mono text-foreground">{selected}</span>
+          <span
+            style={{
+              fontFamily: "var(--font-mono, monospace)",
+              color: "var(--foreground)",
+            }}
+          >
+            {selected}
+          </span>
         </div>
       </div>
     );

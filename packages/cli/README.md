@@ -333,10 +333,10 @@ The CLI automatically handles name transformations:
 
 ## 🔗 Related Packages
 
-- [@yuva-devlab/ui](../ui) - Styled component library
-- [@yuva-devlab/primitives](../primitives) - Headless primitives
-- [@yuva-devlab/tokens](../tokens) - Design tokens
+- [@yuva-devlab/ui](../ui) - Styled component and layout library
+- [@yuva-devlab/tokens](../tokens) - Design tokens engine
 
-## 📄 License
+## Author & Attribution
 
-MIT © Yuva Devlab
+- **Author**: Yuva DevLab (`yuva.devlab@gmail.com`)
+- **License**: MIT

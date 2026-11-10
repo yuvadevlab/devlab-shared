@@ -20,11 +20,28 @@ export default function ModelSelectorDocPage() {
         "Select LLM models with provider logos, context window badges, and search filtering.",
       preview: (
         <div className="dl-demo-frame dl-demo-frame--md">
-          <div className="w-full max-w-sm space-y-3">
+          <div
+            style={{
+              width: "100%",
+              maxWidth: "24rem",
+              display: "flex",
+              flexDirection: "column",
+              gap: "0.75rem",
+            }}
+          >
             <ModelSelector value={model} onValueChange={setModel} />
-            <p className="text-xs text-muted-foreground">
+            <p
+              style={{ fontSize: "0.75rem", color: "var(--muted-foreground)" }}
+            >
               Selected:{" "}
-              <span className="font-mono text-foreground">{model}</span>
+              <span
+                style={{
+                  fontFamily: "var(--font-mono, monospace)",
+                  color: "var(--foreground)",
+                }}
+              >
+                {model}
+              </span>
             </p>
           </div>
         </div>
@@ -41,7 +58,7 @@ export default function ModelSelectorDocPage() {
         "Reduced padding size designed for footer embed slots inside chat prompt bars.",
       preview: (
         <div className="dl-demo-frame dl-demo-frame--md">
-          <div className="w-full max-w-sm">
+          <div style={{ width: "100%", maxWidth: "24rem" }}>
             <ModelSelector size="sm" defaultValue="gemini-2-0-flash" />
           </div>
         </div>

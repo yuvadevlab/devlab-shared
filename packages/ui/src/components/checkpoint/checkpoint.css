@@ -33,6 +33,12 @@
   box-shadow: 0 1px 2px rgb(0 0 0 / 0.05);
 }
 
+.dl-checkpoint__icon {
+  width: 0.75rem;
+  height: 0.75rem;
+  color: var(--muted-foreground);
+}
+
 .dl-checkpoint__restore-btn {
   display: inline-flex;
   align-items: center;

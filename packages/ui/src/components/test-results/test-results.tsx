@@ -30,7 +30,14 @@ export const TestCase = React.forwardRef<HTMLDivElement, TestCaseProps>(
         case "skipped":
         default:
           return (
-            <MinusCircle className="size-4 text-muted-foreground shrink-0" />
+            <MinusCircle
+              style={{
+                width: "1rem",
+                height: "1rem",
+                color: "var(--muted-foreground)",
+                flexShrink: 0,
+              }}
+            />
           );
       }
     };
@@ -38,7 +45,7 @@ export const TestCase = React.forwardRef<HTMLDivElement, TestCaseProps>(
     return (
       <div ref={ref} className={cn("dl-test-case", className)} {...props}>
         <div
-          className={cn("dl-test-case__row", hasError && "cursor-pointer")}
+          className={cn("dl-test-case__row", hasError && "dl-cursor-pointer")}
           onClick={() => hasError && setExpanded((prev) => !prev)}
         >
           <div className="dl-test-case__info">
@@ -46,7 +53,7 @@ export const TestCase = React.forwardRef<HTMLDivElement, TestCaseProps>(
             <span className="dl-test-case__name">{test.name}</span>
           </div>
 
-          <div className="flex items-center gap-2">
+          <div className="dl-test-case__meta">
             {test.durationMs !== undefined && (
               <span className="dl-test-case__duration">
                 {test.durationMs}ms
@@ -55,8 +62,8 @@ export const TestCase = React.forwardRef<HTMLDivElement, TestCaseProps>(
             {hasError && (
               <ChevronRight
                 className={cn(
-                  "size-3 text-muted-foreground transition-transform",
-                  expanded && "rotate-90",
+                  "dl-test-case__chevron",
+                  expanded && "dl-test-case__chevron--expanded",
                 )}
               />
             )}
@@ -106,13 +113,13 @@ export const TestResults = React.forwardRef<HTMLDivElement, TestResultsProps>(
     return (
       <div ref={ref} className={cn("dl-test-results", className)} {...props}>
         <div className="dl-test-results__header">
-          <div className="flex items-center gap-2">
-            <FlaskConical className="size-4 text-primary" />
-            <span className="font-semibold text-foreground">{title}</span>
+          <div className="dl-test-results__header-left">
+            <FlaskConical
+              style={{ width: "1rem", height: "1rem", color: "var(--primary)" }}
+            />
+            <span className="dl-test-results__title">{title}</span>
             {duration && (
-              <span className="text-xs text-muted-foreground font-mono">
-                in {duration}
-              </span>
+              <span className="dl-test-results__duration">in {duration}</span>
             )}
           </div>
 
