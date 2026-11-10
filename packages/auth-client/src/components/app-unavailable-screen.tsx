@@ -6,6 +6,7 @@
 
 import React from "react";
 import { AlertTriangle, RefreshCw, Wrench } from "lucide-react";
+import { UNAVAILABLE_COPY } from "@/constants";
 import { AppStatus } from "@/types";
 
 /**
@@ -77,8 +78,8 @@ export const AppUnavailableScreen: React.FC<AppUnavailableScreenProps> = ({
         }}
       >
         {isMaintenance
-          ? "Scheduled System Maintenance"
-          : "Application Currently Unavailable"}
+          ? UNAVAILABLE_COPY.MAINTENANCE_TITLE
+          : UNAVAILABLE_COPY.INACTIVE_TITLE}
       </h1>
 
       <p
@@ -91,8 +92,8 @@ export const AppUnavailableScreen: React.FC<AppUnavailableScreenProps> = ({
         }}
       >
         {isMaintenance
-          ? "This service is currently undergoing routine maintenance to improve reliability. Please check back shortly."
-          : "Access to this application has been temporarily deactivated by platform administrators. Please contact your organization owner for assistance."}
+          ? UNAVAILABLE_COPY.MAINTENANCE_DESC
+          : UNAVAILABLE_COPY.INACTIVE_DESC}
       </p>
 
       {onRetry && (
@@ -122,7 +123,7 @@ export const AppUnavailableScreen: React.FC<AppUnavailableScreenProps> = ({
           }
         >
           <RefreshCw size={16} />
-          Check Status Again
+          {UNAVAILABLE_COPY.RETRY_BTN}
         </button>
       )}
     </div>

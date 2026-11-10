@@ -8,12 +8,12 @@
 import type { ChildProcess } from "node:child_process";
 import { PortProber } from "./port-prober";
 import type { RuntimeStore } from "./runtime-store";
-import type {
-  AppProcessConfig,
-  DependencyStatus,
+import {
+  type AppProcessConfig,
+  type DependencyStatus,
   ExecutionMode,
   ProcessState,
-  ProcessStatus,
+  type ProcessStatus,
 } from "./types";
 
 export interface ActiveProcessMeta {
@@ -44,7 +44,8 @@ export async function buildProcessStatus(
   let uptimeSeconds = 0;
   if (
     meta?.startedAt &&
-    (meta.state === "RUNNING" || meta.state === "STARTING")
+    (meta.state === ProcessState.RUNNING ||
+      meta.state === ProcessState.STARTING)
   ) {
     const started = new Date(meta.startedAt).getTime();
     uptimeSeconds = Math.max(0, Math.floor((Date.now() - started) / 1000));
@@ -52,8 +53,8 @@ export async function buildProcessStatus(
 
   return {
     appId,
-    state: meta?.state || "STOPPED",
-    mode: meta?.mode || config?.executionMode || "dev",
+    state: meta?.state || ProcessState.STOPPED,
+    mode: meta?.mode || config?.executionMode || ExecutionMode.DEV,
     pid: meta?.pid || null,
     pgid: meta?.pgid || null,
     exitCode: meta?.exitCode ?? null,
@@ -80,7 +81,7 @@ export async function restoreRuntimeProcesses(
       pid: rec.pid,
       pgid: rec.pgid,
       startedAt: rec.startedAt,
-      state: "RUNNING",
+      state: ProcessState.RUNNING,
       exitCode: null,
       error: null,
       consecutiveCrashes: 0,
