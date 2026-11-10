@@ -1,5 +1,12 @@
 # @yuva-devlab/ai-client
 
+## 0.2.1
+
+### Patch Changes
+
+- Updated dependencies [f0788f4]
+  - @yuva-devlab/logger@1.3.0
+
 ## 0.2.0
 
 ### Minor Changes

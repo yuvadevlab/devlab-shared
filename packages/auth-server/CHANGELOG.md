@@ -1,5 +1,12 @@
 # @yuva-devlab/auth-server
 
+## 1.0.1
+
+### Patch Changes
+
+- Updated dependencies [f0788f4]
+  - @yuva-devlab/logger@1.3.0
+
 ## 1.0.0
 
 ### Major Changes
