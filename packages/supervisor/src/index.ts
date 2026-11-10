@@ -19,4 +19,6 @@ export * from "./stream-handler";
 export * from "./readiness-prober";
 export * from "./status-builder";
 export * from "./process-runner";
+export * from "./supervisor-dependencies";
+export * from "./supervisor-build";
 export * from "./process-supervisor";

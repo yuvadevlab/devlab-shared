@@ -24,15 +24,21 @@ const getFileIcon = (name: string) => {
     name.endsWith(".js") ||
     name.endsWith(".jsx")
   ) {
-    return <FileCode className="size-3.5 text-primary" />;
+    return (
+      <FileCode className="dl-file-tree__glyph dl-file-tree__glyph--primary" />
+    );
   }
   if (name.endsWith(".json")) {
-    return <FileJson className="size-3.5 text-warning" />;
+    return (
+      <FileJson className="dl-file-tree__glyph dl-file-tree__glyph--warning" />
+    );
   }
   if (name.endsWith(".md") || name.endsWith(".mdx")) {
-    return <FileText className="size-3.5 text-info" />;
+    return (
+      <FileText className="dl-file-tree__glyph dl-file-tree__glyph--info" />
+    );
   }
-  return <File className="size-3.5 text-muted-foreground" />;
+  return <File className="dl-file-tree__glyph dl-file-tree__glyph--muted" />;
 };
 
 export const FileTreeNode = React.forwardRef<HTMLDivElement, FileTreeNodeProps>(
@@ -50,7 +56,7 @@ export const FileTreeNode = React.forwardRef<HTMLDivElement, FileTreeNodeProps>(
     };
 
     return (
-      <div ref={ref} className={cn("flex flex-col", className)} {...props}>
+      <div ref={ref} className={cn("dl-file-tree__item", className)} {...props}>
         <div
           className={cn(
             "dl-file-tree__node",
@@ -61,17 +67,17 @@ export const FileTreeNode = React.forwardRef<HTMLDivElement, FileTreeNodeProps>(
           {isFolder && (
             <ChevronRight
               className={cn(
-                "size-3 text-muted-foreground transition-transform shrink-0",
-                isOpen && "rotate-90",
+                "dl-file-tree__chevron",
+                isOpen && "dl-file-tree__chevron--open",
               )}
             />
           )}
           <span className="dl-file-tree__icon">
             {isFolder ? (
               isOpen ? (
-                <FolderOpen className="size-3.5 text-warning shrink-0" />
+                <FolderOpen className="dl-file-tree__glyph dl-file-tree__glyph--warning" />
               ) : (
-                <Folder className="size-3.5 text-warning shrink-0" />
+                <Folder className="dl-file-tree__glyph dl-file-tree__glyph--warning" />
               )
             ) : (
               getFileIcon(item.name)

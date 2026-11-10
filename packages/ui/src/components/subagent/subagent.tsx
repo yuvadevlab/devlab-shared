@@ -16,30 +16,36 @@ const getStatusBadge = (status: SubagentStatus) => {
   switch (status) {
     case "running":
       return (
-        <span className="flex items-center gap-1 text-xs text-primary font-medium">
-          <Loader2 className="size-3 animate-spin" />
+        <span className="dl-subagent__status dl-subagent__status--running">
+          <Loader2
+            style={{
+              width: "0.75rem",
+              height: "0.75rem",
+              animation: "spin 1s linear infinite",
+            }}
+          />
           <span>Running</span>
         </span>
       );
     case "completed":
       return (
-        <span className="flex items-center gap-1 text-xs text-success font-medium">
-          <CheckCircle2 className="size-3" />
+        <span className="dl-subagent__status dl-subagent__status--completed">
+          <CheckCircle2 style={{ width: "0.75rem", height: "0.75rem" }} />
           <span>Done</span>
         </span>
       );
     case "failed":
       return (
-        <span className="flex items-center gap-1 text-xs text-destructive font-medium">
-          <XCircle className="size-3" />
+        <span className="dl-subagent__status dl-subagent__status--failed">
+          <XCircle style={{ width: "0.75rem", height: "0.75rem" }} />
           <span>Failed</span>
         </span>
       );
     case "idle":
     default:
       return (
-        <span className="flex items-center gap-1 text-xs text-muted-foreground">
-          <Circle className="size-3" />
+        <span className="dl-subagent__status dl-subagent__status--idle">
+          <Circle style={{ width: "0.75rem", height: "0.75rem" }} />
           <span>Idle</span>
         </span>
       );
@@ -94,13 +100,9 @@ export const Subagent = React.forwardRef<HTMLDivElement, SubagentProps>(
           </div>
 
           <div className="dl-subagent__badges">
-            {model && (
-              <span className="px-1.5 py-0.5 rounded text-[10px] font-mono bg-muted text-muted-foreground border border-border">
-                {model}
-              </span>
-            )}
+            {model && <span className="dl-subagent__chip">{model}</span>}
             {conversationId && (
-              <span className="px-1.5 py-0.5 rounded text-[10px] font-mono bg-muted text-muted-foreground">
+              <span className="dl-subagent__chip">
                 #{conversationId.slice(0, 6)}
               </span>
             )}
@@ -108,8 +110,8 @@ export const Subagent = React.forwardRef<HTMLDivElement, SubagentProps>(
             {hasChildren && (
               <ChevronRight
                 className={cn(
-                  "size-3.5 text-muted-foreground transition-transform shrink-0 ml-1",
-                  open && "rotate-90",
+                  "dl-subagent__chevron",
+                  open && "dl-subagent__chevron--open",
                 )}
               />
             )}

@@ -12,6 +12,23 @@ export type ProcessState =
   "STOPPED" | "STARTING" | "RUNNING" | "STOPPING" | "CRASHED";
 
 /**
+ * Target operational execution mode for an application process.
+ */
+export type ExecutionMode = "dev" | "prod";
+
+/**
+ * Real-time operational health and readiness of an inter-app prerequisite.
+ */
+export interface DependencyStatus {
+  readonly appId: string;
+  readonly name?: string;
+  readonly running: boolean;
+  readonly state: ProcessState;
+  readonly healthy: boolean;
+  readonly boundPorts?: readonly number[];
+}
+
+/**
  * Log severity levels extracted from stream output.
  */
 export type ProcessLogLevel = "info" | "warn" | "error" | "debug";
@@ -81,6 +98,22 @@ export interface AppProcessConfig {
   readonly autoRestartOnCrash?: boolean;
   /** Maximum consecutive auto-restart attempts within a 60-second window before permanently failing (default: 3) */
   readonly maxCrashRestarts?: number;
+  /** Target execution mode ("dev" or "prod") */
+  readonly executionMode?: ExecutionMode;
+  /** Explicit development startup command string or binary */
+  readonly devCommand?: string;
+  /** Explicit development startup arguments */
+  readonly devArgs?: readonly string[];
+  /** Explicit production startup command string or binary */
+  readonly startCommand?: string;
+  /** Explicit production startup arguments */
+  readonly startArgs?: readonly string[];
+  /** Explicit production build command string or binary */
+  readonly buildCommand?: string;
+  /** Explicit production build arguments */
+  readonly buildArgs?: readonly string[];
+  /** Canonical IDs of prerequisite applications that must be running */
+  readonly dependsOn?: readonly string[];
 }
 
 /**
@@ -91,6 +124,8 @@ export interface ProcessStatus {
   readonly appId: string;
   /** Current state machine phase */
   readonly state: ProcessState;
+  /** Active execution mode ("dev" | "prod") */
+  readonly mode?: ExecutionMode;
   /** Main process identifier, or null if stopped */
   readonly pid: number | null;
   /** Process group identifier for detached tree control, or null if stopped */
@@ -105,6 +140,8 @@ export interface ProcessStatus {
   readonly ports: readonly number[];
   /** Live TCP port binding inspection results */
   readonly portStatuses: readonly PortStatus[];
+  /** Real-time status of prerequisite apps specified in dependsOn */
+  readonly dependencyStatuses?: readonly DependencyStatus[];
   /** Error message or crash diagnosis if state is CRASHED or startup failed */
   readonly error: string | null;
 }

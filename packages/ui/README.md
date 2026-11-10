@@ -12,7 +12,7 @@
 
 ## What's New in v2.0.0
 
-- **Pure Platform CSS Architecture**: Completely eliminated Tailwind CSS runtime and utility dependencies from components. Component styling is strictly governed by W3C Cascade Layers (`@layer dl-base, dl-tokens, dl-components, dl-utilities`), eliminating CSS specificity conflicts and removing build-step plugin overhead.
+- **Pure Platform CSS Architecture**: Completely authored in pure platform CSS without third-party utility runtime dependencies. Component styling is strictly governed by W3C Cascade Layers (`@layer dl-base, dl-tokens, dl-components, dl-utilities`), eliminating CSS specificity conflicts and removing build-step plugin overhead.
 - **First-Class Typography Primitives**: Added `<Heading>` and `<Text>` primitives with decoupled semantic HTML tags (`as="h1"`..`as="h6"`, `span`, `div`) and visual scales (`size="display" | "h1".."h6"` and `variant="body-lg" | "body" | "body-sm" | "caption" | "code" | "metric"`).
 - **64+ Accessible UI Primitives**: Expanded catalog with Radix UI accessibility compliance and multi-brand responsiveness.
 - **Upgraded Design Tokens Peer**: Upgraded to `@yuva-devlab/tokens@^2.0.0` with isolated brand extensions and native VS Code autocomplete.
@@ -241,6 +241,7 @@ Explore the interactive component playground, live documentation, and API refere
 
 ---
 
-## License
+## Author & Attribution
 
-MIT © [Yuva DevLab](https://github.com/yuvadevlab)
+- **Author**: Yuva DevLab (`yuva.devlab@gmail.com`)
+- **License**: MIT

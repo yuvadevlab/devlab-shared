@@ -42,8 +42,17 @@ const sampleSources: SourceItem[] = [
 
 export const Default: Story = {
   render: () => (
-    <div className="dl-story-w-lg space-y-4">
-      <div className="text-sm leading-relaxed text-foreground">
+    <div
+      className="dl-story-w-lg"
+      style={{ display: "flex", flexDirection: "column", gap: "1rem" }}
+    >
+      <div
+        style={{
+          fontSize: "0.875rem",
+          lineHeight: 1.625,
+          color: "var(--foreground)",
+        }}
+      >
         Turborepo Remote Cache allows you to share build artifacts across team
         members and CI pipelines{" "}
         <InlineCitation index={1} title="Turborepo Docs" />. Furthermore,

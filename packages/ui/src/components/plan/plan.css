@@ -104,3 +104,50 @@
   gap: 0.375rem;
   padding: 0.125rem 0;
 }
+
+.dl-plan__status-chip {
+  padding: 0.125rem 0.5rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.dl-plan__status-chip--completed {
+  background-color: color-mix(in oklch, var(--success) 15%, transparent);
+  color: var(--success);
+}
+
+.dl-plan__status-chip--in-progress {
+  background-color: color-mix(in oklch, var(--primary) 15%, transparent);
+  color: var(--primary);
+}
+
+.dl-plan__status-chip--failed {
+  background-color: color-mix(in oklch, var(--destructive) 15%, transparent);
+  color: var(--destructive);
+}
+
+.dl-plan__status-chip--pending {
+  background-color: var(--muted);
+  color: var(--muted-foreground);
+}
+
+.dl-plan__chevron {
+  width: 0.875rem;
+  height: 0.875rem;
+  color: var(--muted-foreground);
+  transition: transform 0.15s ease;
+  flex-shrink: 0;
+  margin-top: 0.125rem;
+}
+
+.dl-plan__chevron--expanded {
+  transform: rotate(90deg);
+}
+
+.dl-plan__desc-block {
+  margin-bottom: 0.5rem;
+  line-height: 1.625;
+}

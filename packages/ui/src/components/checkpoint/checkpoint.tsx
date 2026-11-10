@@ -28,7 +28,7 @@ export const Checkpoint = React.forwardRef<HTMLDivElement, CheckpointProps>(
     return (
       <div ref={ref} className={cn("dl-checkpoint", className)} {...props}>
         <div className="dl-checkpoint__content">
-          <History className="size-3 text-muted-foreground" />
+          <History className="dl-checkpoint__icon" />
           <span>{label}</span>
           {onRestore && (
             <button

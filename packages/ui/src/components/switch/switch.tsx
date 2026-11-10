@@ -13,7 +13,7 @@ export type SwitchProps = React.ComponentPropsWithoutRef<
  * @example
  * ```tsx
  * // Basic toggle switch
- * <div className="flex items-center justify-between">
+ * <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
  *   <Label htmlFor="airplane-mode">Airplane Mode</Label>
  *   <Switch id="airplane-mode" checked={enabled} onCheckedChange={setEnabled} />
  * </div>

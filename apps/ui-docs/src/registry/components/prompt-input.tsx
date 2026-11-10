@@ -20,7 +20,15 @@ export default function PromptInputDocPage() {
         "Auto-expanding input with file attachment capabilities, Enter submission, and Stop generation action.",
       preview: (
         <div className="dl-demo-frame dl-demo-frame--md">
-          <div className="w-full max-w-xl space-y-3">
+          <div
+            style={{
+              width: "100%",
+              maxWidth: "36rem",
+              display: "flex",
+              flexDirection: "column",
+              gap: "0.75rem",
+            }}
+          >
             <PromptInput
               placeholder="Ask anything or request code edits..."
               onSubmit={(val, files) => {
@@ -30,7 +38,14 @@ export default function PromptInputDocPage() {
               }}
             />
             {submitted && (
-              <p className="text-xs text-muted-foreground">{submitted}</p>
+              <p
+                style={{
+                  fontSize: "0.75rem",
+                  color: "var(--muted-foreground)",
+                }}
+              >
+                {submitted}
+              </p>
             )}
           </div>
         </div>
@@ -47,7 +62,7 @@ export default function PromptInputDocPage() {
         "Display active model selection pill and square stop button during generation.",
       preview: (
         <div className="dl-demo-frame dl-demo-frame--md">
-          <div className="w-full max-w-xl">
+          <div style={{ width: "100%", maxWidth: "36rem" }}>
             <PromptInput
               defaultValue="Analyze current database query performance"
               isGenerating={true}

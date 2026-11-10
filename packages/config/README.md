@@ -206,9 +206,10 @@ npm install -D @yuva-devlab/prettier-config
 ## Related Packages
 
 - [@yuva-devlab/ui](../ui) - Uses these configs
-- [@yuva-devlab/primitives](../primitives) - Uses these configs
 - [@yuva-devlab/tokens](../tokens) - Uses these configs
+- [@yuva-devlab/sdk](../sdk) - Uses these configs
 
-## License
+## Author & Attribution
 
-MIT © Yuva Devlab
+- **Author**: Yuva DevLab (`yuva.devlab@gmail.com`)
+- **License**: MIT

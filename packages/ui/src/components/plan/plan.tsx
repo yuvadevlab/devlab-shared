@@ -39,11 +39,11 @@ export const PlanHeader = React.forwardRef<HTMLDivElement, PlanHeaderProps>(
         {status && (
           <span
             className={cn(
-              "px-2 py-0.5 rounded-full text-xs font-semibold uppercase tracking-wider",
-              status === "completed" && "bg-success/15 text-success",
-              status === "in-progress" && "bg-primary/15 text-primary",
-              status === "failed" && "bg-destructive/15 text-destructive",
-              status === "pending" && "bg-muted text-muted-foreground",
+              "dl-plan__status-chip",
+              status === "completed" && "dl-plan__status-chip--completed",
+              status === "in-progress" && "dl-plan__status-chip--in-progress",
+              status === "failed" && "dl-plan__status-chip--failed",
+              status === "pending" && "dl-plan__status-chip--pending",
             )}
           >
             {status}
@@ -75,14 +75,43 @@ export const PlanTask = React.forwardRef<HTMLDivElement, PlanTaskProps>(
     const renderIcon = () => {
       switch (status) {
         case "completed":
-          return <CheckCircle2 className="size-4 text-success" />;
+          return (
+            <CheckCircle2
+              style={{ width: "1rem", height: "1rem", color: "var(--success)" }}
+            />
+          );
         case "running":
-          return <Loader2 className="size-4 text-primary animate-spin" />;
+          return (
+            <Loader2
+              style={{
+                width: "1rem",
+                height: "1rem",
+                color: "var(--primary)",
+                animation: "spin 1s linear infinite",
+              }}
+            />
+          );
         case "failed":
-          return <XCircle className="size-4 text-destructive" />;
+          return (
+            <XCircle
+              style={{
+                width: "1rem",
+                height: "1rem",
+                color: "var(--destructive)",
+              }}
+            />
+          );
         case "pending":
         default:
-          return <Circle className="size-4 text-muted-foreground" />;
+          return (
+            <Circle
+              style={{
+                width: "1rem",
+                height: "1rem",
+                color: "var(--muted-foreground)",
+              }}
+            />
+          );
       }
     };
 
@@ -104,7 +133,7 @@ export const PlanTask = React.forwardRef<HTMLDivElement, PlanTaskProps>(
           <div className="dl-plan__task-body">
             <span className="dl-plan__task-title">{title}</span>
             {description && !expanded && (
-              <span className="dl-plan__task-desc line-clamp-1">
+              <span className="dl-plan__task-desc dl-line-clamp-1">
                 {description}
               </span>
             )}
@@ -112,8 +141,8 @@ export const PlanTask = React.forwardRef<HTMLDivElement, PlanTaskProps>(
           {hasChildren && (
             <ChevronRight
               className={cn(
-                "size-3.5 text-muted-foreground transition-transform shrink-0 mt-0.5",
-                expanded && "rotate-90",
+                "dl-plan__chevron",
+                expanded && "dl-plan__chevron--expanded",
               )}
             />
           )}
@@ -121,7 +150,7 @@ export const PlanTask = React.forwardRef<HTMLDivElement, PlanTaskProps>(
         {expanded && hasChildren && (
           <div className="dl-plan__task-details">
             {description && (
-              <div className="mb-2 leading-relaxed">{description}</div>
+              <div className="dl-plan__desc-block">{description}</div>
             )}
             {children}
           </div>

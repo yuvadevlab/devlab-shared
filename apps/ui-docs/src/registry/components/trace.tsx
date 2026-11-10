@@ -72,14 +72,38 @@ export default function TraceDocPage() {
               </TraceCollapsibleTrigger>
               <TraceCollapsibleContent>
                 <TraceContent>
-                  <div className="flex flex-col gap-1.5 pl-4 border-l border-border mt-1">
-                    <span className="text-xs text-muted-foreground">
+                  <div
+                    style={{
+                      display: "flex",
+                      flexDirection: "column",
+                      gap: "0.375rem",
+                      paddingLeft: "1rem",
+                      borderLeft: "1px solid var(--border)",
+                      marginTop: "0.25rem",
+                    }}
+                  >
+                    <span
+                      style={{
+                        fontSize: "0.75rem",
+                        color: "var(--muted-foreground)",
+                      }}
+                    >
                       1. Queried database schema
                     </span>
-                    <span className="text-xs text-muted-foreground">
+                    <span
+                      style={{
+                        fontSize: "0.75rem",
+                        color: "var(--muted-foreground)",
+                      }}
+                    >
                       2. Checked authentication token scopes
                     </span>
-                    <span className="text-xs text-muted-foreground">
+                    <span
+                      style={{
+                        fontSize: "0.75rem",
+                        color: "var(--muted-foreground)",
+                      }}
+                    >
                       3. Formatted JSON payload
                     </span>
                   </div>

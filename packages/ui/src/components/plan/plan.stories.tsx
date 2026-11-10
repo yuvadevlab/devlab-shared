@@ -35,7 +35,18 @@ export const Default: Story = {
           description="Executing 'turbo run build --cache-dir=.turbo' across workspaces."
           defaultExpanded
         >
-          <div className="space-y-1 text-xs text-muted-foreground border-l-2 border-primary/40 pl-2">
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              gap: "0.25rem",
+              fontSize: "0.75rem",
+              color: "var(--muted-foreground)",
+              borderLeft:
+                "2px solid color-mix(in oklch, var(--primary) 40%, transparent)",
+              paddingLeft: "0.5rem",
+            }}
+          >
             <div>• @yuva-devlab/tokens: SUCCESS (cached)</div>
             <div>• @yuva-devlab/ui: IN_PROGRESS...</div>
           </div>

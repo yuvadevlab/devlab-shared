@@ -71,3 +71,9 @@ These invariants are mandatory and non-negotiable across all packages and applic
 - Changes must pass all quality gates prior to commit: `turbo lint typecheck build test` and `pnpm --filter @yuva-devlab/ui-storybook build-storybook`.
 - Conventional Commits enforced (`feat(scope): ...`, `fix(scope): ...`, `chore(scope): ...`, `refactor(scope): ...`).
 - AI agents must request explicit user approval before executing `git commit` or `git push`.
+
+## 11. Organization Standards & .github Inheritance
+
+- Branch naming must strictly follow: `^(feat|fix|refactor|perf|chore|docs|test|ci|hotfix)/[a-z0-9-]+$`.
+- Pull Requests must conform to the 5-section high-signal template in `yuvadevlab/.github` (Summary, Changes, How to Test, Proof of Verification, Risks).
+- Author and committer metadata standardized to `yuva.devlab@gmail.com`.

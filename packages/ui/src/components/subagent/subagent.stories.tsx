@@ -12,7 +12,10 @@ type Story = StoryObj<typeof Subagent>;
 
 export const Default: Story = {
   render: () => (
-    <div className="dl-story-w-lg space-y-3">
+    <div
+      className="dl-story-w-lg"
+      style={{ display: "flex", flexDirection: "column", gap: "0.75rem" }}
+    >
       <Subagent
         name="Security Auditor"
         role="Vulnerability & Dependency Scanner"
@@ -21,7 +24,15 @@ export const Default: Story = {
         conversationId="c4918e9"
         defaultOpen
       >
-        <div className="space-y-1 text-xs text-muted-foreground">
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            gap: "0.25rem",
+            fontSize: "0.75rem",
+            color: "var(--muted-foreground)",
+          }}
+        >
           <div>• Scanned 120 production dependencies in pnpm-lock.yaml</div>
           <div>• Auditing OAuth2 token refresh flow in auth.service.ts...</div>
         </div>

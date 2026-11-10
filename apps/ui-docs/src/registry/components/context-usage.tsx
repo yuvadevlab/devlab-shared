@@ -18,7 +18,15 @@ export default function ContextUsageDocPage() {
         "Progress gauge displaying tokens used vs total limit with detailed category breakdowns.",
       preview: (
         <div className="dl-demo-frame dl-demo-frame--md">
-          <div className="w-full max-w-md space-y-4">
+          <div
+            style={{
+              width: "100%",
+              maxWidth: "28rem",
+              display: "flex",
+              flexDirection: "column",
+              gap: "1rem",
+            }}
+          >
             <ContextUsage
               label="Claude 3.5 Sonnet (200k)"
               usedTokens={48200}
