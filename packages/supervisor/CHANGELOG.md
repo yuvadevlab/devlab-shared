@@ -1,5 +1,12 @@
 # @yuva-devlab/supervisor
 
+## 0.3.2
+
+### Patch Changes
+
+- 03b48ed: feat(auth-client): enforce environment variable isolation, centralize auth query parameter enums, storage keys, endpoints, and UI copy
+  feat(supervisor): introduce change-resilient TypeScript enums with backward-compatible template literal union types
+
 ## 0.3.1
 
 ### Patch Changes
