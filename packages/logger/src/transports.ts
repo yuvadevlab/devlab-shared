@@ -10,7 +10,12 @@ import type { CanonicalLogEvent, LogLevel } from "./types";
 /**
  * Creates an appending file writable stream for log persistence.
  */
-export function createFileTransport(filePath: string): NodeJS.WritableStream {
+export function createFileTransport(
+  filePath: string,
+): NodeJS.WritableStream | null {
+  if (typeof window !== "undefined" || !fs || !fs.createWriteStream) {
+    return null;
+  }
   const dir = filePath.split("/").slice(0, -1).join("/") || ".";
   try {
     fs.mkdirSync(dir, { recursive: true });
