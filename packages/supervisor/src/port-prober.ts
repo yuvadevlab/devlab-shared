@@ -9,7 +9,7 @@ import net from "node:net";
 import { exec } from "node:child_process";
 import { promisify } from "node:util";
 import os from "node:os";
-import type { PortStatus } from "./types";
+import { ProcessLogLevel, type PortStatus } from "./types";
 
 const execAsync = promisify(exec);
 
@@ -152,18 +152,21 @@ export class PortProber {
    */
   static async clearOccupiedPorts(
     ports?: readonly number[],
-    onLog?: (msg: string, level: "info" | "warn") => void,
+    onLog?: (msg: string, level: ProcessLogLevel) => void,
   ): Promise<void> {
     if (!ports) return;
     for (const port of ports) {
       if (await this.isPortInUse(port)) {
-        onLog?.(`Port ${port} occupied. Resolving conflict...`, "warn");
+        onLog?.(
+          `Port ${port} occupied. Resolving conflict...`,
+          ProcessLogLevel.WARN,
+        );
         if (!(await this.freePort(port))) {
           throw new Error(
             `Port ${port} is occupied and could not be released.`,
           );
         }
-        onLog?.(`Port ${port} released.`, "info");
+        onLog?.(`Port ${port} released.`, ProcessLogLevel.INFO);
       }
     }
   }

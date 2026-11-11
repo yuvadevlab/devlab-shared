@@ -1,6 +1,6 @@
 {
   "name": "@yuva-devlab/supervisor",
-  "version": "0.3.2",
+  "version": "0.3.3",
   "description": "High-performance process supervisor and lifecycle orchestrator for DevLab applications",
   "type": "module",
   "main": "./dist/index.cjs",

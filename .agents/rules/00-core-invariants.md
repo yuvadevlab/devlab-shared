@@ -100,3 +100,10 @@ These invariants are mandatory and non-negotiable across all packages and applic
 - Raw URL search parameter names and prefixes (e.g. `"?redirect="`, `"?app="`, `"token"`, `"access_token"`) must never be hardcoded in application logic.
 - All query parameters, route paths, HTTP headers, and browser storage keys must be declared in dedicated enums/constants files (e.g. `AuthQueryParamKey.REDIRECT`, `AuthStorageKey.TOKEN`).
 - URLs and query strings must be assembled using `URLSearchParams` or helper functions referencing the enum keys.
+
+## 16. Semantic Component Architecture & 90/10 Hybrid Styling Standard
+
+- **Semantic Component Styling First (90%)**: All UI components in `@yuva-devlab/ui` must declare purpose-revealing semantic classes (e.g. `.dl-btn`, `.dl-card`, `.dl-dialog`, `.dl-table`) defined in domain-scoped modular stylesheets (`< 200 lines`, strictly `< 250 lines`) under `@layer dl-components`.
+- **Zero Utility Soup in Markup**: Constructing UI components via long chains of atomic utility classes in JSX (`className="class-1 class-2 class-3..."`) is strictly prohibited. All element-level layout, padding, background, border, and visual styles must be encapsulated in the component's CSS rule.
+- **Macro Layout Glue Only (10%)**: Utility classes (`@layer dl-utilities`) are strictly reserved for one-off macro page layout orchestration (e.g., page grid wrappers `.dl-grid`, responsive column switches `.md:grid-cols-2`, visibility toggles `.hidden`, and inter-component margins `.mt-6`).
+- **Component-Scoped CSS Custom Properties**: Style variations, accent colors, and dynamic sizes must be parameterized through component-scoped CSS variables (e.g. `--btn-accent`, `--card-padding`) mapped to `@yuva-devlab/tokens`.

@@ -13,6 +13,7 @@ import {
 import { exec } from "node:child_process";
 import { promisify } from "node:util";
 import os from "node:os";
+import { ProcessSignal } from "./types";
 
 const execAsync = promisify(exec);
 
@@ -86,10 +87,10 @@ export class ProcessTreeManager {
     try {
       // 1. Dispatch SIGINT to the process group
       try {
-        process.kill(-pid, "SIGINT");
+        process.kill(-pid, ProcessSignal.SIGINT);
       } catch {
         // Fallback to direct PID if process group fails
-        process.kill(pid, "SIGINT");
+        process.kill(pid, ProcessSignal.SIGINT);
       }
 
       // Wait up to gracefulTimeoutMs for graceful exit
@@ -106,9 +107,9 @@ export class ProcessTreeManager {
       // 2. Escalate to SIGTERM
       if (this.isAlive(pid)) {
         try {
-          process.kill(-pid, "SIGTERM");
+          process.kill(-pid, ProcessSignal.SIGTERM);
         } catch {
-          process.kill(pid, "SIGTERM");
+          process.kill(pid, ProcessSignal.SIGTERM);
         }
         await new Promise((resolve) => setTimeout(resolve, 1000));
       }
@@ -116,9 +117,9 @@ export class ProcessTreeManager {
       // 3. Final escalation to SIGKILL if still hanging
       if (this.isAlive(pid)) {
         try {
-          process.kill(-pid, "SIGKILL");
+          process.kill(-pid, ProcessSignal.SIGKILL);
         } catch {
-          process.kill(pid, "SIGKILL");
+          process.kill(pid, ProcessSignal.SIGKILL);
         }
         await new Promise((resolve) => setTimeout(resolve, 500));
       }

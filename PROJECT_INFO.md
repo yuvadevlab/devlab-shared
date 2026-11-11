@@ -136,12 +136,12 @@ In enterprise microservice and multi-agent platforms, code duplication, inconsis
 graph TD
     Shared["@yuva-devlab/shared (devlab-shared)"]
 
-    OrchestrAI["orchestrai (:4001, :3001)"]
-    FinAI["finai (:4000, :3000)"]
-    Portal["devlab-portal (:3015, :3005)"]
-    Guard["devlab-guard"]
-    Logs["devlab-logs (:3020, :3025)"]
-    IncidentAI["incidentai (:8085)"]
+    Portal["devlab-portal (:3000, :4000)"]
+    FinAI["finai (:3001, :4001)"]
+    OrchestrAI["orchestrai (:3002, :4002)"]
+    Logs["devlab-logs (:3003, :4003)"]
+    Guard["devlab-guard (:8000)"]
+    IncidentAI["incidentai (:8001)"]
 
     Shared -->|"UI, Resilience, Semantic Cache"| OrchestrAI
     Shared -->|"UI, Logger, Errors, Resilience"| FinAI
