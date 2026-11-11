@@ -64,6 +64,28 @@ export type ProcessLogStream = `${ProcessLogStreamEnum}`;
 export const ProcessLogStream = ProcessLogStreamEnum;
 
 /**
+ * Operating system signals used for lifecycle termination and escalation.
+ */
+export enum ProcessSignalEnum {
+  SIGINT = "SIGINT",
+  SIGTERM = "SIGTERM",
+  SIGKILL = "SIGKILL",
+}
+export type ProcessSignal = `${ProcessSignalEnum}`;
+export const ProcessSignal = ProcessSignalEnum;
+
+/**
+ * Event names emitted by the ProcessSupervisor engine.
+ */
+export enum SupervisorEventEnum {
+  LOG = "log",
+  STATE = "state",
+  STATE_CHANGED = "stateChanged",
+}
+export type SupervisorEvent = `${SupervisorEventEnum}`;
+export const SupervisorEvent = SupervisorEventEnum;
+
+/**
  * Structured log record captured from a managed process.
  */
 export interface ProcessLogEntry {

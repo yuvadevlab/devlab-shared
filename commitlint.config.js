@@ -36,6 +36,7 @@ export default {
         "resilience",
         "sdk",
         "semantic-cache",
+        "supervisor",
         "ui",
         "tokens",
         "logger",

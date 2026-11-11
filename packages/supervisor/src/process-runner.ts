@@ -11,11 +11,11 @@ import { ProcessTreeManager } from "./process-tree";
 import type { StreamHandler } from "./stream-handler";
 import type { RuntimeStore } from "./runtime-store";
 import type { ActiveProcessMeta } from "./status-builder";
-import type {
-  AppProcessConfig,
+import type { AppProcessConfig, ProcessLogEntry } from "./types";
+import {
   ExecutionMode,
-  ProcessLogEntry,
   ProcessLogLevel,
+  ProcessSignal,
   ProcessState,
 } from "./types";
 
@@ -61,22 +61,20 @@ export function resolveCommandAndArgs(
  */
 export function resolveExecutionCommand(
   config: AppProcessConfig,
-  mode: ExecutionMode = "dev",
+  mode: ExecutionMode = ExecutionMode.DEV,
 ): { command: string; args: string[]; env: Record<string, string> } {
-  const rawCmd =
-    mode === "prod"
-      ? config.startCommand || config.command
-      : config.devCommand || config.command;
-  const rawArgs =
-    mode === "prod"
-      ? (config.startArgs ?? config.args)
-      : (config.devArgs ?? config.args);
+  const isProd = mode === ExecutionMode.PROD;
+  const rawCmd = isProd
+    ? config.startCommand || config.command
+    : config.devCommand || config.command;
+  const rawArgs = isProd
+    ? (config.startArgs ?? config.args)
+    : (config.devArgs ?? config.args);
 
   const { command, args } = resolveCommandAndArgs(rawCmd, rawArgs);
   const env: Record<string, string> = {
     ...config.env,
-    NODE_ENV:
-      mode === "prod" ? "production" : config.env?.NODE_ENV || "development",
+    NODE_ENV: isProd ? "production" : config.env?.NODE_ENV || "development",
   };
   return { command, args, env };
 }
@@ -90,7 +88,7 @@ export async function executeProcessSpawn(
   const {
     appId,
     config,
-    mode = config.executionMode || "dev",
+    mode = config.executionMode || ExecutionMode.DEV,
     runtimeStore,
     streamHandler,
     onLog,
@@ -104,7 +102,10 @@ export async function executeProcessSpawn(
   await PortProber.clearOccupiedPorts(config.ports, (msg, lvl) =>
     onSystemLog(lvl, msg),
   );
-  onSystemLog("info", `Spawning [mode: ${mode}]: ${command} ${args.join(" ")}`);
+  onSystemLog(
+    ProcessLogLevel.INFO,
+    `Spawning [mode: ${mode}]: ${command} ${args.join(" ")}`,
+  );
 
   const child = ProcessTreeManager.spawnProcess(command, args, {
     cwd: config.workingDir,
@@ -121,7 +122,7 @@ export async function executeProcessSpawn(
     pid: child.pid,
     pgid,
     startedAt,
-    state: "STARTING",
+    state: ProcessState.STARTING,
     mode,
     exitCode: null,
     error: null,
@@ -155,21 +156,23 @@ export function resolveProcessExit(
 ): { state: ProcessState; message: string; isCrash: boolean } {
   meta.exitCode = code;
   const isIntentionalStop =
-    meta.state === "STOPPING" || signal === "SIGTERM" || signal === "SIGKILL";
+    meta.state === ProcessState.STOPPING ||
+    signal === ProcessSignal.SIGTERM ||
+    signal === ProcessSignal.SIGKILL;
 
   if (isIntentionalStop) {
-    meta.state = "STOPPED";
+    meta.state = ProcessState.STOPPED;
     meta.error = null;
     meta.consecutiveCrashes = 0;
     return {
-      state: "STOPPED",
+      state: ProcessState.STOPPED,
       message: `Process exited cleanly (signal: ${signal || "none"}).`,
       isCrash: false,
     };
   }
 
   const isCrash = code !== 0 && code !== null;
-  meta.state = isCrash ? "CRASHED" : "STOPPED";
+  meta.state = isCrash ? ProcessState.CRASHED : ProcessState.STOPPED;
   meta.error = isCrash ? `Process exited abnormally with code ${code}` : null;
   if (isCrash) meta.consecutiveCrashes += 1;
 

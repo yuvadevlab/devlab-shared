@@ -12,7 +12,7 @@ import {
   pushAppLog,
   type EventCoordinatorContext,
 } from "./supervisor-events";
-import type { AppProcessConfig } from "./types";
+import { type AppProcessConfig, ProcessLogLevel } from "./types";
 
 /**
  * Spawns production build command and streams output to memory ring buffer and disk.
@@ -26,7 +26,7 @@ export async function executeAppBuild(
     appendAppSystemLog(
       ctx,
       appId,
-      "info",
+      ProcessLogLevel.INFO,
       "No buildCommand configured for this application.",
     );
     return { success: true, exitCode: 0 };
@@ -39,7 +39,7 @@ export async function executeAppBuild(
   appendAppSystemLog(
     ctx,
     appId,
-    "info",
+    ProcessLogLevel.INFO,
     `[BUILD] Executing: ${command} ${args.join(" ")} in ${config.workingDir}`,
   );
 
@@ -57,13 +57,18 @@ export async function executeAppBuild(
       appendAppSystemLog(
         ctx,
         appId,
-        success ? "info" : "error",
+        success ? ProcessLogLevel.INFO : ProcessLogLevel.ERROR,
         `[BUILD] Completed with exit code ${exitCode}`,
       );
       resolve({ success, exitCode });
     });
     child.on("error", (err) => {
-      appendAppSystemLog(ctx, appId, "error", `[BUILD] Error: ${err.message}`);
+      appendAppSystemLog(
+        ctx,
+        appId,
+        ProcessLogLevel.ERROR,
+        `[BUILD] Error: ${err.message}`,
+      );
       resolve({ success: false, exitCode: 1 });
     });
   });

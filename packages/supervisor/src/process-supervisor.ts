@@ -10,7 +10,6 @@ import path from "node:path";
 import os from "node:os";
 import { Logger } from "@yuva-devlab/logger";
 import { RingBuffer } from "./ring-buffer";
-import { ProcessTreeManager } from "./process-tree";
 import { RuntimeStore } from "./runtime-store";
 import { StreamHandler } from "./stream-handler";
 import {
@@ -28,15 +27,18 @@ import {
   pollAppReadiness,
   handleProcessError,
   handleProcessExit,
+  executeProcessStop,
   type EventCoordinatorContext,
 } from "./supervisor-events";
-import type {
-  AppProcessConfig,
-  DependencyStatus,
-  ExecutionMode,
-  ProcessLogEntry,
-  ProcessStatus,
-  SupervisorOptions,
+import {
+  ProcessLogLevel,
+  ProcessState,
+  type AppProcessConfig,
+  type DependencyStatus,
+  type ExecutionMode,
+  type ProcessLogEntry,
+  type ProcessStatus,
+  type SupervisorOptions,
 } from "./types";
 
 /**
@@ -116,7 +118,8 @@ export class ProcessSupervisor extends EventEmitter {
     const current = this.processes.get(appId);
     if (
       current &&
-      (current.state === "RUNNING" || current.state === "STARTING")
+      (current.state === ProcessState.RUNNING ||
+        current.state === ProcessState.STARTING)
     ) {
       return this.getStatus(appId);
     }
@@ -143,7 +146,7 @@ export class ProcessSupervisor extends EventEmitter {
       });
 
       this.processes.set(appId, meta);
-      await emitAppState(this.eventContext, appId, "STARTING");
+      await emitAppState(this.eventContext, appId, ProcessState.STARTING);
       if (config.healthUrl) {
         pollAppReadiness(
           this.eventContext,
@@ -153,9 +156,9 @@ export class ProcessSupervisor extends EventEmitter {
         );
       } else {
         setTimeout(() => {
-          if (this.processes.get(appId)?.state === "STARTING") {
-            meta.state = "RUNNING";
-            emitAppState(this.eventContext, appId, "RUNNING");
+          if (this.processes.get(appId)?.state === ProcessState.STARTING) {
+            meta.state = ProcessState.RUNNING;
+            emitAppState(this.eventContext, appId, ProcessState.RUNNING);
           }
         }, 1500);
       }
@@ -165,10 +168,10 @@ export class ProcessSupervisor extends EventEmitter {
       appendAppSystemLog(
         this.eventContext,
         appId,
-        "error",
+        ProcessLogLevel.ERROR,
         `Startup failed: ${msg}`,
       );
-      await emitAppState(this.eventContext, appId, "CRASHED");
+      await emitAppState(this.eventContext, appId, ProcessState.CRASHED);
       throw err;
     }
   }
@@ -180,31 +183,14 @@ export class ProcessSupervisor extends EventEmitter {
   }
 
   async stop(appId: string, force = false): Promise<ProcessStatus> {
-    const meta = this.processes.get(appId);
-    if (!meta || meta.state === "STOPPED") return this.getStatus(appId);
-
-    const config = this.configs.get(appId);
-    const gracefulTimeout = force
-      ? 500
-      : config?.gracefulShutdownTimeoutMs || 4000;
-
-    meta.state = "STOPPING";
-    await emitAppState(this.eventContext, appId, "STOPPING");
-    appendAppSystemLog(
+    await executeProcessStop(
       this.eventContext,
+      this.runtimeStore,
       appId,
-      "info",
-      `Stopping process (PID ${meta.pid})...`,
+      this.processes.get(appId),
+      this.configs.get(appId),
+      force,
     );
-    meta.readinessAbortController?.abort();
-
-    if (meta.pid > 0)
-      await ProcessTreeManager.killTree(meta.pid, gracefulTimeout);
-    meta.state = "STOPPED";
-    meta.error = null;
-    await this.runtimeStore.remove(appId);
-    appendAppSystemLog(this.eventContext, appId, "info", "Process stopped.");
-    await emitAppState(this.eventContext, appId, "STOPPED");
     return this.getStatus(appId);
   }
 
@@ -217,7 +203,7 @@ export class ProcessSupervisor extends EventEmitter {
     this.logger.info("Gracefully shutting down all managed processes...");
     const running = Array.from(this.processes.keys()).filter((id) => {
       const state = this.processes.get(id)?.state;
-      return state === "RUNNING" || state === "STARTING";
+      return state === ProcessState.RUNNING || state === ProcessState.STARTING;
     });
     await Promise.all(running.map((id) => this.stop(id, false)));
     this.logger.info("All managed processes have been terminated.");
