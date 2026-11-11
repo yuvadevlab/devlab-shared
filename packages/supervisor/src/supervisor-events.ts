@@ -7,15 +7,17 @@
 
 import { ReadinessProber } from "./readiness-prober";
 import { RingBuffer } from "./ring-buffer";
+import { ProcessTreeManager } from "./process-tree";
 import { resolveProcessExit } from "./process-runner";
 import type { RuntimeStore } from "./runtime-store";
 import type { StreamHandler } from "./stream-handler";
 import type { ActiveProcessMeta } from "./status-builder";
-import type {
-  ProcessLogEntry,
+import type { AppProcessConfig, ProcessLogEntry, ProcessStatus } from "./types";
+import {
   ProcessLogLevel,
+  ProcessLogStream,
   ProcessState,
-  ProcessStatus,
+  SupervisorEvent,
 } from "./types";
 
 export interface EventCoordinatorContext {
@@ -42,7 +44,7 @@ export function pushAppLog(
     ctx.buffers.set(appId, buffer);
   }
   buffer.push(entry);
-  ctx.emit("log", appId, entry);
+  ctx.emit(SupervisorEvent.LOG, appId, entry);
 }
 
 /**
@@ -54,7 +56,12 @@ export function appendAppSystemLog(
   level: ProcessLogLevel,
   msg: string,
 ): void {
-  const entry = ctx.streamHandler.createEntry(appId, msg, "system", level);
+  const entry = ctx.streamHandler.createEntry(
+    appId,
+    msg,
+    ProcessLogStream.SYSTEM,
+    level,
+  );
   pushAppLog(ctx, appId, entry);
   ctx.streamHandler.writeToDisk(appId, entry).catch(() => {});
 }
@@ -69,7 +76,8 @@ export async function emitAppState(
 ): Promise<void> {
   try {
     const status = await ctx.getStatus(appId);
-    ctx.emit("stateChanged", appId, state, status);
+    ctx.emit(SupervisorEvent.STATE_CHANGED, appId, state, status);
+    ctx.emit(SupervisorEvent.STATE, status);
   } catch {
     // Ignored during shutdown
   }
@@ -97,9 +105,9 @@ export async function pollAppReadiness(
     (msg, lvl) => appendAppSystemLog(ctx, appId, lvl, msg),
   );
 
-  if (meta.state === "STARTING") {
-    meta.state = "RUNNING";
-    await emitAppState(ctx, appId, "RUNNING");
+  if (meta.state === ProcessState.STARTING) {
+    meta.state = ProcessState.RUNNING;
+    await emitAppState(ctx, appId, ProcessState.RUNNING);
   }
 }
 
@@ -114,9 +122,14 @@ export function handleProcessError(
   const meta = ctx.processes.get(appId);
   if (!meta) return;
   meta.error = err.message;
-  meta.state = "CRASHED";
-  appendAppSystemLog(ctx, appId, "error", `Process error: ${err.message}`);
-  emitAppState(ctx, appId, "CRASHED");
+  meta.state = ProcessState.CRASHED;
+  appendAppSystemLog(
+    ctx,
+    appId,
+    ProcessLogLevel.ERROR,
+    `Process error: ${err.message}`,
+  );
+  emitAppState(ctx, appId, ProcessState.CRASHED);
 }
 
 /**
@@ -133,6 +146,48 @@ export async function handleProcessExit(
   if (!meta) return;
   await runtimeStore.remove(appId);
   const { state, message, isCrash } = resolveProcessExit(meta, code, signal);
-  appendAppSystemLog(ctx, appId, isCrash ? "error" : "info", message);
+  appendAppSystemLog(
+    ctx,
+    appId,
+    isCrash ? ProcessLogLevel.ERROR : ProcessLogLevel.INFO,
+    message,
+  );
   await emitAppState(ctx, appId, state);
+}
+
+/**
+ * Gracefully terminates a running application process and cleans up resources.
+ */
+export async function executeProcessStop(
+  ctx: EventCoordinatorContext,
+  runtimeStore: RuntimeStore,
+  appId: string,
+  meta?: ActiveProcessMeta,
+  config?: AppProcessConfig,
+  force = false,
+): Promise<void> {
+  if (!meta || meta.state === ProcessState.STOPPED) return;
+
+  const gracefulTimeout = force
+    ? 500
+    : config?.gracefulShutdownTimeoutMs || 4000;
+
+  meta.state = ProcessState.STOPPING;
+  await emitAppState(ctx, appId, ProcessState.STOPPING);
+  appendAppSystemLog(
+    ctx,
+    appId,
+    ProcessLogLevel.INFO,
+    `Stopping process (PID ${meta.pid})...`,
+  );
+  meta.readinessAbortController?.abort();
+
+  if (meta.pid > 0) {
+    await ProcessTreeManager.killTree(meta.pid, gracefulTimeout);
+  }
+  meta.state = ProcessState.STOPPED;
+  meta.error = null;
+  await runtimeStore.remove(appId);
+  appendAppSystemLog(ctx, appId, ProcessLogLevel.INFO, "Process stopped.");
+  await emitAppState(ctx, appId, ProcessState.STOPPED);
 }

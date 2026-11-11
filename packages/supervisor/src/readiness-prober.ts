@@ -5,6 +5,8 @@
  * @author yuva.devlab@gmail.com
  */
 
+import { ProcessLogLevel } from "./types";
+
 export interface ReadinessProbeOptions {
   readonly healthUrl: string;
   readonly timeoutMs: number;
@@ -58,9 +60,12 @@ export class ReadinessProber {
     timeoutMs: number,
     pollIntervalMs: number,
     signal: AbortSignal | undefined,
-    onLog: (msg: string, level: "info" | "warn") => void,
+    onLog: (msg: string, level: ProcessLogLevel) => void,
   ): Promise<boolean> {
-    onLog(`Waiting for readiness probe (${healthUrl})...`, "info");
+    onLog(
+      `Waiting for readiness probe (${healthUrl})...`,
+      ProcessLogLevel.INFO,
+    );
     const { ready, elapsedMs } = await this.pollReadiness({
       healthUrl,
       timeoutMs,
@@ -71,7 +76,7 @@ export class ReadinessProber {
     const msg = ready
       ? `Readiness verified in ${seconds}s.`
       : `Readiness timed out after ${seconds}s.`;
-    onLog(msg, ready ? "info" : "warn");
+    onLog(msg, ready ? ProcessLogLevel.INFO : ProcessLogLevel.WARN);
     return ready;
   }
 }

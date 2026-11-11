@@ -1,5 +1,11 @@
 # @yuva-devlab/supervisor
 
+## 0.3.3
+
+### Patch Changes
+
+- feat(supervisor): replace string literals with change-resilient enums (`ProcessSignal`, `SupervisorEvent`, `ProcessLogLevel`, `ProcessLogStream`, `ExecutionMode`) and optimize process tree lifecycle management
+
 ## 0.3.2
 
 ### Patch Changes
