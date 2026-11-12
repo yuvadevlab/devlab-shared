@@ -1,5 +1,14 @@
 # @yuva-devlab/ui
 
+## 3.0.1
+
+### Patch Changes
+
+- d08b552: feat(cli): complete rewrite into developer operations tool with port inspection, environment doctor, service status, docker infra, and jwt token validation
+  docs(tokens,ui,auth-client): update documentation for responsive tokens, table row hover, and edge jwt validation
+- Updated dependencies [d08b552]
+  - @yuva-devlab/tokens@2.1.1
+
 ## 3.0.0
 
 ### Minor Changes
