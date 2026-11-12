@@ -1,5 +1,16 @@
 # @yuva-devlab/ui
 
+## 3.0.0
+
+### Minor Changes
+
+- e1b0d6d: feat(tokens,ui,auth): responsive fluid clamp tokens, theme-aware table hover highlighting, encapsulated legal footer, and edge jwt verification
+
+### Patch Changes
+
+- Updated dependencies [e1b0d6d]
+  - @yuva-devlab/tokens@2.1.0
+
 ## 2.2.1
 
 ### Patch Changes

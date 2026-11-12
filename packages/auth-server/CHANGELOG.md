@@ -1,5 +1,11 @@
 # @yuva-devlab/auth-server
 
+## 1.0.3
+
+### Patch Changes
+
+- e1b0d6d: feat(tokens,ui,auth): responsive fluid clamp tokens, theme-aware table hover highlighting, encapsulated legal footer, and edge jwt verification
+
 ## 1.0.2
 
 ### Patch Changes
