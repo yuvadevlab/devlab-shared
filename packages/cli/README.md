@@ -2,341 +2,160 @@
 
 [![npm version](https://img.shields.io/npm/v/@yuva-devlab/cli.svg)](https://www.npmjs.com/package/@yuva-devlab/cli)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+[![TypeScript 6](https://img.shields.io/badge/TypeScript-6.x-3178c6.svg)](https://www.typescriptlang.org)
 
-> Official CLI tool for scaffolding components and primitives in the Yuva Devlab
-> ecosystem.
+> Official Developer Platform & Operations CLI (`devlab`) for the Yuva DevLab ecosystem.
+> Provides runtime diagnostics, ecosystem port inspection, service health monitoring, root infrastructure orchestration, and JWT diagnostic utilities.
+
+---
 
 ## ✨ Features
 
-- 🚀 **Component Generation** - Create fully-structured UI components with
-  styles and types
-- 🧩 **Primitive Generation** - Scaffold headless primitives with proper
-  architecture
-- 📁 **Smart Templates** - Pre-configured file structures following best
-  practices
-- 🎯 **Monorepo Aware** - Automatically detects workspace root
-- ✅ **Naming Conventions** - Enforces consistent kebab-case and PascalCase
-  patterns
-- 🔧 **Type-Safe** - Uses type aliases to avoid ESLint warnings
-- ⚡ **Zero Config** - Works out of the box in the monorepo
+- 🌐 **Ecosystem Port Matrix (`devlab ports`)** — Enforces the canonical **`3***` Web / `4***` API / `8***` Dedicated API / `+10` Prod** port taxonomy and actively probes socket listeners.
+- 🩺 **System Doctor (`devlab doctor`)** — Diagnoses Node.js ( $\ge 20$ ), pnpm ( $\ge 9$ ), Python/uv, Docker daemon responsiveness, port collisions, and `.env` prerequisites.
+- 📊 **Service Health Scoreboard (`devlab status`)** — Concurrently pings `/health`, `/healthz`, and `/livez` across all platform services, measuring latency and reporting active versions.
+- 🐳 **Infrastructure Lifecycle (`devlab infra`)** — Single-command management for the root Docker Compose stack (PostgreSQL 16 with `pgvector`, Redis 7, Redpanda, and Ollama).
+- 🔑 **Token & JWKS Diagnostic (`devlab token`)** — Decodes base64 JWT payloads, calculates temporal expiry, inspects tenant claims, and tests Portal JWKS public key discovery.
+- ⚡ **Zero Runtime Overhead** — Pure Node.js platform utilities, fast startup with Vite SSR bundling, and clean ANSI terminal output.
 
-## 📦 Installation
+---
 
-### Workspace Usage (Recommended)
+## 📐 Ecosystem Port Taxonomy
 
-If you're working within the yuva-devlab monorepo:
+The CLI enforces the standard mathematical port formula across all DevLab repositories:
+
+$$\text{Production Port} = \text{Development Port} + 10$$
+
+| Tier               | Dev Port Range  | Prod Port Range |             Formula             | Examples                                                                                                  |
+| :----------------- | :-------------: | :-------------: | :-----------------------------: | :-------------------------------------------------------------------------------------------------------- |
+| **Web Frontends**  | `3000` – `3009` | `3010` – `3019` | $3000 + N \rightarrow 3010 + N$ | `3000` (Portal), `3001` (FinAI), `3002` (Orchestrai), `3003` (Logs), `3004` (KnowledgeAI)                 |
+| **Backend APIs**   | `4000` – `4009` | `4010` – `4019` | $4000 + N \rightarrow 4010 + N$ | `4000` (Portal API), `4001` (FinAI API), `4002` (Gateway), `4003` (Logs Ingest), `4004` (KnowledgeAI API) |
+| **Dedicated APIs** | `8000` – `8009` | `8010` – `8019` | $8000 + N \rightarrow 8010 + N$ | `8000` (DevLab Guard), `8001` (IncidentAI)                                                                |
+| **Infrastructure** |   Fixed Ports   |   Fixed Ports   |         Direct Binding          | `5432` (PostgreSQL), `6379` (Redis), `19092` (Redpanda), `11434` (Ollama)                                 |
+
+---
+
+## 📦 Installation & Usage
+
+### Inside the DevLab Monorepo
+
+Execute commands directly via `pnpm devlab`:
 
 ```bash
-# npm
-npx yuva create component button
+# Display CLI help
+pnpm devlab --help
 
-# yarn
-yarn yuva create component button
+# Inspect port allocation matrix
+pnpm devlab ports
 
-# pnpm
-pnpm exec yuva create component button
+# Run environment doctor
+pnpm devlab doctor
+
+# Probe ecosystem service status
+pnpm devlab status
 ```
-
-> **Note:** The `yuva` command is not directly available in the monorepo. You
-> must use your package manager's execution command.
 
 ### Global Installation
 
-For direct `yuva` command access, install globally:
-
 ```bash
-# npm
 npm install -g @yuva-devlab/cli
-
-# yarn
-yarn global add @yuva-devlab/cli
-
-# pnpm
+# or
 pnpm add -g @yuva-devlab/cli
 ```
 
-Then use anywhere without a package manager prefix:
+---
+
+## 🚀 Command Reference
+
+### 1. `devlab ports`
+
+Displays the entire ecosystem port matrix, categorized by tier, and tests whether local ports are currently bound by active socket listeners:
 
 ```bash
-yuva create component button
-yuva create component checkbox --kind primitive
-```
-
-### Local Installation (External Projects)
-
-For use in other projects:
-
-```bash
-# npm
-npm install --save-dev @yuva-devlab/cli
-
-# yarn
-yarn add -D @yuva-devlab/cli
-
-# pnpm
-pnpm add -D @yuva-devlab/cli
-```
-
-Then use with your package manager:
-
-```bash
-# npm
-npx yuva create component button
-
-# yarn
-yarn yuva create component button
-
-# pnpm
-pnpm exec yuva create component button
-```
-
-## 🚀 Commands
-
-### `yuva create component <name>`
-
-Generate a new styled UI component.
-
-**Syntax:**
-
-```bash
-# In monorepo
-pnpm exec yuva create component <name> [options]
-
-# With global installation
-yuva create component <name> [options]
+devlab ports
 ```
 
 **Options:**
 
-- `-k, --kind <type>` - Type of component: `component` (default) or `primitive`
+- `--no-probe`: Disables active socket connection testing.
 
-**Examples:**
+---
 
-```bash
-# Create a styled component (monorepo)
-pnpm exec yuva create component card
+### 2. `devlab doctor`
 
-# Create a primitive component (monorepo)
-pnpm exec yuva create component checkbox --kind primitive
-# or shorthand
-pnpm exec yuva create component checkbox -k primitive
-
-# With global installation
-yuva create component card
-yuva create component checkbox -k primitive
-```
-
-## 📂 Generated Structure
-
-### Styled Component
+Verifies that the developer's local workstation meets all requirements for running the DevLab platform:
 
 ```bash
-pnpm exec yuva create component card
+devlab doctor
 ```
 
-**Generates:**
+**Verifications Performed:**
 
-```
-packages/ui/src/components/card/
-├── card.tsx             # Component implementation
-├── card.styles.css.ts   # Vanilla Extract styles
-├── card.types.ts        # TypeScript type definitions
-├── card.test.tsx        # Vitest test file
-└── index.ts             # Barrel export
-```
+- **Node.js**: Ensures version $\ge \text{v20.0.0}$.
+- **pnpm**: Validates package manager installation.
+- **Astral uv / Python**: Checks Python 3.12+ and uv toolchain for `devlab-guard`.
+- **Docker Daemon**: Confirms Docker engine is active and reachable.
+- **Root Infrastructure**: Verifies presence of the root `docker-compose.yml`.
+- **Database Sockets**: Tests connectivity to PostgreSQL (`:5432`) and Redis (`:6379`).
 
-**File Contents:**
+---
 
-```tsx
-// card.tsx
-import React from "react";
-import { CardPrimitive } from "@yuva-devlab/primitives";
-import clsx from "clsx";
+### 3. `devlab status`
 
-import * as styles from "./card.styles.css";
-import type { CardProps } from "./card.types";
-
-export const Card = React.forwardRef<HTMLDivElement, CardProps>(
-  ({ className, children, ...rest }, ref) => {
-    return (
-      <CardPrimitive
-        ref={ref}
-        className={clsx(styles.base, className)}
-        {...rest}
-      >
-        {children}
-      </CardPrimitive>
-    );
-  },
-);
-
-Card.displayName = "Card";
-```
-
-```ts
-// card.types.ts
-import type { CardPrimitiveProps } from "@yuva-devlab/primitives";
-
-/**
- * Props for Card styled component.
- * Extends the primitive component props.
- * Add styled-specific props below as needed.
- */
-export type CardProps = CardPrimitiveProps & {
-  // Add styled-specific props here
-  // Example:
-  // variant?: "primary" | "secondary";
-  // size?: "sm" | "md" | "lg";
-};
-```
-
-```tsx
-// card.tsx (Platform CSS + CVA)
-import * as React from "react";
-import { cva, type VariantProps } from "class-variance-authority";
-import { cn } from "@/lib/utils";
-
-export const cardVariants = cva("dl-card");
-```
-
-### Primitive Component
+Pings health endpoints across all ecosystem services in parallel, rendering an ANSI-colored status board:
 
 ```bash
-pnpm exec yuva create component checkbox --kind primitive
+devlab status
+# With custom probe timeout
+devlab status --timeout 5000
 ```
 
-**Generates:**
+**Services Evaluated:**
 
-```
-packages/primitives/src/checkbox/
-├── checkbox.primitive.tsx        # Primitive implementation
-├── checkbox.primitive.types.ts   # TypeScript type definitions
-└── index.ts                      # Barrel export
-```
+- `devlab-portal` API (`http://localhost:4000/health`)
+- `finai` API (`http://localhost:4001/health`)
+- `orchestrai` Gateway (`http://localhost:4002/health`)
+- `devlab-logs` Ingest (`http://localhost:4003/health`)
+- `devlab-guard` (`http://localhost:8000/healthz`)
+- `incidentai` (`http://localhost:8001/healthz`)
 
-**File Contents:**
+---
 
-```tsx
-// checkbox.primitive.tsx
-import React from "react";
+### 4. `devlab infra <subcommand>`
 
-import type { CheckboxPrimitiveProps } from "./checkbox.primitive.types";
-
-/**
- * Headless primitive for Checkbox.
- */
-export const CheckboxPrimitive = React.forwardRef<
-  HTMLDivElement,
-  CheckboxPrimitiveProps
->(({ children, ...rest }, ref) => {
-  return (
-    <div ref={ref} {...rest}>
-      {children}
-    </div>
-  );
-});
-
-CheckboxPrimitive.displayName = "CheckboxPrimitive";
-```
-
-```ts
-// checkbox.primitive.types.ts
-import React from "react";
-
-/**
- * Props for CheckboxPrimitive component.
- * Extends all standard HTML div attributes.
- * Add primitive-specific props below as needed.
- */
-export type CheckboxPrimitiveProps = React.HTMLAttributes<HTMLDivElement> & {
-  // Add primitive-specific props here
-  // Example:
-  // disabled?: boolean;
-};
-```
-
-## 🏗️ Architecture
-
-The CLI follows a modular, maintainable architecture:
-
-```
-@yuva-devlab/cli/
-├── src/
-│   ├── commands/
-│   │   └── create-component.ts    # Component creation logic
-│   ├── templates/
-│   │   ├── index.template.ts      # Barrel export templates
-│   │   ├── primitive.template.ts  # Primitive templates
-│   │   └── styled.template.ts     # Styled component templates
-│   ├── utils/
-│   │   ├── fs.ts                  # File system utilities
-│   │   ├── helpers/               # Scaffolding helpers
-│   │   └── strings.ts             # String transformations
-│   └── index.ts                   # CLI entry point
-├── vite.config.ts                 # ESM build configuration
-└── package.json
-```
-
-## 🔧 Development
-
-### Building the CLI
+Manages the local root Docker infrastructure stack (`docker-compose.yml`):
 
 ```bash
-pnpm --filter @yuva-devlab/cli build
+# Launch background infrastructure (PostgreSQL, Redis, Redpanda, Ollama)
+devlab infra up
+
+# Check container health and status
+devlab infra status
+
+# View live container logs
+devlab infra logs --service postgres
+
+# Stop and dismantle infrastructure
+devlab infra down
 ```
 
-### Testing Locally
+---
+
+### 5. `devlab token <subcommand>`
+
+Diagnostic utilities for JSON Web Tokens (JWT) and OIDC JWKS public keys:
 
 ```bash
-# Build the CLI
-pnpm --filter @yuva-devlab/cli build
+# Inspect and decode RS256 token payload, subject, tenant, and expiration
+devlab token inspect <jwt-string>
 
-# Reinstall to update binary symlinks
-pnpm install
-
-# Test the CLI
-pnpm exec yuva create component test-component
+# Fetch and validate public signing keys from DevLab Portal API (:4000)
+devlab token jwks
 ```
 
-### Linking Globally
+---
 
-```bash
-cd packages/cli
-pnpm link --global
+## 🛡️ Attribution & License
 
-# Now use from anywhere
-yuva create component button
-```
-
-## 📝 Naming Conventions
-
-The CLI automatically handles name transformations:
-
-| Input            | Component Name  | File Name            |
-| ---------------- | --------------- | -------------------- |
-| `button`         | `Button`        | `button.tsx`         |
-| `card-header`    | `CardHeader`    | `card-header.tsx`    |
-| `SelectMenu`     | `SelectMenu`    | `select-menu.tsx`    |
-| `complex_widget` | `ComplexWidget` | `complex-widget.tsx` |
-
-## 🗺️ Roadmap
-
-- [x] Component scaffolding
-- [x] Primitive scaffolding
-- [x] ESM build support
-- [x] Type-safe templates
-- [ ] Interactive prompts mode
-- [ ] Custom template support
-- [ ] Storybook story generation
-- [ ] Component migration tools
-- [ ] Dependency graph visualization
-
-## 🔗 Related Packages
-
-- [@yuva-devlab/ui](../ui) - Styled component and layout library
-- [@yuva-devlab/tokens](../tokens) - Design tokens engine
-
-## Author & Attribution
-
-- **Author**: Yuva DevLab (`yuva.devlab@gmail.com`)
-- **License**: MIT
+- **Author:** `yuva.devlab@gmail.com`
+- **License:** MIT

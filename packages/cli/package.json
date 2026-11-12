@@ -1,12 +1,19 @@
 {
   "name": "@yuva-devlab/cli",
-  "version": "0.3.0",
-  "private": true,
+  "version": "1.0.0",
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
+  "files": [
+    "dist"
+  ],
   "type": "module",
   "bin": {
-    "yuva": "./dist/index.js"
+    "devlab": "./dist/index.js"
   },
   "scripts": {
+    "devlab": "node ./dist/index.js",
     "build": "vite build",
     "lint": "eslint src",
     "lint:fix": "eslint src --fix",

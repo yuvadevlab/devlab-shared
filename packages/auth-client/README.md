@@ -9,9 +9,17 @@
 
 ---
 
+## What's New in v1.2.0
+
+- **Edge Runtime Safe JWT Utilities**: Added lightweight, zero-dependency JWT inspection utilities (`decodeBase64`, `parseJwtClaims`, `isJwtExpired`). Runs identically in Next.js Edge Middleware, Node.js SSR, and client browsers without requiring native crypto modules or bloated external packages.
+- **Clock-Skew Buffer Protection**: `isJwtExpired(token, bufferSeconds)` includes a configurable 10-second safety window to eliminate token expiration race conditions during network requests.
+
+---
+
 ## Features
 
 - 🛡️ **Centralized Auth Provider (`<DevLabAuthProvider>`)**: Session bootstrap, silent background token refresh, and cross-tab synchronization.
+- ⚡ **Edge Runtime Safe JWT Utilities**: Preemptively inspect token lifetime and parse user claims in Edge Middleware before hitting downstream routes.
 - 🪝 **Type-Safe React Hooks**: `useDevLabAuth()` for session state and user identity, and `useAppStatus()` for real-time application availability.
 - 🎨 **Prebuilt Accessible UI Components**: Production-ready `<SignIn />`, `<ForgotPassword />`, `<ForgotPasswordSuccess />`, `<UserButton />`, and `<AuthCard />`.
 - 🚨 **Platform Kill-Switch Protection (`<AppUnavailableScreen />`)**: Real-time response to maintenance mode, emergency app shutdown, and suspension states.
@@ -24,11 +32,12 @@
 
 1. [Installation](#installation)
 2. [Quick Start](#quick-start)
-3. [Hooks Reference](#hooks-reference)
-4. [Prebuilt Components](#prebuilt-components)
-5. [Kill-Switch & Maintenance Mode](#kill-switch--maintenance-mode)
-6. [Styling & Design Tokens](#styling--design-tokens)
-7. [Author & Attribution](#author--attribution)
+3. [Edge JWT Utilities](#edge-jwt-utilities)
+4. [Hooks Reference](#hooks-reference)
+5. [Prebuilt Components](#prebuilt-components)
+6. [Kill-Switch & Maintenance Mode](#kill-switch--maintenance-mode)
+7. [Styling & Design Tokens](#styling--design-tokens)
+8. [Author & Attribution](#author--attribution)
 
 ---
 
@@ -68,6 +77,54 @@ export function AppRoot({ children }: { children: React.ReactNode }) {
     </DevLabAuthProvider>
   );
 }
+```
+
+---
+
+## Edge JWT Utilities
+
+`@yuva-devlab/auth-client` provides zero-dependency JWT inspection utilities compatible with Next.js Edge Middleware, Node.js SSR, and browser runtimes.
+
+### `parseJwtClaims(token)`
+
+Extracts and decodes claims without cryptographic overhead:
+
+```typescript
+import { parseJwtClaims } from "@yuva-devlab/auth-client";
+
+const claims = parseJwtClaims(accessToken);
+if (claims) {
+  console.log(`User ID: ${claims.sub}, Tenant: ${claims.tenant_id}`);
+}
+```
+
+### `isJwtExpired(token, bufferSeconds?)`
+
+Evaluates expiration timestamp against current Unix epoch with a default 10-second safety window:
+
+```typescript
+import { isJwtExpired } from "@yuva-devlab/auth-client";
+
+// In Next.js Edge Middleware
+export function middleware(request: NextRequest) {
+  const token = request.cookies.get("devlab_session")?.value;
+
+  if (isJwtExpired(token)) {
+    return NextResponse.redirect(new URL("/login", request.url));
+  }
+
+  return NextResponse.next();
+}
+```
+
+### `decodeBase64(input)`
+
+Safe UTF-8 base64 / base64url decoding across all browser and server runtimes without Node.js `Buffer` dependency:
+
+```typescript
+import { decodeBase64 } from "@yuva-devlab/auth-client";
+
+const jsonString = decodeBase64(base64Payload);
 ```
 
 ---
