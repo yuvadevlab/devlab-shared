@@ -1,5 +1,12 @@
 # @yuva-devlab/auth-client
 
+## 1.2.1
+
+### Patch Changes
+
+- d08b552: feat(cli): complete rewrite into developer operations tool with port inspection, environment doctor, service status, docker infra, and jwt token validation
+  docs(tokens,ui,auth-client): update documentation for responsive tokens, table row hover, and edge jwt validation
+
 ## 1.2.0
 
 ### Minor Changes
