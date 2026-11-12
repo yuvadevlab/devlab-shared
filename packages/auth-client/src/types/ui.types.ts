@@ -8,6 +8,26 @@ import type { ReactNode } from "react";
 import type { AuthUser } from "./auth-client.types";
 
 /**
+ * Enterprise legal compliance and copyright configuration for authentication views.
+ */
+export interface AuthLegalConfig {
+  /** Optional application name (e.g., "DevLab Portal", "FinAI", "KnowledgeAI") */
+  readonly appName?: string;
+  /** Optional semver or build version tag (e.g., "v1.0.0") */
+  readonly version?: string;
+  /** Copyright holder company or organization name (defaults to "Yuva Devlab") */
+  readonly companyName?: string;
+  /** Whether to render compliance navigation links (Privacy, Terms, Security) */
+  readonly showLinks?: boolean;
+  /** Custom Terms of Service URL */
+  readonly termsHref?: string;
+  /** Custom Privacy Policy URL */
+  readonly privacyHref?: string;
+  /** Custom Security URL */
+  readonly securityHref?: string;
+}
+
+/**
  * Common presentation, branding, and environment properties shared across all auth views.
  */
 export interface BaseAuthFormProps {
@@ -25,6 +45,12 @@ export interface BaseAuthFormProps {
   readonly icon?: ReactNode;
   /** Whether to render within a full-viewport vertically centered page shell */
   readonly fullPage?: boolean;
+  /** Optional legal compliance configuration for fullPage auth shells */
+  readonly legalConfig?: AuthLegalConfig;
+  /** Optional custom legal footer node override */
+  readonly legalFooter?: ReactNode;
+  /** Whether to display the legal footer when fullPage is true (defaults to true) */
+  readonly showLegalFooter?: boolean;
   /** Callback fired when authentication or request fails */
   readonly onError?: (error: Error) => void;
 }

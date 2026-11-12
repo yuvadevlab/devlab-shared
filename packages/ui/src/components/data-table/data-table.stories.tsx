@@ -156,3 +156,16 @@ export const Empty: Story = {
     </div>
   ),
 };
+
+export const Hoverable: Story = {
+  render: () => (
+    <div className="dl-story-w-full">
+      <DataTable
+        data={mockUsers.slice(0, 5)}
+        columns={columns}
+        hoverable
+        pagination={false}
+      />
+    </div>
+  ),
+};

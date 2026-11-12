@@ -83,6 +83,19 @@ export const ROOT_CHARTS = {
  */
 export const BASE_RESETS_CSS = `
 @layer dl-base {
+  /* Mobile touch & tap response */
+  html {
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+  }
+
+  /* iOS Safari Auto-Zoom Prevention: Inputs must be at least 16px on coarse pointer */
+  @media (pointer: coarse) {
+    input, select, textarea {
+      font-size: max(1rem, 16px);
+    }
+  }
+
   button,
   a,
   select,

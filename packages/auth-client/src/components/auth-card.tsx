@@ -6,6 +6,8 @@
 
 import React, { type ReactNode } from "react";
 import { AlertCircle } from "lucide-react";
+import type { AuthLegalConfig } from "@/types";
+import { AuthLegalFooter } from "./auth-legal-footer";
 import { AUTH_STYLES } from "./auth-styles";
 
 export interface AuthCardProps {
@@ -31,6 +33,12 @@ export interface AuthCardProps {
   readonly icon?: ReactNode;
   /** Whether to render within a full-viewport vertically centered page shell */
   readonly fullPage?: boolean;
+  /** Optional legal configuration for the full-page footer */
+  readonly legalConfig?: AuthLegalConfig;
+  /** Optional custom legal footer node override */
+  readonly legalFooter?: ReactNode;
+  /** Whether to display the legal footer when fullPage is true (defaults to true) */
+  readonly showLegalFooter?: boolean;
 }
 
 export const AuthCard: React.FC<AuthCardProps> = ({
@@ -45,6 +53,9 @@ export const AuthCard: React.FC<AuthCardProps> = ({
   logo,
   icon,
   fullPage = false,
+  legalConfig,
+  legalFooter,
+  showLegalFooter,
 }) => {
   const cardElement = (
     <div
@@ -61,23 +72,8 @@ export const AuthCard: React.FC<AuthCardProps> = ({
       </div>
 
       {errorMsg && (
-        <div
-          role="alert"
-          style={{
-            display: "flex",
-            alignItems: "center",
-            gap: "var(--space-2, 0.5rem)",
-            padding: "var(--space-3, 0.75rem)",
-            marginBottom: "var(--space-4, 1rem)",
-            backgroundColor: "rgba(239, 68, 68, 0.12)",
-            border: "1px solid rgba(239, 68, 68, 0.35)",
-            borderRadius:
-              "var(--radius-md, calc(var(--radius, 0.75rem) * 0.75))",
-            color: "var(--destructive, #fca5a5)",
-            fontSize: "var(--label-font-size, 0.8125rem)",
-          }}
-        >
-          <AlertCircle size={16} style={{ flexShrink: 0 }} />
+        <div role="alert" className="dl-auth-alert">
+          <AlertCircle size={16} className="dl-auth-alert-icon" />
           <span>{errorMsg}</span>
         </div>
       )}
@@ -88,6 +84,13 @@ export const AuthCard: React.FC<AuthCardProps> = ({
     </div>
   );
 
+  const shouldRenderLegal = fullPage && (showLegalFooter ?? true);
+  const legalElement = legalFooter ? (
+    legalFooter
+  ) : shouldRenderLegal ? (
+    <AuthLegalFooter {...legalConfig} />
+  ) : null;
+
   return (
     <>
       <style dangerouslySetInnerHTML={{ __html: AUTH_STYLES }} />
@@ -97,7 +100,10 @@ export const AuthCard: React.FC<AuthCardProps> = ({
           data-theme={theme || brand}
           className="dl-auth-page"
         >
-          {cardElement}
+          <div className="dl-auth-page-main">{cardElement}</div>
+          {legalElement && (
+            <div className="dl-auth-page-footer">{legalElement}</div>
+          )}
         </div>
       ) : (
         cardElement

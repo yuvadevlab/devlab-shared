@@ -19,65 +19,21 @@ export const ForgotPasswordSuccess: React.FC<ForgotPasswordSuccessProps> = ({
   devResetUrl,
 }) => {
   return (
-    <div style={{ textAlign: "center", padding: "var(--space-4, 1rem) 0" }}>
-      <div
-        style={{
-          width: "calc(var(--icon-xl, 1.5rem) * 2)",
-          height: "calc(var(--icon-xl, 1.5rem) * 2)",
-          borderRadius: "50%",
-          backgroundColor: "rgba(34, 197, 94, 0.15)",
-          color: "var(--success, #4ade80)",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          margin: "0 auto var(--space-4, 1rem) auto",
-        }}
-      >
+    <div className="dl-auth-success-view">
+      <div className="dl-auth-success-icon-badge">
         <CheckCircle2 size={24} />
       </div>
-      <p
-        style={{
-          fontSize: "var(--control-font-size, 0.875rem)",
-          color: "var(--foreground, #e4e4e7)",
-          margin: 0,
-          lineHeight: 1.5,
-        }}
-      >
+      <p className="dl-auth-success-text">
         If an account exists for <strong>{email}</strong>, you will receive an
         email shortly with instructions.
       </p>
 
       {devResetUrl && (
-        <div
-          style={{
-            marginTop: "var(--space-4, 1rem)",
-            padding: "var(--space-3, 0.75rem)",
-            borderRadius:
-              "var(--radius-md, calc(var(--radius, 0.75rem) * 0.75))",
-            backgroundColor: "rgba(255, 255, 255, 0.05)",
-            border: "1px solid var(--border, rgba(255, 255, 255, 0.1))",
-            textAlign: "left",
-          }}
-        >
-          <p
-            style={{
-              fontSize: "var(--label-font-size, 0.8125rem)",
-              color: "var(--primary, #93c5fd)",
-              fontWeight: 600,
-              margin: "0 0 var(--space-1-5, 0.375rem) 0",
-            }}
-          >
+        <div className="dl-auth-dev-callout">
+          <p className="dl-auth-dev-title">
             🛠 Dev mode — use this link to reset your password:
           </p>
-          <a
-            href={devResetUrl}
-            className="dl-auth-link"
-            style={{
-              fontSize: "var(--label-font-size, 0.8125rem)",
-              fontFamily: "monospace",
-              wordBreak: "break-all",
-            }}
-          >
+          <a href={devResetUrl} className="dl-auth-link dl-auth-dev-link">
             {devResetUrl}
           </a>
         </div>

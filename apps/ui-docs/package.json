@@ -3,9 +3,9 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "dev": "node --env-file-if-exists=.env.local --env-file-if-exists=.env node_modules/next/dist/bin/next dev",
+    "dev": "node --env-file-if-exists=.env.local --env-file-if-exists=.env node_modules/next/dist/bin/next dev -p 3030",
     "build": "rm -rf .next && next build",
-    "start": "node --env-file-if-exists=.env.local --env-file-if-exists=.env node_modules/next/dist/bin/next start",
+    "start": "node --env-file-if-exists=.env.local --env-file-if-exists=.env node_modules/next/dist/bin/next start -p 3030",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
