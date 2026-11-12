@@ -1,5 +1,12 @@
 # @yuva-devlab/sdk
 
+## 0.2.6
+
+### Patch Changes
+
+- Updated dependencies [e1b0d6d]
+  - @yuva-devlab/auth-server@1.0.3
+
 ## 0.2.5
 
 ### Patch Changes
