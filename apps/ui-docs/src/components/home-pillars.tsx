@@ -38,7 +38,7 @@ export function HomePillars() {
           <CardTitle className="dl-pillar-title">Multi-Brand & OKLCH</CardTitle>
           <CardDescription className="dl-pillar-desc">
             Switch seamlessly between OrchestrAI (Robotic Blue/Teal), FinAI
-            (Emerald Forest), DevLab Portal, DevLab Logs, and VitalAI with
+            (Emerald Forest), DevLab Portal, DevLab Logs, and KnowledgeAI with
             perceptual OKLCH color palettes and dark mode support.
           </CardDescription>
         </CardHeader>

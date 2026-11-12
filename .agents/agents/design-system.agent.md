@@ -22,7 +22,7 @@ The **Design System Specialist Agent** designs, implements, and maintains the mu
      - Control heights: `var(--control-height-sm)`, `var(--control-height-md)`, `var(--control-height-lg)`
      - Padding and gaps: `var(--space-1)` through `var(--space-12)`
      - Border radii: `var(--radius-sm)`, `var(--radius-md)`, `var(--radius-lg)`
-   - Support seamless density transitions across brands: FinAI (precision finance), Logs (compact telemetry), OrchestrAI, VitalAI, Portal, and KnowledgeAI.
+   - Support seamless density transitions across brands: FinAI (precision finance), Logs (compact telemetry), OrchestrAI, Portal, and KnowledgeAI.
 
 4. **Absolute Path Imports (`@/*`)**:
    - Enforce `@/*` path alias imports for all intra-package and intra-app file imports.

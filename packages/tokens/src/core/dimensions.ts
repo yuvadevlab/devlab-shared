@@ -38,3 +38,21 @@ export const BORDER_RADII = {
   "radius-3xl": "1.5rem",
   "radius-full": "9999px",
 } as const;
+
+/**
+ * Standard responsive breakpoints for layout media queries.
+ */
+export const BREAKPOINTS = {
+  "breakpoint-sm": "640px",
+  "breakpoint-md": "768px",
+  "breakpoint-lg": "1024px",
+  "breakpoint-xl": "1280px",
+  "breakpoint-2xl": "1536px",
+} as const;
+
+/**
+ * Mobile ergonomics and touch target accessibility dimensions (WCAG 2.5.5 / Apple HIG).
+ */
+export const TOUCH_TARGETS = {
+  "touch-target-min": "44px",
+} as const;

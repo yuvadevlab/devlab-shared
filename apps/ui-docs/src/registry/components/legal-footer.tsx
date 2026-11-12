@@ -126,15 +126,15 @@ export default function LegalFooterDocPage() {
           }}
         >
           <LegalFooter
-            appName="VitalAI Enterprise"
-            version="v2.1.0-prod"
+            appName="KnowledgeAI Enterprise"
+            version="v1.0.0-prod"
             variant="settings"
           />
         </div>
       ),
       codeSnippet: `<LegalFooter
-  appName="VitalAI Enterprise"
-  version="v2.1.0-prod"
+  appName="KnowledgeAI Enterprise"
+  version="v1.0.0-prod"
   variant="settings"
 />`,
     },

@@ -126,3 +126,53 @@ export const Default: Story = {
     </div>
   ),
 };
+
+export const Hoverable: Story = {
+  render: () => (
+    <div className="dl-story-w-xl">
+      <Table hoverable>
+        <TableCaption>
+          Hoverable Fleet Table — Rows illuminate with active brand theme color
+        </TableCaption>
+        <TableHeader>
+          <TableRow>
+            <TableHead className="dl-story-mono">Execution ID</TableHead>
+            <TableHead>Agent Name</TableHead>
+            <TableHead>Role</TableHead>
+            <TableHead className="dl-story-mono">Model Engine</TableHead>
+            <TableHead>Status</TableHead>
+            <TableHead className="dl-text-right">Actions</TableHead>
+          </TableRow>
+        </TableHeader>
+        <TableBody>
+          {executions.map((row) => (
+            <TableRow key={row.id}>
+              <TableCell className="dl-story-mono dl-whitespace-nowrap">
+                {row.id}
+              </TableCell>
+              <TableCell className="dl-whitespace-nowrap">
+                {row.agent}
+              </TableCell>
+              <TableCell className="dl-whitespace-nowrap">{row.role}</TableCell>
+              <TableCell className="dl-story-mono dl-whitespace-nowrap">
+                {row.model}
+              </TableCell>
+              <TableCell className="dl-whitespace-nowrap">
+                <StatusBadge status={row.status} />
+              </TableCell>
+              <TableCell className="dl-text-right dl-whitespace-nowrap">
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  className="dl-story-action-btn"
+                >
+                  View
+                </Button>
+              </TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
+    </div>
+  ),
+};

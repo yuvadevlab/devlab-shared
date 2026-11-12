@@ -4,7 +4,9 @@
  */
 
 import {
+  BASE_TYPOGRAPHY_SCALE,
   BORDER_RADII,
+  BREAKPOINTS,
   CONTROL_HEIGHTS,
   ICON_SIZES,
   ROOT_CHARTS,
@@ -12,6 +14,7 @@ import {
   ROOT_LIGHT_PALETTE,
   SEMANTIC_SPACING,
   SPACING_GRID,
+  TOUCH_TARGETS,
   BASE_RESETS_CSS,
   UTILITIES_CSS,
 } from "../src/core";
@@ -21,6 +24,12 @@ import {
  */
 export function generateRootCss(): string {
   const radiiLines = Object.entries(BORDER_RADII)
+    .map(([k, v]) => `    --${k}: ${v};`)
+    .join("\n");
+  const breakpointLines = Object.entries(BREAKPOINTS)
+    .map(([k, v]) => `    --${k}: ${v};`)
+    .join("\n");
+  const touchLines = Object.entries(TOUCH_TARGETS)
     .map(([k, v]) => `    --${k}: ${v};`)
     .join("\n");
   const heightLines = Object.entries(CONTROL_HEIGHTS)
@@ -34,6 +43,9 @@ export function generateRootCss(): string {
     .join("\n");
   const semanticSpaceLines = Object.entries(SEMANTIC_SPACING)
     .map(([k, v]) => `    --${k}: ${v};`)
+    .join("\n");
+  const typographyVars = Object.entries(BASE_TYPOGRAPHY_SCALE)
+    .map(([k, v]) => `    --text-${k}: ${v.fontSize};`)
     .join("\n");
   const lightColors = Object.entries(ROOT_LIGHT_PALETTE)
     .map(([k, v]) => `    --${k}: ${v};`)
@@ -67,6 +79,24 @@ ${spaceLines}
 
     /* Semantic Padding & Gap Defaults */
 ${semanticSpaceLines}
+
+    /* Responsive Breakpoints */
+${breakpointLines}
+
+    /* Mobile Touch Targets */
+${touchLines}
+
+    /* Fluid Typography Scale */
+${typographyVars}
+
+    /* Mobile Safe Area Insets */
+    --safe-top: env(safe-area-inset-top, 0px);
+    --safe-bottom: env(safe-area-inset-bottom, 0px);
+    --safe-left: env(safe-area-inset-left, 0px);
+    --safe-right: env(safe-area-inset-right, 0px);
+
+    /* Table Theme Row Hover */
+    --table-row-hover: color-mix(in oklch, var(--primary) 8%, transparent);
 
     /* Surfaces & Baseline Colors */
 ${lightColors}
@@ -116,6 +146,9 @@ ${darkColors}
     --sidebar-accent-foreground: oklch(0.97 0.003 260);
     --sidebar-border: oklch(1 0 0 / 10%);
     --sidebar-ring: oklch(0.75 0.05 260);
+
+    /* Table Theme Row Hover */
+    --table-row-hover: color-mix(in oklch, var(--primary) 12%, transparent);
 
 ${chartLines}
   }

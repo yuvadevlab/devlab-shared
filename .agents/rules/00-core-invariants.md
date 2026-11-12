@@ -41,7 +41,7 @@ These invariants are mandatory and non-negotiable across all packages and applic
   - Control heights: `var(--control-height-sm)`, `var(--control-height-md)`, `var(--control-height-lg)`
   - Spacing: `var(--space-1)` through `var(--space-12)`
   - Radii: `var(--radius-sm)`, `var(--radius-md)`, `var(--radius-lg)`, `var(--radius-full)`
-- Seamlessly adapts across densities: compact telemetry (Logs), precision financial layouts (FinAI), and standard consumer/enterprise (Portal, VitalAI, KnowledgeAI).
+- Seamlessly adapts across densities: compact telemetry (Logs), precision financial layouts (FinAI), and standard consumer/enterprise (Portal, KnowledgeAI).
 
 ## 6. Strict TypeScript, Dual ESM/CJS Builds & Public Artifacts
 

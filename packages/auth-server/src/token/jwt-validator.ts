@@ -42,13 +42,9 @@ export class JwksValidator {
   public constructor(config: Partial<JwksConfig> = {}) {
     this.jwksUri =
       config.jwksUri ??
-      (config.issuer ? `${config.issuer}/.well-known/jwks.json` : undefined) ??
-      (typeof process !== "undefined"
-        ? process.env?.DEVLAB_PORTAL_API_URL
-          ? `${process.env.DEVLAB_PORTAL_API_URL}/.well-known/jwks.json`
-          : undefined
-        : undefined) ??
-      "";
+      (config.issuer
+        ? `${config.issuer.replace(/\/+$/, "")}/.well-known/jwks.json`
+        : "");
     this.audience = config.audience;
     this.issuer = config.issuer;
     this.cacheTtlMs = config.cacheTtlMs ?? DEFAULT_JWKS_CACHE_TTL_MS;
@@ -157,6 +153,17 @@ export class JwksValidator {
       });
       throw new UnauthorizedError("Invalid JWK public key format");
     }
+  }
+
+  /**
+   * Resolves the RSA public key formatted as an SPKI PEM string.
+   *
+   * @param kid - Optional key ID matching the JWT protected header
+   * @returns RSA public key SPKI PEM string
+   */
+  public async getPublicKeyPem(kid?: string): Promise<string> {
+    const keyObject = await this.resolveKeyObject(kid);
+    return keyObject.export({ type: "spki", format: "pem" }).toString();
   }
 
   public async verifyToken(token: string): Promise<JwtPayload> {

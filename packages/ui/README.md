@@ -21,7 +21,7 @@
 
 ## Features
 
-- 🎨 **Multi-Brand Theme Architecture** - Seamless brand isolation across OrchestrAI, VitalAI, FinAI, Logs, and Portal.
+- 🎨 **Multi-Brand Theme Architecture** - Seamless brand isolation across OrchestrAI, FinAI, Logs, Portal, and KnowledgeAI.
 - 📐 **Dynamic Theme-Driven Sizing** - Automatic adaptation across brand densities (compact telemetry logs, precision finance tables, athletic kinetic scaling).
 - ⚡ **Pure Platform CSS** - Scoped W3C Cascade Layers (`@layer dl-components, dl-layout, dl-utilities`) and semantic design tokens.
 - 🔤 **Typography Primitives** - First-class `<Heading>` and `<Text>` primitives with semantic decoupling.
@@ -74,7 +74,7 @@ In your application's root stylesheet (e.g. `globals.css` or `app.css`), establi
 @import "@yuva-devlab/ui/styles.css";
 ```
 
-> **Tip:** You can import any theme preset from `@yuva-devlab/tokens/themes/*` (`finai`, `vitalai`, `logs`, `orchestrai`, `portal`).
+> **Tip:** You can import any theme preset from `@yuva-devlab/tokens/themes/*` (`finai`, `logs`, `orchestrai`, `portal`).
 
 ### 2. Render Components & Typography Primitives
 
@@ -172,7 +172,6 @@ DevLab UI supports multi-brand switching at runtime using `data-brand` and `data
 | Brand Key    | Theme Name        | Primary Aesthetic         | Token Import                                |
 | :----------- | :---------------- | :------------------------ | :------------------------------------------ |
 | `finai`      | **FinAI**         | High-Finance Emerald      | `@yuva-devlab/tokens/themes/finai.css`      |
-| `vitalai`    | **VitalAI**       | Athletic Volt Kinetic     | `@yuva-devlab/tokens/themes/vitalai.css`    |
 | `logs`       | **DevLab Logs**   | High-Density Matrix Amber | `@yuva-devlab/tokens/themes/logs.css`       |
 | `orchestrai` | **OrchestrAI**    | Midnight Neon Violet      | `@yuva-devlab/tokens/themes/orchestrai.css` |
 | `portal`     | **DevLab Portal** | Enterprise Modern Indigo  | `@yuva-devlab/tokens/themes/portal.css`     |

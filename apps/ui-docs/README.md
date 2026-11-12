@@ -14,7 +14,7 @@
 - ⚡ **Next.js 15 App Router & React 19**: Server-rendered documentation pages with zero client-side layout shift.
 - 🎨 **Pure W3C Cascade Layers & Tokens**: Powered by `@yuva-devlab/tokens` and `@yuva-devlab/ui` without any third-party utility dependencies.
 - 🎛️ **Interactive Variant Playground**: Dynamically toggle component sizes, variants, density profiles, and states in real time.
-- 🌈 **Multi-Brand Theme Switcher**: Preview components live across DevLab brand themes (FinAI, OrchestrAI, Logs, VitalAI, Guard, IncidentAI).
+- 🌈 **Multi-Brand Theme Switcher**: Preview components live across DevLab brand themes (FinAI, OrchestrAI, Logs, Guard, IncidentAI).
 - 💻 **Shiki Syntax Highlighting**: Accurate code snippets with one-click copy and TypeScript definitions.
 - 📱 **Multi-Device Responsive Previews**: Inspect components across desktop, tablet, and mobile viewports.
 

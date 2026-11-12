@@ -29,6 +29,9 @@ export const SignIn: React.FC<SignInProps> = ({
   logo,
   icon,
   fullPage,
+  legalConfig,
+  legalFooter,
+  showLegalFooter,
 }) => {
   const auth = useContext(DevLabAuthContext);
   const [email, setEmail] = useState("");
@@ -85,12 +88,7 @@ export const SignIn: React.FC<SignInProps> = ({
   };
 
   const footer = (
-    <span
-      style={{
-        color: "var(--muted-foreground, #71717a)",
-        fontSize: "var(--label-font-size, 0.8125rem)",
-      }}
-    >
+    <span className="dl-auth-footer-text">
       Need access? Contact your workspace administrator.
     </span>
   );
@@ -107,6 +105,9 @@ export const SignIn: React.FC<SignInProps> = ({
       logo={logo}
       icon={icon}
       fullPage={fullPage}
+      legalConfig={legalConfig}
+      legalFooter={legalFooter}
+      showLegalFooter={showLegalFooter}
     >
       <form onSubmit={handleSubmit} className="dl-auth-form">
         <AuthInput
@@ -121,20 +122,10 @@ export const SignIn: React.FC<SignInProps> = ({
           icon={<Mail />}
         />
 
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            gap: "var(--space-1, 0.25rem)",
-          }}
-        >
+        <div className="dl-auth-password-wrapper">
           {effectiveForgotUrl && (
-            <div style={{ display: "flex", justifyContent: "flex-end" }}>
-              <a
-                href={effectiveForgotUrl}
-                className="dl-auth-link"
-                style={{ fontSize: "var(--label-font-size, 0.8125rem)" }}
-              >
+            <div className="dl-auth-forgot-wrapper">
+              <a href={effectiveForgotUrl} className="dl-auth-link">
                 Forgot password?
               </a>
             </div>

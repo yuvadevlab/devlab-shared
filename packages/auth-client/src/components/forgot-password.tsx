@@ -89,15 +89,7 @@ export const ForgotPassword: React.FC<ForgotPasswordProps> = ({
   };
 
   const footer = signInUrl ? (
-    <a
-      href={signInUrl}
-      className="dl-auth-link"
-      style={{
-        display: "inline-flex",
-        alignItems: "center",
-        gap: "var(--space-1-5, 0.375rem)",
-      }}
-    >
+    <a href={signInUrl} className="dl-auth-link dl-auth-link--back">
       <ArrowLeft size={14} />
       Back to sign in
     </a>

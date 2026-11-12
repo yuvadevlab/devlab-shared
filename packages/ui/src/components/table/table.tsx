@@ -1,7 +1,14 @@
 import * as React from "react";
 import { cn } from "@/lib/utils";
 
-export type TableProps = React.HTMLAttributes<HTMLTableElement>;
+export interface TableProps extends React.HTMLAttributes<HTMLTableElement> {
+  /**
+   * Whether to highlight rows on hover using the active theme color.
+   * When enabled, applies `.dl-table--hoverable`.
+   * @default false
+   */
+  readonly hoverable?: boolean;
+}
 
 /**
  * Responsive table container with pure scoped CSS styling.
@@ -9,7 +16,7 @@ export type TableProps = React.HTMLAttributes<HTMLTableElement>;
  *
  * @example
  * ```tsx
- * <Table>
+ * <Table hoverable>
  *   <TableHeader>
  *     <TableRow>
  *       <TableHead>Invoice</TableHead>
@@ -28,9 +35,17 @@ export type TableProps = React.HTMLAttributes<HTMLTableElement>;
  * ```
  */
 const Table = React.forwardRef<HTMLTableElement, TableProps>(
-  ({ className, ...props }, ref) => (
+  ({ className, hoverable = false, ...props }, ref) => (
     <div className="dl-table-wrapper">
-      <table ref={ref} className={cn("dl-table", className)} {...props} />
+      <table
+        ref={ref}
+        className={cn(
+          "dl-table",
+          hoverable && "dl-table--hoverable",
+          className,
+        )}
+        {...props}
+      />
     </div>
   ),
 );
@@ -72,14 +87,27 @@ const TableFooter = React.forwardRef<HTMLTableSectionElement, TableFooterProps>(
 );
 TableFooter.displayName = "TableFooter";
 
-export type TableRowProps = React.HTMLAttributes<HTMLTableRowElement>;
+export interface TableRowProps extends React.HTMLAttributes<HTMLTableRowElement> {
+  /**
+   * Whether to highlight this row on hover using the active brand theme color.
+   */
+  readonly hoverable?: boolean;
+}
 
 /**
  * Interactive row within a `Table` (`<tr>`).
  */
 const TableRow = React.forwardRef<HTMLTableRowElement, TableRowProps>(
-  ({ className, ...props }, ref) => (
-    <tr ref={ref} className={cn("dl-table__row", className)} {...props} />
+  ({ className, hoverable, ...props }, ref) => (
+    <tr
+      ref={ref}
+      className={cn(
+        "dl-table__row",
+        hoverable && "dl-table__row--hoverable",
+        className,
+      )}
+      {...props}
+    />
   ),
 );
 TableRow.displayName = "TableRow";
