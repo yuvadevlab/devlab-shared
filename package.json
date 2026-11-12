@@ -3,6 +3,7 @@
   "private": true,
   "type": "module",
   "scripts": {
+    "devlab": "pnpm --filter @yuva-devlab/cli devlab",
     "build": "turbo run build --filter=!//",
     "build:packages": "turbo run build --filter=./packages/**",
     "dev": "turbo run dev --filter=!//",

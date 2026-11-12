@@ -9,6 +9,13 @@
 
 ---
 
+## What's New in v2.1.0
+
+- **Responsive Viewport Tokens & Mobile Fluid Scales**: Integrated native CSS `clamp()` fluid intrinsic typography across all headings (`display`, `h1`-`h6`), body copy, captions, and telemetry metric primitives. Font sizes automatically scale smoothly between mobile viewports (`320px` - `768px`) and desktop screens (`1024px` - `1920px`) with zero layout shift or manual breakpoint overrides.
+- **Enhanced Mobile Density & Spacing Optimization**: Fluid spacing and container metrics ensure compact presentation on mobile touchscreens without compromising desktop readability.
+
+---
+
 ## What's New in v2.0.0
 
 - **Pure TypeScript Single-Source-of-Truth**: All token schemas, core dimensions, spacing scales, and brand themes are authored in pure TypeScript. Zero static CSS is committed to source control; all W3C Cascade Layer stylesheets are compiled dynamically on build.
@@ -177,21 +184,21 @@ When `finai` imports `@yuva-devlab/tokens/themes/finai.css`:
 
 `@yuva-devlab/tokens` includes a standardized typographic scale compiled into `@layer dl-components`:
 
-| Class Selector | Size               | Line Height | Weight | Description                           |
-| :------------- | :----------------- | :---------- | :----- | :------------------------------------ |
-| `.dl-display`  | `3rem` (48px)      | `1.15`      | `800`  | High-impact hero and display titles   |
-| `.dl-h1`       | `2.25rem` (36px)   | `1.2`       | `700`  | Primary page heading                  |
-| `.dl-h2`       | `1.75rem` (28px)   | `1.25`      | `600`  | Section heading                       |
-| `.dl-h3`       | `1.375rem` (22px)  | `1.3`       | `600`  | Card and panel heading                |
-| `.dl-h4`       | `1.125rem` (18px)  | `1.35`      | `600`  | Sub-section header                    |
-| `.dl-h5`       | `1rem` (16px)      | `1.4`       | `500`  | Component-level header                |
-| `.dl-h6`       | `0.875rem` (14px)  | `1.45`      | `500`  | Small header and label                |
-| `.dl-body-lg`  | `1.125rem` (18px)  | `1.55`      | `400`  | Lead paragraph and article body       |
-| `.dl-body`     | `0.9375rem` (15px) | `1.5`       | `400`  | Standard UI body text                 |
-| `.dl-body-sm`  | `0.8125rem` (13px) | `1.45`      | `400`  | Secondary description and helper text |
-| `.dl-caption`  | `0.75rem` (12px)   | `1.4`       | `500`  | Microcopy, timestamps, and captions   |
-| `.dl-code`     | `0.8125rem` (13px) | `1.45`      | `400`  | Monospace inline code                 |
-| `.dl-metric`   | `2rem` (32px)      | `1.2`       | `700`  | Tabular numeric telemetry & KPIs      |
+| Class Selector | Fluid Size Formula & Range (`clamp`)           | Desktop Equiv | Mobile Equiv | Line Height | Weight | Description                           |
+| :------------- | :--------------------------------------------- | :------------ | :----------- | :---------- | :----- | :------------------------------------ |
+| `.dl-display`  | `clamp(2rem, 1.6rem + 1.8vw, 3rem)`            | `48px`        | `32px`       | `1.15`      | `800`  | High-impact hero and display titles   |
+| `.dl-h1`       | `clamp(1.625rem, 1.35rem + 1.2vw, 2.25rem)`    | `36px`        | `26px`       | `1.2`       | `700`  | Primary page heading                  |
+| `.dl-h2`       | `clamp(1.375rem, 1.15rem + 0.9vw, 1.75rem)`    | `28px`        | `22px`       | `1.25`      | `600`  | Section heading                       |
+| `.dl-h3`       | `clamp(1.125rem, 1rem + 0.5vw, 1.375rem)`      | `22px`        | `18px`       | `1.3`       | `600`  | Card and panel heading                |
+| `.dl-h4`       | `clamp(1rem, 0.92rem + 0.35vw, 1.125rem)`      | `18px`        | `16px`       | `1.35`      | `600`  | Sub-section header                    |
+| `.dl-h5`       | `clamp(0.9375rem, 0.88rem + 0.25vw, 1rem)`     | `16px`        | `15px`       | `1.4`       | `500`  | Component-level header                |
+| `.dl-h6`       | `clamp(0.8125rem, 0.77rem + 0.2vw, 0.875rem)`  | `14px`        | `13px`       | `1.45`      | `500`  | Small header and label                |
+| `.dl-body-lg`  | `clamp(1rem, 0.92rem + 0.35vw, 1.125rem)`      | `18px`        | `16px`       | `1.55`      | `400`  | Lead paragraph and article body       |
+| `.dl-body`     | `clamp(0.875rem, 0.85rem + 0.12vw, 0.9375rem)` | `15px`        | `14px`       | `1.5`       | `400`  | Standard UI body text                 |
+| `.dl-body-sm`  | `clamp(0.75rem, 0.72rem + 0.1vw, 0.8125rem)`   | `13px`        | `12px`       | `1.45`      | `400`  | Secondary description and helper text |
+| `.dl-caption`  | `clamp(0.6875rem, 0.65rem + 0.08vw, 0.75rem)`  | `12px`        | `11px`       | `1.4`       | `500`  | Microcopy, timestamps, and captions   |
+| `.dl-code`     | `clamp(0.75rem, 0.72rem + 0.1vw, 0.8125rem)`   | `13px`        | `12px`       | `1.45`      | `400`  | Monospace inline code                 |
+| `.dl-metric`   | `clamp(1.5rem, 1.25rem + 1vw, 2rem)`           | `32px`        | `24px`       | `1.2`       | `700`  | Tabular numeric telemetry & KPIs      |
 
 ### Surface & Background Utilities
 

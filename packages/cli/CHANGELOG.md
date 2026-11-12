@@ -1,14 +1,27 @@
 # @yuva-devlab/cli
 
+## 1.0.0
+
+### Major Changes
+
+- Complete rewrite and modernization of `@yuva-devlab/cli` into an enterprise developer operations tool for the DevLab ecosystem.
+- Removed legacy component scaffolding templates and generators.
+- Added comprehensive operational command suite:
+  - `devlab ports`: Real-time port taxonomy matrix and active TCP socket probe.
+  - `devlab doctor`: Environment prerequisites and git attribution diagnostic checks.
+  - `devlab status`: Real-time ecosystem service health and HTTP latency prober.
+  - `devlab infra <up|down|status|logs>`: Container infrastructure lifecycle management.
+  - `devlab token <inspect|jwks>`: JWT token inspector and OIDC JWKS endpoint validator.
+- Modular architecture adhering to strict sub-250 line limit and pure TypeScript standards.
+
 ## 0.3.0
 
 ### Minor Changes
 
-- b622a41: Migrate to Tailwind CSS 4 and remove legacy Vanilla Extract:
-
-  - `@yuva-devlab/ui`: Rebuilt component suite using Radix UI primitives, class-variance-authority (CVA), and Tailwind CSS 4 utilities compiled with tsup.
-  - `@yuva-devlab/tokens`: Refactored into a pure CSS package providing Tailwind CSS 4 `@theme inline` preset and OKLCH application themes (FinAI, OrchestrAI).
-  - `@yuva-devlab/cli`: Modernized component scaffolding templates to generate Tailwind + CVA components.
+- b622a41: Architectural modernization of UI and tokens suite:
+  - `@yuva-devlab/ui`: Rebuilt component suite using Radix UI primitives and compiled with tsup.
+  - `@yuva-devlab/tokens`: Refactored into a pure design token package providing OKLCH application themes (FinAI, OrchestrAI).
+  - `@yuva-devlab/cli`: Modernized component scaffolding templates.
   - Removed deprecated `@yuva-devlab/primitives` and `@yuva-devlab/colors` packages.
 
 ## 0.2.1

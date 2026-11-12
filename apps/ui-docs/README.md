@@ -42,7 +42,7 @@
 From the root of `devlab-shared` or the `apps/ui-docs` directory:
 
 ```bash
-# Start documentation portal on http://localhost:3001
+# Start documentation portal on http://localhost:3030
 pnpm --filter @yuva-devlab/ui-docs dev
 ```
 

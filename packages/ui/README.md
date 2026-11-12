@@ -10,6 +10,15 @@
 
 ---
 
+## What's New in v3.0.0
+
+- **Theme-Aware Table Row Hover Highlighting**: Added `enableRowHoverHighlight` prop to `<Table>`, `<TableRow>`, and `<DataTable>`. When enabled, rows dynamically reflect the host application's active brand theme accent color (`--primary` subtle tint) on hover across FinAI, OrchestrAI, Logs, Portal, and VitalAI.
+- **Polymorphic `<LegalFooter />` Component**: Added encapsulated legal footer supporting 3 layout variants (`login`, `sidebar`, `settings`), responsive copyright text, and configurable legal destination links.
+- **Mobile Responsive Layout Optimizations**: Integrated horizontal scroll containers (`.dl-table-container`) and mobile touch-friendly table row actions.
+- **Upgraded Design Tokens Peer**: Upgraded peer dependency to `@yuva-devlab/tokens@^2.1.0` with native fluid `clamp()` typography.
+
+---
+
 ## What's New in v2.0.0
 
 - **Pure Platform CSS Architecture**: Completely authored in pure platform CSS without third-party utility runtime dependencies. Component styling is strictly governed by W3C Cascade Layers (`@layer dl-base, dl-tokens, dl-components, dl-utilities`), eliminating CSS specificity conflicts and removing build-step plugin overhead.
@@ -196,7 +205,7 @@ DevLab UI supports multi-brand switching at runtime using `data-brand` and `data
 
 ### General & Display
 
-- **Button**, **CopyButton**, **Card**, **MetricCard**, **SecretRevealCard**, **Badge**, **StatusBadge**, **StatusChip**, **Skeleton**, **LoadingState**, **EmptyState**
+- **Button**, **CopyButton**, **Card**, **MetricCard**, **SecretRevealCard**, **Badge**, **StatusBadge**, **StatusChip**, **Skeleton**, **LoadingState**, **EmptyState**, **LegalFooter**
 
 ### Form & Data Entry
 
@@ -212,7 +221,7 @@ DevLab UI supports multi-brand switching at runtime using `data-brand` and `data
 
 ### Feedback & Display
 
-- **Alert**, **Progress**, **Toaster** (Sonner integration), **Avatar**, **Table**, **Accordion**, **Collapsible**, **Carousel**, **Chart**, **Command**
+- **Alert**, **Progress**, **Toaster** (Sonner integration), **Avatar**, **Table**, **DataTable**, **Accordion**, **Collapsible**, **Carousel**, **Chart**, **Command**
 
 ---
 

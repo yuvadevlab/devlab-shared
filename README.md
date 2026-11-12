@@ -52,13 +52,13 @@
 
 ### 🎨 UI & Applications
 
-| Package / App                   | Description                                                                                 | Documentation                         |
-| :------------------------------ | :------------------------------------------------------------------------------------------ | :------------------------------------ |
-| **`@yuva-devlab/ui`**           | Accessible, pure CSS React component & layout library powered by Radix UI & OKLCH tokens.   | [README](packages/ui/README.md)       |
-| **`@yuva-devlab/cli`**          | Developer CLI for scaffolding components and design system primitives.                      | [README](packages/cli/README.md)      |
-| **`@yuva-devlab/ui-docs`**      | Next.js 15 documentation portal with interactive component playground and theme switcher.   | [README](apps/ui-docs/README.md)      |
-| **`@yuva-devlab/ui-storybook`** | Storybook 8 + Vite isolated component development and visual accessibility workbench.       | [README](apps/ui-storybook/README.md) |
-| **`@yuva-devlab/config`**       | Shared ESLint flat configurations, Prettier settings, and strict TypeScript configurations. | [README](packages/config/README.md)   |
+| Package / App                   | Description                                                                                                                 | Documentation                         |
+| :------------------------------ | :-------------------------------------------------------------------------------------------------------------------------- | :------------------------------------ |
+| **`@yuva-devlab/ui`**           | Accessible, pure CSS React component & layout library powered by Radix UI & OKLCH tokens.                                   | [README](packages/ui/README.md)       |
+| **`@yuva-devlab/cli`**          | Developer operations CLI: port management, environment diagnostics, service status, Docker infra, and JWT token inspection. | [README](packages/cli/README.md)      |
+| **`@yuva-devlab/ui-docs`**      | Next.js 15 documentation portal with interactive component playground and theme switcher.                                   | [README](apps/ui-docs/README.md)      |
+| **`@yuva-devlab/ui-storybook`** | Storybook 8 + Vite isolated component development and visual accessibility workbench.                                       | [README](apps/ui-storybook/README.md) |
+| **`@yuva-devlab/config`**       | Shared ESLint flat configurations, Prettier settings, and strict TypeScript configurations.                                 | [README](packages/config/README.md)   |
 
 ---
 
