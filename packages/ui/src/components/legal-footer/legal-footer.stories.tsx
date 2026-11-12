@@ -85,7 +85,7 @@ export const SidebarVariant: Story = {
 export const SettingsVariant: Story = {
   args: {
     variant: "settings",
-    appName: "VitalAI Core",
+    appName: "KnowledgeAI Core",
     version: "v2.0.4",
   },
   render: (args) => (

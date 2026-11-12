@@ -2,7 +2,7 @@ import * as React from "react";
 import { cn } from "@/lib/utils";
 
 export interface LegalFooterProps extends React.HTMLAttributes<HTMLElement> {
-  /** Optional application name (e.g., "FinAI", "DevLab Portal", "OrchestrAI", "VitalAI", "DevLab Logs") */
+  /** Optional application name (e.g., "FinAI", "DevLab Portal", "OrchestrAI", "KnowledgeAI", "DevLab Logs") */
   readonly appName?: string;
   /** Optional semver or build tag (e.g., "v1.0.0") */
   readonly version?: string;
@@ -50,9 +50,7 @@ export const LegalFooter = React.forwardRef<HTMLElement, LegalFooterProps>(
           {...props}
         >
           <span>
-            {appName
-              ? `${appName} ${version ?? ""}`.trim()
-              : (version ?? "v1.0.0")}
+            {appName ? `${appName} ${version ?? ""}`.trim() : (version ?? "")}
           </span>
           <span>
             © {currentYear} {companyName}

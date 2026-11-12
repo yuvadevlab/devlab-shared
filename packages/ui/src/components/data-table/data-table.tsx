@@ -32,6 +32,7 @@ export function DataTable<T extends Record<string, unknown>>({
   loading = false,
   emptyState,
   onRowClick,
+  hoverable = false,
   className,
 }: DataTableProps<T>) {
   const [internalPage, setInternalPage] = React.useState(1);
@@ -116,7 +117,7 @@ export function DataTable<T extends Record<string, unknown>>({
   return (
     <div className={cn("dl-data-table-container", className)}>
       <div className="dl-data-table-wrapper">
-        <Table>
+        <Table hoverable={hoverable || Boolean(onRowClick)}>
           <TableHeader>
             <TableRow>
               {columns.map((col) => {

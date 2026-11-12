@@ -13,7 +13,7 @@
 ## Features
 
 - ⚡ **Vite-Powered Instant HMR**: Sub-second hot module replacement for ultra-fast component development.
-- 🎨 **Multi-Brand Theme Toolbar**: Switch between FinAI, OrchestrAI, Logs, VitalAI, Guard, and IncidentAI themes with one click.
+- 🎨 **Multi-Brand Theme Toolbar**: Switch between FinAI, OrchestrAI, Logs, Guard, and IncidentAI themes with one click.
 - 📐 **Density Profile Matrix**: Toggle between `compact`, `regular`, and `spacious` density profiles dynamically.
 - ♿ **Automated Accessibility Testing**: Real-time a11y audit powered by `@storybook/addon-a11y` testing contrast, ARIA tags, and keyboard focus traps.
 - 📦 **Zero-Config Component Import**: Automatically discovers and hot-reloads `*.stories.tsx` files across `packages/ui`.

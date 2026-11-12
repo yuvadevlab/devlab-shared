@@ -54,6 +54,8 @@ export interface DataTableProps<T> {
   emptyState?: React.ReactNode;
   /** Callback fired when clicking a table row */
   onRowClick?: (row: T) => void;
+  /** Whether to highlight table rows on hover using the active brand theme color. Defaults to false (or true if onRowClick provided) */
+  hoverable?: boolean;
   /** Additional CSS class names */
   className?: string;
 }

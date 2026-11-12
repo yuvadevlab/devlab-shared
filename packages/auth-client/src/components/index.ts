@@ -11,4 +11,5 @@ export * from "./auth-input";
 export * from "./sign-in";
 export * from "./forgot-password";
 export * from "./forgot-password-success";
+export * from "./auth-legal-footer";
 export * from "./auth-styles";

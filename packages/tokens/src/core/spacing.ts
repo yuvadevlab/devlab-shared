@@ -22,13 +22,14 @@ export const SPACING_GRID = {
 } as const;
 
 /**
- * Semantic padding and gap defaults consuming the spacing grid.
+ * Semantic padding and gap defaults consuming the spacing grid with fluid mobile scaling.
  */
 export const SEMANTIC_SPACING = {
-  "card-padding": "var(--space-4)",
-  "dialog-padding": "var(--space-5)",
+  "page-gutter": "clamp(1rem, 3.5vw, 2.5rem)",
+  "card-padding": "clamp(0.875rem, 2vw, 1.5rem)",
+  "dialog-padding": "clamp(1rem, 2.5vw, 1.5rem)",
   "form-field-gap": "var(--space-3)",
-  "section-gap": "var(--space-5)",
-  "table-row-padding-x": "var(--space-4)",
-  "table-row-padding-y": "var(--space-3)",
+  "section-gap": "clamp(1.25rem, 2.5vw, 2.5rem)",
+  "table-row-padding-x": "clamp(0.75rem, 1.5vw, 1rem)",
+  "table-row-padding-y": "clamp(0.5rem, 1vw, 0.75rem)",
 } as const;
