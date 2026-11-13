@@ -1,28 +1,37 @@
+/* ── Trigger ─────────────────────────────────────────────── */
 .dl-multi-select-trigger {
   display: flex;
   width: 100%;
-  min-height: var(--control-height-md, 2.25rem);
+  /* min-height allows chips to wrap, but stays ≥ input height */
+  min-height: var(--input-height, var(--input-height-md, 2.125rem));
   height: auto;
   align-items: center;
   justify-content: space-between;
   border-radius: var(--radius-md, 0.375rem);
   border: 1px solid var(--input, var(--border));
-  background-color: var(--background);
-  padding: 0.25rem 0.75rem;
-  font-size: 0.875rem;
+  background-color: transparent;
+  padding: 0.25rem var(--input-px, 0.625rem);
+  font-size: var(--input-font-size, var(--text-body-sm, 0.8125rem));
   line-height: 1.25rem;
   color: var(--foreground);
   cursor: pointer;
+  gap: 0.5rem;
+  box-shadow: 0 1px 2px rgb(0 0 0 / 0.05);
   transition:
     border-color 0.15s ease,
     box-shadow 0.15s ease;
-  gap: 0.5rem;
 }
 
-.dl-multi-select-trigger:focus-visible {
+.dl-multi-select-trigger:hover:not(.dl-multi-select-trigger--disabled) {
+  background-color: color-mix(in oklch, var(--secondary) 40%, transparent);
+}
+
+.dl-multi-select-trigger:focus,
+.dl-multi-select-trigger:focus-visible,
+.dl-multi-select-trigger[data-state="open"] {
   outline: none;
   border-color: var(--ring);
-  box-shadow: 0 0 0 1px var(--ring);
+  box-shadow: 0 0 0 2px color-mix(in oklch, var(--ring) 25%, transparent);
 }
 
 .dl-multi-select-trigger--disabled {
@@ -31,6 +40,7 @@
   background-color: var(--muted);
 }
 
+/* ── Tags area ───────────────────────────────────────────── */
 .dl-multi-select-tags {
   display: flex;
   flex-wrap: wrap;
@@ -45,6 +55,7 @@
   user-select: none;
 }
 
+/* ── Chip ────────────────────────────────────────────────── */
 .dl-multi-select-chip {
   display: inline-flex;
   align-items: center;
@@ -53,7 +64,7 @@
   color: var(--secondary-foreground);
   border-radius: var(--radius-sm, 0.25rem);
   padding: 0.125rem 0.375rem;
-  font-size: 0.75rem;
+  font-size: var(--multi-select-chip-font-size, 0.6875rem);
   font-weight: 500;
   line-height: 1;
   max-width: 100%;
@@ -93,6 +104,7 @@
   height: 0.75rem;
 }
 
+/* ── Dropdown content ────────────────────────────────────── */
 .dl-multi-select-content {
   width: var(--radix-popover-trigger-width);
   min-width: 14rem;
@@ -105,6 +117,7 @@
   z-index: 50;
 }
 
+/* ── Search ──────────────────────────────────────────────── */
 .dl-multi-select-search {
   position: relative;
   display: flex;
@@ -126,10 +139,10 @@
 
 .dl-multi-select-search-input {
   width: 100%;
-  height: 1.875rem;
+  height: var(--multi-select-search-height, 1.875rem);
   padding-left: 1.75rem;
   padding-right: 0.5rem;
-  font-size: 0.8125rem;
+  font-size: var(--input-font-size, 0.8125rem);
   border-radius: var(--radius-sm, 0.25rem);
   border: 1px solid var(--border);
   background: var(--background);
@@ -140,13 +153,14 @@
   border-color: var(--ring);
 }
 
+/* ── Actions bar ─────────────────────────────────────────── */
 .dl-multi-select-actions {
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 0.375rem 0.5rem;
   border-bottom: 1px solid var(--border);
-  font-size: 0.75rem;
+  font-size: var(--multi-select-chip-font-size, 0.6875rem);
   color: var(--muted-foreground);
 }
 
@@ -154,7 +168,7 @@
   background: transparent;
   border: none;
   color: var(--primary);
-  font-size: 0.75rem;
+  font-size: var(--multi-select-chip-font-size, 0.6875rem);
   font-weight: 500;
   cursor: pointer;
   padding: 0.125rem 0.25rem;
@@ -165,6 +179,7 @@
   text-decoration: underline;
 }
 
+/* ── List + items ────────────────────────────────────────── */
 .dl-multi-select-list {
   max-height: 14rem;
   overflow-y: auto;
@@ -176,7 +191,7 @@
   align-items: center;
   gap: 0.5rem;
   padding: 0.375rem 0.5rem;
-  font-size: 0.8125rem;
+  font-size: var(--multi-select-trigger-font-size, 0.8125rem);
   border-radius: var(--radius-sm, 0.25rem);
   cursor: pointer;
   user-select: none;
@@ -197,12 +212,13 @@
   cursor: not-allowed;
 }
 
+/* ── Inline checkbox ─────────────────────────────────────── */
 .dl-multi-select-checkbox {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 1rem;
-  height: 1rem;
+  width: var(--checkbox-size, 1rem);
+  height: var(--checkbox-size, 1rem);
   border-radius: 0.1875rem;
   border: 1px solid var(--input, var(--border));
   background-color: var(--background);
@@ -219,6 +235,6 @@
 .dl-multi-select-empty {
   padding: 1.25rem 0.5rem;
   text-align: center;
-  font-size: 0.8125rem;
+  font-size: var(--multi-select-trigger-font-size, 0.8125rem);
   color: var(--muted-foreground);
 }

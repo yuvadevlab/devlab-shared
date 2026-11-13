@@ -1,5 +1,5 @@
 .dl-label {
-  font-size: 0.75rem;
+  font-size: var(--text-label, var(--text-body-sm, 0.75rem));
   font-weight: 500;
   line-height: 1;
   color: var(--foreground);

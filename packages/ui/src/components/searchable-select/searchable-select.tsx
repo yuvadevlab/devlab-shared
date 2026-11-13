@@ -2,7 +2,6 @@ import * as React from "react";
 import { Search, Plus, Check, ChevronDown } from "lucide-react";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/popover";
 import { Input } from "@/components/input";
-import { Button } from "@/components/button";
 import { cn } from "@/lib/utils";
 import {
   SearchableSelectOption,
@@ -61,9 +60,9 @@ export function SearchableSelect({
   return (
     <Popover open={open} onOpenChange={handleOpenChange}>
       <PopoverTrigger asChild>
-        <Button
+        <button
           id={id}
-          variant="outline"
+          type="button"
           role="combobox"
           aria-expanded={open}
           disabled={disabled}
@@ -78,7 +77,7 @@ export function SearchableSelect({
             {selectedOption ? selectedOption.label : placeholder}
           </span>
           <ChevronDown className="dl-select-icon" />
-        </Button>
+        </button>
       </PopoverTrigger>
       <PopoverContent
         align="start"

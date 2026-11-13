@@ -18,6 +18,11 @@ import {
   BASE_RESETS_CSS,
   UTILITIES_CSS,
 } from "../src/core";
+import {
+  TABLET_OVERRIDES,
+  DESKTOP_OVERRIDES,
+  MOBILE_COMPONENT_TOKENS,
+} from "./responsive-tokens";
 
 /**
  * Generates the root.css content with universal variables and baseline resets.
@@ -68,8 +73,19 @@ export function generateRootCss(): string {
     --radius: 0.5rem;
 ${radiiLines}
 
-    /* Component Control Dimensions */
+    /* Component Control Dimensions (Screen 1: Mobile <768px) */
 ${heightLines}
+    --control-px: 0.625rem;
+    --control-py: 0.25rem;
+    --input-height-sm: 1.875rem;
+    --input-height-md: 2.125rem;
+    --input-height-lg: 2.5rem;
+    --input-px: 0.625rem;
+    --input-py: 0.25rem;
+    --input-font-size: var(--text-body-sm, 0.8125rem);
+    --input-icon-offset: 0.625rem;
+    --input-icon-padding: 2rem;
+${MOBILE_COMPONENT_TOKENS}
 
     /* Icon Sizing Tokens */
 ${iconLines}
@@ -88,6 +104,12 @@ ${touchLines}
 
     /* Fluid Typography Scale */
 ${typographyVars}
+
+    /* Kebab-case aliases — components reference these for token-driven responsiveness */
+    --text-body-lg: var(--text-bodyLg);
+    --text-body-sm: var(--text-bodySm);
+    --text-label: var(--text-bodySm);
+    --text-btn: var(--text-body);
 
     /* Mobile Safe Area Insets */
     --safe-top: env(safe-area-inset-top, 0px);
@@ -152,6 +174,10 @@ ${darkColors}
 
 ${chartLines}
   }
+
+  /* ── 3-Screen Responsive Scaling (see scripts/responsive-tokens.ts) ─── */
+${TABLET_OVERRIDES}
+${DESKTOP_OVERRIDES}
 }
 ${BASE_RESETS_CSS}`;
 }
