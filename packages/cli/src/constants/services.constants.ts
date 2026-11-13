@@ -5,6 +5,11 @@
  */
 
 /**
+ * Canonical RFC 7517 JSON Web Key Set (JWKS) discovery endpoint path.
+ */
+export const DEFAULT_JWKS_PATH = "/.well-known/jwks.json";
+
+/**
  * Ecosystem application health probe definition.
  */
 export interface ServiceHealthConfig {
@@ -27,7 +32,7 @@ export const ECOSYSTEM_HEALTH_SERVICES: readonly ServiceHealthConfig[] = [
     host: "localhost",
     port: 4000,
     healthPath: "/health",
-    jwksPath: "/.well-known/jwks.json",
+    jwksPath: DEFAULT_JWKS_PATH,
     repoDir: "devlab-portal",
   },
   {
