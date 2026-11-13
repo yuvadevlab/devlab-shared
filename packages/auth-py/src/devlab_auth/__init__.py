@@ -1,11 +1,14 @@
 """DevLab Authentication SDK for Python (FastAPI, LangChain, Agents)."""
 
 from devlab_auth.client import DevLabAuth
+from devlab_auth.constants import DEFAULT_JWKS_PATH, DEFAULT_OPENID_CONFIG_PATH
 from devlab_auth.jwks import JwksValidator
 from devlab_auth.m2m import M2mApiKeyValidator
 from devlab_auth.models import AuthPrincipal, M2mValidationResult
 
 __all__ = [
+    "DEFAULT_JWKS_PATH",
+    "DEFAULT_OPENID_CONFIG_PATH",
     "AuthPrincipal",
     "DevLabAuth",
     "JwksValidator",

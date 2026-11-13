@@ -6,6 +6,7 @@ from typing import Any
 import jwt
 from jwt import PyJWKClient
 
+from devlab_auth.constants import DEFAULT_JWKS_PATH
 from devlab_auth.models import AuthPrincipal
 
 
@@ -19,7 +20,7 @@ class JwksValidator:
         cache_ttl_seconds: int = 3600,
     ):
         base_url = portal_url or os.getenv("DEVLAB_PORTAL_API_URL") or "http://localhost:4000"
-        self.jwks_uri = jwks_uri or f"{base_url.rstrip('/')}/.well-known/jwks.json"
+        self.jwks_uri = jwks_uri or f"{base_url.rstrip('/')}{DEFAULT_JWKS_PATH}"
         self._client = PyJWKClient(self.jwks_uri, cache_jwk_set=True, lifespan=cache_ttl_seconds)
 
     def validate_token(self, token: str) -> AuthPrincipal:

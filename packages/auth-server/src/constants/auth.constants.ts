@@ -13,6 +13,12 @@ export const DEFAULT_API_KEY_HEADER = "x-api-key";
 /** Standard Bearer token prefix */
 export const DEFAULT_BEARER_PREFIX = "Bearer ";
 
+/** Canonical RFC 7517 JSON Web Key Set (JWKS) discovery endpoint path */
+export const DEFAULT_JWKS_PATH = "/.well-known/jwks.json";
+
+/** Canonical RFC 8414 OpenID Connect configuration discovery path */
+export const DEFAULT_OPENID_CONFIG_PATH = "/.well-known/openid-configuration";
+
 /** Default cache time-to-live for fetched RS256 JWKS public keys (1 hour) */
 export const DEFAULT_JWKS_CACHE_TTL_MS = 3_600_000;
 

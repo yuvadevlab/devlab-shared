@@ -7,7 +7,7 @@
 import crypto from "node:crypto";
 import { UnauthorizedError } from "@yuva-devlab/errors";
 import { Logger, loggerWithConfig } from "@yuva-devlab/logger";
-import { DEFAULT_JWKS_CACHE_TTL_MS } from "@/constants";
+import { DEFAULT_JWKS_CACHE_TTL_MS, DEFAULT_JWKS_PATH } from "@/constants";
 import type { JwksConfig, JwtPayload } from "@/types";
 
 const logger = loggerWithConfig(new Logger("JwksValidator"));
@@ -43,7 +43,7 @@ export class JwksValidator {
     this.jwksUri =
       config.jwksUri ??
       (config.issuer
-        ? `${config.issuer.replace(/\/+$/, "")}/.well-known/jwks.json`
+        ? `${config.issuer.replace(/\/+$/, "")}${DEFAULT_JWKS_PATH}`
         : "");
     this.audience = config.audience;
     this.issuer = config.issuer;
