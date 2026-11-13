@@ -1,28 +1,32 @@
 .dl-switch {
   display: inline-flex;
-  height: 1.25rem;
-  width: 2.25rem;
+  height: var(--switch-height, 1.25rem);
+  width: var(--switch-width, 2.25rem);
   flex-shrink: 0;
   cursor: pointer;
   align-items: center;
   border-radius: 9999px;
   border: 2px solid transparent;
-  box-shadow: 0 1px 2px rgb(0 0 0/0.08);
+  box-shadow: 0 1px 2px rgb(0 0 0 / 0.08);
   transition: background-color 0.2s ease;
   background: none;
   padding: 0;
 }
+
 .dl-switch:focus-visible {
   outline: 2px solid var(--ring);
   outline-offset: 2px;
 }
+
 .dl-switch:disabled {
   cursor: not-allowed;
   opacity: 0.5;
 }
+
 .dl-switch[data-state="checked"] {
   background-color: var(--primary);
 }
+
 .dl-switch[data-state="unchecked"] {
   background-color: var(--input);
 }
@@ -32,14 +36,16 @@
   display: block;
   border-radius: 9999px;
   background-color: var(--background);
-  box-shadow: 0 1px 2px rgb(0 0 0/0.15);
+  box-shadow: 0 1px 2px rgb(0 0 0 / 0.15);
   transition: transform 0.2s ease;
-  width: 1rem;
-  height: 1rem;
+  width: var(--switch-thumb-size, 1rem);
+  height: var(--switch-thumb-size, 1rem);
 }
+
 .dl-switch__thumb[data-state="checked"] {
-  transform: translateX(1rem);
+  transform: translateX(var(--switch-thumb-translate, 1rem));
 }
+
 .dl-switch__thumb[data-state="unchecked"] {
   transform: translateX(0);
 }

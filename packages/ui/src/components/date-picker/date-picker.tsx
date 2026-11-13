@@ -3,7 +3,6 @@ import { format } from "date-fns";
 import { Calendar as CalendarIcon } from "lucide-react";
 
 import { cn } from "@/lib/utils";
-import { Button } from "@/components/button";
 import { Calendar } from "@/components/calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/popover";
 
@@ -71,8 +70,7 @@ export function DatePicker({
   return (
     <Popover>
       <PopoverTrigger asChild>
-        <Button
-          variant="outline"
+        <button
           type="button"
           disabled={disabled}
           className={cn(
@@ -82,12 +80,10 @@ export function DatePicker({
           )}
         >
           <CalendarIcon className="dl-date-picker-icon" />
-          {date && !isNaN(date.getTime()) ? (
-            format(date, "PPP")
-          ) : (
-            <span>{placeholder}</span>
-          )}
-        </Button>
+          <span className="dl-date-picker-text">
+            {date && !isNaN(date.getTime()) ? format(date, "PPP") : placeholder}
+          </span>
+        </button>
       </PopoverTrigger>
       <PopoverContent className="dl-date-picker-content" align="start">
         <Calendar

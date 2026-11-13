@@ -87,13 +87,8 @@ export const BASE_RESETS_CSS = `
   html {
     -webkit-tap-highlight-color: transparent;
     touch-action: manipulation;
-  }
-
-  /* iOS Safari Auto-Zoom Prevention: Inputs must be at least 16px on coarse pointer */
-  @media (pointer: coarse) {
-    input, select, textarea {
-      font-size: max(1rem, 16px);
-    }
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
   }
 
   button,

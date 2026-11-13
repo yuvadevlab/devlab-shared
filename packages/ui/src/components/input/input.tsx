@@ -12,6 +12,11 @@ export interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> 
    * Useful for clear buttons, visibility toggles, or status indicators.
    */
   endIcon?: React.ReactNode;
+  /**
+   * Optional control size override: 'sm', 'md' (default), or 'lg'.
+   * Scales height, spacing, and font sizes responsively across mobile, tablet, and desktop.
+   */
+  inputSize?: "sm" | "md" | "lg";
 }
 
 /**
@@ -43,12 +48,13 @@ export interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> 
  * ```
  */
 const Input = React.forwardRef<HTMLInputElement, InputProps>(
-  ({ className, type, startIcon, endIcon, ...props }, ref) => {
+  ({ className, type, startIcon, endIcon, inputSize, ...props }, ref) => {
     const inputEl = (
       <input
         type={type}
         className={cn(
           "dl-input",
+          inputSize && `dl-input--${inputSize}`,
           startIcon && "dl-input--has-start-icon",
           endIcon && "dl-input--has-end-icon",
           className,

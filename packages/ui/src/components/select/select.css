@@ -1,16 +1,22 @@
 .dl-select-trigger {
   display: inline-flex;
   width: 100%;
-  height: var(--control-height-md, 2.25rem);
-  min-height: var(--control-height-md, 2.25rem);
+  height: var(
+    --input-height,
+    var(--input-height-md, var(--control-height-md, 2.125rem))
+  );
+  min-height: var(
+    --input-height,
+    var(--input-height-md, var(--control-height-md, 2.125rem))
+  );
   align-items: center;
   justify-content: space-between;
   white-space: nowrap;
   border-radius: var(--radius-md, 0.375rem);
   border: 1px solid var(--input);
   background-color: transparent;
-  padding: 0 0.75rem;
-  font-size: 0.875rem;
+  padding: 0 var(--input-px, 0.625rem);
+  font-size: var(--input-font-size, var(--text-body-sm, 0.8125rem));
   line-height: 1.25rem;
   font-family: inherit;
   font-weight: 400;
@@ -24,9 +30,15 @@
 .dl-select-trigger[data-placeholder] {
   color: var(--muted-foreground);
 }
-.dl-select-trigger:focus-visible {
+.dl-select-trigger:hover:not(:disabled) {
+  background-color: color-mix(in oklch, var(--secondary) 40%, transparent);
+}
+.dl-select-trigger:focus,
+.dl-select-trigger:focus-visible,
+.dl-select-trigger[data-state="open"] {
   outline: none;
-  box-shadow: 0 0 0 2px var(--ring);
+  border-color: var(--ring);
+  box-shadow: 0 0 0 2px color-mix(in oklch, var(--ring) 25%, transparent);
 }
 .dl-select-trigger:disabled {
   opacity: 0.5;
@@ -52,16 +64,16 @@
 
 /* Sizes */
 .dl-select-trigger--sm {
-  height: var(--control-height-sm, 2rem);
-  min-height: var(--control-height-sm, 2rem);
-  padding: 0 0.5rem;
-  font-size: 0.75rem;
+  height: var(--input-height-sm, var(--control-height-sm, 1.875rem));
+  min-height: var(--input-height-sm, var(--control-height-sm, 1.875rem));
+  padding: 0 calc(var(--input-px, 0.625rem) * 0.85);
+  font-size: var(--text-caption, 0.75rem);
 }
 .dl-select-trigger--lg {
-  height: var(--control-height-lg, 2.5rem);
-  min-height: var(--control-height-lg, 2.5rem);
-  padding: 0 1rem;
-  font-size: 1rem;
+  height: var(--input-height-lg, var(--control-height-lg, 2.5rem));
+  min-height: var(--input-height-lg, var(--control-height-lg, 2.5rem));
+  padding: 0 calc(var(--input-px, 0.625rem) * 1.2);
+  font-size: var(--text-body, 0.9375rem);
 }
 
 .dl-select-content {
@@ -105,10 +117,21 @@
     background-color 0.15s ease,
     color 0.15s ease;
 }
+.dl-select-item[data-state="checked"] {
+  background-color: color-mix(in oklch, var(--accent) 40%, transparent);
+  color: var(--accent-foreground);
+  font-weight: 500;
+}
 .dl-select-item:focus,
 .dl-select-item[data-highlighted] {
   background-color: var(--accent);
   color: var(--accent-foreground);
+}
+.dl-select-item[data-state="checked"][data-highlighted],
+.dl-select-item[data-state="checked"]:focus {
+  background-color: var(--accent);
+  color: var(--accent-foreground);
+  font-weight: 500;
 }
 .dl-select-item[data-disabled] {
   opacity: 0.5;

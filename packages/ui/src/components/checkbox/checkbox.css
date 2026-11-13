@@ -1,26 +1,29 @@
 .dl-checkbox {
   display: flex;
-  height: 1rem;
-  width: 1rem;
+  height: var(--checkbox-size, 1rem);
+  width: var(--checkbox-size, 1rem);
   flex-shrink: 0;
   align-items: center;
   justify-content: center;
   border-radius: var(--radius-sm, 0.25rem);
   border: 1px solid var(--primary);
-  box-shadow: 0 1px 2px rgb(0 0 0/0.05);
+  box-shadow: 0 1px 2px rgb(0 0 0 / 0.05);
   cursor: pointer;
   background: transparent;
   padding: 0;
   transition: background-color 0.15s ease;
 }
+
 .dl-checkbox:focus-visible {
   outline: 2px solid var(--ring);
   outline-offset: 2px;
 }
+
 .dl-checkbox:disabled {
   cursor: not-allowed;
   opacity: 0.5;
 }
+
 .dl-checkbox[data-state="checked"] {
   background-color: var(--primary);
   color: var(--primary-foreground);
@@ -33,6 +36,7 @@
 }
 
 .dl-checkbox-icon {
-  width: 0.75rem;
-  height: 0.75rem;
+  /* icon scales at 75% of the box */
+  width: calc(var(--checkbox-size, 1rem) * 0.75);
+  height: calc(var(--checkbox-size, 1rem) * 0.75);
 }
