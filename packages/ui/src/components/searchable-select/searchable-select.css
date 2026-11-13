@@ -1,15 +1,68 @@
+/* ── Trigger ─────────────────────────────────────────────── */
 .dl-searchable-select-trigger {
+  display: inline-flex;
   width: 100%;
+  height: var(
+    --input-height,
+    var(--input-height-md, var(--control-height-md, 2.125rem))
+  );
+  min-height: var(
+    --input-height,
+    var(--input-height-md, var(--control-height-md, 2.125rem))
+  );
+  align-items: center;
   justify-content: space-between;
-  padding-inline: 0.75rem;
-  text-align: left;
+  white-space: nowrap;
+  border-radius: var(--radius-md, 0.375rem);
+  border: 1px solid var(--input);
+  background-color: transparent;
+  padding: 0 var(--input-px, 0.625rem);
+  font-size: var(--input-font-size, var(--text-body-sm, 0.8125rem));
+  line-height: 1.25rem;
+  font-family: inherit;
   font-weight: 400;
+  cursor: pointer;
+  color: var(--foreground);
+  box-shadow: 0 1px 2px rgb(0 0 0 / 0.05);
+  gap: 0.5rem;
+  outline: none;
+  text-align: left;
+  transition:
+    border-color 0.15s ease,
+    box-shadow 0.15s ease;
+}
+
+.dl-searchable-select-trigger:hover:not(:disabled) {
+  background-color: color-mix(in oklch, var(--secondary) 40%, transparent);
+}
+
+.dl-searchable-select-trigger:focus,
+.dl-searchable-select-trigger:focus-visible,
+.dl-searchable-select-trigger[data-state="open"] {
+  outline: none;
+  border-color: var(--ring);
+  box-shadow: 0 0 0 2px color-mix(in oklch, var(--ring) 25%, transparent);
+}
+
+.dl-searchable-select-trigger:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
 }
 
 .dl-searchable-select-trigger--placeholder {
   color: var(--muted-foreground);
 }
 
+.dl-searchable-select-truncate {
+  flex: 1;
+  text-align: left;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  min-width: 0;
+}
+
+/* ── Popover content ─────────────────────────────────────── */
 .dl-searchable-select-content {
   width: var(--radix-popover-trigger-width);
   min-width: 14rem;
@@ -17,6 +70,7 @@
   box-shadow: 0 4px 20px rgb(0 0 0 / 0.15);
 }
 
+/* ── Search bar ──────────────────────────────────────────── */
 .dl-searchable-select-search {
   display: flex;
   align-items: center;
@@ -34,11 +88,11 @@
 }
 
 .dl-searchable-select-search-input {
-  height: var(--control-height-sm, 2rem);
+  height: var(--input-height-sm, 1.875rem);
   border: none;
   background: transparent;
   padding-inline: var(--space-1, 0.25rem);
-  font-size: 0.875rem;
+  font-size: var(--input-font-size, 0.8125rem);
   box-shadow: none;
 }
 
@@ -49,21 +103,23 @@
   border-color: transparent;
 }
 
+/* ── List ────────────────────────────────────────────────── */
 .dl-searchable-select-list {
   max-height: 15rem;
   overflow-y: auto;
   overscroll-behavior: contain;
   padding: 0.25rem;
-  font-size: 0.875rem;
+  font-size: var(--searchable-select-list-font-size, 0.8125rem);
 }
 
 .dl-searchable-select-empty {
   padding-block: 1.5rem;
   text-align: center;
-  font-size: 0.75rem;
+  font-size: var(--searchable-select-group-header-font-size, 0.5625rem);
   color: var(--muted-foreground);
 }
 
+/* ── Group ───────────────────────────────────────────────── */
 .dl-searchable-select-group {
   padding-block: 0.25rem;
 }
@@ -71,21 +127,22 @@
 .dl-searchable-select-group-header {
   padding-inline: 0.5rem;
   padding-block: 0.25rem;
-  font-size: 0.625rem;
+  font-size: var(--searchable-select-group-header-font-size, 0.5625rem);
   font-weight: 700;
   letter-spacing: 0.05em;
   text-transform: uppercase;
   color: color-mix(in oklch, var(--muted-foreground) 70%, transparent);
 }
 
+/* ── Item ────────────────────────────────────────────────── */
 .dl-searchable-select-item {
   position: relative;
   display: flex;
   cursor: pointer;
   align-items: center;
   border-radius: var(--radius-sm, 0.25rem);
-  padding: 0.375rem 0.625rem;
-  font-size: 0.875rem;
+  padding: 0.375rem var(--input-px, 0.625rem);
+  font-size: var(--searchable-select-item-font-size, 0.8125rem);
   user-select: none;
   outline: none;
   transition:
@@ -112,12 +169,7 @@
   white-space: nowrap;
 }
 
-.dl-searchable-select-truncate {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
+/* ── Add-new footer ──────────────────────────────────────── */
 .dl-searchable-select-add {
   border-top: 1px solid var(--border);
   background-color: color-mix(in oklch, var(--muted) 30%, transparent);
@@ -130,8 +182,8 @@
   align-items: center;
   gap: 0.5rem;
   border-radius: var(--radius-sm, 0.25rem);
-  padding: 0.5rem 0.625rem;
-  font-size: 0.75rem;
+  padding: 0.5rem var(--input-px, 0.625rem);
+  font-size: var(--searchable-select-item-font-size, 0.8125rem);
   font-weight: 600;
   color: var(--primary);
   background: transparent;

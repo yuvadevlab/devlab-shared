@@ -8,14 +8,15 @@
   padding: 0.25rem;
   color: var(--muted-foreground);
 }
+
 .dl-tabs-trigger {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   white-space: nowrap;
   border-radius: calc(var(--radius, 0.5rem) - 2px);
-  padding: 0.25rem 0.75rem;
-  font-size: 0.875rem;
+  padding: 0.25rem var(--tabs-trigger-px, 0.625rem);
+  font-size: var(--tabs-trigger-font-size, 0.8125rem);
   font-weight: 500;
   cursor: pointer;
   font-family: inherit;
@@ -24,22 +25,27 @@
   background: transparent;
   color: inherit;
 }
+
 .dl-tabs-trigger:focus-visible {
   outline: 2px solid var(--ring);
   outline-offset: 2px;
 }
+
 .dl-tabs-trigger:disabled {
   pointer-events: none;
   opacity: 0.5;
 }
+
 .dl-tabs-trigger[data-state="active"] {
   background-color: var(--background);
   color: var(--foreground);
-  box-shadow: 0 1px 3px rgb(0 0 0/0.1);
+  box-shadow: 0 1px 3px rgb(0 0 0 / 0.1);
 }
+
 .dl-tabs-content {
   margin-top: 0.5rem;
 }
+
 .dl-tabs-content:focus-visible {
   outline: 2px solid var(--ring);
   outline-offset: 2px;

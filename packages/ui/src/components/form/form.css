@@ -7,11 +7,11 @@
   color: var(--destructive);
 }
 .dl-form-desc {
-  font-size: 0.8rem;
+  font-size: var(--text-caption, 0.75rem);
   color: var(--muted-foreground);
 }
 .dl-form-error {
-  font-size: 0.8rem;
+  font-size: var(--text-caption, 0.75rem);
   font-weight: 500;
   color: var(--destructive);
 }
