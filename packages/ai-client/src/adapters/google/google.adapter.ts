@@ -59,17 +59,20 @@ export class GoogleAdapter implements ILLMProvider {
     const env = resolveEnvCredentials(this.name);
 
     const apiKey = this.config.apiKey ?? dynamic.apiKey ?? env.apiKey;
-    const baseUrl = (
+    const rawBaseUrl = (
       this.config.baseUrl ??
       dynamic.baseUrl ??
       env.baseUrl ??
       AI_ENDPOINTS.GOOGLE_GEMINI_DEFAULT_BASE_URL
     ).replace(/\/+$/, "");
+    const baseUrl = rawBaseUrl.endsWith("/v1beta")
+      ? rawBaseUrl
+      : `${rawBaseUrl}/v1beta`;
     const defaultModel =
       this.config.defaultModel ??
       dynamic.defaultModel ??
       env.defaultModel ??
-      "gemini-2.5-flash";
+      "gemini-4-hydrogen";
 
     if (!apiKey) {
       throw new MissingCredentialError("Google Gemini", "GEMINI_API_KEY");
