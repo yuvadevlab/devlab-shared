@@ -1,5 +1,15 @@
 # @yuva-devlab/auth-client
 
+## 1.3.0
+
+### Minor Changes
+
+- f5100bc: feat(packages): centralize jwks discovery path and fix cli iterator
+
+  - Define `DEFAULT_JWKS_PATH` and `DEFAULT_OPENID_CONFIG_PATH` across auth-server, auth-client, auth-py, and cli
+  - Replace ad-hoc string literals with canonical constants for ecosystem-wide route configuration
+  - Fix TS2802 iterator error in CLI token inspection command and configure es2022 compiler target
+
 ## 1.2.1
 
 ### Patch Changes
