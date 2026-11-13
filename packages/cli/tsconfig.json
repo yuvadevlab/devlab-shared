@@ -1,6 +1,7 @@
 {
   "extends": "@yuva-devlab/typescript-config/base.json",
   "compilerOptions": {
+    "target": "es2022",
     "outDir": "dist",
     "rootDir": "src",
     "types": ["node"],

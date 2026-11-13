@@ -30,6 +30,16 @@ export const PLATFORM_LOGIN_PATH = "/login";
 export const PLATFORM_FORGOT_PASSWORD_PATH = "/forgot-password";
 
 /**
+ * Canonical RFC 7517 JSON Web Key Set (JWKS) discovery endpoint path.
+ */
+export const DEFAULT_JWKS_PATH = "/.well-known/jwks.json";
+
+/**
+ * Canonical RFC 8414 OpenID Connect configuration discovery path.
+ */
+export const DEFAULT_OPENID_CONFIG_PATH = "/.well-known/openid-configuration";
+
+/**
  * Default polling interval in milliseconds for re-verifying application status.
  */
 export const APP_STATUS_POLL_INTERVAL_MS = 10_000;

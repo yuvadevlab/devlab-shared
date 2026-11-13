@@ -13,6 +13,9 @@ import {
   formatBadge,
   BadgeStatus,
 } from "../utils/terminal.util";
+import { DEFAULT_JWKS_PATH } from "../constants/services.constants";
+
+const DEFAULT_PORTAL_JWKS_URL = `http://localhost:4000${DEFAULT_JWKS_PATH}`;
 
 interface DecodedHeader {
   alg?: string;
@@ -132,11 +135,7 @@ export function registerTokenCommand(program: Command): void {
     .description(
       "Fetch and inspect public signing keys from DevLab Portal API (:4000)",
     )
-    .option(
-      "-u, --url <url>",
-      "JWKS URL",
-      "http://localhost:4000/.well-known/jwks.json",
-    )
+    .option("-u, --url <url>", "JWKS URL", DEFAULT_PORTAL_JWKS_URL)
     .action(async (options: { url: string }) => {
       printBanner("DevLab Portal JWKS Discovery");
       console.log(chalk.gray(`  Fetching: ${options.url}\n`));
@@ -152,14 +151,14 @@ export function registerTokenCommand(program: Command): void {
         const keys = json.keys || [];
 
         printSection(`Retrieved ${keys.length} Public Key(s)`);
-        for (const [index, key] of keys.entries()) {
+        keys.forEach((key, index) => {
           console.log(`  ${chalk.cyan.bold(`Key #${index + 1}`)}`);
           printKeyValue("  kid", String(key.kid));
           printKeyValue("  kty", String(key.kty));
           printKeyValue("  alg", String(key.alg));
           printKeyValue("  use", String(key.use));
           console.log("");
-        }
+        });
       } catch (err) {
         console.error(
           chalk.red(`  ✗ Failed to fetch JWKS: ${(err as Error).message}`),
