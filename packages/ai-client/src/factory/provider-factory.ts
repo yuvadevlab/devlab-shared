@@ -68,71 +68,98 @@ export function createProvider(
 }
 
 /**
- * Automatically inspects ambient environment and builds an ordered cascade of available providers.
+ * Configuration options for assembling a cascade of provider adapters.
+ */
+export interface CascadeCandidatesConfig {
+  /** Optional Ollama configuration */
+  ollama?: Record<string, unknown>;
+  /** Optional Groq credentials and configuration */
+  groq?: Record<string, unknown>;
+  /** Optional Google Gemini credentials and configuration */
+  google?: Record<string, unknown>;
+  /** Optional OpenAI credentials and configuration */
+  openai?: Record<string, unknown>;
+  /** Optional Anthropic credentials and configuration */
+  anthropic?: Record<string, unknown>;
+}
+
+/**
+ * Builds an ordered cascade of provider candidates based on explicit consumer configuration.
  *
- * Priority order:
- * 1. Local Ollama (always registered as offline/local tier)
- * 2. Groq (if GROQ_API_KEY is present)
- * 3. Google Gemini (if GEMINI_API_KEY is present)
- * 4. OpenAI (if OPENAI_API_KEY is present)
- * 5. Anthropic (if ANTHROPIC_API_KEY is present)
- *
+ * @param config - Provider configuration parameters supplied by consumer.
  * @returns Ordered array of configured ILLMProvider adapters.
  */
-export function createCascadeCandidates(): ILLMProvider[] {
+export function createCascadeCandidates(
+  config: CascadeCandidatesConfig = {},
+): ILLMProvider[] {
   const candidates: ILLMProvider[] = [];
 
-  // 1. Ollama is always included as first local fallback candidate
-  candidates.push(new OllamaAdapter());
+  // 1. Ollama local/offline candidate if configured
+  if (config.ollama) {
+    candidates.push(new OllamaAdapter(config.ollama));
+  }
 
   // 2. Groq free ultra-fast tier
-  if (typeof process !== "undefined" && process?.env?.GROQ_API_KEY) {
-    candidates.push(new GroqAdapter());
+  if (config.groq) {
+    candidates.push(new GroqAdapter(config.groq));
   }
 
   // 3. Google Gemini
-  if (
-    typeof process !== "undefined" &&
-    (process?.env?.GEMINI_API_KEY || process?.env?.GOOGLE_AI_API_KEY)
-  ) {
-    candidates.push(new GoogleAdapter());
+  if (config.google) {
+    candidates.push(new GoogleAdapter(config.google));
   }
 
   // 4. OpenAI
-  if (typeof process !== "undefined" && process?.env?.OPENAI_API_KEY) {
-    candidates.push(new OpenAIAdapter());
+  if (config.openai) {
+    candidates.push(new OpenAIAdapter(config.openai));
   }
 
   // 5. Anthropic
-  if (typeof process !== "undefined" && process?.env?.ANTHROPIC_API_KEY) {
-    candidates.push(new AnthropicAdapter());
+  if (config.anthropic) {
+    candidates.push(new AnthropicAdapter(config.anthropic));
+  }
+
+  if (candidates.length === 0) {
+    candidates.push(new OllamaAdapter(config.ollama ?? {}));
   }
 
   return candidates;
 }
 
 /**
- * Creates the default provider for the current environment.
- * If specific AI_PROVIDER env var is specified, uses that; otherwise returns a robust FallbackCascade.
+ * Options for instantiating the default provider.
+ */
+export interface DefaultProviderOptions {
+  /** Explicit provider type name */
+  provider?: ProviderType;
+  /** Direct adapter configuration dictionary */
+  config?: Record<string, unknown>;
+  /** Cascade candidate options if falling back to multi-tier cascade */
+  cascade?: CascadeCandidatesConfig;
+}
+
+/**
+ * Creates the default provider based on explicit consumer options.
  *
  * @example
  * ```typescript
- * const client = createDefaultProvider();
+ * const client = createDefaultProvider({ provider: "groq", config: { apiKey: "gsk_..." } });
  * const response = await client.complete(request);
  * ```
  *
+ * @param options - Consumer-provided configuration and provider selection.
  * @returns Instantiated ILLMProvider ready for completion.
  */
-export function createDefaultProvider(): ILLMProvider {
-  const envProvider =
-    typeof process !== "undefined"
-      ? (process?.env?.AI_PROVIDER as ProviderType | undefined)
-      : undefined;
-  if (envProvider) {
+export function createDefaultProvider(
+  options: DefaultProviderOptions = {},
+): ILLMProvider {
+  if (options.provider) {
     logger.info(
-      `[createDefaultProvider] Using explicitly configured provider: ${envProvider}`,
+      `[createDefaultProvider] Using explicitly configured provider: ${options.provider}`,
     );
-    return createProvider(envProvider);
+    return createProvider(options.provider, options.config);
   }
-  return new FallbackCascade({ providers: createCascadeCandidates() });
+  return new FallbackCascade({
+    providers: createCascadeCandidates(options.cascade),
+  });
 }

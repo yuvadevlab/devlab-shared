@@ -6,7 +6,6 @@
 
 import { DomainError, ErrorCode, ModelTimeoutError } from "@yuva-devlab/errors";
 import { Logger, loggerWithConfig } from "@yuva-devlab/logger";
-import { resolveEnvCredentials } from "@/config";
 import { AI_DEFAULT_MODELS, AI_ENDPOINTS } from "@/constants";
 import {
   FinishReason,
@@ -55,18 +54,15 @@ export class OllamaAdapter implements ILLMProvider {
     const dynamic = this.config.credentials
       ? await this.config.credentials()
       : {};
-    const env = resolveEnvCredentials(this.name);
 
     const baseUrl = (
       this.config.baseUrl ??
       dynamic.baseUrl ??
-      env.baseUrl ??
       AI_ENDPOINTS.OLLAMA_DEFAULT_BASE_URL
     ).replace(/\/+$/, "");
     const defaultModel =
       this.config.defaultModel ??
       dynamic.defaultModel ??
-      env.defaultModel ??
       AI_DEFAULT_MODELS.OLLAMA;
 
     return { baseUrl, defaultModel };
