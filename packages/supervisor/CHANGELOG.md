@@ -1,5 +1,12 @@
 # @yuva-devlab/supervisor
 
+## 0.3.5
+
+### Patch Changes
+
+- Updated dependencies [44134e0]
+  - @yuva-devlab/logger@1.3.2
+
 ## 0.3.4
 
 ### Patch Changes
