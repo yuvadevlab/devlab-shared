@@ -72,7 +72,7 @@ export class GoogleAdapter implements ILLMProvider {
       this.config.defaultModel ??
       dynamic.defaultModel ??
       env.defaultModel ??
-      "gemini-3-flash-preview";
+      "gemini-3.8-flash";
 
     if (!apiKey) {
       throw new MissingCredentialError("Google Gemini", "GEMINI_API_KEY");
@@ -169,11 +169,28 @@ export class GoogleAdapter implements ILLMProvider {
     const model = request.model || defaultModel;
     const url = `${baseUrl}/models/${model}:streamGenerateContent?alt=sse&key=${apiKey}`;
 
-    const response = await fetch(url, {
+    let response = await fetch(url, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(buildGeminiRequestBody(request)),
-    });
+      signal: AbortSignal.timeout(6000),
+    }).catch(() => null);
+
+    if (
+      !response ||
+      (!response.ok && (response.status === 503 || response.status === 404))
+    ) {
+      logger.warn("[stream] Primary model unavailable, using fallback", {
+        model,
+        status: response?.status,
+      });
+      const fallbackUrl = `${baseUrl}/models/gemini-3.1-flash-lite:streamGenerateContent?alt=sse&key=${apiKey}`;
+      response = await fetch(fallbackUrl, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(buildGeminiRequestBody(request)),
+      });
+    }
 
     if (!response.ok || !response.body) {
       throw new DomainError(
