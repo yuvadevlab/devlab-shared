@@ -89,6 +89,7 @@ export function DatePicker({
         <Calendar
           mode="single"
           selected={date}
+          defaultMonth={date}
           onSelect={(selectedDate) =>
             onChange?.(selectedDate ? format(selectedDate, "yyyy-MM-dd") : "")
           }
