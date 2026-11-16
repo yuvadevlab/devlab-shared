@@ -72,7 +72,7 @@ export class GoogleAdapter implements ILLMProvider {
       this.config.defaultModel ??
       dynamic.defaultModel ??
       env.defaultModel ??
-      "gemini-4-hydrogen";
+      "gemini-3-flash-preview";
 
     if (!apiKey) {
       throw new MissingCredentialError("Google Gemini", "GEMINI_API_KEY");
