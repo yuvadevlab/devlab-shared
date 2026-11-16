@@ -7,6 +7,12 @@
 /* eslint-disable no-console */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import type { LogLevel, LoggerConfig, LogFormat } from "./types";
+import {
+  DEFAULT_APP_NAME,
+  DEFAULT_LOG_ENABLED,
+  DEFAULT_LOG_FORMAT,
+  DEFAULT_LOG_LEVEL,
+} from "./constants";
 import { getCorrelationContext } from "./context";
 import { formatTextMessage, formatJsonMessage } from "./formatter";
 import {
@@ -16,12 +22,38 @@ import {
 } from "./transports";
 
 /** Parse raw env string to a valid LogLevel */
-function parseLogLevel(raw?: string): LogLevel {
-  if (!raw) return "info";
+export function parseLogLevel(raw?: string): LogLevel {
+  if (!raw) return DEFAULT_LOG_LEVEL;
   const v = raw.toLowerCase().trim();
   return ["debug", "info", "warn", "error"].includes(v)
     ? (v as LogLevel)
-    : "info";
+    : DEFAULT_LOG_LEVEL;
+}
+
+/**
+ * Maps a consumer-supplied environment variable dictionary into a typed LoggerConfig.
+ * Never accesses ambient process.env directly.
+ *
+ * @param env - Consumer environment dictionary (e.g. process.env).
+ * @returns Mapped LoggerConfig options.
+ */
+export function resolveLoggerConfig(
+  env: Record<string, string | undefined> = {},
+): LoggerConfig {
+  return {
+    level: env.LOG_LEVEL ? parseLogLevel(env.LOG_LEVEL) : DEFAULT_LOG_LEVEL,
+    format:
+      (env.LOG_FORMAT as LogFormat) ||
+      (env.NODE_ENV === "production" ? "json" : DEFAULT_LOG_FORMAT),
+    enabled: env.LOG_ENABLED
+      ? env.LOG_ENABLED !== "false"
+      : DEFAULT_LOG_ENABLED,
+    file: env.LOG_FILE,
+    persist: env.LOG_PERSIST === "true",
+    serviceName: env.SERVICE_NAME ?? DEFAULT_APP_NAME,
+    ingestUrl: env.DEVLAB_LOGS_INGEST_URL,
+    ingestApiKey: env.DEVLAB_LOGS_API_KEY,
+  };
 }
 
 /**
@@ -36,20 +68,14 @@ export class Logger {
   constructor(context?: string, config?: LoggerConfig) {
     this.context = context;
     this.config = {
-      level: config?.level ?? parseLogLevel(process.env.LOG_LEVEL),
-      format:
-        config?.format ??
-        ((process.env.LOG_FORMAT as LogFormat) ||
-          (process.env.NODE_ENV === "production" ? "json" : "text")),
-      enabled:
-        config?.enabled ??
-        (process.env.LOG_ENABLED ? process.env.LOG_ENABLED !== "false" : true),
-      file: config?.file ?? process.env.LOG_FILE,
-      persist: config?.persist ?? process.env.LOG_PERSIST === "true",
-      serviceName:
-        config?.serviceName ?? process.env.SERVICE_NAME ?? "devlab-app",
-      ingestUrl: config?.ingestUrl ?? process.env.DEVLAB_LOGS_INGEST_URL,
-      ingestApiKey: config?.ingestApiKey ?? process.env.DEVLAB_LOGS_API_KEY,
+      level: config?.level ?? DEFAULT_LOG_LEVEL,
+      format: config?.format ?? DEFAULT_LOG_FORMAT,
+      enabled: config?.enabled ?? DEFAULT_LOG_ENABLED,
+      file: config?.file,
+      persist: config?.persist ?? false,
+      serviceName: config?.serviceName ?? DEFAULT_APP_NAME,
+      ingestUrl: config?.ingestUrl,
+      ingestApiKey: config?.ingestApiKey,
     };
 
     if (this.config.file && this.config.persist) {
@@ -84,18 +110,15 @@ export class Logger {
 
   private write(level: LogLevel, message: any, ...extra: any[]): void {
     if (!this.config.enabled) return;
-    if (LEVEL_RANK[level] < LEVEL_RANK[this.config.level || "info"]) return;
     if (
-      level === "debug" &&
-      process.env.NODE_ENV === "production" &&
-      !process.env.LOG_DEBUG_FORCE
+      LEVEL_RANK[level] < LEVEL_RANK[this.config.level || DEFAULT_LOG_LEVEL]
     ) {
       return;
     }
 
     const correlation = getCorrelationContext();
     const serviceName =
-      correlation?.serviceName || this.config.serviceName || "devlab-app";
+      correlation?.serviceName || this.config.serviceName || DEFAULT_APP_NAME;
 
     if (this.httpBatcher) {
       const canonical = formatJsonMessage(

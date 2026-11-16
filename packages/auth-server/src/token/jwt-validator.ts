@@ -86,7 +86,7 @@ export class JwksValidator {
   private async fetchJwks(): Promise<readonly JwkRecord[]> {
     if (!this.jwksUri) {
       throw new UnauthorizedError(
-        "JwksValidator: jwksUri, issuer, or DEVLAB_PORTAL_API_URL must be configured",
+        "JwksValidator: jwksUri or issuer must be configured",
       );
     }
     const now = Date.now();
