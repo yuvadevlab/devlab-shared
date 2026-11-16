@@ -1,5 +1,21 @@
 # @yuva-devlab/sdk
 
+## 0.2.9
+
+### Patch Changes
+
+- Updated dependencies [9d85617]
+- Updated dependencies [5dd68ce]
+- Updated dependencies [eb3310f]
+  - @yuva-devlab/ai-client@0.2.4
+  - @yuva-devlab/auth-server@1.1.2
+  - @yuva-devlab/logger@1.3.3
+  - @yuva-devlab/agent-core@0.2.4
+  - @yuva-devlab/billing@0.2.4
+  - @yuva-devlab/events@0.2.5
+  - @yuva-devlab/rag@0.2.4
+  - @yuva-devlab/semantic-cache@0.2.4
+
 ## 0.2.8
 
 ### Patch Changes
