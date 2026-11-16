@@ -6,6 +6,7 @@
 
 import { AsyncLocalStorage } from "node:async_hooks";
 import { randomUUID } from "node:crypto";
+import { DEFAULT_SERVICE_NAME } from "./constants";
 import type { CorrelationContext } from "./types";
 
 const AsyncLocalStorageClass =
@@ -102,8 +103,7 @@ export function createDefaultContext(
     userId: overrides?.userId || "anonymous",
     tenantId: overrides?.tenantId,
     clientIp: overrides?.clientIp || "127.0.0.1",
-    serviceName:
-      overrides?.serviceName || process.env.SERVICE_NAME || "devlab-service",
+    serviceName: overrides?.serviceName || DEFAULT_SERVICE_NAME,
     ...overrides,
   };
 }

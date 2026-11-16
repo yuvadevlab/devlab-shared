@@ -6,7 +6,6 @@
 
 import { DomainError, ErrorCode, ModelTimeoutError } from "@yuva-devlab/errors";
 import { Logger, loggerWithConfig } from "@yuva-devlab/logger";
-import { resolveEnvCredentials } from "@/config";
 import { AI_DEFAULT_MODELS, AI_ENDPOINTS } from "@/constants";
 import {
   FinishReason,
@@ -56,23 +55,20 @@ export class GroqAdapter implements ILLMProvider {
     const dynamic = this.config.credentials
       ? await this.config.credentials()
       : {};
-    const env = resolveEnvCredentials(this.name);
 
-    const apiKey = this.config.apiKey ?? dynamic.apiKey ?? env.apiKey;
+    const apiKey = this.config.apiKey ?? dynamic.apiKey;
     const baseUrl = (
       this.config.baseUrl ??
       dynamic.baseUrl ??
-      env.baseUrl ??
       AI_ENDPOINTS.GROQ_DEFAULT_BASE_URL
     ).replace(/\/+$/, "");
     const defaultModel =
       this.config.defaultModel ??
       dynamic.defaultModel ??
-      env.defaultModel ??
       AI_DEFAULT_MODELS.GROQ;
 
     if (!apiKey) {
-      throw new MissingCredentialError("Groq", "GROQ_API_KEY");
+      throw new MissingCredentialError("Groq", "apiKey");
     }
 
     return { apiKey, baseUrl, defaultModel };

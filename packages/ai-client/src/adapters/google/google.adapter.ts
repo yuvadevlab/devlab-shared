@@ -6,7 +6,6 @@
 
 import { DomainError, ErrorCode, ModelTimeoutError } from "@yuva-devlab/errors";
 import { Logger, loggerWithConfig } from "@yuva-devlab/logger";
-import { resolveEnvCredentials } from "@/config";
 import { AI_ENDPOINTS } from "@/constants";
 import {
   FinishReason,
@@ -56,26 +55,21 @@ export class GoogleAdapter implements ILLMProvider {
     const dynamic = this.config.credentials
       ? await this.config.credentials()
       : {};
-    const env = resolveEnvCredentials(this.name);
 
-    const apiKey = this.config.apiKey ?? dynamic.apiKey ?? env.apiKey;
+    const apiKey = this.config.apiKey ?? dynamic.apiKey;
     const rawBaseUrl = (
       this.config.baseUrl ??
       dynamic.baseUrl ??
-      env.baseUrl ??
       AI_ENDPOINTS.GOOGLE_GEMINI_DEFAULT_BASE_URL
     ).replace(/\/+$/, "");
     const baseUrl = rawBaseUrl.endsWith("/v1beta")
       ? rawBaseUrl
       : `${rawBaseUrl}/v1beta`;
     const defaultModel =
-      this.config.defaultModel ??
-      dynamic.defaultModel ??
-      env.defaultModel ??
-      "gemini-3.8-flash";
+      this.config.defaultModel ?? dynamic.defaultModel ?? "gemini-3.8-flash";
 
     if (!apiKey) {
-      throw new MissingCredentialError("Google Gemini", "GEMINI_API_KEY");
+      throw new MissingCredentialError("Google Gemini", "apiKey");
     }
 
     return { apiKey, baseUrl, defaultModel };
