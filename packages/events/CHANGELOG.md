@@ -1,5 +1,12 @@
 # @yuva-devlab/events
 
+## 0.2.5
+
+### Patch Changes
+
+- Updated dependencies [9d85617]
+  - @yuva-devlab/logger@1.3.3
+
 ## 0.2.4
 
 ### Patch Changes
