@@ -9,6 +9,7 @@ export const THEMES = [
   "portal",
   "logs",
   "vitalai",
+  "quantai",
 ] as const;
 export type ThemeName = (typeof THEMES)[number];
 
@@ -87,6 +88,16 @@ export const THEME_CONFIGS: Record<ThemeName, ThemeConfig> = {
     fontMono: '"JetBrains Mono", monospace',
     radius: "1rem",
     density: "spacious",
+  },
+  quantai: {
+    name: "quantai",
+    defaultMode: "dark",
+    label: "QuantAI",
+    fontSans: '"Inter", sans-serif',
+    fontDisplay: '"Inter", sans-serif',
+    fontMono: '"JetBrains Mono", monospace',
+    radius: "0.75rem",
+    density: "high",
   },
 } as const;
 
