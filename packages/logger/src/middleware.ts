@@ -7,6 +7,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { randomUUID } from "node:crypto";
 import { Logger } from "./logger";
+import { DEFAULT_SERVICE_NAME } from "./constants";
 import { runWithContext } from "./context";
 import type { CorrelationContext, LogLevel } from "./types";
 
@@ -14,8 +15,7 @@ import type { CorrelationContext, LogLevel } from "./types";
  * Express / NestJS middleware that initializes the AsyncLocalStorage correlation context.
  */
 export function correlationMiddleware(options?: { serviceName?: string }) {
-  const serviceName =
-    options?.serviceName || process.env.SERVICE_NAME || "devlab-service";
+  const serviceName = options?.serviceName || DEFAULT_SERVICE_NAME;
 
   return (req: any, res: any, next: () => void) => {
     // 1. Extract or generate trace / correlation ID
