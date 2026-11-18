@@ -1,0 +1,101 @@
+/**
+ * @file src/brands/quantai.tokens.ts
+ * @description QuantAI brand definition with institutional cyan/obsidian terminal palette and quantitative domain extensions.
+ * @author yuva.devlab@gmail.com
+ */
+
+import type { BrandDefinition } from "../schema/tokens.schema";
+
+/**
+ * QuantAI brand theme specification for institutional algorithmic intelligence.
+ */
+export const QUANTAI_BRAND: BrandDefinition = {
+  name: "quantai",
+  label: "QuantAI",
+  fontSans: '"Inter", sans-serif',
+  fontDisplay: '"Inter", sans-serif',
+  fontMono: '"JetBrains Mono", monospace',
+  radius: "0.75rem",
+  density: "compact",
+  light: {
+    background: "oklch(0.985 0.002 210)",
+    foreground: "oklch(0.20 0.02 240)",
+    card: "oklch(1 0 0)",
+    cardForeground: "oklch(0.20 0.02 240)",
+    popover: "oklch(1 0 0)",
+    popoverForeground: "oklch(0.20 0.02 240)",
+    primary: "oklch(0.60 0.15 210)",
+    primaryForeground: "oklch(0.99 0.005 210)",
+    secondary: "oklch(0.96 0.005 240)",
+    secondaryForeground: "oklch(0.20 0.02 240)",
+    muted: "oklch(0.96 0.005 240)",
+    mutedForeground: "oklch(0.50 0.015 240)",
+    accent: "oklch(0.94 0.03 210)",
+    accentForeground: "oklch(0.35 0.10 210)",
+    destructive: "oklch(0.60 0.22 25)",
+    destructiveForeground: "oklch(0.99 0.005 0)",
+    warning: "oklch(0.75 0.14 80)",
+    warningForeground: "oklch(0.20 0.02 80)",
+    success: "oklch(0.65 0.18 150)",
+    successForeground: "oklch(0.99 0.005 150)",
+    info: "oklch(0.65 0.14 210)",
+    infoForeground: "oklch(0.99 0.005 210)",
+    border: "oklch(0.90 0.005 240)",
+    input: "oklch(0.90 0.005 240)",
+    ring: "oklch(0.60 0.15 210)",
+  },
+  dark: {
+    background: "oklch(0.14 0.015 250)",
+    foreground: "oklch(0.96 0.005 240)",
+    card: "oklch(0.18 0.018 250)",
+    cardForeground: "oklch(0.96 0.005 240)",
+    popover: "oklch(0.18 0.018 250)",
+    popoverForeground: "oklch(0.96 0.005 240)",
+    primary: "oklch(0.72 0.14 210)",
+    primaryForeground: "oklch(0.14 0.015 250)",
+    secondary: "oklch(0.22 0.018 250)",
+    secondaryForeground: "oklch(0.96 0.005 240)",
+    muted: "oklch(0.22 0.018 250)",
+    mutedForeground: "oklch(0.65 0.015 240)",
+    accent: "oklch(0.26 0.04 210)",
+    accentForeground: "oklch(0.88 0.10 210)",
+    destructive: "oklch(0.65 0.20 25)",
+    destructiveForeground: "oklch(0.98 0.005 0)",
+    warning: "oklch(0.75 0.14 80)",
+    warningForeground: "oklch(0.14 0.015 80)",
+    success: "oklch(0.70 0.16 150)",
+    successForeground: "oklch(0.14 0.015 250)",
+    info: "oklch(0.72 0.14 210)",
+    infoForeground: "oklch(0.14 0.015 250)",
+    border: "oklch(1 0 0 / 8%)",
+    input: "oklch(1 0 0 / 12%)",
+    ring: "oklch(0.72 0.14 210)",
+  },
+  extensions: {
+    common: {
+      charts: {
+        "chart-actual": "oklch(0.75 0.15 220)",
+        "chart-expected": "oklch(0.65 0.18 150)",
+        "chart-cone": "oklch(0.72 0.14 210 / 15%)",
+        "chart-bullish": "oklch(0.65 0.18 150)",
+        "chart-bearish": "oklch(0.60 0.22 25)",
+        "chart-1": "oklch(0.72 0.14 210)",
+        "chart-2": "oklch(0.65 0.18 150)",
+        "chart-3": "oklch(0.75 0.14 80)",
+        "chart-4": "oklch(0.60 0.22 25)",
+        "chart-5": "oklch(0.68 0.12 280)",
+      },
+      domain: {
+        "signal-long": "oklch(0.65 0.18 150)",
+        "signal-short": "oklch(0.60 0.22 25)",
+        "target-hit": "oklch(0.65 0.18 150)",
+        "stop-hit": "oklch(0.60 0.22 25)",
+        "regime-neutral": "oklch(0.75 0.14 80)",
+        "terminal-cyan": "oklch(0.72 0.14 210)",
+        "confidence-high": "oklch(0.65 0.18 150)",
+        "confidence-medium": "oklch(0.75 0.14 80)",
+        "confidence-low": "oklch(0.60 0.22 25)",
+      },
+    },
+  },
+};
