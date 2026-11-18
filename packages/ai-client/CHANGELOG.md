@@ -1,5 +1,20 @@
 # @yuva-devlab/ai-client
 
+## 0.2.4
+
+### Patch Changes
+
+- 9d85617: refactor: decouple packages from ambient process.env into pure consumer injection
+
+  - `@yuva-devlab/ai-client`: removed ambient `process.env` lookups across all adapters (`google`, `groq`, `openai`, `anthropic`, `ollama`), `provider-factory`, and `env-resolver`. All adapters now require explicit consumer config or dynamic credential functions.
+  - `@yuva-devlab/auth-server`: removed ambient `process.env.DEVLAB_PORTAL_API_URL` from `M2mApiKeyValidator` and `JwksValidator`; requires explicit consumer URL injection.
+  - `@yuva-devlab/logger`: removed ambient `process.env` lookups (`LOG_LEVEL`, `LOG_FORMAT`, `NODE_ENV`, `LOG_ENABLED`, `SERVICE_NAME`, `DEVLAB_LOGS_*`) from `Logger`, `middleware`, and `context`; added centralized defaults in `constants.ts` and pure `resolveLoggerConfig(envMap)` helper.
+
+- 5dd68ce: Update Google AI Studio default model fallback to gemini-3-flash-preview
+- eb3310f: Standardize default model to gemini-3.8-flash with resilient fallback
+- Updated dependencies [9d85617]
+  - @yuva-devlab/logger@1.3.3
+
 ## 0.2.3
 
 ### Patch Changes
