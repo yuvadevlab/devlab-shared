@@ -6,7 +6,7 @@
 
 import { DomainError, ErrorCode, ModelTimeoutError } from "@yuva-devlab/errors";
 import { Logger, loggerWithConfig } from "@yuva-devlab/logger";
-import { AI_ENDPOINTS } from "@/constants";
+import { AI_DEFAULT_MODELS, AI_ENDPOINTS } from "@/constants";
 import {
   FinishReason,
   type ILLMProvider,
@@ -66,7 +66,9 @@ export class GoogleAdapter implements ILLMProvider {
       ? rawBaseUrl
       : `${rawBaseUrl}/v1beta`;
     const defaultModel =
-      this.config.defaultModel ?? dynamic.defaultModel ?? "gemini-3.8-flash";
+      this.config.defaultModel ??
+      dynamic.defaultModel ??
+      AI_DEFAULT_MODELS.GOOGLE;
 
     if (!apiKey) {
       throw new MissingCredentialError("Google Gemini", "apiKey");
@@ -178,7 +180,7 @@ export class GoogleAdapter implements ILLMProvider {
         model,
         status: response?.status,
       });
-      const fallbackUrl = `${baseUrl}/models/gemini-3.1-flash-lite:streamGenerateContent?alt=sse&key=${apiKey}`;
+      const fallbackUrl = `${baseUrl}/models/gemini-2.5-flash:streamGenerateContent?alt=sse&key=${apiKey}`;
       response = await fetch(fallbackUrl, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
