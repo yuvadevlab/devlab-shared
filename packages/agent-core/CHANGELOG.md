@@ -1,5 +1,19 @@
 # @yuva-devlab/agent-core
 
+## 0.2.4
+
+### Patch Changes
+
+- Updated dependencies [9d85617]
+  - @yuva-devlab/logger@1.3.3
+
+## 0.2.3
+
+### Patch Changes
+
+- Updated dependencies [44134e0]
+  - @yuva-devlab/logger@1.3.2
+
 ## 0.2.2
 
 ### Patch Changes
