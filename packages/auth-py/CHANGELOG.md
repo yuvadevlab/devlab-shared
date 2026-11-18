@@ -1,5 +1,11 @@
 # @yuva-devlab/auth-py
 
+## 0.3.1
+
+### Patch Changes
+
+- 91fa4de: Bump `opentelemetry-api` to 1.45.2 in `@yuva-devlab/auth-py`
+
 ## 0.3.0
 
 ### Minor Changes
