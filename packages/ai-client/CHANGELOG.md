@@ -1,5 +1,14 @@
 # @yuva-devlab/ai-client
 
+## 0.2.5
+
+### Patch Changes
+
+- b7a003b: Resolve DatePicker navigation clickability and update default Gemini model fallback
+
+  - Ensure DatePicker previous/next month navigation buttons have proper pointer-events and z-index positioning in calendar.css
+  - Update default Google AI Studio model fallback in `@yuva-devlab/ai-client` to `gemini-2.5-flash`
+
 ## 0.2.4
 
 ### Patch Changes
