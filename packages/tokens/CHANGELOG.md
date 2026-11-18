@@ -1,5 +1,11 @@
 # @yuva-devlab/tokens
 
+## 2.2.0
+
+### Minor Changes
+
+- 367e677: Add QuantAI institutional cyan and obsidian theme, brand configuration, and high-density tokens
+
 ## 2.1.2
 
 ### Patch Changes
