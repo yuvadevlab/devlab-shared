@@ -81,6 +81,34 @@ export const PORTAL_EXTENSIONS = {
   },
 } as const;
 
+export const QUANTAI_EXTENSIONS = {
+  common: {
+    charts: {
+      "chart-actual": "oklch(0.75 0.15 220)",
+      "chart-expected": "oklch(0.65 0.18 150)",
+      "chart-cone": "oklch(0.72 0.14 210 / 15%)",
+      "chart-bullish": "oklch(0.65 0.18 150)",
+      "chart-bearish": "oklch(0.60 0.22 25)",
+      "chart-1": "oklch(0.72 0.14 210)",
+      "chart-2": "oklch(0.65 0.18 150)",
+      "chart-3": "oklch(0.75 0.14 80)",
+      "chart-4": "oklch(0.60 0.22 25)",
+      "chart-5": "oklch(0.68 0.12 280)",
+    },
+    domain: {
+      "signal-long": "oklch(0.65 0.18 150)",
+      "signal-short": "oklch(0.60 0.22 25)",
+      "target-hit": "oklch(0.65 0.18 150)",
+      "stop-hit": "oklch(0.60 0.22 25)",
+      "regime-neutral": "oklch(0.75 0.14 80)",
+      "terminal-cyan": "oklch(0.72 0.14 210)",
+      "confidence-high": "oklch(0.65 0.18 150)",
+      "confidence-medium": "oklch(0.75 0.14 80)",
+      "confidence-low": "oklch(0.60 0.22 25)",
+    },
+  },
+} as const;
+
 export const VITALAI_EXTENSIONS = {
   common: {
     charts: {

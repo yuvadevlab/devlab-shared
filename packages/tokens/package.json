@@ -19,6 +19,7 @@
     "vitalai",
     "orchestrai",
     "finai",
+    "quantai",
     "devlab"
   ],
   "type": "module",
@@ -46,6 +47,7 @@
     "./themes/finai.css": "./styles/themes/finai.css",
     "./themes/orchestrai.css": "./styles/themes/orchestrai.css",
     "./themes/portal.css": "./styles/themes/portal.css",
+    "./themes/quantai.css": "./styles/themes/quantai.css",
     "./themes/logs.css": "./styles/themes/logs.css",
     "./themes/vitalai.css": "./styles/themes/vitalai.css",
     "./package.json": "./package.json"
