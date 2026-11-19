@@ -8,6 +8,7 @@ import { DomainError, ErrorCode } from "@yuva-devlab/errors";
 import { Logger, loggerWithConfig } from "@yuva-devlab/logger";
 import {
   AnthropicAdapter,
+  ClineAdapter,
   GoogleAdapter,
   GroqAdapter,
   OllamaAdapter,
@@ -22,7 +23,7 @@ const logger = loggerWithConfig(new Logger("ProviderFactory"));
  * Standard provider type identifiers.
  */
 export type ProviderType =
-  "ollama" | "groq" | "google" | "openai" | "anthropic" | "cascade";
+  "ollama" | "groq" | "google" | "openai" | "anthropic" | "cline" | "cascade";
 
 /**
  * Creates an instance of an LLM provider adapter matching the specified type.
@@ -53,6 +54,8 @@ export function createProvider(
       return new OpenAIAdapter(config);
     case "anthropic":
       return new AnthropicAdapter(config);
+    case "cline":
+      return new ClineAdapter(config);
     case "cascade": {
       const providers =
         (config.providers as ILLMProvider[]) ?? createCascadeCandidates();
@@ -81,6 +84,8 @@ export interface CascadeCandidatesConfig {
   openai?: Record<string, unknown>;
   /** Optional Anthropic credentials and configuration */
   anthropic?: Record<string, unknown>;
+  /** Optional Cline API Gateway credentials and configuration */
+  cline?: Record<string, unknown>;
 }
 
 /**
@@ -117,6 +122,11 @@ export function createCascadeCandidates(
   // 5. Anthropic
   if (config.anthropic) {
     candidates.push(new AnthropicAdapter(config.anthropic));
+  }
+
+  // 6. Cline API Gateway
+  if (config.cline) {
+    candidates.push(new ClineAdapter(config.cline));
   }
 
   if (candidates.length === 0) {

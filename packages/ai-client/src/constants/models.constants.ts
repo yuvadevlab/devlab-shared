@@ -21,4 +21,6 @@ export const AI_DEFAULT_MODELS = Object.freeze({
   OPENAI: "gpt-4o-mini",
   /** Default Anthropic Claude model */
   ANTHROPIC: "claude-3-5-haiku-latest",
+  /** Default Cline API Gateway model (NVIDIA 120B reasoning model, free tier) */
+  CLINE: "nvidia/nemotron-3.5-super-vl:free",
 });
