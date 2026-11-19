@@ -9,3 +9,4 @@ export * from "./groq";
 export * from "./google";
 export * from "./openai";
 export * from "./anthropic";
+export * from "./cline";
