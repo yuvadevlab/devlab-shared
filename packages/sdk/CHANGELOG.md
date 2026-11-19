@@ -1,5 +1,13 @@
 # @yuva-devlab/sdk
 
+## 0.2.11
+
+### Patch Changes
+
+- Updated dependencies [42c6d98]
+  - @yuva-devlab/resilience@0.2.1
+  - @yuva-devlab/ai-client@0.2.6
+
 ## 0.2.10
 
 ### Patch Changes
