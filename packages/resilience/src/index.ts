@@ -1,5 +1,5 @@
 /**
- * Master entrypoint for `@orchestrai/resilience`.
+ * Master entrypoint for `@yuva-devlab/resilience`.
  *
  * Provides enterprise-grade fault-tolerance primitives:
  * - Hierarchical Deadlines & Bounded Timeouts (`withTimeout`, `DeadlineContext`)

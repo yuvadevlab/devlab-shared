@@ -1,5 +1,12 @@
 # @yuva-devlab/ai-client
 
+## 0.2.6
+
+### Patch Changes
+
+- Updated dependencies [42c6d98]
+  - @yuva-devlab/resilience@0.2.1
+
 ## 0.2.5
 
 ### Patch Changes
