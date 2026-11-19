@@ -23,6 +23,8 @@ export const AI_ENDPOINTS = Object.freeze({
   /** Google Gemini Generative Language v1beta endpoint */
   GOOGLE_GEMINI_DEFAULT_BASE_URL:
     "https://generativelanguage.googleapis.com/v1beta",
+  /** Cline API Gateway v1 chat completions endpoint */
+  CLINE_DEFAULT_BASE_URL: "https://api.cline.bot/api/v1",
   /** Required Anthropic API version header value */
   ANTHROPIC_VERSION_HEADER: "2023-06-01",
 });

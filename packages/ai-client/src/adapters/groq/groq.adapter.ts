@@ -191,10 +191,17 @@ export class GroqAdapter implements ILLMProvider {
     });
 
     if (!response.ok || !response.body) {
+      const errorText = await response.text().catch(() => "");
+      const retryAfter =
+        response.headers.get("retry-after") ??
+        response.headers.get("x-ratelimit-reset-tokens");
+      const retryDetail = retryAfter ? ` (retry-after: ${retryAfter})` : "";
       throw new DomainError(
-        `Groq streaming error HTTP ${response.status}`,
-        ErrorCode.MODEL_PROVIDER_ERROR,
-        502,
+        `Groq streaming error HTTP ${response.status}${retryDetail}${errorText ? `: ${errorText}` : ""}`,
+        response.status === 429
+          ? ErrorCode.MODEL_RATE_LIMIT
+          : ErrorCode.MODEL_PROVIDER_ERROR,
+        response.status,
       );
     }
 
