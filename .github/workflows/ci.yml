@@ -35,4 +35,5 @@ jobs:
     uses: yuvadevlab/.github/.github/workflows/reusable-ci.yml@main
     with:
       node-version: "22"
+      setup-python: true
       run-tests: true
