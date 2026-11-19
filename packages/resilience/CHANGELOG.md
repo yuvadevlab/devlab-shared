@@ -1,5 +1,11 @@
 # @yuva-devlab/resilience
 
+## 0.2.1
+
+### Patch Changes
+
+- 42c6d98: docs(resilience): align module jsdoc attribution to @yuva-devlab/resilience
+
 ## 0.2.0
 
 ### Minor Changes
