@@ -1,5 +1,12 @@
 # @yuva-devlab/sdk
 
+## 0.2.12
+
+### Patch Changes
+
+- Updated dependencies [51e0bb6]
+  - @yuva-devlab/ai-client@0.3.0
+
 ## 0.2.11
 
 ### Patch Changes
