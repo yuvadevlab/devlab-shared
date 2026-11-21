@@ -72,6 +72,7 @@
 /* ── Popover panel ───────────────────────────────────────── */
 .dl-date-picker-content,
 .dl-popover.dl-date-picker-content {
+  z-index: var(--z-popover, 70);
   width: fit-content !important;
   max-width: fit-content !important;
   padding: 0 !important;
