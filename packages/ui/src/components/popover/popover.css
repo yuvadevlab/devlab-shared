@@ -1,5 +1,5 @@
 .dl-popover {
-  z-index: 50;
+  z-index: var(--z-popover, 70);
   width: 18rem;
   border-radius: var(--radius, 0.5rem);
   border: 1px solid var(--border);
