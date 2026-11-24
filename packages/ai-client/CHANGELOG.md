@@ -1,5 +1,23 @@
 # @yuva-devlab/ai-client
 
+## 0.3.0
+
+### Minor Changes
+
+- 51e0bb6: Add first-class Cline API Gateway adapter with bidirectional tool normalization
+
+  - Implement `ClineAdapter` supporting completions and SSE streaming via Cline API Gateway (`https://api.cline.bot/api/v1`)
+  - Support bidirectional OpenAPI tool name normalization (`.` ⇄ `_`) to adhere to provider function regex requirements
+  - Add Cline API Gateway default endpoint and model constants
+  - Register `cline` provider type in `createProvider()` factory and cascade fallback candidates
+
+## 0.2.6
+
+### Patch Changes
+
+- Updated dependencies [42c6d98]
+  - @yuva-devlab/resilience@0.2.1
+
 ## 0.2.5
 
 ### Patch Changes
