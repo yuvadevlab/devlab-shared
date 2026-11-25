@@ -1,6 +1,7 @@
 import React from "react";
 import Link from "next/link";
-import { Badge, Stack, Flex, Grid, Box } from "@yuva-devlab/ui";
+import { ArrowRight } from "lucide-react";
+import { Badge, Stack, Flex, Box } from "@yuva-devlab/ui";
 import type { ComponentMeta, ComponentCategory } from "@/config/meta-types";
 
 export interface HomeCatalogProps {
@@ -32,7 +33,7 @@ export function HomeCatalog({
         </Badge>
       </Flex>
 
-      <Grid cols="repeat(auto-fit, minmax(320px, 1fr))" gap={6}>
+      <div className="dl-catalog-grid">
         {categories.map((category) => {
           const comps = groupedComponents[category] || [];
           return (
@@ -52,22 +53,26 @@ export function HomeCatalog({
                   <h3 className="dl-catalog-card__category">{category}</h3>
                   <span className="dl-catalog-card__count">{comps.length}</span>
                 </Flex>
-                <Grid cols="repeat(auto-fill, minmax(110px, 1fr))" gap={2}>
+                <div className="dl-catalog-links">
                   {comps.map((c) => (
                     <Link
                       key={c.slug}
                       href={c.href}
                       className="dl-catalog-link"
                     >
-                      {c.name}
+                      <span className="dl-catalog-link__name">{c.name}</span>
+                      <ArrowRight
+                        className="dl-catalog-link__arrow"
+                        aria-hidden="true"
+                      />
                     </Link>
                   ))}
-                </Grid>
+                </div>
               </Stack>
             </Box>
           );
         })}
-      </Grid>
+      </div>
     </Stack>
   );
 }

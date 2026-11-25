@@ -1,10 +1,15 @@
+"use client";
+
 import React from "react";
 import { Stack } from "@yuva-devlab/ui";
+import { useTheme } from "@/components/theme-provider";
 
 /**
- * Server component rendering the quick installation and setup code snippet blocks.
+ * Quick installation and setup code snippet blocks synced with the active brand selector.
  */
 export function HomeQuickstart() {
+  const { brand } = useTheme();
+
   return (
     <Stack gap={4} as="section" className="dl-quickstart">
       <h2 className="dl-quickstart-title">Quick Installation</h2>
@@ -18,11 +23,13 @@ export function HomeQuickstart() {
 
       <div className="dl-quickstart-block">
         <div className="dl-quickstart-block__header">
-          2. Import Platform CSS in globals.css
+          2. Import Pure Platform CSS in globals.css
         </div>
         <pre className="dl-quickstart-block__pre">
-          {`@import "@yuva-devlab/tokens/styles.css";
-@import "@yuva-devlab/tokens/themes/orchestrai.css";
+          {`@layer dl-reset, dl-tokens, dl-components, dl-layout, dl-utilities, dl-app;
+
+@import "@yuva-devlab/tokens/preset.css";
+@import "@yuva-devlab/tokens/themes/${brand}.css";
 @import "@yuva-devlab/ui/styles.css";`}
         </pre>
       </div>

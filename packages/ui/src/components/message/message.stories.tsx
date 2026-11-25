@@ -17,7 +17,7 @@ type Story = StoryObj<typeof Message>;
 
 export const Thread: Story = {
   render: () => (
-    <div className="dl-story-w-lg flex flex-col gap-3">
+    <div className="dl-story-w-lg dl-story-col">
       {/* User message */}
       <Message role="user">
         <MessageAvatar role="user" fallback="YP" />

@@ -5,6 +5,7 @@ import type { Preview } from "@storybook/react";
 import "@yuva-devlab/tokens/styles.css";
 import "@yuva-devlab/ui/styles.css";
 import "./preview.css";
+import { transformStorySource } from "./source-transform";
 
 const preview: Preview = {
   parameters: {
@@ -12,6 +13,12 @@ const preview: Preview = {
       matchers: {
         color: /(background|color)$/i,
         date: /Date$/i,
+      },
+    },
+    docs: {
+      source: {
+        language: "tsx",
+        transform: transformStorySource,
       },
     },
     backgrounds: {
