@@ -1,5 +1,11 @@
 # @yuva-devlab/ai-client
 
+## 0.4.0
+
+### Minor Changes
+
+- 3f8e0e1: Add Shimmer and Reasoning AI components, upgrade InlineCitation HoverCard, Sources kind metadata, Terminal live telemetry entries, collapsible StackTrace, ToolCall timing/errors, Queue status states, and Subagent duration/summary props; add reasoningDelta and usage streaming support across @yuva-devlab/ai-client adapters plus Vercel configs for ui-docs and ui-storybook.
+
 ## 0.3.0
 
 ### Minor Changes
