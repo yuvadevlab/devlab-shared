@@ -142,7 +142,8 @@
 
   .dl-docs-header__select-trigger {
     height: 2rem;
-    width: 13.5rem;
+    width: clamp(12.5rem, 19vw, 17rem);
+    max-width: 100%;
     font-size: 0.75rem;
     font-weight: 500;
   }

@@ -5,30 +5,28 @@ import { ModelSelector } from "./model-selector";
 const meta: Meta<typeof ModelSelector> = {
   title: "AI Elements/ModelSelector",
   component: ModelSelector,
+  decorators: [
+    (Story) => (
+      <div className="dl-story-w-md">
+        <Story />
+      </div>
+    ),
+  ],
 };
 
 export default meta;
 type Story = StoryObj<typeof ModelSelector>;
 
 export const Default: Story = {
-  render: () => {
-    const [model, setModel] = useState("claude-3-5-sonnet");
-    return (
-      <div className="dl-story-w-md p-8">
-        <ModelSelector value={model} onValueChange={setModel} />
-      </div>
-    );
+  args: {
+    defaultValue: "claude-3-5-sonnet",
   },
 };
 
 export const SmallTrigger: Story = {
-  render: () => {
-    const [model, setModel] = useState("gemini-2-0-flash");
-    return (
-      <div className="dl-story-w-md p-8">
-        <ModelSelector size="sm" value={model} onValueChange={setModel} />
-      </div>
-    );
+  args: {
+    size: "sm",
+    defaultValue: "gemini-2-0-flash",
   },
 };
 
@@ -52,13 +50,11 @@ export const CustomModels: Story = {
       },
     ];
     return (
-      <div className="dl-story-w-md p-8">
-        <ModelSelector
-          models={customList}
-          value={model}
-          onValueChange={setModel}
-        />
-      </div>
+      <ModelSelector
+        models={customList}
+        value={model}
+        onValueChange={setModel}
+      />
     );
   },
 };
