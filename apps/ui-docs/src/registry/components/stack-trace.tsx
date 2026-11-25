@@ -16,9 +16,9 @@ const sampleFrames: StackFrameItem[] = [
     fileName: "packages/ui/src/components/data-table/data-table.tsx",
     lineNumber: 142,
     columnNumber: 21,
-    snippet: `  141 |   const rows = data.map((item, idx) => {
-> 142 |     return columns.map((col) => col.render(item[col.key]));
-  143 |   });`,
+    snippet: `const rows = data.map((item) => {
+  return columns.map((col) => col.render(item[col.key]));
+});`,
   },
   {
     id: "f-2",
@@ -29,12 +29,46 @@ const sampleFrames: StackFrameItem[] = [
   },
   {
     id: "f-3",
-    functionName: "AppPage",
-    fileName: "apps/portal/src/app/team/page.tsx",
-    lineNumber: 34,
-    columnNumber: 9,
+    functionName: "renderWithHooks",
+    fileName: "node_modules/react-dom/cjs/react-dom.development.js",
+    lineNumber: 14985,
+    isInternal: true,
   },
 ];
+
+const STACK_CODE = `import { StackTrace, type StackFrameItem } from "@yuva-devlab/ui";
+
+const FRAMES: StackFrameItem[] = [
+  {
+    id: "f-1",
+    functionName: "renderRows",
+    fileName: "packages/ui/src/components/data-table/data-table.tsx",
+    lineNumber: 142,
+    columnNumber: 21,
+    snippet: \`const rows = data.map((item) => {
+  return columns.map((col) => col.render(item[col.key]));
+});\`,
+  },
+  {
+    id: "f-2",
+    functionName: "renderWithHooks",
+    fileName: "node_modules/react-dom/cjs/react-dom.development.js",
+    lineNumber: 14985,
+    isInternal: true,
+  },
+];
+
+export function StackTraceDemo() {
+  return (
+    <StackTrace
+      errorType="TypeError"
+      message="Cannot read properties of undefined (reading 'render')"
+      cause="Caused by empty column accessor definition in table schema."
+      frames={FRAMES}
+      collapsible
+    />
+  );
+}`;
 
 export default function StackTraceDocPage() {
   const variants: ComponentVariant[] = [
@@ -42,23 +76,19 @@ export default function StackTraceDocPage() {
       id: "default",
       title: "Interactive Error Trace",
       description:
-        "Formatted stack trace with clickable frames that expand to reveal the code snippet.",
+        "Formatted exception banner with collapsible frames and syntax-highlighted code snippets.",
       preview: (
-        <div className="dl-demo-frame dl-demo-frame--md">
-          <div className="w-full max-w-xl">
-            <StackTrace
-              errorType="TypeError"
-              message="Cannot read properties of undefined (reading 'render')"
-              frames={sampleFrames}
-            />
-          </div>
+        <div className="dl-demo-frame dl-demo-frame--lg">
+          <StackTrace
+            errorType="TypeError"
+            message="Cannot read properties of undefined (reading 'render')"
+            cause="Caused by empty column accessor definition in table schema."
+            frames={sampleFrames}
+            collapsible
+          />
         </div>
       ),
-      codeSnippet: `<StackTrace
-  errorType="TypeError"
-  message="Cannot read properties of undefined"
-  frames={frames}
-/>`,
+      codeSnippet: STACK_CODE,
     },
   ];
 
@@ -73,20 +103,19 @@ export default function StackTraceDocPage() {
       name: "message",
       type: "string",
       default: "—",
-      description: "Main error message string.",
+      description: "Primary error message string.",
     },
     {
       name: "frames",
       type: "StackFrameItem[]",
       default: "[]",
-      description:
-        "Array of stack frame records with functionName, fileName, and lineNumber.",
+      description: "Call frame items with optional highlighted code excerpts.",
     },
     {
-      name: "copyable",
+      name: "collapsible",
       type: "boolean",
-      default: "true",
-      description: "Whether to render the copy stack button.",
+      default: "false",
+      description: "Adds collapse toggle trigger in header actions.",
     },
   ];
 
@@ -98,19 +127,18 @@ export default function StackTraceDocPage() {
     {
       name: ".dl-stack-trace__header",
       description:
-        "Red-tinted error header with error type, message, and copy button.",
+        "Destructive-tinted header with frame counter and copy trigger.",
     },
     {
       name: ".dl-stack-frame",
-      description:
-        "Individual call frame row with location and expandable snippet.",
+      description: "Call frame row with expandable highlighted code excerpt.",
     },
   ];
 
   return (
     <ComponentView
       title="Stack Trace"
-      description="Exception stack trace viewer displaying error types, messages, call frame locations, and expandable source code snippets."
+      description="Exception stack trace viewer displaying error types, messages, call frames, and syntax-colored code excerpts."
       variants={variants}
       propsList={propsList}
       cssClasses={cssClasses}

@@ -1,38 +1,73 @@
 import * as React from "react";
 
+/**
+ * Canonical classification for grounded source references.
+ */
+export const SourceKind = {
+  WEB: "web",
+  DATABASE: "database",
+  TOOL: "tool",
+  DOCUMENT: "document",
+} as const;
+
+export type SourceKind = (typeof SourceKind)[keyof typeof SourceKind];
+
+/**
+ * Grounded reference entry displayed in the sources list and inline citation previews.
+ */
 export interface SourceItem {
   id: string;
   index: number;
   title: string;
   url: string;
   domain?: string;
+  kind?: SourceKind;
+  badge?: string;
   snippet?: string;
   favicon?: string;
 }
 
+/**
+ * Props for the interactive {@link InlineCitation} badge.
+ */
 export interface InlineCitationProps extends Omit<
   React.ButtonHTMLAttributes<HTMLButtonElement>,
   "children"
 > {
-  /** Index number of the citation, e.g. 1 */
   index: number;
-  /** Title of the cited source */
   title?: string;
-  /** URL of the source */
   url?: string;
-  /** Text snippet from source */
+  domain?: string;
   snippet?: string;
-  /** Optional click handler to navigate or open preview */
+  kind?: SourceKind;
   onCitationClick?: (index: number) => void;
 }
 
+/**
+ * Props for the {@link Sources} disclosure and reference list.
+ */
 export interface SourcesProps extends React.HTMLAttributes<HTMLDivElement> {
-  /** List of source references */
-  sources: SourceItem[];
-  /** Optional callback when a source card is clicked */
+  sources?: SourceItem[];
+  title?: string;
+  collapsible?: boolean;
+  defaultOpen?: boolean;
+  open?: boolean;
+  onOpenChange?: (open: boolean) => void;
   onSourceClick?: (source: SourceItem) => void;
 }
 
+/**
+ * Props for {@link SourcesTrigger}.
+ */
+export interface SourcesTriggerProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+  count: number;
+  label?: string;
+}
+
+/**
+ * Props for an individual {@link SourceCard}.
+ */
 export interface SourceCardProps extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
   source: SourceItem;
+  onSourceClick?: (source: SourceItem) => void;
 }

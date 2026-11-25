@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { ContextUsage } from "@yuva-devlab/ui";
+import { ContextUsage, Stack } from "@yuva-devlab/ui";
 import {
   ComponentView,
   type ComponentVariant,
@@ -9,24 +9,63 @@ import {
   type CssClassDefinition,
 } from "@/components/component-view";
 
+const CARD_CODE = `import { ContextUsage, Stack } from "@yuva-devlab/ui";
+
+export function ContextUsageDemo() {
+  return (
+    <Stack gap={4}>
+      <ContextUsage
+        label="Claude 3.5 Sonnet (200k)"
+        usedTokens={48200}
+        maxTokens={200000}
+        breakdown={{
+          inputTokens: 42000,
+          outputTokens: 6200,
+          cachedTokens: 38000,
+        }}
+      />
+      <ContextUsage
+        label="Context Warning Threshold"
+        usedTokens={156000}
+        maxTokens={200000}
+        breakdown={{
+          inputTokens: 142000,
+          outputTokens: 14000,
+        }}
+      />
+    </Stack>
+  );
+}`;
+
+const COMPACT_CODE = `import { ContextUsage } from "@yuva-devlab/ui";
+
+export function CompactContextPillDemo() {
+  return (
+    <ContextUsage
+      variant="compact"
+      label="Gemini 2.5 Pro (200k)"
+      usedTokens={64200}
+      maxTokens={200000}
+      breakdown={{
+        inputTokens: 52000,
+        outputTokens: 12200,
+        reasoningTokens: 8400,
+        cachedTokens: 31000,
+      }}
+    />
+  );
+}`;
+
 export default function ContextUsageDocPage() {
   const variants: ComponentVariant[] = [
     {
       id: "default",
-      title: "Context Utilization Gauge",
+      title: "Context Utilization Card",
       description:
-        "Progress gauge displaying tokens used vs total limit with detailed category breakdowns.",
+        "Progress ring, horizontal meter, and token category breakdown cards.",
       preview: (
         <div className="dl-demo-frame dl-demo-frame--md">
-          <div
-            style={{
-              width: "100%",
-              maxWidth: "28rem",
-              display: "flex",
-              flexDirection: "column",
-              gap: "1rem",
-            }}
-          >
+          <Stack gap={4}>
             <ContextUsage
               label="Claude 3.5 Sonnet (200k)"
               usedTokens={48200}
@@ -47,15 +86,33 @@ export default function ContextUsageDocPage() {
                 outputTokens: 14000,
               }}
             />
-          </div>
+          </Stack>
         </div>
       ),
-      codeSnippet: `<ContextUsage
-  label="Claude 3.5 Sonnet (200k)"
-  usedTokens={48200}
-  maxTokens={200000}
-  breakdown={{ inputTokens: 42000, outputTokens: 6200 }}
-/>`,
+      codeSnippet: CARD_CODE,
+    },
+    {
+      id: "compact",
+      title: "Compact Hover Pill",
+      description:
+        "Inline prompt-bar pill showing radial token usage with HoverCard breakdown details.",
+      preview: (
+        <div className="dl-demo-frame dl-demo-frame--md">
+          <ContextUsage
+            variant="compact"
+            label="Gemini 2.5 Pro (200k)"
+            usedTokens={64200}
+            maxTokens={200000}
+            breakdown={{
+              inputTokens: 52000,
+              outputTokens: 12200,
+              reasoningTokens: 8400,
+              cachedTokens: 31000,
+            }}
+          />
+        </div>
+      ),
+      codeSnippet: COMPACT_CODE,
     },
   ];
 
@@ -73,40 +130,35 @@ export default function ContextUsageDocPage() {
       description: "Total context window capacity limit.",
     },
     {
+      name: "variant",
+      type: '"card" | "compact"',
+      default: '"card"',
+      description: "Expanded gauge card or compact HoverCard ring pill.",
+    },
+    {
       name: "breakdown",
       type: "TokenUsageBreakdown",
       default: "—",
       description:
-        "Optional details for input, output, reasoning, and cached tokens.",
-    },
-    {
-      name: "label",
-      type: "string",
-      default: '"Context Window"',
-      description: "Title label displayed above the gauge.",
+        "Optional counts for input, output, reasoning, and cached tokens.",
     },
   ];
 
   const cssClasses: CssClassDefinition[] = [
     {
       name: ".dl-context-usage",
-      description: "Outer card container for token gauge.",
+      description: "Outer card container for token utilization gauge.",
     },
     {
-      name: ".dl-context-usage__bar-bg",
-      description: "Background track for the token progress bar.",
-    },
-    {
-      name: ".dl-context-usage__bar-fill",
-      description:
-        "Colored fill indicator with warning and danger transitions.",
+      name: ".dl-context-compact__trigger",
+      description: "Pill button trigger displaying radial usage ring.",
     },
   ];
 
   return (
     <ComponentView
       title="Context"
-      description="Token usage gauge visualizing LLM context window consumption, remaining capacity thresholds, and token category breakdowns."
+      description="Token usage indicator visualizing LLM context window consumption, remaining capacity thresholds, and category breakdowns."
       variants={variants}
       propsList={propsList}
       cssClasses={cssClasses}

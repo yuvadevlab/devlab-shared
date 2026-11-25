@@ -2,11 +2,10 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { DocProviders } from "@/components/doc-providers";
 import { DocShell } from "@/components/doc-shell";
+import { resolveDocsBaseUrl } from "@/config/site.constants";
 
 export const metadata: Metadata = {
-  metadataBase: new URL(
-    process.env.NEXT_PUBLIC_SITE_URL || "https://ui.devlab.dev",
-  ),
+  metadataBase: new URL(resolveDocsBaseUrl()),
   title: "DevLab UI — Enterprise Design System & Component Showcase",
   description:
     "Pure CSS, multi-brand design system with modular W3C Cascade Layers, accessible Radix primitives, and comprehensive API reference.",

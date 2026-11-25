@@ -8,6 +8,14 @@ import {
 
 export type { PromptInputProps, PromptInputAttachmentItem };
 
+function formatFileSize(size?: string | number): string {
+  if (size === undefined || size === "") return "";
+  if (typeof size === "string") return size;
+  if (size < 1024) return `${size} B`;
+  if (size < 1024 * 1024) return `${(size / 1024).toFixed(1)} KB`;
+  return `${(size / (1024 * 1024)).toFixed(1)} MB`;
+}
+
 /**
  * Enterprise message composition field for conversational AI and agent commands.
  * Features auto-resize textarea, file attachments, model selector slot, and Enter submission.
@@ -29,7 +37,7 @@ export const PromptInput = React.forwardRef<HTMLFormElement, PromptInputProps>(
       onValueChange,
       onSubmit,
       onStop,
-      placeholder = "Send a message or prompt...",
+      placeholder = "Ask anything or describe a task...",
       isGenerating = false,
       disabled = false,
       attachments: propAttachments,
@@ -65,10 +73,12 @@ export const PromptInput = React.forwardRef<HTMLFormElement, PromptInputProps>(
 
     const handleInput = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
       updateText(e.target.value);
-      // Auto-resize
       if (textareaRef.current) {
         textareaRef.current.style.height = "auto";
-        textareaRef.current.style.height = `${Math.min(textareaRef.current.scrollHeight, 224)}px`;
+        textareaRef.current.style.height = `${Math.min(
+          textareaRef.current.scrollHeight,
+          224,
+        )}px`;
       }
     };
 
@@ -131,27 +141,41 @@ export const PromptInput = React.forwardRef<HTMLFormElement, PromptInputProps>(
         )}
         {...props}
       >
-        {/* Attachments preview row */}
         {files.length > 0 && (
           <div className="dl-prompt-input__attachments">
-            {files.map((file) => (
-              <span key={file.id} className="dl-prompt-input__chip">
-                <FileText className="dl-prompt-input__chip-icon" />
-                <span className="dl-prompt-input__chip-name">{file.name}</span>
-                <button
-                  type="button"
-                  onClick={() => handleRemoveFile(file.id)}
-                  aria-label={`Remove ${file.name}`}
-                  className="dl-prompt-input__chip-remove"
-                >
-                  <X className="dl-prompt-input__chip-icon" />
-                </button>
-              </span>
-            ))}
+            {files.map((file) => {
+              const sizeLabel = formatFileSize(file.size);
+              return (
+                <span key={file.id} className="dl-prompt-input__chip">
+                  <FileText
+                    className="dl-prompt-input__chip-icon"
+                    aria-hidden="true"
+                  />
+                  <span className="dl-prompt-input__chip-name">
+                    {file.name}
+                  </span>
+                  {sizeLabel && (
+                    <span className="dl-prompt-input__chip-size">
+                      {sizeLabel}
+                    </span>
+                  )}
+                  <button
+                    type="button"
+                    onClick={() => handleRemoveFile(file.id)}
+                    aria-label={`Remove ${file.name}`}
+                    className="dl-prompt-input__chip-remove"
+                  >
+                    <X
+                      className="dl-prompt-input__chip-icon"
+                      aria-hidden="true"
+                    />
+                  </button>
+                </span>
+              );
+            })}
           </div>
         )}
 
-        {/* Textarea */}
         <textarea
           ref={textareaRef}
           value={text}
@@ -163,7 +187,6 @@ export const PromptInput = React.forwardRef<HTMLFormElement, PromptInputProps>(
           className="dl-prompt-input__textarea"
         />
 
-        {/* Action Toolbar */}
         <div className="dl-prompt-input__toolbar">
           <div className="dl-prompt-input__left-actions">
             <input
@@ -171,16 +194,22 @@ export const PromptInput = React.forwardRef<HTMLFormElement, PromptInputProps>(
               ref={fileInputRef}
               onChange={handleFileSelect}
               multiple
-              className="hidden"
+              tabIndex={-1}
+              aria-hidden="true"
+              className="dl-prompt-input__file-input"
             />
             <button
               type="button"
               onClick={() => fileInputRef.current?.click()}
               disabled={disabled || files.length >= maxAttachments}
               aria-label="Attach file"
-              className="dl-prompt-input__btn"
+              title="Attach files"
+              className="dl-prompt-input__btn dl-prompt-input__btn--ghost"
             >
-              <Paperclip className="size-3.5" />
+              <Paperclip
+                className="dl-prompt-input__btn-icon"
+                aria-hidden="true"
+              />
             </button>
             {modelSelector}
           </div>
@@ -193,7 +222,10 @@ export const PromptInput = React.forwardRef<HTMLFormElement, PromptInputProps>(
                 aria-label="Stop generation"
                 className="dl-prompt-input__btn dl-prompt-input__btn--stop"
               >
-                <Square className="size-3 fill-current" />
+                <Square
+                  className="dl-prompt-input__stop-icon"
+                  aria-hidden="true"
+                />
               </button>
             ) : (
               <button
@@ -202,7 +234,10 @@ export const PromptInput = React.forwardRef<HTMLFormElement, PromptInputProps>(
                 aria-label="Send message"
                 className="dl-prompt-input__btn dl-prompt-input__btn--send"
               >
-                <ArrowUp className="size-3.5 stroke-[2.5]" />
+                <ArrowUp
+                  className="dl-prompt-input__send-icon"
+                  aria-hidden="true"
+                />
               </button>
             )}
           </div>

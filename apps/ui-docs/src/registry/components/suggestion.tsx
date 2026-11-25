@@ -1,13 +1,52 @@
 "use client";
 
 import React, { useState } from "react";
-import { Suggestion, SuggestionList } from "@yuva-devlab/ui";
+import { Suggestion, SuggestionList, Stack, Text } from "@yuva-devlab/ui";
 import {
   ComponentView,
   type ComponentVariant,
   type PropDefinition,
   type CssClassDefinition,
 } from "@/components/component-view";
+
+const LIST_CODE = `import { useState } from "react";
+import { Suggestion, SuggestionList, Stack, Text } from "@yuva-devlab/ui";
+
+const PROMPTS = [
+  "How do I add SSO via Okta?",
+  "Generate TypeScript types for audit_logs",
+  "Run security benchmark on PostgreSQL",
+];
+
+export function SuggestionPillsDemo() {
+  const [selected, setSelected] = useState("");
+
+  return (
+    <Stack gap={3}>
+      <SuggestionList>
+        {PROMPTS.map((prompt) => (
+          <Suggestion
+            key={prompt}
+            label={prompt}
+            onClick={() => setSelected(prompt)}
+          />
+        ))}
+      </SuggestionList>
+      {selected && <Text variant="caption">Selected: {selected}</Text>}
+    </Stack>
+  );
+}`;
+
+const SCROLL_CODE = `import { Suggestion, SuggestionList } from "@yuva-devlab/ui";
+
+export function SuggestionScrollDemo() {
+  return (
+    <SuggestionList layout="scroll">
+      <Suggestion label="Fix linting errors" description="4 files affected" />
+      <Suggestion label="Optimize Dockerfile" description="Reduce image size" />
+    </SuggestionList>
+  );
+}`;
 
 export default function SuggestionDocPage() {
   const [selected, setSelected] = useState<string>("");
@@ -17,18 +56,10 @@ export default function SuggestionDocPage() {
       id: "list",
       title: "Interactive Suggestion Pills",
       description:
-        "Clickable follow-up prompt chips for quick actions, guiding user interactions.",
+        "Clickable follow-up prompt chips with crisp 12px spark icons.",
       preview: (
-        <div className="dl-demo-frame dl-demo-frame--md">
-          <div
-            style={{
-              width: "100%",
-              maxWidth: "36rem",
-              display: "flex",
-              flexDirection: "column",
-              gap: "0.75rem",
-            }}
-          >
+        <div className="dl-demo-frame dl-demo-frame--lg">
+          <Stack gap={3}>
             <SuggestionList>
               <Suggestion
                 label="How do I add SSO via Okta?"
@@ -47,62 +78,34 @@ export default function SuggestionDocPage() {
                 }
               />
             </SuggestionList>
-            {selected && (
-              <p
-                style={{
-                  fontSize: "0.75rem",
-                  color: "var(--muted-foreground)",
-                }}
-              >
-                Selected query:{" "}
-                <span style={{ color: "var(--foreground)", fontWeight: 500 }}>
-                  {selected}
-                </span>
-              </p>
-            )}
-          </div>
+            {selected && <Text variant="caption">Selected: {selected}</Text>}
+          </Stack>
         </div>
       ),
-      codeSnippet: `<SuggestionList>
-  <Suggestion
-    label="How do I add SSO via Okta?"
-    onClick={() => setPrompt("How do I add SSO via Okta?")}
-  />
-  <Suggestion
-    label="Generate TypeScript types"
-    onClick={() => setPrompt("Generate TypeScript types")}
-  />
-</SuggestionList>`,
+      codeSnippet: LIST_CODE,
     },
     {
       id: "with-descriptions",
-      title: "With Subtext Descriptions",
+      title: "Scrollable Chips with Subtext",
       description:
-        "Suggestions with secondary descriptions explaining outcome or source.",
+        "Horizontal scrolling suggestions with secondary context hints.",
       preview: (
-        <div className="dl-demo-frame dl-demo-frame--md">
-          <div className="w-full max-w-xl">
-            <SuggestionList layout="scroll">
-              <Suggestion
-                label="Fix linting errors"
-                description="4 files affected"
-                onClick={() => alert("Fix linting")}
-              />
-              <Suggestion
-                label="Optimize Dockerfile"
-                description="Reduce image size"
-                onClick={() => alert("Optimize Dockerfile")}
-              />
-            </SuggestionList>
-          </div>
+        <div className="dl-demo-frame dl-demo-frame--lg">
+          <SuggestionList layout="scroll">
+            <Suggestion
+              label="Fix linting errors"
+              description="4 files affected"
+              onClick={() => setSelected("Fix linting errors")}
+            />
+            <Suggestion
+              label="Optimize Dockerfile"
+              description="Reduce image size"
+              onClick={() => setSelected("Optimize Dockerfile")}
+            />
+          </SuggestionList>
         </div>
       ),
-      codeSnippet: `<SuggestionList layout="scroll">
-  <Suggestion
-    label="Fix linting errors"
-    description="4 files affected"
-  />
-</SuggestionList>`,
+      codeSnippet: SCROLL_CODE,
     },
   ];
 
@@ -117,42 +120,32 @@ export default function SuggestionDocPage() {
       name: "description",
       type: "string",
       default: "—",
-      description:
-        "Optional secondary context hint displayed alongside the label.",
-    },
-    {
-      name: "icon",
-      type: "React.ReactNode",
-      default: "<Sparkles />",
-      description: "Leading icon to display in the chip.",
+      description: "Optional secondary hint displayed beside the label.",
     },
     {
       name: "layout",
       type: '"wrap" | "scroll"',
       default: '"wrap"',
-      description: "Layout alignment on SuggestionList container.",
+      description: "Wrapping flex grid or horizontal scroll strip.",
     },
   ];
 
   const cssClasses: CssClassDefinition[] = [
+    { name: ".dl-suggestion-list", description: "Flex container for pills." },
     {
       name: ".dl-suggestion",
-      description: "Interactive pill button styling with hover state.",
+      description: "Interactive suggestion chip button.",
     },
     {
       name: ".dl-suggestion__icon",
-      description: "Leading icon container with muted color.",
-    },
-    {
-      name: ".dl-suggestion-list",
-      description: "Container row arranging suggestion chips.",
+      description: "Leading icon slot sized at 12px.",
     },
   ];
 
   return (
     <ComponentView
       title="Suggestion"
-      description="Quick-prompt action pills displayed after agent replies or on empty conversational canvases to prompt follow-up tasks."
+      description="Clickable starter prompt pills and follow-up inquiry chips."
       variants={variants}
       propsList={propsList}
       cssClasses={cssClasses}

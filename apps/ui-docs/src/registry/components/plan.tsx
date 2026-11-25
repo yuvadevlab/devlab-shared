@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { Plan, PlanTask } from "@yuva-devlab/ui";
+import { Plan, PlanTask, SourceKind, type SourceItem } from "@yuva-devlab/ui";
 import {
   ComponentView,
   type ComponentVariant,
@@ -9,107 +9,163 @@ import {
   type CssClassDefinition,
 } from "@/components/component-view";
 
+const planSources: SourceItem[] = [
+  {
+    id: "ps-1",
+    index: 1,
+    title: "PostgreSQL audit_logs Schema",
+    url: "/schema/audit_logs",
+    kind: SourceKind.DATABASE,
+  },
+  {
+    id: "ps-2",
+    index: 2,
+    title: "Concurrent Index Reference",
+    url: "https://www.postgresql.org/docs/current/sql-createindex.html",
+    kind: SourceKind.WEB,
+  },
+];
+
+const IN_PROGRESS_CODE = `import { Plan, PlanTask, SourceKind, type SourceItem } from "@yuva-devlab/ui";
+
+const PLAN_SOURCES: SourceItem[] = [
+  {
+    id: "ps-1",
+    index: 1,
+    title: "PostgreSQL audit_logs Schema",
+    url: "/schema/audit_logs",
+    kind: SourceKind.DATABASE,
+  },
+  {
+    id: "ps-2",
+    index: 2,
+    title: "Concurrent Index Reference",
+    url: "https://www.postgresql.org/docs/current/sql-createindex.html",
+    kind: SourceKind.WEB,
+  },
+];
+
+export function ExecutionPlanDemo() {
+  return (
+    <Plan
+      title="Database Migration & Optimization"
+      description="Transparent execution plan with step details and consulted sources."
+      status="in-progress"
+      currentStep={2}
+      totalSteps={4}
+      sources={PLAN_SOURCES}
+    >
+      <PlanTask
+        title="Audit audit_logs table schema and indexes"
+        status="completed"
+        description="Verified 14 indexes across 12 partitions."
+      />
+      <PlanTask
+        title="Create compound index on (workspace_id, created_at DESC)"
+        status="running"
+        description="Executing concurrent index creation on replica..."
+        defaultExpanded
+        sources={[PLAN_SOURCES[0]]}
+      >
+        <div>Progress: 74% scanned (1.2M rows)</div>
+      </PlanTask>
+      <PlanTask
+        title="Verify query execution plan with EXPLAIN ANALYZE"
+        status="pending"
+      />
+    </Plan>
+  );
+}`;
+
+const COMPLETED_CODE = `import { Plan, PlanTask } from "@yuva-devlab/ui";
+
+export function CompletedPlanDemo() {
+  return (
+    <Plan
+      title="Package Publish Pipeline"
+      status="completed"
+      currentStep={3}
+      totalSteps={3}
+    >
+      <PlanTask title="Build ESM/CJS bundles via tsup" status="completed" />
+      <PlanTask title="Verify TypeScript declarations" status="completed" />
+      <PlanTask title="Publish release tags to GitHub" status="completed" />
+    </Plan>
+  );
+}`;
+
 export default function PlanDocPage() {
   const variants: ComponentVariant[] = [
     {
       id: "in-progress",
-      title: "In-Progress Execution Plan",
+      title: "Execution Plan with Sources",
       description:
-        "Structured task checklist showing completed, running, and queued steps with subtask details.",
+        "Transparent task checklist showing completed and active steps alongside consulted sources.",
       preview: (
-        <div className="dl-demo-frame dl-demo-frame--md">
-          <div className="w-full max-w-xl">
-            <Plan
-              title="Database Migration & Optimization"
-              status="in-progress"
-              currentStep={2}
-              totalSteps={4}
+        <div className="dl-demo-frame dl-demo-frame--lg">
+          <Plan
+            title="Database Migration & Optimization"
+            description="Transparent execution plan with step details and consulted sources."
+            status="in-progress"
+            currentStep={2}
+            totalSteps={4}
+            sources={planSources}
+          >
+            <PlanTask
+              title="Audit audit_logs table schema and indexes"
+              status="completed"
+              description="Verified 14 indexes across 12 partitions."
+            />
+            <PlanTask
+              title="Create compound index on (workspace_id, created_at DESC)"
+              status="running"
+              description="Executing concurrent index creation on replica..."
+              defaultExpanded
+              sources={[planSources[0]]}
             >
-              <PlanTask
-                title="Audit audit_logs table schema and indexes"
-                status="completed"
-                description="Verified 14 indexes across 12 partitions."
-              />
-              <PlanTask
-                title="Create compound index on (workspace_id, created_at DESC)"
-                status="running"
-                description="Executing concurrent index creation on replica..."
-                defaultExpanded
-              >
-                <div
-                  style={{
-                    fontSize: "0.75rem",
-                    color: "var(--muted-foreground)",
-                    borderLeft:
-                      "2px solid color-mix(in oklch, var(--primary) 40%, transparent)",
-                    paddingLeft: "0.5rem",
-                  }}
-                >
-                  Progress: 74% scanned (1.2M rows)
-                </div>
-              </PlanTask>
-              <PlanTask
-                title="Verify query execution plan with EXPLAIN ANALYZE"
-                status="pending"
-              />
-              <PlanTask
-                title="Update application query hooks in packages/ui"
-                status="pending"
-              />
-            </Plan>
-          </div>
+              <div>Progress: 74% scanned (1.2M rows)</div>
+            </PlanTask>
+            <PlanTask
+              title="Verify query execution plan with EXPLAIN ANALYZE"
+              status="pending"
+            />
+            <PlanTask
+              title="Update application query hooks in packages/ui"
+              status="pending"
+            />
+          </Plan>
         </div>
       ),
-      codeSnippet: `<Plan
-  title="Database Migration"
-  status="in-progress"
-  currentStep={2}
-  totalSteps={4}
->
-  <PlanTask title="Audit schema" status="completed" />
-  <PlanTask title="Create index" status="running" defaultExpanded />
-  <PlanTask title="Verify plan" status="pending" />
-</Plan>`,
+      codeSnippet: IN_PROGRESS_CODE,
     },
     {
       id: "completed",
       title: "Completed Workflow",
-      description:
-        "Plan container showing all successfully finished operations.",
+      description: "Plan container showing all finished steps cleanly.",
       preview: (
-        <div className="dl-demo-frame dl-demo-frame--md">
-          <div className="w-full max-w-xl">
-            <Plan
-              title="Package Publish Pipeline"
+        <div className="dl-demo-frame dl-demo-frame--lg">
+          <Plan
+            title="Package Publish Pipeline"
+            status="completed"
+            currentStep={3}
+            totalSteps={3}
+          >
+            <PlanTask
+              title="Build ESM/CJS bundles via tsup"
               status="completed"
-              currentStep={3}
-              totalSteps={3}
-            >
-              <PlanTask
-                title="Build ESM/CJS bundles via tsup"
-                status="completed"
-              />
-              <PlanTask
-                title="Verify TypeScript declarations (d.ts)"
-                status="completed"
-              />
-              <PlanTask
-                title="Publish release tags to GitHub"
-                status="completed"
-              />
-            </Plan>
-          </div>
+            />
+            <PlanTask
+              title="Verify TypeScript declarations (d.ts)"
+              status="completed"
+            />
+            <PlanTask
+              title="Publish release tags to GitHub"
+              status="completed"
+            />
+          </Plan>
         </div>
       ),
-      codeSnippet: `<Plan
-  title="Package Publish Pipeline"
-  status="completed"
-  currentStep={3}
-  totalSteps={3}
->
-  <PlanTask title="Build bundles" status="completed" />
-  <PlanTask title="Publish release" status="completed" />
-</Plan>`,
+      codeSnippet: COMPLETED_CODE,
     },
   ];
 
@@ -118,7 +174,13 @@ export default function PlanDocPage() {
       name: "title",
       type: "string",
       default: '"Execution Plan"',
-      description: "Header title for the plan.",
+      description: "Header title for the execution plan.",
+    },
+    {
+      name: "description",
+      type: "string",
+      default: "—",
+      description: "Subtitle summarizing the overall plan objective.",
     },
     {
       name: "status",
@@ -127,43 +189,33 @@ export default function PlanDocPage() {
       description: "Overall execution status badge.",
     },
     {
-      name: "currentStep",
-      type: "number",
+      name: "sources",
+      type: "SourceItem[]",
       default: "—",
-      description: "Current step index for progress computation.",
-    },
-    {
-      name: "totalSteps",
-      type: "number",
-      default: "—",
-      description: "Total number of steps in the plan.",
+      description: "Transparent source references consulted during planning.",
     },
   ];
 
   const cssClasses: CssClassDefinition[] = [
     {
       name: ".dl-plan",
-      description: "Outer card container for the execution plan.",
+      description: "Outer container card for execution plan.",
     },
     {
       name: ".dl-plan__header",
-      description: "Top bar showing plan title, progress, and status badge.",
-    },
-    {
-      name: ".dl-plan__task",
       description:
-        "Individual task row with status icon and expandable details.",
+        "Header with title shimmer, progress count, and status chip.",
     },
     {
-      name: ".dl-plan__task-title",
-      description: "Primary task summary title.",
+      name: ".dl-plan__sources",
+      description: "Consulted source pill footer and per-step citations.",
     },
   ];
 
   return (
     <ComponentView
       title="Plan"
-      description="Hierarchical execution plan and task checklist component for displaying multi-step AI agent workflows, background tasks, and deployment stages."
+      description="Agent task execution plan checklist displaying progress counts, expandable task details, and transparent source attribution."
       variants={variants}
       propsList={propsList}
       cssClasses={cssClasses}

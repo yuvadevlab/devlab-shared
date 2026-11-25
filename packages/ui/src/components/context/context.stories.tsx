@@ -12,10 +12,7 @@ type Story = StoryObj<typeof ContextUsage>;
 
 export const Default: Story = {
   render: () => (
-    <div
-      className="dl-story-w-md"
-      style={{ display: "flex", flexDirection: "column", gap: "1rem" }}
-    >
+    <div className="dl-story-w-md dl-story-col">
       <ContextUsage
         label="Claude 3.5 Sonnet (200k)"
         usedTokens={48200}
@@ -44,6 +41,25 @@ export const Default: Story = {
         breakdown={{
           inputTokens: 170000,
           outputTokens: 18000,
+        }}
+      />
+    </div>
+  ),
+};
+
+export const CompactHoverPill: Story = {
+  render: () => (
+    <div className="dl-story-row">
+      <ContextUsage
+        variant="compact"
+        label="Gemini 2.5 Pro (1M)"
+        usedTokens={64200}
+        maxTokens={200000}
+        breakdown={{
+          inputTokens: 52000,
+          outputTokens: 12200,
+          reasoningTokens: 8400,
+          cachedTokens: 31000,
         }}
       />
     </div>

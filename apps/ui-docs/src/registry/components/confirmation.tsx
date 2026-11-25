@@ -1,7 +1,7 @@
 "use client";
 
-import React from "react";
-import { Terminal, AlertTriangle } from "lucide-react";
+import React, { useState } from "react";
+import { Terminal, AlertTriangle, CheckCircle2 } from "lucide-react";
 import {
   Confirmation,
   ConfirmationMedia,
@@ -9,6 +9,10 @@ import {
   ConfirmationTitle,
   ConfirmationDescription,
   ConfirmationActions,
+  ConfirmationRequest,
+  ConfirmationAccepted,
+  ConfirmationRejected,
+  type ConfirmationApprovalState,
   Button,
 } from "@yuva-devlab/ui";
 import {
@@ -18,18 +22,106 @@ import {
   type CssClassDefinition,
 } from "@/components/component-view";
 
+const BASIC_CODE = `import { useState } from "react";
+import { Terminal, CheckCircle2 } from "lucide-react";
+import {
+  Confirmation,
+  ConfirmationMedia,
+  ConfirmationContent,
+  ConfirmationTitle,
+  ConfirmationDescription,
+  ConfirmationActions,
+  ConfirmationRequest,
+  ConfirmationAccepted,
+  ConfirmationRejected,
+  type ConfirmationApprovalState,
+  Button,
+} from "@yuva-devlab/ui";
+
+export function ConfirmationDemo() {
+  const [state, setState] = useState<ConfirmationApprovalState>(
+    "approval-requested",
+  );
+
+  return (
+    <Confirmation state={state}>
+      <ConfirmationMedia>
+        <Terminal aria-hidden="true" />
+      </ConfirmationMedia>
+      <ConfirmationContent>
+        <ConfirmationTitle>Run git push origin main?</ConfirmationTitle>
+        <ConfirmationDescription>
+          Pushes 3 commits to the remote production repository.
+        </ConfirmationDescription>
+      </ConfirmationContent>
+      <ConfirmationRequest>
+        <ConfirmationActions>
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => setState("approval-rejected")}
+          >
+            Deny
+          </Button>
+          <Button size="sm" onClick={() => setState("approval-accepted")}>
+            Approve
+          </Button>
+        </ConfirmationActions>
+      </ConfirmationRequest>
+      <ConfirmationAccepted>
+        <CheckCircle2 aria-hidden="true" /> Approved for execution
+      </ConfirmationAccepted>
+      <ConfirmationRejected>Execution denied</ConfirmationRejected>
+    </Confirmation>
+  );
+}`;
+
+const DESTRUCTIVE_CODE = `import { AlertTriangle } from "lucide-react";
+import {
+  Confirmation,
+  ConfirmationMedia,
+  ConfirmationContent,
+  ConfirmationTitle,
+  ConfirmationDescription,
+  ConfirmationActions,
+  Button,
+} from "@yuva-devlab/ui";
+
+export function DestructiveConfirmationDemo() {
+  return (
+    <Confirmation variant="destructive">
+      <ConfirmationMedia>
+        <AlertTriangle aria-hidden="true" />
+      </ConfirmationMedia>
+      <ConfirmationContent>
+        <ConfirmationTitle>Drop database table audit_logs?</ConfirmationTitle>
+        <ConfirmationDescription>
+          Permanent data loss will occur. 142k rows will be dropped.
+        </ConfirmationDescription>
+      </ConfirmationContent>
+      <ConfirmationActions>
+        <Button variant="outline" size="sm">Cancel</Button>
+        <Button variant="destructive" size="sm">Confirm Drop</Button>
+      </ConfirmationActions>
+    </Confirmation>
+  );
+}`;
+
 export default function ConfirmationDocPage() {
+  const [approvalState, setApprovalState] =
+    useState<ConfirmationApprovalState>("approval-requested");
+
   const variants: ComponentVariant[] = [
     {
       id: "basic",
-      title: "Command Approval",
+      title: "Interactive Command Approval",
       description:
-        "Ask user approval before running a terminal or git command.",
+        "Approve or deny tool execution with responsive action layout and inline resolution status.",
       preview: (
-        <div className="dl-demo-frame dl-demo-frame--md">
-          <Confirmation>
+        <div className="dl-demo-frame dl-demo-frame--lg">
+          <Confirmation state={approvalState}>
             <ConfirmationMedia>
-              <Terminal className="size-4" />
+              <Terminal aria-hidden="true" />
             </ConfirmationMedia>
             <ConfirmationContent>
               <ConfirmationTitle>Run git push origin main?</ConfirmationTitle>
@@ -37,26 +129,34 @@ export default function ConfirmationDocPage() {
                 Pushes 3 commits to the remote production repository.
               </ConfirmationDescription>
             </ConfirmationContent>
-            <ConfirmationActions>
-              <Button variant="outline" size="sm">
-                Deny
-              </Button>
-              <Button size="sm">Approve</Button>
-            </ConfirmationActions>
+            <ConfirmationRequest>
+              <ConfirmationActions>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => setApprovalState("approval-rejected")}
+                >
+                  Deny
+                </Button>
+                <Button
+                  size="sm"
+                  onClick={() => setApprovalState("approval-accepted")}
+                >
+                  Approve
+                </Button>
+              </ConfirmationActions>
+            </ConfirmationRequest>
+            <ConfirmationAccepted>
+              <CheckCircle2 aria-hidden="true" />
+              <span>Approved for execution</span>
+            </ConfirmationAccepted>
+            <ConfirmationRejected>
+              <span>Execution denied</span>
+            </ConfirmationRejected>
           </Confirmation>
         </div>
       ),
-      codeSnippet: `<Confirmation>
-  <ConfirmationMedia><Terminal /></ConfirmationMedia>
-  <ConfirmationContent>
-    <ConfirmationTitle>Run git push origin main?</ConfirmationTitle>
-    <ConfirmationDescription>Pushes 3 commits to production.</ConfirmationDescription>
-  </ConfirmationContent>
-  <ConfirmationActions>
-    <Button variant="outline" size="sm">Deny</Button>
-    <Button size="sm">Approve</Button>
-  </ConfirmationActions>
-</Confirmation>`,
+      codeSnippet: BASIC_CODE,
     },
     {
       id: "destructive",
@@ -64,10 +164,10 @@ export default function ConfirmationDocPage() {
       description:
         "Highlighted alert for high-risk deletions or irreversible operations.",
       preview: (
-        <div className="dl-demo-frame dl-demo-frame--md">
+        <div className="dl-demo-frame dl-demo-frame--lg">
           <Confirmation variant="destructive">
             <ConfirmationMedia>
-              <AlertTriangle className="size-4" />
+              <AlertTriangle aria-hidden="true" />
             </ConfirmationMedia>
             <ConfirmationContent>
               <ConfirmationTitle>
@@ -88,15 +188,7 @@ export default function ConfirmationDocPage() {
           </Confirmation>
         </div>
       ),
-      codeSnippet: `<Confirmation variant="destructive">
-  <ConfirmationMedia><AlertTriangle /></ConfirmationMedia>
-  <ConfirmationContent>
-    <ConfirmationTitle>Drop database table?</ConfirmationTitle>
-  </ConfirmationContent>
-  <ConfirmationActions>
-    <Button variant="destructive" size="sm">Confirm</Button>
-  </ConfirmationActions>
-</Confirmation>`,
+      codeSnippet: DESTRUCTIVE_CODE,
     },
   ];
 
@@ -106,6 +198,13 @@ export default function ConfirmationDocPage() {
       type: '"outline" | "card" | "destructive"',
       default: '"outline"',
       description: "Card border styling and risk level coloring.",
+    },
+    {
+      name: "state",
+      type: '"approval-requested" | "approval-accepted" | "approval-rejected"',
+      default: "—",
+      description:
+        "Controls visibility of Request / Accepted / Rejected slots.",
     },
     {
       name: "size",
@@ -118,22 +217,22 @@ export default function ConfirmationDocPage() {
   const cssClasses: CssClassDefinition[] = [
     {
       name: ".dl-confirmation",
-      description: "Container card for approval gate.",
+      description: "Container card for human-in-the-loop approval gate.",
     },
     {
       name: ".dl-confirmation__media",
-      description: "Left icon or visual slot.",
+      description: "Left icon container enforcing crisp 16px SVG sizing.",
     },
     {
       name: ".dl-confirmation__actions",
-      description: "Right-aligned approve/deny buttons.",
+      description: "Responsive right-aligned approve/deny action bar.",
     },
   ];
 
   return (
     <ComponentView
       title="Confirmation"
-      description="Human-in-the-loop action approval card for sensitive or destructive AI agent actions, with title, risk description, and contextual approve/deny actions."
+      description="Human-in-the-loop action approval card for sensitive or destructive agent operations."
       variants={variants}
       propsList={propsList}
       cssClasses={cssClasses}

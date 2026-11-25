@@ -22,6 +22,7 @@ import {
 } from "@yuva-devlab/ui";
 import { useTheme, type Brand } from "@/components/theme-provider";
 import { SearchTrigger } from "@/components/search-trigger";
+import { resolveStorybookUrl } from "@/config/site.constants";
 import uiPackage from "@yuva-devlab/ui/package.json";
 
 const BRANDS = [
@@ -130,7 +131,7 @@ export function Header() {
           className="dl-docs-header__storybook-btn"
         >
           <a
-            href="http://localhost:6006"
+            href={resolveStorybookUrl()}
             target="_blank"
             rel="noopener noreferrer"
           >

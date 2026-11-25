@@ -5,7 +5,7 @@
  */
 
 import { z } from "zod";
-import { ToolCallSchema } from "./message.types";
+import { type ToolCall, ToolCallSchema } from "./message.types";
 
 /**
  * Standard completion termination reason in canonical UPPERCASE format.
@@ -82,6 +82,10 @@ export type LLMResponse = z.infer<typeof LLMResponseSchema>;
 export interface LLMStreamChunk {
   /** Delta text token */
   delta: string;
+  /** Optional reasoning or thinking delta emitted by reasoning-capable models */
+  reasoningDelta?: string;
+  /** Optional tool invocations emitted during streaming */
+  toolCalls?: ToolCall[];
   /** Finish reason if this chunk is the final stream message */
   finishReason?: FinishReason;
   /** Cumulative token usage if supplied by the provider */

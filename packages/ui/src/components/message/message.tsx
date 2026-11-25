@@ -31,17 +31,17 @@ export const MessageAvatar = React.forwardRef<
   let resolvedFallback = fallback;
   if (!resolvedFallback) {
     resolvedFallback =
-      role === "assistant" ? <Sparkles className="size-3.5" /> : "U";
+      role === "assistant" ? (
+        <Sparkles className="dl-message__avatar-icon" aria-hidden="true" />
+      ) : (
+        "U"
+      );
   }
 
   return (
     <div ref={ref} className={cn("dl-message__avatar", className)} {...props}>
       {src ? (
-        <img
-          src={src}
-          alt="Avatar"
-          className="size-full rounded-full object-cover"
-        />
+        <img src={src} alt="Avatar" className="dl-message__avatar-img" />
       ) : (
         resolvedFallback
       )}
@@ -100,9 +100,12 @@ export const MessageActions = React.forwardRef<
             className="dl-message__action-btn"
           >
             {copied ? (
-              <Check className="size-3 text-success" />
+              <Check
+                className="dl-message__action-icon dl-message__action-icon--ok"
+                aria-hidden="true"
+              />
             ) : (
-              <Copy className="size-3" />
+              <Copy className="dl-message__action-icon" aria-hidden="true" />
             )}
           </button>
         )}
@@ -113,7 +116,7 @@ export const MessageActions = React.forwardRef<
             aria-label="Retry response"
             className="dl-message__action-btn"
           >
-            <RotateCw className="size-3" />
+            <RotateCw className="dl-message__action-icon" aria-hidden="true" />
           </button>
         )}
         {onThumbsUp && (
@@ -123,7 +126,7 @@ export const MessageActions = React.forwardRef<
             aria-label="Good response"
             className="dl-message__action-btn"
           >
-            <ThumbsUp className="size-3" />
+            <ThumbsUp className="dl-message__action-icon" aria-hidden="true" />
           </button>
         )}
         {onThumbsDown && (
@@ -133,7 +136,10 @@ export const MessageActions = React.forwardRef<
             aria-label="Bad response"
             className="dl-message__action-btn"
           >
-            <ThumbsDown className="size-3" />
+            <ThumbsDown
+              className="dl-message__action-icon"
+              aria-hidden="true"
+            />
           </button>
         )}
         {children}

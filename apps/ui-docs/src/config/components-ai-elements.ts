@@ -2,6 +2,24 @@ import type { ComponentMeta } from "@/config/meta-types";
 
 export const AI_ELEMENTS_COMPONENTS: ComponentMeta[] = [
   {
+    name: "Reasoning",
+    slug: "reasoning",
+    href: "/components/reasoning",
+    category: "AI Elements",
+    description:
+      "Collapsible thinking trace panel with live shimmer trigger and auto-collapse lifecycle.",
+    keywords: ["ai", "reasoning", "thinking", "thought", "llm", "stream"],
+  },
+  {
+    name: "Shimmer",
+    slug: "shimmer",
+    href: "/components/shimmer",
+    category: "AI Elements",
+    description:
+      "Animated sweeping text highlight for live AI narration and streaming status.",
+    keywords: ["shimmer", "loading", "streaming", "status", "narration"],
+  },
+  {
     name: "Chain of Thought",
     slug: "chain-of-thought",
     href: "/components/chain-of-thought",

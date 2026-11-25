@@ -4,7 +4,12 @@
  * @module @yuva-devlab/ai-client
  */
 
-import { type CredentialResolver, type LLMRequest, MessageRole } from "@/types";
+import {
+  type CredentialResolver,
+  type LLMRequest,
+  type LLMStreamChunk,
+  MessageRole,
+} from "@/types";
 
 /**
  * Configuration options for initializing GoogleAdapter.
@@ -21,7 +26,7 @@ export interface GoogleAdapterConfig {
 }
 
 export interface GeminiCandidate {
-  content?: { parts?: Array<{ text?: string }> };
+  content?: { parts?: Array<{ text?: string; thought?: boolean }> };
   finishReason?: string;
 }
 
@@ -71,4 +76,42 @@ export function buildGeminiRequestBody(
           : "text/plain",
     },
   };
+}
+
+/**
+ * Parses a single Google Gemini SSE data payload into a normalized stream chunk.
+ *
+ * @param jsonStr - Raw JSON payload stripped of the SSE `data:` prefix.
+ * @returns Normalized stream chunk when content/reasoning/usage is present, or `null`.
+ */
+export function parseGeminiSseChunk(jsonStr: string): LLMStreamChunk | null {
+  try {
+    const chunk = JSON.parse(jsonStr) as GeminiResponse;
+    const parts = chunk.candidates?.[0]?.content?.parts ?? [];
+    let delta = "";
+    let reasoningDelta = "";
+
+    for (const part of parts) {
+      if (!part.text) continue;
+      if (part.thought) reasoningDelta += part.text;
+      else delta += part.text;
+    }
+
+    const usage = chunk.usageMetadata
+      ? {
+          promptTokens: chunk.usageMetadata.promptTokenCount ?? 0,
+          completionTokens: chunk.usageMetadata.candidatesTokenCount ?? 0,
+          totalTokens: chunk.usageMetadata.totalTokenCount ?? 0,
+        }
+      : undefined;
+
+    if (!delta && !reasoningDelta && !usage) return null;
+    return {
+      delta,
+      ...(reasoningDelta ? { reasoningDelta } : {}),
+      ...(usage ? { usage } : {}),
+    };
+  } catch {
+    return null;
+  }
 }

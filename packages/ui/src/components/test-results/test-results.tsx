@@ -16,44 +16,59 @@ import {
 
 export type { TestCaseItem, TestCaseStatus, TestResultsProps, TestCaseProps };
 
+function renderTestIcon(status: TestCaseStatus) {
+  switch (status) {
+    case "passed":
+      return (
+        <CheckCircle2
+          className="dl-test-case__icon dl-test-case__icon--passed"
+          aria-hidden="true"
+        />
+      );
+    case "failed":
+      return (
+        <XCircle
+          className="dl-test-case__icon dl-test-case__icon--failed"
+          aria-hidden="true"
+        />
+      );
+    case "skipped":
+    default:
+      return (
+        <MinusCircle
+          className="dl-test-case__icon dl-test-case__icon--skipped"
+          aria-hidden="true"
+        />
+      );
+  }
+}
+
+/**
+ * Individual test assertion row inside {@link TestResults}.
+ */
 export const TestCase = React.forwardRef<HTMLDivElement, TestCaseProps>(
   ({ className, test, defaultExpanded = false, ...props }, ref) => {
     const [expanded, setExpanded] = React.useState(defaultExpanded);
     const hasError = Boolean(test.errorMessage);
 
-    const renderIcon = () => {
-      switch (test.status) {
-        case "passed":
-          return <CheckCircle2 className="size-4 text-success shrink-0" />;
-        case "failed":
-          return <XCircle className="size-4 text-destructive shrink-0" />;
-        case "skipped":
-        default:
-          return (
-            <MinusCircle
-              style={{
-                width: "1rem",
-                height: "1rem",
-                color: "var(--muted-foreground)",
-                flexShrink: 0,
-              }}
-            />
-          );
-      }
-    };
-
     return (
       <div ref={ref} className={cn("dl-test-case", className)} {...props}>
-        <div
-          className={cn("dl-test-case__row", hasError && "dl-cursor-pointer")}
+        <button
+          type="button"
+          className={cn(
+            "dl-test-case__row",
+            hasError && "dl-test-case__row--interactive",
+          )}
           onClick={() => hasError && setExpanded((prev) => !prev)}
+          aria-expanded={hasError ? expanded : undefined}
+          disabled={!hasError}
         >
-          <div className="dl-test-case__info">
-            {renderIcon()}
+          <span className="dl-test-case__info">
+            {renderTestIcon(test.status)}
             <span className="dl-test-case__name">{test.name}</span>
-          </div>
+          </span>
 
-          <div className="dl-test-case__meta">
+          <span className="dl-test-case__meta">
             {test.durationMs !== undefined && (
               <span className="dl-test-case__duration">
                 {test.durationMs}ms
@@ -65,10 +80,11 @@ export const TestCase = React.forwardRef<HTMLDivElement, TestCaseProps>(
                   "dl-test-case__chevron",
                   expanded && "dl-test-case__chevron--expanded",
                 )}
+                aria-hidden="true"
               />
             )}
-          </div>
-        </div>
+          </span>
+        </button>
 
         {expanded && test.errorMessage && (
           <div className="dl-test-case__error">{test.errorMessage}</div>
@@ -80,19 +96,7 @@ export const TestCase = React.forwardRef<HTMLDivElement, TestCaseProps>(
 TestCase.displayName = "TestCase";
 
 /**
- * Test execution results dashboard visualizing passed, failed, and skipped unit or integration tests.
- *
- * @example
- * ```tsx
- * <TestResults
- *   title="packages/ui Unit Tests"
- *   duration="1.2s"
- *   tests={[
- *     { id: "1", name: "renders button correctly", status: "passed", durationMs: 4 },
- *     { id: "2", name: "validates zod schema", status: "failed", errorMessage: "Expected true, received false" }
- *   ]}
- * />
- * ```
+ * Test execution results dashboard visualizing passed, failed, and skipped tests.
  */
 export const TestResults = React.forwardRef<HTMLDivElement, TestResultsProps>(
   (
@@ -109,13 +113,17 @@ export const TestResults = React.forwardRef<HTMLDivElement, TestResultsProps>(
     const passed = tests.filter((t) => t.status === "passed").length;
     const failed = tests.filter((t) => t.status === "failed").length;
     const skipped = tests.filter((t) => t.status === "skipped").length;
+    const total = Math.max(tests.length, 1);
+    const passedPct = Math.round((passed / total) * 100);
+    const failedPct = Math.round((failed / total) * 100);
 
     return (
       <div ref={ref} className={cn("dl-test-results", className)} {...props}>
         <div className="dl-test-results__header">
           <div className="dl-test-results__header-left">
             <FlaskConical
-              style={{ width: "1rem", height: "1rem", color: "var(--primary)" }}
+              className="dl-test-results__header-icon"
+              aria-hidden="true"
             />
             <span className="dl-test-results__title">{title}</span>
             {duration && (
@@ -139,6 +147,33 @@ export const TestResults = React.forwardRef<HTMLDivElement, TestResultsProps>(
             )}
           </div>
         </div>
+
+        {tests.length > 0 && (
+          <svg
+            className="dl-test-results__bar"
+            viewBox="0 0 100 3"
+            preserveAspectRatio="none"
+            aria-hidden="true"
+          >
+            <rect
+              className="dl-test-results__bar-track"
+              width="100"
+              height="3"
+            />
+            <rect
+              className="dl-test-results__bar-pass"
+              x="0"
+              width={passedPct}
+              height="3"
+            />
+            <rect
+              className="dl-test-results__bar-fail"
+              x={passedPct}
+              width={failedPct}
+              height="3"
+            />
+          </svg>
+        )}
 
         <div className="dl-test-results__list">
           {tests.map((test) => (

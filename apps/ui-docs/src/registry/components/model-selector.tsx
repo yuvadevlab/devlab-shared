@@ -1,13 +1,33 @@
 "use client";
 
 import React, { useState } from "react";
-import { ModelSelector } from "@yuva-devlab/ui";
+import { ModelSelector, Stack, Text } from "@yuva-devlab/ui";
 import {
   ComponentView,
   type ComponentVariant,
   type PropDefinition,
   type CssClassDefinition,
 } from "@/components/component-view";
+
+const PICKER_CODE = `import { useState } from "react";
+import { ModelSelector, Stack, Text } from "@yuva-devlab/ui";
+
+export function ModelSelectorDemo() {
+  const [model, setModel] = useState("claude-3-5-sonnet");
+
+  return (
+    <Stack gap={3}>
+      <ModelSelector value={model} onValueChange={setModel} />
+      <Text variant="caption">Selected model: {model}</Text>
+    </Stack>
+  );
+}`;
+
+const COMPACT_CODE = `import { ModelSelector } from "@yuva-devlab/ui";
+
+export function CompactModelSelectorDemo() {
+  return <ModelSelector size="sm" defaultValue="gemini-2-0-flash" />;
+}`;
 
 export default function ModelSelectorDocPage() {
   const [model, setModel] = useState("claude-3-5-sonnet");
@@ -17,39 +37,16 @@ export default function ModelSelectorDocPage() {
       id: "default",
       title: "Model Picker Dropdown",
       description:
-        "Select LLM models with provider logos, context window badges, and search filtering.",
+        "Select LLM models with provider metadata, capability tags, and search filtering.",
       preview: (
-        <div className="dl-demo-frame dl-demo-frame--md">
-          <div
-            style={{
-              width: "100%",
-              maxWidth: "24rem",
-              display: "flex",
-              flexDirection: "column",
-              gap: "0.75rem",
-            }}
-          >
+        <div className="dl-demo-frame dl-demo-frame--sm">
+          <Stack gap={3}>
             <ModelSelector value={model} onValueChange={setModel} />
-            <p
-              style={{ fontSize: "0.75rem", color: "var(--muted-foreground)" }}
-            >
-              Selected:{" "}
-              <span
-                style={{
-                  fontFamily: "var(--font-mono, monospace)",
-                  color: "var(--foreground)",
-                }}
-              >
-                {model}
-              </span>
-            </p>
-          </div>
+            <Text variant="caption">Selected: {model}</Text>
+          </Stack>
         </div>
       ),
-      codeSnippet: `<ModelSelector
-  value={model}
-  onValueChange={(id) => setModel(id)}
-/>`,
+      codeSnippet: PICKER_CODE,
     },
     {
       id: "small",
@@ -57,13 +54,11 @@ export default function ModelSelectorDocPage() {
       description:
         "Reduced padding size designed for footer embed slots inside chat prompt bars.",
       preview: (
-        <div className="dl-demo-frame dl-demo-frame--md">
-          <div style={{ width: "100%", maxWidth: "24rem" }}>
-            <ModelSelector size="sm" defaultValue="gemini-2-0-flash" />
-          </div>
+        <div className="dl-demo-frame dl-demo-frame--sm">
+          <ModelSelector size="sm" defaultValue="gemini-2-0-flash" />
         </div>
       ),
-      codeSnippet: `<ModelSelector size="sm" defaultValue="gemini-2-0-flash" />`,
+      codeSnippet: COMPACT_CODE,
     },
   ];
 
@@ -82,22 +77,10 @@ export default function ModelSelectorDocPage() {
       description: "Controlled selected model ID.",
     },
     {
-      name: "defaultValue",
-      type: "string",
-      default: "models[0]?.id",
-      description: "Initial model ID when uncontrolled.",
-    },
-    {
       name: "size",
       type: '"sm" | "md"',
       default: '"md"',
-      description: "Button sizing variation.",
-    },
-    {
-      name: "disabled",
-      type: "boolean",
-      default: "false",
-      description: "Whether selection is disabled.",
+      description: "Trigger button sizing variation.",
     },
   ];
 
@@ -110,20 +93,12 @@ export default function ModelSelectorDocPage() {
       name: ".dl-model-selector__trigger",
       description: "Clickable trigger pill showing model name and chevron.",
     },
-    {
-      name: ".dl-model-selector__content",
-      description: "Floating popup list with search filter and model options.",
-    },
-    {
-      name: ".dl-model-selector__tag",
-      description: "Pill badge displaying capability tags.",
-    },
   ];
 
   return (
     <ComponentView
       title="Model Selector"
-      description="Dropdown picker for selecting LLMs and agent models with provider branding, capability tags, context window metadata, and search filtering."
+      description="Dropdown picker for selecting LLMs and agent models with capability tags and search filtering."
       variants={variants}
       propsList={propsList}
       cssClasses={cssClasses}

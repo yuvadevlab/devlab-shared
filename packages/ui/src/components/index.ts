@@ -80,6 +80,8 @@ export * from "./stack-trace";
 export * from "./subagent";
 export * from "./context";
 export * from "./queue";
+export * from "./reasoning";
+export * from "./shimmer";
 export * from "./test-results";
 export * from "./metric-card";
 export * from "./copy-button";

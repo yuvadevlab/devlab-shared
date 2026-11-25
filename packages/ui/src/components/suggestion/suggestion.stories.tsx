@@ -16,15 +16,15 @@ export const Default: Story = {
     <div className="dl-story-w-lg">
       <SuggestionList>
         <Suggestion
-          icon={<Terminal className="size-3" />}
+          icon={<Terminal aria-hidden="true" />}
           label="Analyze build failure in apps/web"
         />
         <Suggestion
-          icon={<Database className="size-3" />}
+          icon={<Database aria-hidden="true" />}
           label="Generate schema migration for tenant_id"
         />
         <Suggestion
-          icon={<Shield className="size-3" />}
+          icon={<Shield aria-hidden="true" />}
           label="Audit IAM permissions for developer role"
         />
       </SuggestionList>

@@ -20,6 +20,7 @@ import {
   type OpenAIAdapterConfig,
   type OpenAiCompletionResponse,
 } from "./openai.types";
+import { parseOpenAiCompatStreamChunk } from "@/adapters/stream-chunk.helpers";
 
 const logger = loggerWithConfig(new Logger("OpenAiAdapter"));
 
@@ -217,16 +218,9 @@ export class OpenAIAdapter implements ILLMProvider {
           const payload = trimmed.slice(5).trim();
           if (payload === "[DONE]") break;
 
-          try {
-            const parsed = JSON.parse(payload) as {
-              choices: Array<{ delta?: { content?: string } }>;
-            };
-            const delta = parsed.choices[0]?.delta?.content ?? "";
-            if (delta) {
-              yield { delta };
-            }
-          } catch {
-            // Tolerate partial stream buffers
+          const parsedChunk = parseOpenAiCompatStreamChunk(payload);
+          if (parsedChunk) {
+            yield parsedChunk;
           }
         }
       }
