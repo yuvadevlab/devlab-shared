@@ -78,7 +78,7 @@
 
 .dl-select-content {
   position: relative;
-  z-index: 50;
+  z-index: var(--z-popover, 70);
   max-height: 24rem;
   min-width: var(--radix-select-trigger-width, 8rem);
   width: var(--radix-select-trigger-width, max-content);
