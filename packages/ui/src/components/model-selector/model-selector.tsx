@@ -233,7 +233,10 @@ export const ModelSelector = React.forwardRef<
                         )}
                       </div>
                       {isSelected && (
-                        <Check className="size-4 text-primary shrink-0 mt-0.5" />
+                        <Check
+                          className="dl-model-selector__check"
+                          aria-hidden="true"
+                        />
                       )}
                     </div>
                   );

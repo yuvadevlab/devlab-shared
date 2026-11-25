@@ -8,20 +8,34 @@ import {
   ListTodo,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { Shimmer } from "@/components/shimmer";
+import { PlanSources } from "./plan-sources";
 import {
   PlanProps,
   PlanHeaderProps,
   PlanTaskProps,
+  PlanSourcesProps,
   TaskStatus,
 } from "./plan-types";
 
-export type { PlanProps, PlanHeaderProps, PlanTaskProps, TaskStatus };
+export {
+  PlanSources,
+  type PlanProps,
+  type PlanHeaderProps,
+  type PlanTaskProps,
+  type PlanSourcesProps,
+  type TaskStatus,
+};
 
+/**
+ * Header section for {@link Plan} showing title, description, progress, and status badge.
+ */
 export const PlanHeader = React.forwardRef<HTMLDivElement, PlanHeaderProps>(
   (
     {
       className,
       title = "Execution Plan",
+      description,
       status,
       progress,
       children,
@@ -30,20 +44,26 @@ export const PlanHeader = React.forwardRef<HTMLDivElement, PlanHeaderProps>(
     ref,
   ) => (
     <div ref={ref} className={cn("dl-plan__header", className)} {...props}>
-      <div className="dl-plan__header-title">
-        <ListTodo className="size-4 text-primary" />
-        <span>{title}</span>
+      <div className="dl-plan__header-left">
+        <div className="dl-plan__header-title">
+          <ListTodo className="dl-plan__header-icon" aria-hidden="true" />
+          {status === "in-progress" ? (
+            <Shimmer>{title}</Shimmer>
+          ) : (
+            <span>{title}</span>
+          )}
+        </div>
+        {description && (
+          <p className="dl-plan__header-description">{description}</p>
+        )}
       </div>
       <div className="dl-plan__header-meta">
-        {progress && <span>{progress}</span>}
+        {progress && <span className="dl-plan__progress-text">{progress}</span>}
         {status && (
           <span
             className={cn(
               "dl-plan__status-chip",
-              status === "completed" && "dl-plan__status-chip--completed",
-              status === "in-progress" && "dl-plan__status-chip--in-progress",
-              status === "failed" && "dl-plan__status-chip--failed",
-              status === "pending" && "dl-plan__status-chip--pending",
+              `dl-plan__status-chip--${status}`,
             )}
           >
             {status}
@@ -56,6 +76,42 @@ export const PlanHeader = React.forwardRef<HTMLDivElement, PlanHeaderProps>(
 );
 PlanHeader.displayName = "PlanHeader";
 
+function renderTaskStatusIcon(status: TaskStatus) {
+  if (status === "completed") {
+    return (
+      <CheckCircle2
+        className="dl-plan__status-icon dl-plan__status-icon--completed"
+        aria-hidden="true"
+      />
+    );
+  }
+  if (status === "running") {
+    return (
+      <Loader2
+        className="dl-plan__status-icon dl-plan__status-icon--running"
+        aria-hidden="true"
+      />
+    );
+  }
+  if (status === "failed") {
+    return (
+      <XCircle
+        className="dl-plan__status-icon dl-plan__status-icon--failed"
+        aria-hidden="true"
+      />
+    );
+  }
+  return (
+    <Circle
+      className="dl-plan__status-icon dl-plan__status-icon--pending"
+      aria-hidden="true"
+    />
+  );
+}
+
+/**
+ * Expandable individual task row inside {@link Plan}.
+ */
 export const PlanTask = React.forwardRef<HTMLDivElement, PlanTaskProps>(
   (
     {
@@ -64,56 +120,17 @@ export const PlanTask = React.forwardRef<HTMLDivElement, PlanTaskProps>(
       description,
       status = "pending",
       defaultExpanded = false,
+      sources,
+      onSourceClick,
       children,
       ...props
     },
     ref,
   ) => {
     const [expanded, setExpanded] = React.useState(defaultExpanded);
-    const hasChildren = Boolean(children || description);
-
-    const renderIcon = () => {
-      switch (status) {
-        case "completed":
-          return (
-            <CheckCircle2
-              style={{ width: "1rem", height: "1rem", color: "var(--success)" }}
-            />
-          );
-        case "running":
-          return (
-            <Loader2
-              style={{
-                width: "1rem",
-                height: "1rem",
-                color: "var(--primary)",
-                animation: "spin 1s linear infinite",
-              }}
-            />
-          );
-        case "failed":
-          return (
-            <XCircle
-              style={{
-                width: "1rem",
-                height: "1rem",
-                color: "var(--destructive)",
-              }}
-            />
-          );
-        case "pending":
-        default:
-          return (
-            <Circle
-              style={{
-                width: "1rem",
-                height: "1rem",
-                color: "var(--muted-foreground)",
-              }}
-            />
-          );
-      }
-    };
+    const hasDetails = Boolean(
+      children || description || (sources && sources.length > 0),
+    );
 
     return (
       <div
@@ -125,34 +142,49 @@ export const PlanTask = React.forwardRef<HTMLDivElement, PlanTaskProps>(
         )}
         {...props}
       >
-        <div
-          className="dl-plan__task-header"
-          onClick={() => hasChildren && setExpanded((prev) => !prev)}
+        <button
+          type="button"
+          className={cn(
+            "dl-plan__task-header",
+            hasDetails && "dl-plan__task-header--interactive",
+          )}
+          onClick={() => hasDetails && setExpanded((prev) => !prev)}
+          aria-expanded={hasDetails ? expanded : undefined}
+          disabled={!hasDetails}
         >
-          <div className="dl-plan__task-icon">{renderIcon()}</div>
-          <div className="dl-plan__task-body">
-            <span className="dl-plan__task-title">{title}</span>
+          <span className="dl-plan__task-icon">
+            {renderTaskStatusIcon(status)}
+          </span>
+          <span className="dl-plan__task-body">
+            <span className="dl-plan__task-title">
+              {status === "running" ? <Shimmer>{title}</Shimmer> : title}
+            </span>
             {description && !expanded && (
               <span className="dl-plan__task-desc dl-line-clamp-1">
                 {description}
               </span>
             )}
-          </div>
-          {hasChildren && (
+          </span>
+          {hasDetails && (
             <ChevronRight
               className={cn(
                 "dl-plan__chevron",
                 expanded && "dl-plan__chevron--expanded",
               )}
+              aria-hidden="true"
             />
           )}
-        </div>
-        {expanded && hasChildren && (
+        </button>
+
+        {expanded && hasDetails && (
           <div className="dl-plan__task-details">
             {description && (
               <div className="dl-plan__desc-block">{description}</div>
             )}
             {children}
+            {sources && sources.length > 0 && (
+              <PlanSources sources={sources} onSourceClick={onSourceClick} />
+            )}
           </div>
         )}
       </div>
@@ -162,44 +194,50 @@ export const PlanTask = React.forwardRef<HTMLDivElement, PlanTaskProps>(
 PlanTask.displayName = "PlanTask";
 
 /**
- * Agent task execution plan checklist container.
- * Displays overall plan status, progress counts, and granular step tasks.
- *
- * @example
- * ```tsx
- * <Plan title="Refactoring Architecture" status="in-progress">
- *   <PlanHeader progress="2 of 4 steps" status="in-progress" />
- *   <div className="dl-plan__tasks">
- *     <PlanTask title="Read schema" status="completed" />
- *     <PlanTask title="Migrate columns" status="running" />
- *   </div>
- * </Plan>
- * ```
+ * Agent task execution plan checklist container displaying overall status,
+ * progress counts, step details, and consulted sources.
  */
 export const Plan = React.forwardRef<HTMLDivElement, PlanProps>(
   (
     {
       className,
       title = "Execution Plan",
+      description,
       status = "in-progress",
       currentStep,
       totalSteps,
+      sources,
+      onSourceClick,
       children,
       ...props
     },
     ref,
   ) => {
     const progressText =
-      currentStep && totalSteps
+      currentStep !== undefined && totalSteps !== undefined
         ? `${currentStep} of ${totalSteps} completed`
         : undefined;
 
     return (
       <div ref={ref} className={cn("dl-plan", className)} {...props}>
         {title && (
-          <PlanHeader title={title} status={status} progress={progressText} />
+          <PlanHeader
+            title={title}
+            description={description}
+            status={status}
+            progress={progressText}
+          />
         )}
         <div className="dl-plan__tasks">{children}</div>
+        {sources && sources.length > 0 && (
+          <div className="dl-plan__footer">
+            <PlanSources
+              label="Sources consulted"
+              sources={sources}
+              onSourceClick={onSourceClick}
+            />
+          </div>
+        )}
       </div>
     );
   },

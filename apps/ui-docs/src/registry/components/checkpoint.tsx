@@ -1,7 +1,7 @@
 "use client";
 
-import React from "react";
-import { Checkpoint } from "@yuva-devlab/ui";
+import React, { useState } from "react";
+import { Checkpoint, Stack, Text } from "@yuva-devlab/ui";
 import {
   ComponentView,
   type ComponentVariant,
@@ -9,7 +9,32 @@ import {
   type CssClassDefinition,
 } from "@/components/component-view";
 
+const RESTORE_CODE = `import { useState } from "react";
+import { Checkpoint, Stack, Text } from "@yuva-devlab/ui";
+
+export function RestoreCheckpointDemo() {
+  const [restored, setRestored] = useState(false);
+
+  return (
+    <Stack gap={2}>
+      <Checkpoint
+        label="Checkpoint: Before schema migration"
+        onRestore={() => setRestored(true)}
+      />
+      {restored && <Text variant="caption">Conversation restored.</Text>}
+    </Stack>
+  );
+}`;
+
+const INFO_CODE = `import { Checkpoint } from "@yuva-devlab/ui";
+
+export function InfoMilestoneDemo() {
+  return <Checkpoint label="Switched model to Claude 3.5 Sonnet (v2)" />;
+}`;
+
 export default function CheckpointDocPage() {
+  const [restored, setRestored] = useState(false);
+
   const variants: ComponentVariant[] = [
     {
       id: "basic",
@@ -18,16 +43,16 @@ export default function CheckpointDocPage() {
         "Milestone divider allowing users to rewind conversation to this point.",
       preview: (
         <div className="dl-demo-frame dl-demo-frame--md">
-          <Checkpoint
-            label="Checkpoint: Before schema migration"
-            onRestore={() => alert("Restored checkpoint")}
-          />
+          <Stack gap={2}>
+            <Checkpoint
+              label="Checkpoint: Before schema migration"
+              onRestore={() => setRestored(true)}
+            />
+            {restored && <Text variant="caption">Checkpoint restored.</Text>}
+          </Stack>
         </div>
       ),
-      codeSnippet: `<Checkpoint
-  label="Checkpoint: Before schema migration"
-  onRestore={() => handleRestore()}
-/>`,
+      codeSnippet: RESTORE_CODE,
     },
     {
       id: "info",
@@ -39,7 +64,7 @@ export default function CheckpointDocPage() {
           <Checkpoint label="Switched model to Claude 3.5 Sonnet (v2)" />
         </div>
       ),
-      codeSnippet: `<Checkpoint label="Switched model to Claude 3.5 Sonnet" />`,
+      codeSnippet: INFO_CODE,
     },
   ];
 
@@ -73,16 +98,12 @@ export default function CheckpointDocPage() {
       name: ".dl-checkpoint__content",
       description: "Capsule container in center of divider.",
     },
-    {
-      name: ".dl-checkpoint__restore-btn",
-      description: "Restore button trigger.",
-    },
   ];
 
   return (
     <ComponentView
       title="Checkpoint"
-      description="Divider marker indicating a significant milestone in conversational history with optional one-click restore capabilities."
+      description="Divider marker indicating a significant milestone in conversational history with optional restore trigger."
       variants={variants}
       propsList={propsList}
       cssClasses={cssClasses}

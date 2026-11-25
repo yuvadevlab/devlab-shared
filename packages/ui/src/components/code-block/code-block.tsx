@@ -1,13 +1,34 @@
 import * as React from "react";
 import { Check, Copy } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { tokenizeCodeLines, type CodeToken } from "./code-block-highlight";
 import {
   CodeBlockProps,
   CodeBlockHeaderProps,
   CodeBlockContentProps,
 } from "./code-block-types";
 
+export {
+  tokenizeCodeLines,
+  type CodeToken,
+  type CodeTokenKind,
+} from "./code-block-highlight";
 export type { CodeBlockProps, CodeBlockHeaderProps, CodeBlockContentProps };
+
+/**
+ * Renders an array of syntax tokens as colorized spans inside a code line.
+ */
+export function renderHighlightedTokens(tokens: CodeToken[]): React.ReactNode {
+  return tokens.map((token, idx) =>
+    token.kind === "plain" ? (
+      <React.Fragment key={idx}>{token.value}</React.Fragment>
+    ) : (
+      <span key={idx} className={`dl-tok--${token.kind}`}>
+        {token.value}
+      </span>
+    ),
+  );
+}
 
 /**
  * Copy to clipboard button with temporary success checkmark animation.
@@ -37,9 +58,12 @@ export const CodeBlockCopyButton = React.forwardRef<
       {...props}
     >
       {copied ? (
-        <Check className="size-3.5 text-success" />
+        <Check
+          className="dl-code-block__copy-icon dl-code-block__copy-icon--ok"
+          aria-hidden="true"
+        />
       ) : (
-        <Copy className="size-3.5" />
+        <Copy className="dl-code-block__copy-icon" aria-hidden="true" />
       )}
     </button>
   );
@@ -64,18 +88,32 @@ export const CodeBlockHeader = React.forwardRef<
 CodeBlockHeader.displayName = "CodeBlockHeader";
 
 /**
- * Code container pre element with support for horizontal scrolling or word wrapping.
+ * Code container pre element supporting syntax highlighting, optional line numbers,
+ * and horizontal scrolling or wrapping.
  */
 export const CodeBlockContent = React.forwardRef<
   HTMLPreElement,
   CodeBlockContentProps
 >(
   (
-    { className, wrap = false, lineNumbers = false, children, ...props },
+    {
+      className,
+      language = "tsx",
+      wrap = false,
+      lineNumbers = false,
+      children,
+      ...props
+    },
     ref,
   ) => {
     const rawText = typeof children === "string" ? children : null;
-    const lines = rawText && lineNumbers ? rawText.trim().split("\n") : null;
+    const tokenLines = React.useMemo(
+      () =>
+        rawText !== null
+          ? tokenizeCodeLines(rawText.trimEnd(), language)
+          : null,
+      [rawText, language],
+    );
 
     return (
       <pre
@@ -87,13 +125,19 @@ export const CodeBlockContent = React.forwardRef<
         )}
         {...props}
       >
-        {lines ? (
-          lines.map((line, idx) => (
-            <div key={idx} className="dl-code-block__line">
-              <span className="dl-code-block__line-num">{idx + 1}</span>
-              <span>{line}</span>
-            </div>
-          ))
+        {tokenLines ? (
+          <code className="dl-code-block__code">
+            {tokenLines.map((tokens, idx) => (
+              <span key={idx} className="dl-code-block__line">
+                {lineNumbers && (
+                  <span className="dl-code-block__line-num">{idx + 1}</span>
+                )}
+                <span className="dl-code-block__line-text">
+                  {tokens.length > 0 ? renderHighlightedTokens(tokens) : " "}
+                </span>
+              </span>
+            ))}
+          </code>
         ) : (
           <code>{children}</code>
         )}
@@ -104,8 +148,8 @@ export const CodeBlockContent = React.forwardRef<
 CodeBlockContent.displayName = "CodeBlockContent";
 
 /**
- * Enterprise code snippet display with syntax font, optional header, copy button,
- * and line numbers.
+ * Enterprise code snippet display with client-side syntax highlighting, optional header,
+ * copy button, and line numbers.
  *
  * @example
  * ```tsx
@@ -135,7 +179,7 @@ export const CodeBlock = React.forwardRef<HTMLDivElement, CodeBlockProps>(
             {copyable && <CodeBlockCopyButton code={codeString} />}
           </CodeBlockHeader>
         )}
-        <CodeBlockContent lineNumbers={lineNumbers}>
+        <CodeBlockContent language={language} lineNumbers={lineNumbers}>
           {code ?? children}
         </CodeBlockContent>
       </div>

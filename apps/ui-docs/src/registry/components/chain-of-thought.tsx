@@ -14,6 +14,55 @@ import {
   type CssClassDefinition,
 } from "@/components/component-view";
 
+const BASIC_CODE = `import {
+  ChainOfThought,
+  ChainOfThoughtHeader,
+  ChainOfThoughtContent,
+  ChainOfThoughtStep,
+} from "@yuva-devlab/ui";
+
+export function ChainOfThoughtDemo() {
+  return (
+    <ChainOfThought durationSeconds={3.4} defaultOpen>
+      <ChainOfThoughtHeader />
+      <ChainOfThoughtContent>
+        <ChainOfThoughtStep status="success">
+          Read package.json workspace dependencies
+        </ChainOfThoughtStep>
+        <ChainOfThoughtStep status="success">
+          Verified zero type errors in @yuva-devlab/tokens
+        </ChainOfThoughtStep>
+        <ChainOfThoughtStep status="success">
+          Compiled distribution ESM and CJS bundles
+        </ChainOfThoughtStep>
+      </ChainOfThoughtContent>
+    </ChainOfThought>
+  );
+}`;
+
+const STREAMING_CODE = `import {
+  ChainOfThought,
+  ChainOfThoughtHeader,
+  ChainOfThoughtContent,
+  ChainOfThoughtStep,
+} from "@yuva-devlab/ui";
+
+export function StreamingChainOfThoughtDemo() {
+  return (
+    <ChainOfThought isThinking durationSeconds={1.8} defaultOpen>
+      <ChainOfThoughtHeader />
+      <ChainOfThoughtContent>
+        <ChainOfThoughtStep status="success">
+          Retrieved latest security advisory CVE-2026-104
+        </ChainOfThoughtStep>
+        <ChainOfThoughtStep status="running">
+          Synthesizing mitigation strategy for container base image...
+        </ChainOfThoughtStep>
+      </ChainOfThoughtContent>
+    </ChainOfThought>
+  );
+}`;
+
 export default function ChainOfThoughtDocPage() {
   const variants: ComponentVariant[] = [
     {
@@ -39,19 +88,13 @@ export default function ChainOfThoughtDocPage() {
           </ChainOfThought>
         </div>
       ),
-      codeSnippet: `<ChainOfThought durationSeconds={3.4} defaultOpen>
-  <ChainOfThoughtHeader />
-  <ChainOfThoughtContent>
-    <ChainOfThoughtStep status="success">Read workspace dependencies</ChainOfThoughtStep>
-    <ChainOfThoughtStep status="success">Compiled bundles</ChainOfThoughtStep>
-  </ChainOfThoughtContent>
-</ChainOfThought>`,
+      codeSnippet: BASIC_CODE,
     },
     {
       id: "streaming",
       title: "Active Thinking / Streaming",
       description:
-        "Animated pulse state with live timer while LLM generates thoughts.",
+        "Animated shimmer state with live timer while LLM generates thoughts.",
       preview: (
         <div className="dl-demo-frame dl-demo-frame--md">
           <ChainOfThought isThinking durationSeconds={1.8} defaultOpen>
@@ -67,14 +110,7 @@ export default function ChainOfThoughtDocPage() {
           </ChainOfThought>
         </div>
       ),
-      codeSnippet: `<ChainOfThought isThinking durationSeconds={1.8} defaultOpen>
-  <ChainOfThoughtHeader />
-  <ChainOfThoughtContent>
-    <ChainOfThoughtStep status="running">
-      Synthesizing mitigation strategy...
-    </ChainOfThoughtStep>
-  </ChainOfThoughtContent>
-</ChainOfThought>`,
+      codeSnippet: STREAMING_CODE,
     },
   ];
 
@@ -104,14 +140,14 @@ export default function ChainOfThoughtDocPage() {
     { name: ".dl-cot__header", description: "Interactive summary button." },
     {
       name: ".dl-cot__step",
-      description: "Individual step row inside thought.",
+      description: "Individual step row inside thought timeline.",
     },
   ];
 
   return (
     <ComponentView
       title="Chain of Thought"
-      description="Visual presentation for AI model reasoning processes, featuring execution duration timers, live animated thinking states, and expandable step lists."
+      description="Visual presentation for AI model reasoning processes, featuring execution duration timers, live shimmer thinking states, and expandable step lists."
       variants={variants}
       propsList={propsList}
       cssClasses={cssClasses}

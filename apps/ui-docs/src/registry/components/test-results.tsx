@@ -33,7 +33,7 @@ const suiteTests: TestCaseItem[] = [
     name: "ContextUsage warns when usage exceeds 75%",
     status: "failed",
     durationMs: 45,
-    errorMessage: `AssertionError: expected 'dl-context-usage__bar-fill--warning' to be present
+    errorMessage: `AssertionError: expected warning status to be present
   at packages/ui/test/context.test.ts:32:15`,
   },
   {
@@ -43,29 +43,56 @@ const suiteTests: TestCaseItem[] = [
   },
 ];
 
+const TEST_RESULTS_CODE = `import { TestResults, type TestCaseItem } from "@yuva-devlab/ui";
+
+const SUITE_TESTS: TestCaseItem[] = [
+  {
+    id: "t-1",
+    name: "ModelSelector triggers outside click handler",
+    status: "passed",
+    durationMs: 14,
+  },
+  {
+    id: "t-2",
+    name: "ContextUsage warns when usage exceeds 75%",
+    status: "failed",
+    durationMs: 45,
+    errorMessage: "AssertionError: expected warning status to be present",
+  },
+  {
+    id: "t-3",
+    name: "Subagent renders conversation ID pill",
+    status: "skipped",
+  },
+];
+
+export function TestResultsDemo() {
+  return (
+    <TestResults
+      title="AI Elements Vitest Suite"
+      duration="182ms"
+      tests={SUITE_TESTS}
+    />
+  );
+}`;
+
 export default function TestResultsDocPage() {
   const variants: ComponentVariant[] = [
     {
       id: "default",
       title: "Suite Execution Summary",
       description:
-        "Execution dashboard showing pass/fail counts, total duration, and expandable failure logs.",
+        "Pass/fail progress bar, status pills, timings, and expandable failure diagnostics.",
       preview: (
-        <div className="dl-demo-frame dl-demo-frame--md">
-          <div className="w-full max-w-lg">
-            <TestResults
-              title="AI Elements Vitest Suite"
-              duration="182ms"
-              tests={suiteTests}
-            />
-          </div>
+        <div className="dl-demo-frame dl-demo-frame--lg">
+          <TestResults
+            title="AI Elements Vitest Suite"
+            duration="182ms"
+            tests={suiteTests}
+          />
         </div>
       ),
-      codeSnippet: `<TestResults
-  title="AI Elements Vitest Suite"
-  duration="182ms"
-  tests={testCases}
-/>`,
+      codeSnippet: TEST_RESULTS_CODE,
     },
   ];
 
@@ -87,30 +114,26 @@ export default function TestResultsDocPage() {
       name: "duration",
       type: "string",
       default: "—",
-      description: "Total elapsed time string.",
+      description: "Total elapsed run duration label.",
     },
   ];
 
   const cssClasses: CssClassDefinition[] = [
     {
       name: ".dl-test-results",
-      description: "Outer card container for test results.",
-    },
-    {
-      name: ".dl-test-results__header",
-      description: "Top bar showing title and pass/fail summary counters.",
+      description: "Outer card container with header and pass/fail strip.",
     },
     {
       name: ".dl-test-case",
       description:
-        "Test row with status icon, duration, and expandable assertion error.",
+        "Test assertion row with status icon, duration, and error box.",
     },
   ];
 
   return (
     <ComponentView
       title="Test Results"
-      description="Test execution results dashboard displaying passed, failed, and skipped test outcomes, duration timings, and assertion failure logs."
+      description="Test execution dashboard displaying pass/fail/skipped counts, summary bar, timings, and expandable failure diagnostics."
       variants={variants}
       propsList={propsList}
       cssClasses={cssClasses}

@@ -1,90 +1,92 @@
 import * as React from "react";
-import { ExternalLink, Globe, BookOpen } from "lucide-react";
+import {
+  ExternalLink,
+  BookOpen,
+  ArrowUpRight,
+  ChevronDown,
+} from "lucide-react";
 import { cn } from "@/lib/utils";
 import {
-  SourceItem,
-  InlineCitationProps,
-  SourcesProps,
-  SourceCardProps,
+  InlineCitation,
+  SourceKindIcon,
+  isExternalHref,
+  resolveSourceDomain,
+} from "./sources-citation";
+import {
+  SourceKind,
+  type SourceItem,
+  type InlineCitationProps,
+  type SourcesProps,
+  type SourcesTriggerProps,
+  type SourceCardProps,
 } from "./sources-types";
 
-export type { SourceItem, InlineCitationProps, SourcesProps, SourceCardProps };
+export {
+  InlineCitation,
+  SourceKind,
+  type SourceItem,
+  type InlineCitationProps,
+  type SourcesProps,
+  type SourcesTriggerProps,
+  type SourceCardProps,
+};
+
+const SourcesContext = React.createContext<{
+  open: boolean;
+  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+}>({ open: true, setOpen: () => {} });
 
 /**
- * Clickable citation reference badge embedded inline in AI-generated answers.
- *
- * @example
- * ```tsx
- * <span>According to PostgreSQL official docs <InlineCitation index={1} title="MVCC Concurrency" /></span>
- * ```
- */
-export const InlineCitation = React.forwardRef<
-  HTMLButtonElement,
-  InlineCitationProps
->(
-  (
-    { className, index, title, url, snippet, onCitationClick, ...props },
-    ref,
-  ) => {
-    const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
-      props.onClick?.(e);
-      onCitationClick?.(index);
-      if (!props.onClick && !onCitationClick && url) {
-        window.open(url, "_blank", "noopener,noreferrer");
-      }
-    };
-
-    const tooltipText = [title, snippet].filter(Boolean).join(" — ");
-
-    return (
-      <button
-        ref={ref}
-        type="button"
-        title={tooltipText || `Source [${index}]`}
-        onClick={handleClick}
-        className={cn("dl-citation", className)}
-        {...props}
-      >
-        {index}
-      </button>
-    );
-  },
-);
-InlineCitation.displayName = "InlineCitation";
-
-/**
- * Card representing an external referenced source or documentation link.
+ * Interactive source item card displaying domain metadata, excerpt, and external/internal affordance.
  */
 export const SourceCard = React.forwardRef<HTMLAnchorElement, SourceCardProps>(
-  ({ className, source, ...props }, ref) => {
-    const domain =
-      source.domain ||
-      (() => {
-        try {
-          return new URL(source.url).hostname.replace("www.", "");
-        } catch {
-          return "external";
-        }
-      })();
+  ({ className, source, onSourceClick, onClick, ...props }, ref) => {
+    const external = isExternalHref(source.url);
+    const domain = resolveSourceDomain(source.url, source.domain);
+
+    const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+      onClick?.(e);
+      if (onSourceClick) {
+        if (!external) e.preventDefault();
+        onSourceClick(source);
+      }
+    };
 
     return (
       <a
         ref={ref}
-        href={source.url}
-        target="_blank"
-        rel="noopener noreferrer"
+        href={source.url || "#"}
+        target={external ? "_blank" : undefined}
+        rel={external ? "noopener noreferrer" : undefined}
+        onClick={handleClick}
         className={cn("dl-source-card", className)}
         {...props}
       >
         <div className="dl-source-card__meta">
           <span className="dl-source-card__index">{source.index}</span>
-          <Globe className="dl-source-card__icon" />
+          <SourceKindIcon kind={source.kind} />
           <span className="dl-source-card__domain">{domain}</span>
-          <ExternalLink className="dl-source-card__external" />
+          {source.badge && (
+            <span className="dl-source-card__badge">{source.badge}</span>
+          )}
+          {external ? (
+            <ExternalLink
+              className="dl-source-card__external"
+              aria-hidden="true"
+            />
+          ) : (
+            <ArrowUpRight
+              className="dl-source-card__external"
+              aria-hidden="true"
+            />
+          )}
         </div>
         <div className="dl-source-card__title" title={source.title}>
           {source.title}
         </div>
+        {source.snippet && (
+          <div className="dl-source-card__snippet">{source.snippet}</div>
+        )}
       </a>
     );
   },
@@ -92,33 +94,124 @@ export const SourceCard = React.forwardRef<HTMLAnchorElement, SourceCardProps>(
 SourceCard.displayName = "SourceCard";
 
 /**
- * Grid or card list displaying sources, citations, and ground-truth web search links.
- *
- * @example
- * ```tsx
- * <Sources sources={[{ id: "1", index: 1, title: "Turborepo Docs", url: "https://turbo.build" }]} />
- * ```
+ * Collapsible summary toggle button matching shadcn AI Elements ("Used N sources").
+ */
+export const SourcesTrigger = React.forwardRef<
+  HTMLButtonElement,
+  SourcesTriggerProps
+>(({ className, count, label, children, ...props }, ref) => {
+  const { open, setOpen } = React.useContext(SourcesContext);
+  const text = label ?? `Used ${count} source${count === 1 ? "" : "s"}`;
+
+  return (
+    <button
+      ref={ref}
+      type="button"
+      onClick={() => setOpen((prev) => !prev)}
+      aria-expanded={open}
+      className={cn("dl-sources__trigger", className)}
+      {...props}
+    >
+      <BookOpen className="dl-sources__header-icon" aria-hidden="true" />
+      <span>{children ?? text}</span>
+      <ChevronDown
+        className={cn(
+          "dl-sources__chevron",
+          open && "dl-sources__chevron--open",
+        )}
+        aria-hidden="true"
+      />
+    </button>
+  );
+});
+SourcesTrigger.displayName = "SourcesTrigger";
+
+/**
+ * Container revealed when {@link Sources} is expanded.
+ */
+export const SourcesContent = React.forwardRef<
+  HTMLDivElement,
+  React.HTMLAttributes<HTMLDivElement>
+>(({ className, children, ...props }, ref) => {
+  const { open } = React.useContext(SourcesContext);
+  if (!open) return null;
+
+  return (
+    <div ref={ref} className={cn("dl-sources__grid", className)} {...props}>
+      {children}
+    </div>
+  );
+});
+SourcesContent.displayName = "SourcesContent";
+
+/**
+ * Grounded sources drawer & reference cards matching shadcn AI Elements patterns.
  */
 export const Sources = React.forwardRef<HTMLDivElement, SourcesProps>(
-  ({ className, sources = [], onSourceClick, ...props }, ref) => {
-    if (sources.length === 0) return null;
+  (
+    {
+      className,
+      sources = [],
+      title,
+      collapsible = true,
+      defaultOpen = true,
+      open: propOpen,
+      onOpenChange,
+      onSourceClick,
+      children,
+      ...props
+    },
+    ref,
+  ) => {
+    const [internalOpen, setInternalOpen] = React.useState(defaultOpen);
+    const isOpen = !collapsible
+      ? true
+      : propOpen !== undefined
+        ? propOpen
+        : internalOpen;
+
+    const setOpen = React.useCallback(
+      (action: React.SetStateAction<boolean>) => {
+        const next = typeof action === "function" ? action(isOpen) : action;
+        if (propOpen === undefined) setInternalOpen(next);
+        onOpenChange?.(next);
+      },
+      [isOpen, propOpen, onOpenChange],
+    );
+
+    if (!children && sources.length === 0) return null;
 
     return (
-      <div ref={ref} className={cn("dl-sources", className)} {...props}>
-        <div className="dl-sources__header">
-          <BookOpen className="size-3.5 text-primary" />
-          <span>Sources ({sources.length})</span>
+      <SourcesContext.Provider value={{ open: isOpen, setOpen }}>
+        <div ref={ref} className={cn("dl-sources", className)} {...props}>
+          {children ? (
+            children
+          ) : (
+            <>
+              {collapsible ? (
+                <SourcesTrigger count={sources.length} label={title} />
+              ) : (
+                <div className="dl-sources__header">
+                  <BookOpen
+                    className="dl-sources__header-icon"
+                    aria-hidden="true"
+                  />
+                  <span>{title ?? `Used ${sources.length} sources`}</span>
+                </div>
+              )}
+              <SourcesContent>
+                {sources.map((src) => (
+                  <SourceCard
+                    key={src.id}
+                    source={src}
+                    onSourceClick={onSourceClick}
+                  />
+                ))}
+              </SourcesContent>
+            </>
+          )}
         </div>
-        <div className="dl-sources__grid">
-          {sources.map((src) => (
-            <SourceCard
-              key={src.id}
-              source={src}
-              onClick={() => onSourceClick?.(src)}
-            />
-          ))}
-        </div>
-      </div>
+      </SourcesContext.Provider>
     );
   },
 );

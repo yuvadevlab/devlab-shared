@@ -1,6 +1,16 @@
 import * as React from "react";
-import { AlertCircle, Copy, Check, ChevronRight } from "lucide-react";
+import {
+  AlertCircle,
+  Copy,
+  Check,
+  ChevronRight,
+  ChevronDown,
+} from "lucide-react";
 import { cn } from "@/lib/utils";
+import {
+  renderHighlightedTokens,
+  tokenizeCodeLines,
+} from "@/components/code-block";
 import {
   StackFrameItem,
   StackTraceProps,
@@ -9,10 +19,20 @@ import {
 
 export type { StackFrameItem, StackTraceProps, StackFrameProps };
 
+/**
+ * Individual call frame row inside {@link StackTrace} with optional expandable source snippet.
+ */
 export const StackFrame = React.forwardRef<HTMLDivElement, StackFrameProps>(
   ({ className, frame, defaultExpanded = false, ...props }, ref) => {
     const [expanded, setExpanded] = React.useState(defaultExpanded);
     const hasSnippet = Boolean(frame.snippet);
+    const snippetLines = React.useMemo(
+      () =>
+        frame.snippet
+          ? tokenizeCodeLines(frame.snippet.trimEnd(), "typescript")
+          : null,
+      [frame.snippet],
+    );
 
     return (
       <div
@@ -24,31 +44,50 @@ export const StackFrame = React.forwardRef<HTMLDivElement, StackFrameProps>(
         )}
         {...props}
       >
-        <div
-          className="dl-stack-frame__header"
+        <button
+          type="button"
+          className={cn(
+            "dl-stack-frame__header",
+            hasSnippet && "dl-stack-frame__header--interactive",
+          )}
           onClick={() => hasSnippet && setExpanded((prev) => !prev)}
+          aria-expanded={hasSnippet ? expanded : undefined}
+          disabled={!hasSnippet}
         >
-          <div className="dl-stack-frame__fn-wrapper">
-            {hasSnippet && (
+          <span className="dl-stack-frame__fn-wrapper">
+            {hasSnippet ? (
               <ChevronRight
                 className={cn(
                   "dl-stack-frame__chevron",
                   expanded && "dl-stack-frame__chevron--expanded",
                 )}
+                aria-hidden="true"
               />
+            ) : (
+              <span className="dl-stack-frame__dot" aria-hidden="true" />
             )}
+            <span className="dl-stack-frame__at">at</span>
             <span className="dl-stack-frame__fn">
               {frame.functionName ?? "anonymous"}
             </span>
-          </div>
+          </span>
           <span className="dl-stack-frame__location">
             {frame.fileName}:{frame.lineNumber}
             {frame.columnNumber ? `:${frame.columnNumber}` : ""}
           </span>
-        </div>
-        {expanded && frame.snippet && (
-          <pre className="dl-stack-frame__snippet">
-            <code>{frame.snippet}</code>
+        </button>
+
+        {expanded && snippetLines && (
+          <pre className="dl-stack-frame__snippet dl-tok-surface">
+            <code className="dl-stack-frame__code">
+              {snippetLines.map((tokens, idx) => (
+                <span key={idx} className="dl-code-block__line">
+                  <span className="dl-code-block__line-text">
+                    {tokens.length > 0 ? renderHighlightedTokens(tokens) : " "}
+                  </span>
+                </span>
+              ))}
+            </code>
           </pre>
         )}
       </div>
@@ -77,13 +116,17 @@ export const StackTrace = React.forwardRef<HTMLDivElement, StackTraceProps>(
       message,
       frames = [],
       rawStack,
+      cause,
       copyable = true,
+      collapsible = false,
+      defaultOpen = true,
       children,
       ...props
     },
     ref,
   ) => {
     const [copied, setCopied] = React.useState(false);
+    const [open, setOpen] = React.useState(defaultOpen);
 
     const handleCopy = () => {
       const fullText =
@@ -102,33 +145,69 @@ export const StackTrace = React.forwardRef<HTMLDivElement, StackTraceProps>(
       });
     };
 
+    const showBody = !collapsible || open;
+
     return (
       <div ref={ref} className={cn("dl-stack-trace", className)} {...props}>
         <div className="dl-stack-trace__header">
-          <div className="flex items-start gap-2 min-w-0">
-            <AlertCircle className="size-4 text-destructive shrink-0 mt-0.5" />
+          <div className="dl-stack-trace__header-main">
+            <AlertCircle
+              className="dl-stack-trace__alert-icon"
+              aria-hidden="true"
+            />
             <div className="dl-stack-trace__title">
-              <span className="dl-stack-trace__error-type">{errorType}</span>
+              <div className="dl-stack-trace__headline">
+                <span className="dl-stack-trace__error-type">{errorType}</span>
+                {frames.length > 0 && (
+                  <span className="dl-stack-trace__frame-count">
+                    {frames.length} frame{frames.length === 1 ? "" : "s"}
+                  </span>
+                )}
+              </div>
               <span className="dl-stack-trace__message">{message}</span>
             </div>
           </div>
-          {copyable && (
-            <button
-              type="button"
-              onClick={handleCopy}
-              aria-label={copied ? "Copied" : "Copy stack trace"}
-              className="dl-code-block__copy-btn shrink-0"
-            >
-              {copied ? (
-                <Check className="size-3.5 text-success" />
-              ) : (
-                <Copy className="size-3.5" />
-              )}
-            </button>
-          )}
+          <div className="dl-stack-trace__actions">
+            {copyable && (
+              <button
+                type="button"
+                onClick={handleCopy}
+                aria-label={copied ? "Copied" : "Copy stack trace"}
+                className="dl-code-block__copy-btn"
+              >
+                {copied ? (
+                  <Check className="dl-stack-trace__copy-ok" />
+                ) : (
+                  <Copy className="dl-stack-trace__copy-icon" />
+                )}
+              </button>
+            )}
+            {collapsible && (
+              <button
+                type="button"
+                onClick={() => setOpen((prev) => !prev)}
+                aria-expanded={open}
+                aria-label={
+                  open ? "Collapse stack trace" : "Expand stack trace"
+                }
+                className="dl-code-block__copy-btn"
+              >
+                <ChevronDown
+                  className={cn(
+                    "dl-stack-trace__chevron",
+                    open && "dl-stack-trace__chevron--open",
+                  )}
+                />
+              </button>
+            )}
+          </div>
         </div>
 
-        {frames.length > 0 && (
+        {showBody && cause && (
+          <div className="dl-stack-trace__cause">{cause}</div>
+        )}
+
+        {showBody && frames.length > 0 && (
           <div className="dl-stack-trace__frames">
             {frames.map((frame) => (
               <StackFrame key={frame.id} frame={frame} />
@@ -136,7 +215,7 @@ export const StackTrace = React.forwardRef<HTMLDivElement, StackTraceProps>(
           </div>
         )}
 
-        {children}
+        {showBody && children}
       </div>
     );
   },

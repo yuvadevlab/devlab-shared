@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "storybook": "storybook dev -p 6005",
-    "build-storybook": "storybook build -o storybook-static"
+    "build-storybook": "STORYBOOK_DISABLE_TELEMETRY=1 storybook build -o storybook-static --disable-telemetry"
   },
   "dependencies": {
     "@yuva-devlab/tokens": "workspace:*",

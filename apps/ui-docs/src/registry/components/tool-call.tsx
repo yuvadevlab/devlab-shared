@@ -19,32 +19,68 @@ const mockQueryResult = JSON.stringify(
   2,
 );
 
+const COMPLETED_CODE = `import { Database } from "lucide-react";
+import { ToolCall } from "@yuva-devlab/ui";
+
+const RESULT = JSON.stringify(
+  [
+    { id: "usr_1", name: "Alice", email: "alice@devlab.io", role: "admin" },
+    { id: "usr_2", name: "Bob", email: "bob@devlab.io", role: "developer" },
+  ],
+  null,
+  2,
+);
+
+export function ToolCallDemo() {
+  return (
+    <ToolCall
+      name="query_database"
+      status="success"
+      durationMs={142}
+      defaultOpen
+      icon={<Database aria-hidden="true" />}
+      args={{ table: "users", limit: 2 }}
+      result={RESULT}
+    />
+  );
+}`;
+
+const RUNNING_CODE = `import { Terminal } from "lucide-react";
+import { ToolCall } from "@yuva-devlab/ui";
+
+export function RunningToolCallDemo() {
+  return (
+    <ToolCall
+      name="npm_run_test"
+      status="running"
+      defaultOpen
+      icon={<Terminal aria-hidden="true" />}
+      args={{ suite: "auth-guard.spec.ts", watch: false }}
+    />
+  );
+}`;
+
 export default function ToolCallDocPage() {
   const variants: ComponentVariant[] = [
     {
       id: "basic",
       title: "Completed Tool Execution",
       description:
-        "Visual card showing tool name, arguments, and return payload.",
+        "Tool call card showing parameter pills, latency badge, and syntax-highlighted JSON output.",
       preview: (
         <div className="dl-demo-frame dl-demo-frame--md">
           <ToolCall
             name="query_database"
             status="success"
+            durationMs={142}
             defaultOpen
-            icon={<Database className="size-3.5 text-primary" />}
+            icon={<Database aria-hidden="true" />}
             args={{ table: "users", limit: 2 }}
             result={mockQueryResult}
           />
         </div>
       ),
-      codeSnippet: `<ToolCall
-  name="query_database"
-  status="success"
-  defaultOpen
-  args={{ table: "users", limit: 2 }}
-  result={JSON.stringify(users, null, 2)}
-/>`,
+      codeSnippet: COMPLETED_CODE,
     },
     {
       id: "running",
@@ -56,16 +92,12 @@ export default function ToolCallDocPage() {
             name="npm_run_test"
             status="running"
             defaultOpen
-            icon={<Terminal className="size-3.5 text-primary" />}
+            icon={<Terminal aria-hidden="true" />}
             args={{ suite: "auth-guard.spec.ts", watch: false }}
           />
         </div>
       ),
-      codeSnippet: `<ToolCall
-  name="npm_run_test"
-  status="running"
-  args={{ suite: "auth.spec.ts" }}
-/>`,
+      codeSnippet: RUNNING_CODE,
     },
   ];
 
@@ -83,16 +115,16 @@ export default function ToolCallDocPage() {
       description: "Execution state pill indicator.",
     },
     {
-      name: "args",
-      type: "Record<string, unknown> | string",
+      name: "durationMs",
+      type: "number",
       default: "—",
-      description: "Input parameter values displayed as pills.",
+      description: "Elapsed tool duration shown beside status badge.",
     },
     {
       name: "result",
       type: "string",
       default: "—",
-      description: "Output string rendered inside embedded CodeBlock.",
+      description: "Output string rendered in a syntax-highlighted CodeBlock.",
     },
   ];
 
@@ -100,7 +132,7 @@ export default function ToolCallDocPage() {
     { name: ".dl-tool-call", description: "Container card for tool call." },
     {
       name: ".dl-tool-call__header",
-      description: "Top bar with tool name and status pill.",
+      description: "Top bar with tool name, timing, and status pill.",
     },
     {
       name: ".dl-tool-call__arg-pill",
@@ -111,7 +143,7 @@ export default function ToolCallDocPage() {
   return (
     <ComponentView
       title="Tool Call"
-      description="Visualizer card for agent tool executions, displaying tool name, parameter pills, live execution status badge, and expandable return payloads."
+      description="Visualizer card for agent tool executions, displaying tool name, parameter pills, latency, and syntax-highlighted return payloads."
       variants={variants}
       propsList={propsList}
       cssClasses={cssClasses}

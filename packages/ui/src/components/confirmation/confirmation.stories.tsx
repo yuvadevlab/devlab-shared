@@ -24,7 +24,7 @@ export const Default: Story = {
     <div className="dl-story-w-lg">
       <Confirmation>
         <ConfirmationMedia>
-          <Terminal className="size-4" />
+          <Terminal aria-hidden="true" />
         </ConfirmationMedia>
         <ConfirmationContent>
           <ConfirmationTitle>Run git push origin main?</ConfirmationTitle>
@@ -48,7 +48,7 @@ export const Destructive: Story = {
     <div className="dl-story-w-lg">
       <Confirmation variant="destructive">
         <ConfirmationMedia>
-          <AlertTriangle className="size-4" />
+          <AlertTriangle aria-hidden="true" />
         </ConfirmationMedia>
         <ConfirmationContent>
           <ConfirmationTitle>Delete cloud database replica?</ConfirmationTitle>
@@ -74,7 +74,7 @@ export const PolicyApproval: Story = {
     <div className="dl-story-w-lg">
       <Confirmation size="sm">
         <ConfirmationMedia>
-          <ShieldCheck className="size-4 text-primary" />
+          <ShieldCheck aria-hidden="true" />
         </ConfirmationMedia>
         <ConfirmationContent>
           <ConfirmationTitle>Grant IAM Role: SUPER_ADMIN</ConfirmationTitle>

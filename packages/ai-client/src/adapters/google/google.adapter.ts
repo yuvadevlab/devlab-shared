@@ -17,6 +17,7 @@ import {
 } from "@/types";
 import {
   buildGeminiRequestBody,
+  parseGeminiSseChunk,
   type GeminiResponse,
   type GoogleAdapterConfig,
 } from "./google.types";
@@ -212,18 +213,8 @@ export class GoogleAdapter implements ILLMProvider {
         for (const line of lines) {
           const trimmed = line.trim();
           if (!trimmed || !trimmed.startsWith("data:")) continue;
-          const jsonStr = trimmed.slice(5).trim();
-
-          try {
-            const chunk = JSON.parse(jsonStr) as GeminiResponse;
-            const delta =
-              chunk.candidates?.[0]?.content?.parts?.[0]?.text ?? "";
-            if (delta) {
-              yield { delta };
-            }
-          } catch {
-            // Tolerate incomplete SSE buffer
-          }
+          const parsed = parseGeminiSseChunk(trimmed.slice(5).trim());
+          if (parsed) yield parsed;
         }
       }
     } finally {

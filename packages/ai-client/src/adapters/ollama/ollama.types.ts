@@ -24,6 +24,7 @@ export interface OllamaAdapterConfig {
 export interface OllamaWireMessage {
   role: string;
   content: string;
+  thinking?: string;
   tool_name?: string;
 }
 

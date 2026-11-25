@@ -1,6 +1,11 @@
 import React from "react";
 import { Code2 } from "lucide-react";
-import { Flex, Stack } from "@yuva-devlab/ui";
+import {
+  Flex,
+  Stack,
+  renderHighlightedTokens,
+  tokenizeCodeLines,
+} from "@yuva-devlab/ui";
 import type { ComponentVariant } from "@/types/component-doc";
 import { CopyCodeButton } from "@/components/copy-code-button";
 
@@ -12,16 +17,20 @@ export interface DemoCardProps {
 }
 
 /**
- * Server component rendering a demo showcase card for a component variant.
- * Features an interactive preview canvas, variant title/description, clipboard copy action,
- * and a server-rendered syntax highlighted disclosure block.
+ * Renders a demo showcase card for a component variant with preview canvas,
+ * copy trigger, and syntax-highlighted React source code disclosure.
  */
 export function DemoCard({ variant, index }: DemoCardProps) {
   const id = variant.id || `demo-${index}`;
+  const tokenLines = !variant.highlightedHtml
+    ? tokenizeCodeLines(
+        variant.codeSnippet.trimEnd(),
+        variant.language ?? "tsx",
+      )
+    : null;
 
   return (
     <div id={id} className="dl-demo-card">
-      {/* Interactive Preview Canvas */}
       <div className="dl-demo-card__canvas">
         <Flex
           align="center"
@@ -32,7 +41,6 @@ export function DemoCard({ variant, index }: DemoCardProps) {
         </Flex>
       </div>
 
-      {/* Meta & Actions Bar */}
       <Flex align="center" justify="between" className="dl-demo-card__meta">
         <Stack gap={1} className="dl-demo-card__info">
           <h4 className="dl-demo-card__title">{variant.title}</h4>
@@ -46,7 +54,6 @@ export function DemoCard({ variant, index }: DemoCardProps) {
         </div>
       </Flex>
 
-      {/* Native Zero-JS Accessible Code Disclosure */}
       <details className="dl-demo-card__disclosure">
         <summary className="dl-demo-card__summary">
           <Flex align="center" gap={2}>
@@ -63,7 +70,22 @@ export function DemoCard({ variant, index }: DemoCardProps) {
               dangerouslySetInnerHTML={{ __html: variant.highlightedHtml }}
             />
           ) : (
-            <pre className="dl-demo-card__code-raw">{variant.codeSnippet}</pre>
+            <pre className="dl-demo-card__code-raw">
+              <code className="dl-code-block__code">
+                {tokenLines?.map((tokens, lineIdx) => (
+                  <span key={lineIdx} className="dl-code-block__line">
+                    <span className="dl-code-block__line-num">
+                      {lineIdx + 1}
+                    </span>
+                    <span className="dl-code-block__line-text">
+                      {tokens.length > 0
+                        ? renderHighlightedTokens(tokens)
+                        : " "}
+                    </span>
+                  </span>
+                ))}
+              </code>
+            </pre>
           )}
         </div>
       </details>

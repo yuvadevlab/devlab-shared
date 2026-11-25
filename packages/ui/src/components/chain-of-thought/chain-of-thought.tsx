@@ -7,6 +7,7 @@ import {
   AlertCircle,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { Shimmer } from "@/components/shimmer";
 import {
   ChainOfThoughtProps,
   ChainOfThoughtHeaderProps,
@@ -24,11 +25,23 @@ const ChainOfThoughtContext = React.createContext<{
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }>({ open: false, setOpen: () => {} });
 
+/**
+ * Interactive collapsible summary button for {@link ChainOfThought}.
+ */
 export const ChainOfThoughtHeader = React.forwardRef<
   HTMLButtonElement,
   ChainOfThoughtHeaderProps
 >(({ className, isThinking, durationSeconds, children, ...props }, ref) => {
   const { open, setOpen } = React.useContext(ChainOfThoughtContext);
+  const label =
+    children ??
+    (isThinking
+      ? durationSeconds !== undefined
+        ? `Thinking for ${durationSeconds}s...`
+        : "Thinking..."
+      : durationSeconds !== undefined
+        ? `Thought for ${durationSeconds}s`
+        : "Thought Process");
 
   return (
     <button
@@ -41,39 +54,54 @@ export const ChainOfThoughtHeader = React.forwardRef<
     >
       <div className="dl-cot__summary">
         {isThinking ? (
-          <Loader2 className="size-3.5 text-primary animate-spin" />
+          <Loader2
+            className="dl-cot__header-icon dl-cot__header-icon--spin"
+            aria-hidden="true"
+          />
         ) : (
-          <Sparkles className="size-3.5 text-primary" />
+          <Sparkles className="dl-cot__header-icon" aria-hidden="true" />
         )}
-        <span>
-          {children ??
-            (isThinking
-              ? durationSeconds !== undefined
-                ? `Thinking for ${durationSeconds}s...`
-                : "Thinking..."
-              : durationSeconds !== undefined
-                ? `Thought for ${durationSeconds}s`
-                : "Thought Process")}
-        </span>
+        {isThinking ? <Shimmer>{label}</Shimmer> : <span>{label}</span>}
       </div>
-      <ChevronDown className="dl-cot__chevron" />
+      <ChevronDown className="dl-cot__chevron" aria-hidden="true" />
     </button>
   );
 });
 ChainOfThoughtHeader.displayName = "ChainOfThoughtHeader";
 
+/**
+ * Individual milestone step inside {@link ChainOfThoughtContent}.
+ */
 export const ChainOfThoughtStep = React.forwardRef<
   HTMLDivElement,
   ChainOfThoughtStepProps
 >(({ className, status = "default", icon, children, ...props }, ref) => {
   let resolvedIcon = icon;
   if (!resolvedIcon) {
-    if (status === "running")
-      resolvedIcon = <Loader2 className="size-3 animate-spin text-primary" />;
-    else if (status === "success")
-      resolvedIcon = <CheckCircle2 className="size-3 text-success" />;
-    else if (status === "error")
-      resolvedIcon = <AlertCircle className="size-3 text-destructive" />;
+    if (status === "running") {
+      resolvedIcon = (
+        <Loader2
+          className="dl-cot__step-icon dl-cot__step-icon--running"
+          aria-hidden="true"
+        />
+      );
+    } else if (status === "success") {
+      resolvedIcon = (
+        <CheckCircle2
+          className="dl-cot__step-icon dl-cot__step-icon--success"
+          aria-hidden="true"
+        />
+      );
+    } else if (status === "error") {
+      resolvedIcon = (
+        <AlertCircle
+          className="dl-cot__step-icon dl-cot__step-icon--error"
+          aria-hidden="true"
+        />
+      );
+    } else {
+      resolvedIcon = <span className="dl-cot__step-dot" aria-hidden="true" />;
+    }
   }
 
   return (
@@ -82,15 +110,18 @@ export const ChainOfThoughtStep = React.forwardRef<
       className={cn("dl-cot__step", `dl-cot__step--${status}`, className)}
       {...props}
     >
-      {resolvedIcon && <span className="shrink-0">{resolvedIcon}</span>}
-      <span className={cn(status === "running" && "dl-shimmer")}>
-        {children}
+      <span className="dl-cot__step-marker">{resolvedIcon}</span>
+      <span className="dl-cot__step-label">
+        {status === "running" ? <Shimmer>{children}</Shimmer> : children}
       </span>
     </div>
   );
 });
 ChainOfThoughtStep.displayName = "ChainOfThoughtStep";
 
+/**
+ * Expandable timeline container for {@link ChainOfThoughtStep} children.
+ */
 export const ChainOfThoughtContent = React.forwardRef<
   HTMLDivElement,
   React.HTMLAttributes<HTMLDivElement>

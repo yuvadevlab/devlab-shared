@@ -23,7 +23,9 @@ export const Suggestion = React.forwardRef<HTMLButtonElement, SuggestionProps>(
         {...props}
       >
         <span className="dl-suggestion__icon">
-          {icon ?? <Sparkles className="size-3" />}
+          {icon ?? (
+            <Sparkles className="dl-suggestion__svg" aria-hidden="true" />
+          )}
         </span>
         <span>{label ?? children}</span>
         {description && (

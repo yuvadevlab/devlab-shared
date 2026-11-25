@@ -21,6 +21,8 @@ export interface CodeBlockHeaderProps extends React.HTMLAttributes<HTMLDivElemen
 }
 
 export interface CodeBlockContentProps extends React.HTMLAttributes<HTMLPreElement> {
+  /** Optional language hint for client-side syntax highlighting */
+  language?: string;
   /** Whether code should wrap instead of scrolling horizontally */
   wrap?: boolean;
   /** Whether line numbers are rendered */

@@ -7,12 +7,16 @@ export interface ToolCallProps extends React.HTMLAttributes<HTMLDivElement> {
   name: string;
   /** Status of the tool execution */
   status?: ToolCallStatusType;
+  /** Execution duration in milliseconds */
+  durationMs?: number;
   /** Optional icon override */
   icon?: React.ReactNode;
   /** Optional arguments object or record */
   args?: Record<string, unknown> | string;
   /** Optional output result */
   result?: string;
+  /** Optional error text shown when status is error */
+  errorText?: string;
   /** Controlled open state of result preview */
   open?: boolean;
   /** Default open state in uncontrolled mode */
@@ -24,6 +28,7 @@ export interface ToolCallProps extends React.HTMLAttributes<HTMLDivElement> {
 export interface ToolCallHeaderProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   name: string;
   status?: ToolCallStatusType;
+  durationMs?: number;
   icon?: React.ReactNode;
 }
 

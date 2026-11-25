@@ -1,46 +1,79 @@
 import * as React from "react";
-import { ListOrdered, X, Clock, Loader2, Pause } from "lucide-react";
+import {
+  ListOrdered,
+  X,
+  Clock,
+  Loader2,
+  Pause,
+  CheckCircle2,
+  XCircle,
+} from "lucide-react";
 import { cn } from "@/lib/utils";
-import { QueueProps, QueueItemProps, QueueTask } from "./queue-types";
+import type {
+  QueueProps,
+  QueueItemProps,
+  QueueTask,
+  QueueTaskStatus,
+} from "./queue-types";
 
-export type { QueueProps, QueueItemProps, QueueTask };
+export type { QueueProps, QueueItemProps, QueueTask, QueueTaskStatus };
 
+/**
+ * Individual task row rendered inside {@link Queue}.
+ */
 export const QueueItem = React.forwardRef<HTMLDivElement, QueueItemProps>(
   ({ className, task, index, onRemove, ...props }, ref) => {
     const renderStatusIcon = () => {
       switch (task.status) {
         case "active":
           return (
-            <Loader2 className="size-3 text-primary animate-spin shrink-0" />
+            <Loader2
+              className="dl-queue-item__icon dl-queue-item__icon--active"
+              aria-hidden="true"
+            />
           );
         case "paused":
           return (
             <Pause
-              style={{
-                width: "0.75rem",
-                height: "0.75rem",
-                color: "var(--warning, #eab308)",
-                flexShrink: 0,
-              }}
+              className="dl-queue-item__icon dl-queue-item__icon--paused"
+              aria-hidden="true"
+            />
+          );
+        case "completed":
+          return (
+            <CheckCircle2
+              className="dl-queue-item__icon dl-queue-item__icon--completed"
+              aria-hidden="true"
+            />
+          );
+        case "failed":
+          return (
+            <XCircle
+              className="dl-queue-item__icon dl-queue-item__icon--failed"
+              aria-hidden="true"
             />
           );
         case "waiting":
         default:
           return (
             <Clock
-              style={{
-                width: "0.75rem",
-                height: "0.75rem",
-                color: "var(--muted-foreground)",
-                flexShrink: 0,
-              }}
+              className="dl-queue-item__icon dl-queue-item__icon--waiting"
+              aria-hidden="true"
             />
           );
       }
     };
 
     return (
-      <div ref={ref} className={cn("dl-queue-item", className)} {...props}>
+      <div
+        ref={ref}
+        className={cn(
+          "dl-queue-item",
+          task.status === "completed" && "dl-queue-item--completed",
+          className,
+        )}
+        {...props}
+      >
         <div className="dl-queue-item__info">
           <span className="dl-queue-item__index">{index + 1}</span>
           {renderStatusIcon()}
@@ -72,7 +105,7 @@ export const QueueItem = React.forwardRef<HTMLDivElement, QueueItemProps>(
               aria-label="Remove task"
               className="dl-queue-item__remove-btn"
             >
-              <X style={{ width: "0.875rem", height: "0.875rem" }} />
+              <X className="dl-queue-item__remove-icon" aria-hidden="true" />
             </button>
           )}
         </div>
@@ -89,8 +122,8 @@ QueueItem.displayName = "QueueItem";
  * ```tsx
  * <Queue
  *   tasks={[
- *     { id: "1", title: "Index codebase", priority: "high", status: "active" },
- *     { id: "2", title: "Generate tests", priority: "normal", status: "waiting" }
+ *     { id: "1", title: "Summarize May expenses", priority: "high", status: "active" },
+ *     { id: "2", title: "Compare category budgets", priority: "normal", status: "waiting" }
  *   ]}
  * />
  * ```
@@ -111,9 +144,7 @@ export const Queue = React.forwardRef<HTMLDivElement, QueueProps>(
       <div ref={ref} className={cn("dl-queue", className)} {...props}>
         <div className="dl-queue__header">
           <div className="dl-queue__header-left">
-            <ListOrdered
-              style={{ width: "1rem", height: "1rem", color: "var(--primary)" }}
-            />
+            <ListOrdered className="dl-queue__header-icon" aria-hidden="true" />
             <span>{title}</span>
           </div>
           <span className="dl-queue__header-count">

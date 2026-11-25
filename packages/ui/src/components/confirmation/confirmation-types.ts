@@ -1,10 +1,15 @@
 import * as React from "react";
 
+export type ConfirmationApprovalState =
+  "approval-requested" | "approval-accepted" | "approval-rejected";
+
 export interface ConfirmationProps extends React.HTMLAttributes<HTMLDivElement> {
   /** Visual appearance style */
   variant?: "outline" | "card" | "destructive";
   /** Size variant */
   size?: "sm" | "md";
+  /** Optional lifecycle state matching AI SDK tool-approval parts */
+  state?: ConfirmationApprovalState;
 }
 
 export interface ConfirmationMediaProps extends React.HTMLAttributes<HTMLDivElement> {

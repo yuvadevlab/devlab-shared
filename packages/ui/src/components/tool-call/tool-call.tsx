@@ -38,6 +38,7 @@ export const ToolCallHeader = React.forwardRef<
       className,
       name,
       status = "success",
+      durationMs,
       icon,
       children: _children,
       ...props
@@ -57,12 +58,19 @@ export const ToolCallHeader = React.forwardRef<
       >
         <div className="dl-tool-call__title-wrap">
           <span className="dl-tool-call__icon">
-            {icon ?? <Wrench className="size-3.5" />}
+            {icon ?? <Wrench className="dl-tool-call__svg" />}
           </span>
           <span className="dl-tool-call__name">{name}</span>
         </div>
 
         <div className="dl-tool-call__actions">
+          {durationMs !== undefined && (
+            <span className="dl-tool-call__duration">
+              {durationMs < 1000
+                ? `${Math.round(durationMs)}ms`
+                : `${(durationMs / 1000).toFixed(1)}s`}
+            </span>
+          )}
           <span
             className={cn(
               "dl-tool-call__status-badge",
@@ -70,10 +78,14 @@ export const ToolCallHeader = React.forwardRef<
             )}
           >
             {status === "running" && (
-              <Loader2 className="size-3 animate-spin" />
+              <Loader2 className="dl-tool-call__status-svg dl-tool-call__spin" />
             )}
-            {status === "success" && <CheckCircle2 className="size-3" />}
-            {status === "error" && <AlertCircle className="size-3" />}
+            {status === "success" && (
+              <CheckCircle2 className="dl-tool-call__status-svg" />
+            )}
+            {status === "error" && (
+              <AlertCircle className="dl-tool-call__status-svg" />
+            )}
             <span>{status}</span>
           </span>
           <ChevronDown className="dl-tool-call__chevron" />
@@ -132,9 +144,11 @@ ToolCallResult.displayName = "ToolCallResult";
 export function ToolCall({
   name,
   status = "success",
+  durationMs,
   icon,
   args,
   result,
+  errorText,
   open: propOpen,
   defaultOpen = false,
   onOpenChange,
@@ -163,10 +177,18 @@ export function ToolCall({
         className={cn("dl-tool-call", className)}
         {...props}
       >
-        <ToolCallHeader name={name} status={status} icon={icon} />
+        <ToolCallHeader
+          name={name}
+          status={status}
+          durationMs={durationMs}
+          icon={icon}
+        />
         {isOpen && (
           <div className="dl-tool-call__body">
             {args && <ToolCallArgs args={args} />}
+            {errorText && (
+              <div className="dl-tool-call__error">{errorText}</div>
+            )}
             {result && <ToolCallResult result={result} />}
             {children}
           </div>

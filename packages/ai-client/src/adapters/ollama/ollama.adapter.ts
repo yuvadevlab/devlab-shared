@@ -211,8 +211,10 @@ export class OllamaAdapter implements ILLMProvider {
           try {
             const chunk = JSON.parse(trimmed) as OllamaChatResponseChunk;
             const delta = chunk.message?.content ?? "";
+            const reasoningDelta = chunk.message?.thinking;
             yield {
               delta,
+              ...(reasoningDelta ? { reasoningDelta } : {}),
               finishReason: chunk.done ? FinishReason.STOP : undefined,
               usage: chunk.done
                 ? {

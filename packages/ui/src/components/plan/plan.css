@@ -2,22 +2,30 @@
   display: flex;
   flex-direction: column;
   width: 100%;
-  border-radius: var(--radius-md, 0.375rem);
+  border-radius: var(--radius-lg, 0.5rem);
   border: 1px solid var(--border);
   background-color: var(--card, var(--background));
   overflow: hidden;
+  box-shadow: 0 1px 2px rgb(0 0 0 / 0.04);
 }
-
 .dl-plan__header {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: space-between;
-  padding: 0.625rem 0.875rem;
+  flex-wrap: wrap;
+  gap: 0.625rem 0.875rem;
+  padding: 0.75rem 0.875rem;
   border-bottom: 1px solid var(--border);
-  background-color: var(--muted);
+  background-color: color-mix(in oklch, var(--muted) 45%, var(--background));
   font-size: 0.8125rem;
 }
-
+.dl-plan__header-left {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1875rem;
+  min-width: 0;
+  flex: 1 1 12rem;
+}
 .dl-plan__header-title {
   display: flex;
   align-items: center;
@@ -25,115 +33,146 @@
   font-weight: 600;
   color: var(--foreground);
 }
-
+.dl-plan__header-icon {
+  width: 1rem;
+  height: 1rem;
+  color: var(--primary);
+  flex-shrink: 0;
+}
+.dl-plan__header-description {
+  margin: 0;
+  padding-left: 1.5rem;
+  font-size: 0.75rem;
+  color: var(--muted-foreground);
+  line-height: 1.4;
+}
 .dl-plan__header-meta {
   display: flex;
   align-items: center;
   gap: 0.5rem;
   font-size: 0.75rem;
   color: var(--muted-foreground);
+  flex-shrink: 0;
 }
-
+.dl-plan__progress-text {
+  font-family: var(--font-mono, monospace);
+  font-size: 0.6875rem;
+}
 .dl-plan__tasks {
   display: flex;
   flex-direction: column;
-  padding: 0.5rem 0;
+  padding: 0.25rem 0;
 }
-
 .dl-plan__task {
   display: flex;
   flex-direction: column;
   padding: 0.5rem 0.875rem;
   transition: background-color 0.12s ease;
 }
-
-.dl-plan__task:hover {
-  background-color: var(--accent);
+.dl-plan__task + .dl-plan__task {
+  border-top: 1px solid color-mix(in oklch, var(--border) 60%, transparent);
 }
-
+.dl-plan__task:hover {
+  background-color: color-mix(in oklch, var(--accent) 45%, transparent);
+}
 .dl-plan__task-header {
   display: flex;
   align-items: flex-start;
   gap: 0.625rem;
-  cursor: pointer;
-  user-select: none;
+  width: 100%;
+  background: transparent;
+  border: none;
+  padding: 0;
+  text-align: left;
+  font: inherit;
+  color: inherit;
+  cursor: default;
 }
-
+.dl-plan__task-header--interactive {
+  cursor: pointer;
+}
 .dl-plan__task-icon {
   margin-top: 0.125rem;
-  display: flex;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
-  shrink: 0;
+  flex-shrink: 0;
 }
-
+.dl-plan__status-icon {
+  width: 0.9375rem;
+  height: 0.9375rem;
+  flex-shrink: 0;
+}
+.dl-plan__status-icon--completed {
+  color: var(--success);
+}
+.dl-plan__status-icon--running {
+  color: var(--primary);
+  animation: dl-spin 1s linear infinite;
+}
+.dl-plan__status-icon--failed {
+  color: var(--destructive);
+}
+.dl-plan__status-icon--pending {
+  color: var(--muted-foreground);
+}
 .dl-plan__task-body {
   display: flex;
   flex-direction: column;
   flex: 1;
   min-width: 0;
 }
-
 .dl-plan__task-title {
   font-size: 0.8125rem;
   font-weight: 500;
   color: var(--foreground);
+  line-height: 1.4;
 }
-
 .dl-plan__task--completed .dl-plan__task-title {
   color: var(--muted-foreground);
 }
-
 .dl-plan__task-desc {
   font-size: 0.75rem;
   color: var(--muted-foreground);
   margin-top: 0.125rem;
   line-height: 1.4;
 }
-
 .dl-plan__task-details {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
   margin-top: 0.5rem;
-  padding-left: 1.5rem;
+  padding-left: 1.5625rem;
   font-size: 0.75rem;
   color: var(--muted-foreground);
 }
-
-.dl-plan__subtask-item {
-  display: flex;
-  align-items: center;
-  gap: 0.375rem;
-  padding: 0.125rem 0;
+.dl-plan__desc-block {
+  line-height: 1.55;
 }
-
 .dl-plan__status-chip {
   padding: 0.125rem 0.5rem;
   border-radius: 9999px;
-  font-size: 0.75rem;
+  font-size: 0.6875rem;
   font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.04em;
 }
-
 .dl-plan__status-chip--completed {
   background-color: color-mix(in oklch, var(--success) 15%, transparent);
   color: var(--success);
 }
-
 .dl-plan__status-chip--in-progress {
   background-color: color-mix(in oklch, var(--primary) 15%, transparent);
   color: var(--primary);
 }
-
 .dl-plan__status-chip--failed {
   background-color: color-mix(in oklch, var(--destructive) 15%, transparent);
   color: var(--destructive);
 }
-
 .dl-plan__status-chip--pending {
   background-color: var(--muted);
   color: var(--muted-foreground);
 }
-
 .dl-plan__chevron {
   width: 0.875rem;
   height: 0.875rem;
@@ -142,12 +181,6 @@
   flex-shrink: 0;
   margin-top: 0.125rem;
 }
-
 .dl-plan__chevron--expanded {
   transform: rotate(90deg);
-}
-
-.dl-plan__desc-block {
-  margin-bottom: 0.5rem;
-  line-height: 1.625;
 }

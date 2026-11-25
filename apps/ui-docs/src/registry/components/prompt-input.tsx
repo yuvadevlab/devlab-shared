@@ -1,13 +1,52 @@
 "use client";
 
 import React, { useState } from "react";
-import { PromptInput, Badge } from "@yuva-devlab/ui";
+import { PromptInput, Badge, Stack, Text } from "@yuva-devlab/ui";
 import {
   ComponentView,
   type ComponentVariant,
   type PropDefinition,
   type CssClassDefinition,
 } from "@/components/component-view";
+
+const INTERACTIVE_CODE = `import { useState } from "react";
+import { PromptInput, Stack, Text, type PromptInputAttachmentItem } from "@yuva-devlab/ui";
+
+export function PromptInputDemo() {
+  const [status, setStatus] = useState("");
+
+  const handleSubmit = (
+    value: string,
+    files: PromptInputAttachmentItem[],
+  ) => {
+    setStatus(
+      \`Submitted "\${value}" with \${files.length} attachment(s)\`,
+    );
+  };
+
+  return (
+    <Stack gap={3}>
+      <PromptInput
+        placeholder="Ask anything or attach files..."
+        onSubmit={handleSubmit}
+      />
+      {status && <Text variant="caption">{status}</Text>}
+    </Stack>
+  );
+}`;
+
+const STREAMING_CODE = `import { PromptInput, Badge } from "@yuva-devlab/ui";
+
+export function StreamingPromptInputDemo() {
+  return (
+    <PromptInput
+      defaultValue="Analyze current database query performance"
+      isGenerating
+      onStop={() => console.info("Stopped")}
+      modelSelector={<Badge variant="outline">Gemini 2.5 Pro</Badge>}
+    />
+  );
+}`;
 
 export default function PromptInputDocPage() {
   const [submitted, setSubmitted] = useState<string>("");
@@ -17,18 +56,10 @@ export default function PromptInputDocPage() {
       id: "default",
       title: "Interactive Prompt Bar",
       description:
-        "Auto-expanding input with file attachment capabilities, Enter submission, and Stop generation action.",
+        "Auto-expanding textarea with hidden native file picker trigger, attachment chips, and Enter submission.",
       preview: (
-        <div className="dl-demo-frame dl-demo-frame--md">
-          <div
-            style={{
-              width: "100%",
-              maxWidth: "36rem",
-              display: "flex",
-              flexDirection: "column",
-              gap: "0.75rem",
-            }}
-          >
+        <div className="dl-demo-frame dl-demo-frame--lg">
+          <Stack gap={3}>
             <PromptInput
               placeholder="Ask anything or request code edits..."
               onSubmit={(val, files) => {
@@ -37,50 +68,28 @@ export default function PromptInputDocPage() {
                 );
               }}
             />
-            {submitted && (
-              <p
-                style={{
-                  fontSize: "0.75rem",
-                  color: "var(--muted-foreground)",
-                }}
-              >
-                {submitted}
-              </p>
-            )}
-          </div>
+            {submitted && <Text variant="caption">{submitted}</Text>}
+          </Stack>
         </div>
       ),
-      codeSnippet: `<PromptInput
-  placeholder="Ask anything or request code edits..."
-  onSubmit={(val, files) => handlePrompt(val, files)}
-/>`,
+      codeSnippet: INTERACTIVE_CODE,
     },
     {
       id: "with-model",
       title: "With Model Badge & Generating State",
       description:
-        "Display active model selection pill and square stop button during generation.",
+        "Displays active model pill and square stop control during response streaming.",
       preview: (
-        <div className="dl-demo-frame dl-demo-frame--md">
-          <div style={{ width: "100%", maxWidth: "36rem" }}>
-            <PromptInput
-              defaultValue="Analyze current database query performance"
-              isGenerating={true}
-              onStop={() => alert("Generation cancelled")}
-              modelSelector={
-                <Badge variant="outline" className="text-xs">
-                  Claude 3.5 Sonnet
-                </Badge>
-              }
-            />
-          </div>
+        <div className="dl-demo-frame dl-demo-frame--lg">
+          <PromptInput
+            defaultValue="Analyze current database query performance"
+            isGenerating
+            onStop={() => setSubmitted("Generation stopped")}
+            modelSelector={<Badge variant="outline">Claude 3.5 Sonnet</Badge>}
+          />
         </div>
       ),
-      codeSnippet: `<PromptInput
-  isGenerating={true}
-  onStop={() => abortController.abort()}
-  modelSelector={<Badge variant="outline">Claude 3.5 Sonnet</Badge>}
-/>`,
+      codeSnippet: STREAMING_CODE,
     },
   ];
 
@@ -88,8 +97,8 @@ export default function PromptInputDocPage() {
     {
       name: "placeholder",
       type: "string",
-      default: '"Send a message or prompt..."',
-      description: "Placeholder text inside textarea.",
+      default: '"Ask anything or describe a task..."',
+      description: "Placeholder text inside the auto-sizing textarea.",
     },
     {
       name: "isGenerating",
@@ -104,48 +113,35 @@ export default function PromptInputDocPage() {
       description: "Triggered on Enter (without Shift) or submit button click.",
     },
     {
-      name: "onStop",
-      type: "() => void",
-      default: "—",
-      description: "Triggered when clicking the stop button while generating.",
-    },
-    {
       name: "modelSelector",
       type: "React.ReactNode",
       default: "—",
-      description: "Optional slot at bottom-left for model picker or badge.",
+      description: "Optional footer slot for a model picker or badge.",
     },
     {
       name: "maxAttachments",
       type: "number",
       default: "5",
-      description: "Maximum number of files that can be attached.",
+      description: "Maximum number of attached files allowed.",
     },
   ];
 
   const cssClasses: CssClassDefinition[] = [
     {
       name: ".dl-prompt-input",
-      description: "Outer rounded card container for the prompt box.",
+      description: "Outer elevated composer container with focus ring.",
     },
     {
-      name: ".dl-prompt-input__textarea",
-      description: "Auto-resizing clean textarea.",
-    },
-    {
-      name: ".dl-prompt-input__footer",
-      description: "Bottom action bar housing attachments and submit button.",
-    },
-    {
-      name: ".dl-prompt-input__submit-btn",
-      description: "Circular submit or stop icon button.",
+      name: ".dl-prompt-input__toolbar",
+      description:
+        "Bottom toolbar aligning attachment trigger and send/stop button.",
     },
   ];
 
   return (
     <ComponentView
       title="Prompt Input"
-      description="Enterprise chat input field designed for conversational AI agents, featuring auto-resizing textareas, multi-file attachments, model badges, and responsive action triggers."
+      description="Conversational composition box featuring auto-expanding textarea, multi-file attachment chips, model slot, and send/stop states."
       variants={variants}
       propsList={propsList}
       cssClasses={cssClasses}
