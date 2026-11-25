@@ -1,5 +1,11 @@
 # @yuva-devlab/ui
 
+## 4.1.1
+
+### Patch Changes
+
+- 2fc0bd8: Truncate overflowing text inside `SelectTrigger` with flex ellipsis and constrain `SelectContent` viewport width to avoid horizontal clipping on narrow screens and long brand labels.
+
 ## 4.1.0
 
 ### Minor Changes
