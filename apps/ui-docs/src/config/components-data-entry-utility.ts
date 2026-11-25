@@ -66,15 +66,6 @@ export const DATA_ENTRY_UTILITY_COMPONENTS: ComponentMeta[] = [
     keywords: ["number", "stepper", "quantity", "counter", "decimal", "step"],
   },
   {
-    name: "Input Number",
-    slug: "input-number",
-    href: "/components/input-number",
-    category: "Data Entry",
-    description:
-      "Precision numeric stepper control with limits, steps, and prefix/suffix units.",
-    keywords: ["number", "stepper", "quantity", "counter", "decimal", "step"],
-  },
-  {
     name: "Password Input",
     slug: "password-input",
     href: "/components/password-input",

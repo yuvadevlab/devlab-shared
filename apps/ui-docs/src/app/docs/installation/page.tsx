@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { getInstallationSteps } from "@/services/docs-service";
+import { getInstallationStepsByBrand } from "@/services/docs-service";
 import { InstallationView } from "@/components/installation-view";
 
 export const metadata: Metadata = {
@@ -9,10 +9,10 @@ export const metadata: Metadata = {
 };
 
 /**
- * Ultra-thin page route wrapper for the installation guide.
- * Pre-fetches highlighted code blocks on the server via docs-service.
+ * Thin page route wrapper for the installation guide.
+ * Pre-renders Shiki-highlighted snippets for every brand theme on the server.
  */
 export default async function InstallationPage() {
-  const steps = await getInstallationSteps();
-  return <InstallationView steps={steps} />;
+  const stepsByBrand = await getInstallationStepsByBrand();
+  return <InstallationView stepsByBrand={stepsByBrand} />;
 }

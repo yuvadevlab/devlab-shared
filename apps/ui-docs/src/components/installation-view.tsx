@@ -1,37 +1,42 @@
+"use client";
+
 import React from "react";
+import { THEME_CONFIGS, type ThemeName } from "@yuva-devlab/tokens";
 import { Badge, Stack } from "@yuva-devlab/ui";
 import { CopyCodeButton } from "@/components/copy-code-button";
+import { useTheme } from "@/components/theme-provider";
 import type { InstallationStep } from "@/services/docs-service";
 
 export interface InstallationViewProps {
-  steps: InstallationStep[];
+  stepsByBrand: Record<ThemeName, InstallationStep[]>;
 }
 
 /**
- * Pure React Server Component rendering the installation and setup guide.
- * Utilizes pre-highlighted Shiki HTML blocks for zero runtime overhead.
+ * Client view selecting the pre-highlighted installation guide for the active brand.
  */
 export function InstallationView({
-  steps,
+  stepsByBrand,
 }: InstallationViewProps): React.JSX.Element {
+  const { brand } = useTheme();
+  const steps = stepsByBrand[brand] ?? stepsByBrand.orchestrai;
+  const brandLabel = THEME_CONFIGS[brand]?.label ?? brand;
+
   return (
     <div className="dl-guide-view">
       <Stack gap={10}>
-        {/* Header */}
         <header className="dl-guide-header">
           <Stack gap={2}>
             <Badge variant="secondary" className="dl-guide-header__badge">
-              Guide
+              Guide · {brandLabel}
             </Badge>
             <h1 className="dl-guide-header__title">Installation & Setup</h1>
             <p className="dl-guide-header__desc">
-              Complete guide to integrating DevLab UI and tokens into your
-              Next.js or React applications.
+              Complete guide to integrating DevLab UI and design tokens using
+              the active {brandLabel} theme preset.
             </p>
           </Stack>
         </header>
 
-        {/* Steps */}
         <Stack gap={8}>
           {steps.map((step) => (
             <section key={step.id}>
