@@ -1,7 +1,11 @@
 "use client";
 
 import React from "react";
-import { Terminal } from "@yuva-devlab/ui";
+import {
+  Terminal,
+  TerminalEntryLevel,
+  type TerminalEntry,
+} from "@yuva-devlab/ui";
 import {
   ComponentView,
   type ComponentVariant,
@@ -13,10 +17,72 @@ const sampleBuildOutput = `turbo 2.4.4
 • Running build in 3 packages
 @yuva-devlab/tokens:build: cache hit, replaying logs
 @yuva-devlab/ui:build: tsup src/index.ts --format esm,cjs --dts
-@yuva-devlab/ui:build: ✓ built in 842ms
-@yuva-devlab/portal:build: ✓ Compiled successfully in 1.4s
-Tasks:    3 successful, 3 total
-Time:     1.624s`;
+@yuva-devlab/ui:build: ✓ built in 842ms`;
+
+const sampleEntries: TerminalEntry[] = [
+  {
+    id: "1",
+    elapsedMs: 120,
+    level: TerminalEntryLevel.CTX,
+    message: "Loaded 4 accounts, 28 transactions, 5 budgets",
+  },
+  {
+    id: "2",
+    elapsedMs: 410,
+    level: TerminalEntryLevel.TOOL,
+    message: "transactions.summarize",
+    detail: "48ms",
+  },
+  {
+    id: "3",
+    elapsedMs: 1450,
+    level: TerminalEntryLevel.DONE,
+    message: "Grounded response finalized",
+  },
+];
+
+const COMMAND_CODE = `import { Terminal } from "@yuva-devlab/ui";
+
+const BUILD_LOG = \`turbo 2.4.4
+• Running build in 3 packages
+@yuva-devlab/tokens:build: cache hit, replaying logs
+@yuva-devlab/ui:build: ✓ built in 842ms\`;
+
+export function TerminalCommandDemo() {
+  return <Terminal command="pnpm build" output={BUILD_LOG} />;
+}`;
+
+const TELEMETRY_CODE = `import {
+  Terminal,
+  TerminalEntryLevel,
+  type TerminalEntry,
+} from "@yuva-devlab/ui";
+
+const ENTRIES: TerminalEntry[] = [
+  {
+    id: "1",
+    elapsedMs: 120,
+    level: TerminalEntryLevel.CTX,
+    message: "Loaded 4 accounts, 28 transactions",
+  },
+  {
+    id: "2",
+    elapsedMs: 410,
+    level: TerminalEntryLevel.TOOL,
+    message: "transactions.summarize",
+    detail: "48ms",
+  },
+];
+
+export function LiveTelemetryTerminalDemo() {
+  return (
+    <Terminal
+      command="Live Agent Stream"
+      entries={ENTRIES}
+      isStreaming
+    />
+  );
+}`;
 
 export default function TerminalDocPage() {
   const variants: ComponentVariant[] = [
@@ -24,41 +90,29 @@ export default function TerminalDocPage() {
       id: "default",
       title: "Command Execution Log",
       description:
-        "Terminal window container displaying executed command, window control buttons, and logs.",
+        "Terminal window container displaying executed command, controls, and output.",
       preview: (
         <div className="dl-demo-frame dl-demo-frame--md">
-          <div className="w-full max-w-xl">
-            <Terminal command="pnpm build" output={sampleBuildOutput} />
-          </div>
+          <Terminal command="pnpm build" output={sampleBuildOutput} />
         </div>
       ),
-      codeSnippet: `<Terminal
-  command="pnpm build"
-  output={\`turbo 2.4.4
-@yuva-devlab/ui:build: ✓ built in 842ms\`}
-/>`,
+      codeSnippet: COMMAND_CODE,
     },
     {
-      id: "streaming",
-      title: "Docker Compose Logs",
-      description: "Terminal running multi-container setup tasks.",
+      id: "telemetry",
+      title: "Live Structured Telemetry Stream",
+      description:
+        "Timestamped agent execution events with severity badges and live auto-scroll.",
       preview: (
         <div className="dl-demo-frame dl-demo-frame--md">
-          <div className="w-full max-w-xl">
-            <Terminal
-              command="docker compose up -d"
-              output={`[+] Running 3/3
- ✔ Network devlab-network        Created
- ✔ Container devlab-postgres-1   Started
- ✔ Container devlab-redis-1      Started`}
-            />
-          </div>
+          <Terminal
+            command="Live Agent Stream"
+            entries={sampleEntries}
+            isStreaming
+          />
         </div>
       ),
-      codeSnippet: `<Terminal
-  command="docker compose up -d"
-  output="[+] Running 3/3..."
-/>`,
+      codeSnippet: TELEMETRY_CODE,
     },
   ];
 
@@ -67,51 +121,32 @@ export default function TerminalDocPage() {
       name: "command",
       type: "string",
       default: "—",
-      description: "CLI command string displayed in title and prompt line.",
+      description: "CLI command or stream title displayed in header.",
     },
     {
-      name: "output",
-      type: "string",
+      name: "entries",
+      type: "TerminalEntry[]",
       default: "—",
-      description: "Preformatted terminal output stream.",
+      description: "Structured timestamped log entries with level badges.",
     },
     {
-      name: "maxHeight",
-      type: "string",
-      default: '"16rem"',
-      description: "Maximum height for the terminal scrollable area.",
-    },
-    {
-      name: "windowControls",
+      name: "isStreaming",
       type: "boolean",
-      default: "true",
-      description: "Whether to render Mac-style 3 dots in the terminal header.",
+      default: "false",
+      description: "Shows live running badge and auto-scrolls new rows.",
     },
   ];
 
   const cssClasses: CssClassDefinition[] = [
-    {
-      name: ".dl-terminal",
-      description: "Monospace dark card container with border styling.",
-    },
-    {
-      name: ".dl-terminal__header",
-      description: "Top bar with window dots, title, and copy action.",
-    },
-    {
-      name: ".dl-terminal__output",
-      description: "Preformatted scrolling area for shell output.",
-    },
-    {
-      name: ".dl-terminal__prompt-line",
-      description: "Highlighted dollar prompt ($) command line.",
-    },
+    { name: ".dl-terminal", description: "Monospace terminal container." },
+    { name: ".dl-terminal__header", description: "Top toolbar with controls." },
+    { name: ".dl-terminal__entries", description: "Structured log row list." },
   ];
 
   return (
     <ComponentView
       title="Terminal"
-      description="Shell command execution terminal for displaying CLI commands, daemon process outputs, and agent bash tool execution logs."
+      description="Execution terminal for displaying CLI outputs and live structured agent telemetry logs."
       variants={variants}
       propsList={propsList}
       cssClasses={cssClasses}

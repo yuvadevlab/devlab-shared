@@ -8,21 +8,18 @@ import {
   Circle,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { SubagentProps, SubagentStatus } from "./subagent-types";
+import type { SubagentProps, SubagentStatus } from "./subagent-types";
 
 export type { SubagentProps, SubagentStatus };
 
-const getStatusBadge = (status: SubagentStatus) => {
+function getStatusBadge(status: SubagentStatus) {
   switch (status) {
     case "running":
       return (
         <span className="dl-subagent__status dl-subagent__status--running">
           <Loader2
-            style={{
-              width: "0.75rem",
-              height: "0.75rem",
-              animation: "spin 1s linear infinite",
-            }}
+            className="dl-subagent__status-icon dl-subagent__status-icon--spin"
+            aria-hidden="true"
           />
           <span>Running</span>
         </span>
@@ -30,14 +27,17 @@ const getStatusBadge = (status: SubagentStatus) => {
     case "completed":
       return (
         <span className="dl-subagent__status dl-subagent__status--completed">
-          <CheckCircle2 style={{ width: "0.75rem", height: "0.75rem" }} />
+          <CheckCircle2
+            className="dl-subagent__status-icon"
+            aria-hidden="true"
+          />
           <span>Done</span>
         </span>
       );
     case "failed":
       return (
         <span className="dl-subagent__status dl-subagent__status--failed">
-          <XCircle style={{ width: "0.75rem", height: "0.75rem" }} />
+          <XCircle className="dl-subagent__status-icon" aria-hidden="true" />
           <span>Failed</span>
         </span>
       );
@@ -45,23 +45,23 @@ const getStatusBadge = (status: SubagentStatus) => {
     default:
       return (
         <span className="dl-subagent__status dl-subagent__status--idle">
-          <Circle style={{ width: "0.75rem", height: "0.75rem" }} />
+          <Circle className="dl-subagent__status-icon" aria-hidden="true" />
           <span>Idle</span>
         </span>
       );
   }
-};
+}
 
 /**
- * Subagent delegation card displaying autonomous agent lifecycle and messages.
+ * Subagent delegation card displaying autonomous specialist lifecycle and nested outputs.
  *
  * @example
  * ```tsx
  * <Subagent
- *   name="Codebase Researcher"
- *   role="Repository Explorer"
+ *   name="Portfolio Analyst"
+ *   role="Asset Allocation Auditor"
  *   status="running"
- *   model="flash"
+ *   model="gemini-flash"
  * />
  * ```
  */
@@ -74,6 +74,8 @@ export const Subagent = React.forwardRef<HTMLDivElement, SubagentProps>(
       status = "idle",
       model,
       conversationId,
+      durationMs,
+      summary,
       defaultOpen = false,
       children,
       ...props
@@ -85,22 +87,43 @@ export const Subagent = React.forwardRef<HTMLDivElement, SubagentProps>(
 
     return (
       <div ref={ref} className={cn("dl-subagent", className)} {...props}>
-        <div
-          className="dl-subagent__header"
+        <button
+          type="button"
+          className={cn(
+            "dl-subagent__header",
+            hasChildren && "dl-subagent__header--interactive",
+            open && hasChildren && "dl-subagent__header--open",
+          )}
           onClick={() => hasChildren && setOpen((prev) => !prev)}
+          aria-expanded={hasChildren ? open : undefined}
+          disabled={!hasChildren}
         >
           <div className="dl-subagent__title-area">
-            <div className="dl-subagent__avatar">
-              <Bot className="size-3.5" />
+            <div
+              className={cn(
+                "dl-subagent__avatar",
+                status === "running" && "dl-subagent__avatar--running",
+              )}
+            >
+              <Bot className="dl-subagent__bot-icon" aria-hidden="true" />
             </div>
             <div className="dl-subagent__meta">
               <span className="dl-subagent__name">{name}</span>
-              {role && <span className="dl-subagent__role">{role}</span>}
+              {(summary || role) && (
+                <span className="dl-subagent__role">{summary ?? role}</span>
+              )}
             </div>
           </div>
 
           <div className="dl-subagent__badges">
             {model && <span className="dl-subagent__chip">{model}</span>}
+            {durationMs !== undefined && (
+              <span className="dl-subagent__chip">
+                {durationMs < 1000
+                  ? `${Math.round(durationMs)}ms`
+                  : `${(durationMs / 1000).toFixed(1)}s`}
+              </span>
+            )}
             {conversationId && (
               <span className="dl-subagent__chip">
                 #{conversationId.slice(0, 6)}
@@ -113,10 +136,11 @@ export const Subagent = React.forwardRef<HTMLDivElement, SubagentProps>(
                   "dl-subagent__chevron",
                   open && "dl-subagent__chevron--open",
                 )}
+                aria-hidden="true"
               />
             )}
           </div>
-        </div>
+        </button>
 
         {open && hasChildren && (
           <div className="dl-subagent__content">{children}</div>

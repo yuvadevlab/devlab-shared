@@ -32,7 +32,7 @@ export const Trace = React.forwardRef<HTMLDivElement, TraceProps>(
       ref={ref}
       className={cn(
         "dl-trace",
-        variant === "card" && "rounded-md border p-3 bg-card",
+        variant === "card" && "dl-trace--card",
         className,
       )}
       {...props}
@@ -56,12 +56,15 @@ export const TraceIcon = React.forwardRef<HTMLSpanElement, TraceIconProps>(
   ({ className, status = "default", children, ...props }, ref) => {
     let resolvedIcon = children;
     if (!resolvedIcon) {
-      if (status === "running") resolvedIcon = <Loader2 className="size-3.5" />;
-      else if (status === "success")
-        resolvedIcon = <CheckCircle2 className="size-3.5" />;
-      else if (status === "error")
-        resolvedIcon = <AlertCircle className="size-3.5" />;
-      else resolvedIcon = <Circle className="size-2 fill-current" />;
+      if (status === "running") {
+        resolvedIcon = <Loader2 className="dl-trace-icon__svg" />;
+      } else if (status === "success") {
+        resolvedIcon = <CheckCircle2 className="dl-trace-icon__svg" />;
+      } else if (status === "error") {
+        resolvedIcon = <AlertCircle className="dl-trace-icon__svg" />;
+      } else {
+        resolvedIcon = <Circle className="dl-trace-icon__dot" />;
+      }
     }
 
     return (

@@ -18,7 +18,7 @@ export const Default: Story = {
         name="search_database"
         status="success"
         defaultOpen
-        icon={<Database className="size-3.5 text-primary" />}
+        icon={<Database className="dl-tool-call__svg" aria-hidden="true" />}
         args={{ table: "users", role: "admin", limit: 3 }}
         result={JSON.stringify(
           [
@@ -40,7 +40,7 @@ export const Running: Story = {
         name="fetch_live_telemetry"
         status="running"
         defaultOpen
-        icon={<Globe className="size-3.5 text-primary" />}
+        icon={<Globe className="dl-tool-call__svg" aria-hidden="true" />}
         args={{ endpoint: "https://api.devlab.io/metrics", window: "5m" }}
       />
     </div>
@@ -54,7 +54,7 @@ export const ErrorState: Story = {
         name="execute_migration"
         status="error"
         defaultOpen
-        icon={<Terminal className="size-3.5 text-destructive" />}
+        icon={<Terminal className="dl-tool-call__svg" aria-hidden="true" />}
         args={{ migration: "20261104_add_fk.sql" }}
         result="Error: relation 'tenants' does not exist at line 4:12"
       />

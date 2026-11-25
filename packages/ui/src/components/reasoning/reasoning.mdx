@@ -1,0 +1,16 @@
+import { Meta, Canvas, ArgTypes } from "@storybook/blocks";
+import * as ReasoningStories from "./reasoning.stories";
+
+<Meta of={ReasoningStories} />
+
+# Reasoning
+
+Collapsible AI reasoning panel with live shimmering header and automatic collapse once generation finishes.
+
+## Live Preview
+
+<Canvas of={ReasoningStories.Streaming} />
+
+## Props
+
+<ArgTypes of={ReasoningStories} />

@@ -15,13 +15,45 @@ const sampleTs = `export function getApiKey(name: string): string {
   return key;
 }`;
 
+const BASIC_CODE = `import { CodeBlock } from "@yuva-devlab/ui";
+
+const CODE = \`export function getApiKey(name: string): string {
+  const key = process.env[name];
+  if (!key) throw new Error(\\\`Key \\\${name} is missing\\\`);
+  return key;
+}\`;
+
+export function CodeBlockDemo() {
+  return (
+    <CodeBlock
+      filename="auth.ts"
+      language="typescript"
+      code={CODE}
+      copyable
+      lineNumbers
+    />
+  );
+}`;
+
+const SQL_CODE = `import { CodeBlock } from "@yuva-devlab/ui";
+
+export function SqlCodeBlockDemo() {
+  return (
+    <CodeBlock
+      language="sql"
+      copyable={false}
+      code='SELECT id, email, role FROM "users" WHERE "tenant_id" = $1;'
+    />
+  );
+}`;
+
 export default function CodeBlockDocPage() {
   const variants: ComponentVariant[] = [
     {
       id: "basic",
       title: "Header with Copy Action",
       description:
-        "Code display container featuring filename badge, language label, and one-click copy button.",
+        "Syntax-colored code display featuring filename badge, language label, line numbers, and copy trigger.",
       preview: (
         <div className="dl-demo-frame dl-demo-frame--md">
           <CodeBlock
@@ -33,27 +65,22 @@ export default function CodeBlockDocPage() {
           />
         </div>
       ),
-      codeSnippet: `<CodeBlock
-  filename="auth.ts"
-  language="typescript"
-  code={codeSnippet}
-  copyable
-  lineNumbers
-/>`,
+      codeSnippet: BASIC_CODE,
     },
     {
       id: "minimal",
       title: "Minimal Inline SQL Block",
-      description: "Code block without header banner for concise queries.",
+      description: "Syntax-highlighted SQL block without copy control.",
       preview: (
         <div className="dl-demo-frame dl-demo-frame--md">
           <CodeBlock
+            language="sql"
             copyable={false}
             code='SELECT id, email, role FROM "users" WHERE "tenant_id" = $1;'
           />
         </div>
       ),
-      codeSnippet: `<CodeBlock code="SELECT * FROM users;" copyable={false} />`,
+      codeSnippet: SQL_CODE,
     },
   ];
 
@@ -62,7 +89,7 @@ export default function CodeBlockDocPage() {
       name: "code",
       type: "string",
       default: "—",
-      description: "Code string to display and copy.",
+      description: "Code string to highlight, display, and copy.",
     },
     {
       name: "filename",
@@ -73,8 +100,8 @@ export default function CodeBlockDocPage() {
     {
       name: "language",
       type: "string",
-      default: "—",
-      description: "Programming language badge indicator.",
+      default: '"tsx"',
+      description: "Language hint driving syntax highlighting and badge label.",
     },
     {
       name: "copyable",
@@ -98,14 +125,14 @@ export default function CodeBlockDocPage() {
     },
     {
       name: ".dl-code-block__content",
-      description: "Preformatted code scroll area.",
+      description: "Preformatted code scroll area with token variables.",
     },
   ];
 
   return (
     <ComponentView
       title="Code Block"
-      description="Syntax code snippet presentation container with filename badge, language label, line numbers, and one-click copy button."
+      description="Syntax-highlighted code snippet presentation container with filename badge, language label, line numbers, and one-click copy button."
       variants={variants}
       propsList={propsList}
       cssClasses={cssClasses}

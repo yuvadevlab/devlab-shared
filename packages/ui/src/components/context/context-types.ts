@@ -18,4 +18,6 @@ export interface ContextUsageProps extends React.HTMLAttributes<HTMLDivElement> 
   label?: string;
   /** Size variant */
   size?: "sm" | "md";
+  /** Display layout: expanded card or shadcn-style compact hover pill */
+  variant?: "card" | "compact";
 }

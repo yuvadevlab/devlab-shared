@@ -28,10 +28,51 @@ const initialTasks: QueueTask[] = [
     id: "q-3",
     title: "Run integration tests across packages",
     priority: "low",
-    status: "waiting",
+    status: "completed",
     estimatedDuration: "12s",
   },
 ];
+
+const QUEUE_CODE = `import { useState } from "react";
+import { Queue, type QueueTask } from "@yuva-devlab/ui";
+
+const INITIAL_TASKS: QueueTask[] = [
+  {
+    id: "q-1",
+    title: "Parse workspace dependency graph",
+    priority: "high",
+    status: "active",
+    estimatedDuration: "1.2s",
+  },
+  {
+    id: "q-2",
+    title: "Synthesize API endpoints in apps/api",
+    priority: "normal",
+    status: "waiting",
+    estimatedDuration: "4.5s",
+  },
+  {
+    id: "q-3",
+    title: "Run integration tests across packages",
+    priority: "low",
+    status: "completed",
+    estimatedDuration: "12s",
+  },
+];
+
+export function ExecutionQueueDemo() {
+  const [tasks, setTasks] = useState(INITIAL_TASKS);
+
+  return (
+    <Queue
+      title="Execution Queue"
+      tasks={tasks}
+      onRemoveTask={(id) =>
+        setTasks((prev) => prev.filter((item) => item.id !== id))
+      }
+    />
+  );
+}`;
 
 export default function QueueDocPage() {
   const [tasks, setTasks] = useState(initialTasks);
@@ -41,23 +82,18 @@ export default function QueueDocPage() {
       id: "default",
       title: "Interactive Task Queue",
       description:
-        "Execution queue displaying running, scheduled, and paused tasks with removal actions.",
+        "Execution queue displaying active, waiting, and completed tasks with priority badges and removal triggers.",
       preview: (
-        <div className="dl-demo-frame dl-demo-frame--md">
-          <div className="w-full max-w-lg">
-            <Queue
-              tasks={tasks}
-              onRemoveTask={(id) =>
-                setTasks((prev) => prev.filter((t) => t.id !== id))
-              }
-            />
-          </div>
+        <div className="dl-demo-frame dl-demo-frame--lg">
+          <Queue
+            tasks={tasks}
+            onRemoveTask={(id) =>
+              setTasks((prev) => prev.filter((t) => t.id !== id))
+            }
+          />
         </div>
       ),
-      codeSnippet: `<Queue
-  tasks={tasks}
-  onRemoveTask={(id) => removeTask(id)}
-/>`,
+      codeSnippet: QUEUE_CODE,
     },
   ];
 
@@ -67,7 +103,7 @@ export default function QueueDocPage() {
       type: "QueueTask[]",
       default: "[]",
       description:
-        "Array of queue items with title, priority, status, and duration.",
+        "Array of queue items with title, priority, status, and estimatedDuration.",
     },
     {
       name: "title",
@@ -79,7 +115,7 @@ export default function QueueDocPage() {
       name: "onRemoveTask",
       type: "(taskId: string) => void",
       default: "—",
-      description: "Callback fired when clicking the task remove icon.",
+      description: "Callback fired when clicking a task remove icon.",
     },
   ];
 
@@ -90,14 +126,15 @@ export default function QueueDocPage() {
     },
     {
       name: ".dl-queue-item",
-      description: "Individual task row with index and priority pill.",
+      description:
+        "Individual task row with index, status icon, and priority pill.",
     },
   ];
 
   return (
     <ComponentView
       title="Queue"
-      description="Agent task execution queue container tracking scheduled, running, and queued jobs with priority indicators and cancellation actions."
+      description="Agent task execution queue container tracking scheduled, running, completed, and failed jobs."
       variants={variants}
       propsList={propsList}
       cssClasses={cssClasses}

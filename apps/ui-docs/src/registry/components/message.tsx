@@ -6,6 +6,8 @@ import {
   MessageAvatar,
   MessageContent,
   MessageActions,
+  Stack,
+  Text,
 } from "@yuva-devlab/ui";
 import {
   ComponentView,
@@ -13,6 +15,63 @@ import {
   type PropDefinition,
   type CssClassDefinition,
 } from "@/components/component-view";
+
+const CONVERSATION_CODE = `import { useState } from "react";
+import {
+  Message,
+  MessageAvatar,
+  MessageContent,
+  MessageActions,
+  Stack,
+} from "@yuva-devlab/ui";
+
+export function ConversationTurnDemo() {
+  const [feedback, setFeedback] = useState("");
+  const reply =
+    "To sustain 10k RPS, add Redis caching for read-heavy routes, PgBouncer pooling, and index batching.";
+
+  return (
+    <Stack gap={4}>
+      <Message role="user">
+        <MessageAvatar role="user" />
+        <div className="dl-message__body">
+          <MessageContent>
+            Can you optimize our queries for 10,000 requests per second?
+          </MessageContent>
+        </div>
+      </Message>
+
+      <Message role="assistant">
+        <MessageAvatar role="assistant" />
+        <div className="dl-message__body">
+          <MessageContent>{reply}</MessageContent>
+          <MessageActions
+            copyText={reply}
+            onRetry={() => setFeedback("Retrying...")}
+            onThumbsUp={() => setFeedback("Liked")}
+            onThumbsDown={() => setFeedback("Disliked")}
+          />
+          {feedback && <span>Feedback: {feedback}</span>}
+        </div>
+      </Message>
+    </Stack>
+  );
+}`;
+
+const SYSTEM_CODE = `import { Message, MessageAvatar, MessageContent } from "@yuva-devlab/ui";
+
+export function SystemMessageDemo() {
+  return (
+    <Message role="system">
+      <MessageAvatar role="system" fallback="S" />
+      <div className="dl-message__body">
+        <MessageContent>
+          Connected read-only PostgreSQL schema telemetry.
+        </MessageContent>
+      </div>
+    </Message>
+  );
+}`;
 
 export default function MessageDocPage() {
   const [feedback, setFeedback] = useState<string>("");
@@ -24,34 +83,12 @@ export default function MessageDocPage() {
       description:
         "Standard conversational stream format with user query, assistant reply, and feedback actions.",
       preview: (
-        <div className="dl-demo-frame dl-demo-frame--md">
-          <div
-            style={{
-              width: "100%",
-              maxWidth: "36rem",
-              display: "flex",
-              flexDirection: "column",
-              gap: "1rem",
-            }}
-          >
+        <div className="dl-demo-frame dl-demo-frame--lg">
+          <Stack gap={4}>
             <Message role="user">
               <MessageAvatar role="user" />
-              <div
-                style={{
-                  display: "flex",
-                  flexDirection: "column",
-                  gap: "0.25rem",
-                }}
-              >
-                <div
-                  style={{
-                    fontSize: "0.75rem",
-                    fontWeight: 600,
-                    color: "var(--muted-foreground)",
-                  }}
-                >
-                  You
-                </div>
+              <div className="dl-message__body">
+                <Text variant="caption">You</Text>
                 <MessageContent>
                   Can you optimize our database queries to handle 10,000
                   requests per second?
@@ -61,22 +98,8 @@ export default function MessageDocPage() {
 
             <Message role="assistant">
               <MessageAvatar role="assistant" />
-              <div
-                style={{
-                  display: "flex",
-                  flexDirection: "column",
-                  gap: "0.25rem",
-                }}
-              >
-                <div
-                  style={{
-                    fontSize: "0.75rem",
-                    fontWeight: 600,
-                    color: "var(--muted-foreground)",
-                  }}
-                >
-                  DevLab Assistant
-                </div>
+              <div className="dl-message__body">
+                <Text variant="caption">DevLab Assistant</Text>
                 <MessageContent>
                   To sustain 10k RPS, I recommend adding a Redis caching layer
                   for read-heavy routes, implementing connection pooling via
@@ -84,41 +107,19 @@ export default function MessageDocPage() {
                 </MessageContent>
                 <MessageActions
                   copyText="To sustain 10k RPS, I recommend adding a Redis caching layer..."
-                  onRetry={() => alert("Regenerating response...")}
+                  onRetry={() => setFeedback("Regenerating...")}
                   onThumbsUp={() => setFeedback("Liked")}
                   onThumbsDown={() => setFeedback("Disliked")}
                 />
                 {feedback && (
-                  <span
-                    style={{
-                      fontSize: "0.75rem",
-                      color: "var(--primary)",
-                      fontWeight: 500,
-                    }}
-                  >
-                    Feedback: {feedback}
-                  </span>
+                  <Text variant="caption">Feedback: {feedback}</Text>
                 )}
               </div>
             </Message>
-          </div>
+          </Stack>
         </div>
       ),
-      codeSnippet: `<Message role="assistant">
-  <MessageAvatar role="assistant" />
-  <div style={{ display: "flex", flexDirection: "column", gap: "0.25rem" }}>
-    <div style={{ fontSize: "0.75rem", fontWeight: 600, color: "var(--muted-foreground)" }}>DevLab Assistant</div>
-    <MessageContent>
-      I recommend adding a Redis caching layer...
-    </MessageContent>
-    <MessageActions
-      copyText="I recommend adding a Redis caching layer..."
-      onRetry={() => regenerate()}
-      onThumbsUp={() => track(true)}
-      onThumbsDown={() => track(false)}
-    />
-  </div>
-</Message>`,
+      codeSnippet: CONVERSATION_CODE,
     },
     {
       id: "system",
@@ -126,22 +127,18 @@ export default function MessageDocPage() {
       description:
         "Muted role message indicating environment context or automated triggers.",
       preview: (
-        <div className="dl-demo-frame dl-demo-frame--md">
-          <div className="w-full max-w-xl">
-            <Message role="system">
+        <div className="dl-demo-frame dl-demo-frame--lg">
+          <Message role="system">
+            <MessageAvatar role="system" fallback="S" />
+            <div className="dl-message__body">
               <MessageContent>
-                Workspace context loaded: 24 packages, Node.js v22.14, Turborepo
-                2.4
+                Connected read-only PostgreSQL schema telemetry.
               </MessageContent>
-            </Message>
-          </div>
+            </div>
+          </Message>
         </div>
       ),
-      codeSnippet: `<Message role="system">
-  <MessageContent>
-    Workspace context loaded: 24 packages, Node.js v22.14
-  </MessageContent>
-</Message>`,
+      codeSnippet: SYSTEM_CODE,
     },
   ];
 
@@ -150,62 +147,33 @@ export default function MessageDocPage() {
       name: "role",
       type: '"user" | "assistant" | "system"',
       default: '"assistant"',
-      description: "Identifies message author and sets background styling.",
+      description: "Controls avatar treatment, alignment, and bubble accent.",
     },
     {
       name: "copyText",
       type: "string",
       default: "—",
-      description: "Text to copy to clipboard when the copy button is pressed.",
-    },
-    {
-      name: "onRetry",
-      type: "() => void",
-      default: "—",
-      description:
-        "Callback invoked when clicking the regenerate / retry button.",
-    },
-    {
-      name: "onThumbsUp",
-      type: "() => void",
-      default: "—",
-      description: "Positive feedback callback.",
-    },
-    {
-      name: "onThumbsDown",
-      type: "() => void",
-      default: "—",
-      description: "Negative feedback callback.",
+      description: "Text payload copied when clicking copy on MessageActions.",
     },
   ];
 
   const cssClasses: CssClassDefinition[] = [
-    {
-      name: ".dl-message",
-      description: "Message container row with avatar and message bubble.",
-    },
-    {
-      name: ".dl-message--user",
-      description: "Modifier style for user-submitted prompt entries.",
-    },
-    {
-      name: ".dl-message--assistant",
-      description: "Modifier style for assistant response entries.",
-    },
+    { name: ".dl-message", description: "Outer conversational turn row." },
     {
       name: ".dl-message__avatar",
-      description: "Avatar circle holding icon, initials, or image.",
+      description: "Circular avatar container with scaled icon sizing.",
     },
     {
       name: ".dl-message__actions",
-      description: "Action button row for copying, rating, and retrying.",
+      description:
+        "Hover-revealed toolbar with copy, retry, and feedback icons.",
     },
   ];
 
   return (
     <ComponentView
       title="Message"
-      description="Chat message turn component representing user prompts, assistant replies, and system events with avatar badges, action toolbars, and rating controls."
+      description="Conversation turn wrapper for user, assistant, and system messages with avatars and interactive action toolbars."
       variants={variants}
       propsList={propsList}
       cssClasses={cssClasses}

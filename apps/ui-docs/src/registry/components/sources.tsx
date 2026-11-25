@@ -1,7 +1,14 @@
 "use client";
 
 import React from "react";
-import { Sources, InlineCitation, type SourceItem } from "@yuva-devlab/ui";
+import {
+  Sources,
+  InlineCitation,
+  SourceKind,
+  Stack,
+  Text,
+  type SourceItem,
+} from "@yuva-devlab/ui";
 import {
   ComponentView,
   type ComponentVariant,
@@ -13,70 +20,126 @@ const sampleSources: SourceItem[] = [
   {
     id: "src-1",
     index: 1,
-    title: "Configuring Remote Caching — Turborepo Docs",
-    url: "https://turbo.build/repo/docs/core-concepts/caching",
-    domain: "turbo.build",
-    snippet: "Turborepo stores results across team CI pipelines.",
+    title: "May 2026 Dining Out Transactions",
+    url: "/transactions?category=dining",
+    domain: "transactions",
+    kind: SourceKind.DATABASE,
+    badge: "14 txns",
+    snippet: "Total outflow ₹14,200 across 14 verified entries.",
   },
   {
     id: "src-2",
     index: 2,
-    title: "Next.js 15 Server Components & Caching",
-    url: "https://nextjs.org/docs/app/building-your-application/caching",
-    domain: "nextjs.org",
-    snippet: "Deep dive into async RSC caching models in Next.js 15.",
+    title: "Dining Out Monthly Budget",
+    url: "/budgets",
+    domain: "budgets",
+    kind: SourceKind.TOOL,
+    badge: "142% used",
+    snippet: "Configured monthly limit ₹10,000 (over by ₹4,200).",
   },
   {
     id: "src-3",
     index: 3,
-    title: "PostgreSQL 17 Hash Join Performance",
-    url: "https://postgresql.org/docs/17/release-17.html",
-    domain: "postgresql.org",
-    snippet: "Improvements to parallel memory management during joins.",
+    title: "Turborepo Remote Caching — Docs",
+    url: "https://turbo.build/repo/docs/core-concepts/caching",
+    domain: "turbo.build",
+    kind: SourceKind.WEB,
+    snippet: "Turborepo stores results across team CI pipelines.",
   },
 ];
+
+const SOURCES_CODE = `import {
+  Sources,
+  InlineCitation,
+  SourceKind,
+  Stack,
+  Text,
+  type SourceItem,
+} from "@yuva-devlab/ui";
+
+const SOURCES: SourceItem[] = [
+  {
+    id: "src-1",
+    index: 1,
+    title: "May 2026 Dining Out Transactions",
+    url: "/transactions?category=dining",
+    domain: "transactions",
+    kind: SourceKind.DATABASE,
+    badge: "14 txns",
+    snippet: "Total outflow ₹14,200 across 14 verified entries.",
+  },
+  {
+    id: "src-2",
+    index: 2,
+    title: "Dining Out Monthly Budget",
+    url: "/budgets",
+    domain: "budgets",
+    kind: SourceKind.TOOL,
+    badge: "142% used",
+    snippet: "Configured monthly limit ₹10,000 (over by ₹4,200).",
+  },
+];
+
+export function GroundedSourcesDemo() {
+  return (
+    <Stack gap={4}>
+      <Text variant="body-sm">
+        Your Dining Out spending reached ₹14,200 this month{" "}
+        <InlineCitation
+          index={1}
+          title={SOURCES[0].title}
+          domain={SOURCES[0].domain}
+          kind={SOURCES[0].kind}
+          snippet={SOURCES[0].snippet}
+        />
+        , exceeding your ₹10,000 budget{" "}
+        <InlineCitation
+          index={2}
+          title={SOURCES[1].title}
+          domain={SOURCES[1].domain}
+          kind={SOURCES[1].kind}
+          snippet={SOURCES[1].snippet}
+        />.
+      </Text>
+      <Sources sources={SOURCES} collapsible defaultOpen />
+    </Stack>
+  );
+}`;
 
 export default function SourcesDocPage() {
   const variants: ComponentVariant[] = [
     {
       id: "default",
-      title: "Inline Citations & Source Grid",
+      title: "Inline Citations & Collapsible Sources Drawer",
       description:
-        "Clickable superscript references embedded directly in AI text with an expandable source card footer.",
+        "HoverCard excerpt badges paired with a collapsible summary pill and clean reference cards.",
       preview: (
-        <div className="dl-demo-frame dl-demo-frame--md">
-          <div
-            style={{
-              width: "100%",
-              maxWidth: "36rem",
-              display: "flex",
-              flexDirection: "column",
-              gap: "1rem",
-            }}
-          >
-            <p
-              style={{
-                fontSize: "0.875rem",
-                lineHeight: 1.625,
-                color: "var(--foreground)",
-              }}
-            >
-              Turborepo Remote Cache allows you to share build artifacts across
-              team members and CI pipelines{" "}
-              <InlineCitation index={1} title="Turborepo Docs" />. Furthermore,
-              Next.js 15 leverages async Server Components to optimize streaming
-              rendering directly from origin servers{" "}
-              <InlineCitation index={2} title="Next.js 15 Caching" />.
-            </p>
-            <Sources sources={sampleSources} />
-          </div>
+        <div className="dl-demo-frame dl-demo-frame--lg">
+          <Stack gap={4}>
+            <Text variant="body-sm">
+              Your Dining Out spending reached ₹14,200 this month{" "}
+              <InlineCitation
+                index={1}
+                title={sampleSources[0].title}
+                domain={sampleSources[0].domain}
+                kind={sampleSources[0].kind}
+                snippet={sampleSources[0].snippet}
+              />
+              , exceeding your ₹10,000 budget{" "}
+              <InlineCitation
+                index={2}
+                title={sampleSources[1].title}
+                domain={sampleSources[1].domain}
+                kind={sampleSources[1].kind}
+                snippet={sampleSources[1].snippet}
+              />
+              .
+            </Text>
+            <Sources sources={sampleSources} collapsible defaultOpen />
+          </Stack>
         </div>
       ),
-      codeSnippet: `<p>
-  Turborepo Remote Cache allows you to share build artifacts
-  <InlineCitation index={1} title="Turborepo Docs" />.
-</p>
-<Sources sources={sourcesList} />`,
+      codeSnippet: SOURCES_CODE,
     },
   ];
 
@@ -86,49 +149,41 @@ export default function SourcesDocPage() {
       type: "SourceItem[]",
       default: "[]",
       description:
-        "Array of source items containing id, index, title, url, domain, snippet.",
+        "Array of source items with id, index, title, url, kind, badge, domain, snippet.",
     },
     {
-      name: "index",
-      type: "number",
-      default: "—",
-      description: "Index number displayed in InlineCitation button.",
+      name: "collapsible",
+      type: "boolean",
+      default: "true",
+      description: "Renders interactive toggle pill above the source cards.",
     },
     {
-      name: "onCitationClick",
-      type: "(index: number) => void",
-      default: "—",
-      description: "Optional callback when an inline citation is clicked.",
-    },
-    {
-      name: "onSourceClick",
-      type: "(source: SourceItem) => void",
-      default: "—",
-      description: "Optional callback when a source card is clicked.",
+      name: "defaultOpen",
+      type: "boolean",
+      default: "true",
+      description: "Initial expanded state when collapsible is enabled.",
     },
   ];
 
   const cssClasses: CssClassDefinition[] = [
     {
       name: ".dl-citation",
-      description:
-        "Interactive citation badge embedded within paragraph prose.",
+      description: "Interactive rounded citation badge inside prose.",
     },
     {
-      name: ".dl-sources",
-      description: "Container block displaying all referenced sources.",
+      name: ".dl-sources__trigger",
+      description: "Collapsible pill button summarizing source count.",
     },
     {
       name: ".dl-source-card",
-      description:
-        "External reference card with domain, favicon, and preview title.",
+      description: "Reference card displaying domain, badge, and excerpt.",
     },
   ];
 
   return (
     <ComponentView
       title="Sources"
-      description="Ground-truth reference components for AI responses, including interactive inline citation badges and card grids for search citations."
+      description="Grounded citation system with hoverable InlineCitation previews and collapsible SourceCard grids."
       variants={variants}
       propsList={propsList}
       cssClasses={cssClasses}

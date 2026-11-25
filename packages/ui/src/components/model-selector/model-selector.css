@@ -185,3 +185,11 @@
   color: var(--muted-foreground);
   font-weight: 500;
 }
+
+.dl-model-selector__check {
+  width: 0.9375rem;
+  height: 0.9375rem;
+  color: var(--primary);
+  flex-shrink: 0;
+  margin-top: 0.125rem;
+}

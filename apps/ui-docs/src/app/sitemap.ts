@@ -1,11 +1,12 @@
 import type { MetadataRoute } from "next";
 import { getAllComponentSlugs } from "@/services/components-service";
+import { resolveDocsBaseUrl } from "@/config/site.constants";
 
 /**
- * Server-generated sitemap indexing all 56 components and docs routes.
+ * Server-generated sitemap indexing all documented components and docs routes.
  */
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const baseUrl = "https://devlab-ui.vercel.app";
+  const baseUrl = resolveDocsBaseUrl();
   const slugs = getAllComponentSlugs();
 
   const componentRoutes: MetadataRoute.Sitemap = slugs.map((slug) => ({

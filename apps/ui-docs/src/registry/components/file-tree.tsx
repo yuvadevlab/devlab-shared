@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { FileTree, type FileTreeItem } from "@yuva-devlab/ui";
+import { FileTree, Stack, Text, type FileTreeItem } from "@yuva-devlab/ui";
 import {
   ComponentView,
   type ComponentVariant,
@@ -55,6 +55,38 @@ const sampleFiles: FileTreeItem[] = [
   { id: "turbo", name: "turbo.json", type: "file" },
 ];
 
+const TREE_CODE = `import { useState } from "react";
+import { FileTree, Stack, Text, type FileTreeItem } from "@yuva-devlab/ui";
+
+const FILES: FileTreeItem[] = [
+  {
+    id: "apps",
+    name: "apps",
+    type: "folder",
+    defaultOpen: true,
+    children: [
+      { id: "p-page", name: "page.tsx", type: "file" },
+      { id: "d-package", name: "package.json", type: "file" },
+    ],
+  },
+  { id: "turbo", name: "turbo.json", type: "file" },
+];
+
+export function WorkspaceFileTreeDemo() {
+  const [selected, setSelected] = useState("p-page");
+
+  return (
+    <Stack gap={3}>
+      <FileTree
+        data={FILES}
+        selectedId={selected}
+        onSelect={(item) => setSelected(item.id)}
+      />
+      <Text variant="caption">Selected: {selected}</Text>
+    </Stack>
+  );
+}`;
+
 export default function FileTreeDocPage() {
   const [selected, setSelected] = useState<string>("p-page");
 
@@ -65,42 +97,18 @@ export default function FileTreeDocPage() {
       description:
         "Expandable directory folders with file extension icons and item selection tracking.",
       preview: (
-        <div className="dl-demo-frame dl-demo-frame--md">
-          <div
-            style={{
-              width: "100%",
-              maxWidth: "24rem",
-              display: "flex",
-              flexDirection: "column",
-              gap: "0.75rem",
-            }}
-          >
+        <div className="dl-demo-frame dl-demo-frame--sm">
+          <Stack gap={3}>
             <FileTree
               data={sampleFiles}
               selectedId={selected}
               onSelect={(item) => setSelected(item.id)}
             />
-            <p
-              style={{ fontSize: "0.75rem", color: "var(--muted-foreground)" }}
-            >
-              Selected:{" "}
-              <span
-                style={{
-                  fontFamily: "var(--font-mono, monospace)",
-                  color: "var(--foreground)",
-                }}
-              >
-                {selected}
-              </span>
-            </p>
-          </div>
+            <Text variant="caption">Selected: {selected}</Text>
+          </Stack>
         </div>
       ),
-      codeSnippet: `<FileTree
-  data={treeData}
-  selectedId={selected}
-  onSelect={(item) => setSelected(item.id)}
-/>`,
+      codeSnippet: TREE_CODE,
     },
   ];
 
@@ -138,16 +146,12 @@ export default function FileTreeDocPage() {
       name: ".dl-file-tree__node--active",
       description: "Active highlighted selection state.",
     },
-    {
-      name: ".dl-file-tree__children",
-      description: "Indented sub-tree container with vertical connector guide.",
-    },
   ];
 
   return (
     <ComponentView
       title="File Tree"
-      description="Hierarchical file and directory tree view for agent workspace browsing, diff inspection, and repository code navigation."
+      description="Hierarchical file and directory tree view for agent workspace browsing and code navigation."
       variants={variants}
       propsList={propsList}
       cssClasses={cssClasses}

@@ -24,6 +24,7 @@ import {
   type ClineCompletionResponse,
   mapClineMessages,
 } from "./cline.types";
+import { parseOpenAiCompatStreamChunk } from "@/adapters/stream-chunk.helpers";
 
 const logger = loggerWithConfig(new Logger("ClineAdapter"));
 
@@ -191,16 +192,9 @@ export class ClineAdapter implements ILLMProvider {
           const payload = trimmed.slice(5).trim();
           if (payload === "[DONE]") break;
 
-          try {
-            const parsed = JSON.parse(payload) as {
-              choices?: Array<{ delta?: { content?: string } }>;
-            };
-            const delta = parsed.choices?.[0]?.delta?.content ?? "";
-            if (delta) {
-              yield { delta };
-            }
-          } catch {
-            // Tolerate partial stream chunks
+          const parsedChunk = parseOpenAiCompatStreamChunk(payload);
+          if (parsedChunk) {
+            yield parsedChunk;
           }
         }
       }

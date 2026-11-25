@@ -104,12 +104,35 @@
   }
 
   .dl-demo-card__code {
-    background-color: color-mix(in oklch, var(--muted) 40%, transparent);
+    background-color: color-mix(in oklch, var(--muted) 40%, var(--background));
     padding: 1rem;
     border-top: 1px solid var(--border);
     overflow-x: auto;
     font-family: var(--font-mono, monospace);
     font-size: 0.75rem;
+    line-height: 1.55;
+    --dl-syn-kw: #7c3aed;
+    --dl-syn-str: #059669;
+    --dl-syn-num: #d97706;
+    --dl-syn-comment: #64748b;
+    --dl-syn-fn: #2563eb;
+    --dl-syn-type: #0284c7;
+    --dl-syn-tag: #db2777;
+    --dl-syn-attr: #9333ea;
+    --dl-syn-op: #64748b;
+  }
+
+  .dark .dl-demo-card__code,
+  [data-theme="dark"] .dl-demo-card__code {
+    --dl-syn-kw: #c084fc;
+    --dl-syn-str: #4ade80;
+    --dl-syn-num: #fbbf24;
+    --dl-syn-comment: #64748b;
+    --dl-syn-fn: #60a5fa;
+    --dl-syn-type: #38bdf8;
+    --dl-syn-tag: #f472b6;
+    --dl-syn-attr: #a78bfa;
+    --dl-syn-op: #94a3b8;
   }
 
   .dl-demo-card__code-highlighted pre {
