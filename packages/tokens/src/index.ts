@@ -3,15 +3,10 @@
  * @description Yuva DevLab Design System — Design Tokens & Theme Definitions.
  */
 
-export const THEMES = [
-  "orchestrai",
-  "finai",
-  "portal",
-  "logs",
-  "vitalai",
-  "quantai",
-] as const;
-export type ThemeName = (typeof THEMES)[number];
+import { ALL_BRANDS, BRAND_MAP } from "./brands";
+
+export type ThemeName = keyof typeof BRAND_MAP;
+export const THEMES = Object.keys(BRAND_MAP) as ThemeName[];
 
 export const BRAND_MODES = ["light", "dark"] as const;
 export type BrandMode = (typeof BRAND_MODES)[number];
@@ -38,68 +33,21 @@ export interface ThemeConfig {
   readonly density: "high" | "standard" | "spacious";
 }
 
-export const THEME_CONFIGS: Record<ThemeName, ThemeConfig> = {
-  orchestrai: {
-    name: "orchestrai",
-    defaultMode: "dark",
-    label: "OrchestrAI",
-    fontSans: '"Manrope", sans-serif',
-    fontDisplay: '"Sora", sans-serif',
-    fontMono: '"JetBrains Mono", monospace',
-    radius: "0.75rem",
-    density: "standard",
-  },
-  finai: {
-    name: "finai",
-    defaultMode: "dark",
-    label: "FinAI",
-    fontSans: '"Inter", sans-serif',
-    fontDisplay: '"Inter", sans-serif',
-    fontMono: '"JetBrains Mono", monospace',
-    radius: "0.75rem",
-    density: "spacious",
-  },
-  portal: {
-    name: "portal",
-    defaultMode: "dark",
-    label: "DevLab Portal",
-    fontSans: '"Inter", sans-serif',
-    fontDisplay: '"Inter", sans-serif',
-    fontMono: '"JetBrains Mono", monospace',
-    radius: "0.5rem",
-    density: "standard",
-  },
-  logs: {
-    name: "logs",
-    defaultMode: "dark",
-    label: "DevLab Logs",
-    fontSans: '"Space Grotesk", sans-serif',
-    fontDisplay: '"Space Grotesk", sans-serif',
-    fontMono: '"JetBrains Mono", monospace',
-    radius: "0.375rem",
-    density: "high",
-  },
-  vitalai: {
-    name: "vitalai",
-    defaultMode: "dark",
-    label: "VitalAI",
-    fontSans: '"Inter", sans-serif',
-    fontDisplay: '"Barlow Condensed", "Inter", sans-serif',
-    fontMono: '"JetBrains Mono", monospace',
-    radius: "1rem",
-    density: "spacious",
-  },
-  quantai: {
-    name: "quantai",
-    defaultMode: "dark",
-    label: "QuantAI",
-    fontSans: '"Inter", sans-serif',
-    fontDisplay: '"Inter", sans-serif',
-    fontMono: '"JetBrains Mono", monospace',
-    radius: "0.75rem",
-    density: "high",
-  },
-} as const;
+export const THEME_CONFIGS: Record<ThemeName, ThemeConfig> = Object.fromEntries(
+  ALL_BRANDS.map((b) => [
+    b.name,
+    {
+      name: b.name as ThemeName,
+      defaultMode: "dark" as BrandMode,
+      label: b.label,
+      fontSans: b.fontSans,
+      fontDisplay: b.fontDisplay,
+      fontMono: b.fontMono,
+      radius: b.radius,
+      density: b.density === "compact" ? "high" : b.density,
+    },
+  ]),
+) as Record<ThemeName, ThemeConfig>;
 
 export * from "./schema/tokens.schema";
 export * from "./core";

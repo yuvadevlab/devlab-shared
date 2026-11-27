@@ -1,17 +1,19 @@
-.dl-popover {
-  z-index: var(--z-popover, 70);
-  width: 18rem;
-  border-radius: var(--radius, 0.5rem);
-  border: 1px solid var(--border);
-  background-color: var(--popover);
-  color: var(--popover-foreground);
-  padding: var(--space-4, 1rem);
-  box-shadow: 0 4px 24px rgb(0 0 0/0.12);
-  outline: none;
-}
-.dl-popover[data-state="open"] {
-  animation: dl-fade-in 150ms ease;
-}
-.dl-popover[data-state="closed"] {
-  animation: dl-fade-out 150ms ease;
+@layer dl-components {
+  .dl-popover {
+    z-index: var(--z-popover, 70);
+    width: 18rem;
+    border-radius: var(--radius, 0.5rem);
+    border: 1px solid var(--border);
+    background-color: var(--popover);
+    color: var(--popover-foreground);
+    padding: var(--space-4, 1rem);
+    box-shadow: 0 4px 24px rgb(0 0 0/0.12);
+    outline: none;
+  }
+  .dl-popover[data-state="open"] {
+    animation: dl-fade-in 150ms ease;
+  }
+  .dl-popover[data-state="closed"] {
+    animation: dl-fade-out 150ms ease;
+  }
 }

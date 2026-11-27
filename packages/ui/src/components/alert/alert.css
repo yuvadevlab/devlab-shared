@@ -1,63 +1,65 @@
-.dl-alert {
-  position: relative;
-  width: 100%;
-  border-radius: var(--radius, 0.5rem);
-  border: 1px solid var(--border);
-  padding: var(--space-4, 0.875rem) var(--space-5, 1rem);
-  font-size: 0.875rem;
-  display: grid;
-  grid-template-columns: 1fr;
-  row-gap: 0.25rem;
-  align-items: start;
-}
+@layer dl-components {
+  .dl-alert {
+    position: relative;
+    width: 100%;
+    border-radius: var(--radius, 0.5rem);
+    border: 1px solid var(--border);
+    padding: var(--space-4, 0.875rem) var(--space-5, 1rem);
+    font-size: 0.875rem;
+    display: grid;
+    grid-template-columns: 1fr;
+    row-gap: 0.25rem;
+    align-items: start;
+  }
 
-.dl-alert:has(> svg) {
-  grid-template-columns: 1rem 1fr;
-  column-gap: 0.75rem;
-}
+  .dl-alert:has(> svg) {
+    grid-template-columns: 1rem 1fr;
+    column-gap: 0.75rem;
+  }
 
-.dl-alert > svg {
-  grid-column: 1;
-  grid-row: 1 / span 2;
-  width: 1rem;
-  height: 1rem;
-  margin-top: 0.125rem;
-  color: currentColor;
-  flex-shrink: 0;
-}
+  .dl-alert > svg {
+    grid-column: 1;
+    grid-row: 1 / span 2;
+    width: 1rem;
+    height: 1rem;
+    margin-top: 0.125rem;
+    color: currentColor;
+    flex-shrink: 0;
+  }
 
-.dl-alert:has(> svg) .dl-alert__title,
-.dl-alert:has(> svg) .dl-alert__desc {
-  grid-column: 2;
-}
+  .dl-alert:has(> svg) .dl-alert__title,
+  .dl-alert:has(> svg) .dl-alert__desc {
+    grid-column: 2;
+  }
 
-.dl-alert--default {
-  background-color: var(--card, var(--background));
-  color: var(--foreground);
-}
+  .dl-alert--default {
+    background-color: var(--card, var(--background));
+    color: var(--foreground);
+  }
 
-.dl-alert--destructive {
-  border-color: color-mix(in oklch, var(--destructive) 45%, transparent);
-  color: var(--destructive);
-  background-color: color-mix(
-    in oklch,
-    var(--destructive) 8%,
-    var(--background)
-  );
-}
+  .dl-alert--destructive {
+    border-color: color-mix(in oklch, var(--destructive) 45%, transparent);
+    color: var(--destructive);
+    background-color: color-mix(
+      in oklch,
+      var(--destructive) 8%,
+      var(--background)
+    );
+  }
 
-.dl-alert__title {
-  font-weight: 600;
-  line-height: 1.35;
-  letter-spacing: -0.01em;
-}
+  .dl-alert__title {
+    font-weight: 600;
+    line-height: 1.35;
+    letter-spacing: -0.01em;
+  }
 
-.dl-alert__desc {
-  font-size: 0.875rem;
-  color: var(--muted-foreground);
-  line-height: 1.5;
-}
+  .dl-alert__desc {
+    font-size: 0.875rem;
+    color: var(--muted-foreground);
+    line-height: 1.5;
+  }
 
-.dl-alert--destructive .dl-alert__desc {
-  color: color-mix(in oklch, var(--destructive) 80%, var(--foreground));
+  .dl-alert--destructive .dl-alert__desc {
+    color: color-mix(in oklch, var(--destructive) 80%, var(--foreground));
+  }
 }

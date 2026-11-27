@@ -3,6 +3,44 @@
  * @description Auto-generated brand extension color tokens and charts for Recharts / TypeScript consumers.
  */
 
+export const AI_STUDIO_EXTENSIONS = {
+  common: {
+    domain: {
+      "text-body": "0.75rem",
+      "text-body-sm": "0.6875rem",
+      "text-caption": "0.625rem",
+      "text-label": "0.6875rem",
+      "text-btn": "0.6875rem",
+      "input-font-size": "0.6875rem",
+      "table-head-font-size": "0.5625rem",
+      "table-cell-font-size": "0.625rem",
+      "control-height-sm": "1.75rem",
+      "control-height-md": "2.125rem",
+      "input-height-md": "2.125rem",
+      "card-padding": "1.0625rem",
+    },
+    charts: {
+      "chart-1": "oklch(0.65 0.22 276)",
+      "chart-2": "oklch(0.74 0.17 155)",
+      "chart-3": "oklch(0.79 0.16 78)",
+      "chart-4": "oklch(0.73 0.13 235)",
+      "chart-5": "oklch(0.76 0.13 56)",
+    },
+  },
+  light: {
+    domain: {
+      sidebar: "oklch(0.97 0.004 275)",
+      "sidebar-border": "oklch(0.88 0.008 275)",
+    },
+  },
+  dark: {
+    domain: {
+      sidebar: "oklch(0.125 0.008 275)",
+      "sidebar-border": "oklch(0.25 0.009 275)",
+    },
+  },
+} as const;
+
 export const FINAI_EXTENSIONS = {
   common: {
     charts: {

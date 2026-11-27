@@ -17,6 +17,7 @@ interface BrandExtensionExample {
 }
 
 const BRAND_EXTENSION_EXAMPLES: Record<ThemeName, BrandExtensionExample> = {
+  "ai-studio": { exportName: "AI_STUDIO_EXTENSIONS", tokenKey: "chart-1" },
   orchestrai: { exportName: "ORCHESTRAI_EXTENSIONS", tokenKey: "chart-1" },
   finai: { exportName: "FINAI_EXTENSIONS", tokenKey: "chart-bullish" },
   portal: { exportName: "PORTAL_EXTENSIONS", tokenKey: "chart-1" },

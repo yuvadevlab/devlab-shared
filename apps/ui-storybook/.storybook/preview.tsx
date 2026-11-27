@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import { ALL_BRANDS } from "@yuva-devlab/tokens";
 import type { Preview } from "@storybook/react";
 
 // Import design tokens and scoped component styles
@@ -33,33 +34,10 @@ const preview: Preview = {
       defaultValue: "orchestrai",
       toolbar: {
         icon: "paintbrush",
-        items: [
-          {
-            value: "orchestrai",
-            title: "OrchestrAI (Cyber Cyan)",
-            right: "🤖",
-          },
-          {
-            value: "finai",
-            title: "FinAI (Emerald Green)",
-            right: "📊",
-          },
-          {
-            value: "portal",
-            title: "DevLab Portal (Mint Obsidian)",
-            right: "🛡️",
-          },
-          {
-            value: "logs",
-            title: "DevLab Logs (Matrix Amber)",
-            right: "💻",
-          },
-          {
-            value: "vitalai",
-            title: "VitalAI (Volt Kinetic)",
-            right: "💪",
-          },
-        ],
+        items: ALL_BRANDS.map((b) => ({
+          value: b.name,
+          title: b.label,
+        })),
         dynamicTitle: true,
       },
     },

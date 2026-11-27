@@ -38,6 +38,7 @@
     },
     "./styles.css": "./dist/styles.css",
     "./preset.css": "./dist/preset.css",
+    "./themes/ai-studio.css": "./dist/themes/ai-studio.css",
     "./themes/finai.css": "./dist/themes/finai.css",
     "./themes/orchestrai.css": "./dist/themes/orchestrai.css",
     "./package.json": "./package.json",

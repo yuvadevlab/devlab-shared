@@ -1,23 +1,25 @@
-.dl-hover-card {
-  z-index: 50;
-  width: 16rem;
-  border-radius: var(--radius-md, 0.375rem);
-  border: 1px solid var(--border);
-  background-color: var(--popover);
-  color: var(--popover-foreground);
-  padding: 1rem;
-  box-shadow: 0 4px 20px rgb(0 0 0 / 0.12);
-  outline: none;
-}
+@layer dl-components {
+  .dl-hover-card {
+    z-index: 50;
+    width: 16rem;
+    border-radius: var(--radius-md, 0.375rem);
+    border: 1px solid var(--border);
+    background-color: var(--popover);
+    color: var(--popover-foreground);
+    padding: 1rem;
+    box-shadow: 0 4px 20px rgb(0 0 0 / 0.12);
+    outline: none;
+  }
 
-.dl-hover-card[data-state="open"] {
-  animation:
-    dl-fade-in 150ms ease,
-    dl-zoom-in 150ms ease;
-}
+  .dl-hover-card[data-state="open"] {
+    animation:
+      dl-fade-in 150ms ease,
+      dl-zoom-in 150ms ease;
+  }
 
-.dl-hover-card[data-state="closed"] {
-  animation:
-    dl-fade-out 150ms ease,
-    dl-zoom-out 150ms ease;
+  .dl-hover-card[data-state="closed"] {
+    animation:
+      dl-fade-out 150ms ease,
+      dl-zoom-out 150ms ease;
+  }
 }

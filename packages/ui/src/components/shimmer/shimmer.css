@@ -1,59 +1,61 @@
-@keyframes dl-shimmer-text-sweep {
-  0% {
-    background-position:
-      100% 0,
-      0 0;
+@layer dl-components {
+  @keyframes dl-shimmer-text-sweep {
+    0% {
+      background-position:
+        100% 0,
+        0 0;
+    }
+    100% {
+      background-position:
+        0% 0,
+        0 0;
+    }
   }
-  100% {
-    background-position:
-      0% 0,
-      0 0;
+
+  .dl-shimmer-text {
+    display: inline-block;
+    color: var(--muted-foreground);
+    --dl-shimmer-duration: 2s;
   }
-}
 
-.dl-shimmer-text {
-  display: inline-block;
-  color: var(--muted-foreground);
-  --dl-shimmer-duration: 2s;
-}
+  .dl-shimmer-text--fast {
+    --dl-shimmer-duration: 1.25s;
+  }
 
-.dl-shimmer-text--fast {
-  --dl-shimmer-duration: 1.25s;
-}
+  .dl-shimmer-text--normal {
+    --dl-shimmer-duration: 2s;
+  }
 
-.dl-shimmer-text--normal {
-  --dl-shimmer-duration: 2s;
-}
+  .dl-shimmer-text--slow {
+    --dl-shimmer-duration: 3s;
+  }
 
-.dl-shimmer-text--slow {
-  --dl-shimmer-duration: 3s;
-}
-
-.dl-shimmer-text--active {
-  background-image:
-    linear-gradient(
-      90deg,
-      transparent 43%,
-      var(--foreground) 50%,
-      transparent 57%
-    ),
-    linear-gradient(var(--muted-foreground), var(--muted-foreground));
-  background-size:
-    250% 100%,
-    100% 100%;
-  background-repeat: no-repeat, repeat;
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  color: transparent;
-  animation: dl-shimmer-text-sweep var(--dl-shimmer-duration) infinite linear;
-}
-
-@media (prefers-reduced-motion: reduce) {
   .dl-shimmer-text--active {
-    background-image: none;
-    -webkit-text-fill-color: currentColor;
-    color: var(--foreground);
-    animation: none;
+    background-image:
+      linear-gradient(
+        90deg,
+        transparent 43%,
+        var(--foreground) 50%,
+        transparent 57%
+      ),
+      linear-gradient(var(--muted-foreground), var(--muted-foreground));
+    background-size:
+      250% 100%,
+      100% 100%;
+    background-repeat: no-repeat, repeat;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+    animation: dl-shimmer-text-sweep var(--dl-shimmer-duration) infinite linear;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .dl-shimmer-text--active {
+      background-image: none;
+      -webkit-text-fill-color: currentColor;
+      color: var(--foreground);
+      animation: none;
+    }
   }
 }

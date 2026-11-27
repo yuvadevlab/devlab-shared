@@ -1,15 +1,17 @@
-.dl-progress {
-  position: relative;
-  height: 0.5rem;
-  width: 100%;
-  overflow: hidden;
-  border-radius: 9999px;
-  background-color: var(--secondary);
-}
-.dl-progress__indicator {
-  height: 100%;
-  width: 100%;
-  background-color: var(--primary);
-  transition: transform 0.3s ease;
-  transform-origin: left;
+@layer dl-components {
+  .dl-progress {
+    position: relative;
+    height: 0.5rem;
+    width: 100%;
+    overflow: hidden;
+    border-radius: 9999px;
+    background-color: var(--secondary);
+  }
+  .dl-progress__indicator {
+    height: 100%;
+    width: 100%;
+    background-color: var(--primary);
+    transition: transform 0.3s ease;
+    transform-origin: left;
+  }
 }

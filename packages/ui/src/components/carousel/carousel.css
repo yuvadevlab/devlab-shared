@@ -1,67 +1,69 @@
-.dl-carousel {
-  position: relative;
-}
+@layer dl-components {
+  .dl-carousel {
+    position: relative;
+  }
 
-.dl-carousel-viewport {
-  overflow: hidden;
-}
+  .dl-carousel-viewport {
+    overflow: hidden;
+  }
 
-.dl-carousel-track {
-  display: flex;
-}
+  .dl-carousel-track {
+    display: flex;
+  }
 
-.dl-carousel-track--horizontal {
-  margin-left: -1rem;
-}
+  .dl-carousel-track--horizontal {
+    margin-left: -1rem;
+  }
 
-.dl-carousel-track--vertical {
-  margin-top: -1rem;
-  flex-direction: column;
-}
+  .dl-carousel-track--vertical {
+    margin-top: -1rem;
+    flex-direction: column;
+  }
 
-.dl-carousel-item {
-  min-width: 0;
-  flex-shrink: 0;
-  flex-grow: 0;
-  flex-basis: 100%;
-}
+  .dl-carousel-item {
+    min-width: 0;
+    flex-shrink: 0;
+    flex-grow: 0;
+    flex-basis: 100%;
+  }
 
-.dl-carousel-item--horizontal {
-  padding-left: var(--space-4, 1rem);
-}
+  .dl-carousel-item--horizontal {
+    padding-left: var(--space-4, 1rem);
+  }
 
-.dl-carousel-item--vertical {
-  padding-top: var(--space-4, 1rem);
-}
+  .dl-carousel-item--vertical {
+    padding-top: var(--space-4, 1rem);
+  }
 
-.dl-carousel-btn {
-  position: absolute;
-  border-radius: 9999px;
-  width: var(--control-height-sm, 2rem);
-  height: var(--control-height-sm, 2rem);
-  padding: 0;
-}
+  .dl-carousel-btn {
+    position: absolute;
+    border-radius: 9999px;
+    width: var(--control-height-sm, 2rem);
+    height: var(--control-height-sm, 2rem);
+    padding: 0;
+  }
 
-.dl-carousel-btn--prev-horizontal {
-  left: -3rem;
-  top: 50%;
-  transform: translateY(-50%);
-}
+  .dl-carousel-btn--prev-horizontal {
+    left: -3rem;
+    top: 50%;
+    transform: translateY(-50%);
+  }
 
-.dl-carousel-btn--prev-vertical {
-  top: -3rem;
-  left: 50%;
-  transform: translateX(-50%) rotate(90deg);
-}
+  .dl-carousel-btn--prev-vertical {
+    top: -3rem;
+    left: 50%;
+    transform: translateX(-50%) rotate(90deg);
+  }
 
-.dl-carousel-btn--next-horizontal {
-  right: -3rem;
-  top: 50%;
-  transform: translateY(-50%);
-}
+  .dl-carousel-btn--next-horizontal {
+    right: -3rem;
+    top: 50%;
+    transform: translateY(-50%);
+  }
 
-.dl-carousel-btn--next-vertical {
-  bottom: -3rem;
-  left: 50%;
-  transform: translateX(-50%) rotate(90deg);
+  .dl-carousel-btn--next-vertical {
+    bottom: -3rem;
+    left: 50%;
+    transform: translateX(-50%) rotate(90deg);
+  }
 }

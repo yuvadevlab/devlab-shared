@@ -1,119 +1,121 @@
-.dl-confirmation {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  border-radius: var(--radius-lg, 0.5rem);
-  padding: 0.875rem 1rem;
-  border: 1px solid var(--border);
-  background-color: var(--card, var(--background));
-  color: var(--card-foreground, var(--foreground));
-  font-size: 0.875rem;
-  box-shadow: 0 1px 2px rgb(0 0 0 / 0.04);
-}
+@layer dl-components {
+  .dl-confirmation {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    border-radius: var(--radius-lg, 0.5rem);
+    padding: 0.875rem 1rem;
+    border: 1px solid var(--border);
+    background-color: var(--card, var(--background));
+    color: var(--card-foreground, var(--foreground));
+    font-size: 0.875rem;
+    box-shadow: 0 1px 2px rgb(0 0 0 / 0.04);
+  }
 
-.dl-confirmation--sm {
-  padding: 0.625rem 0.875rem;
-  font-size: 0.8125rem;
-}
+  .dl-confirmation--sm {
+    padding: 0.625rem 0.875rem;
+    font-size: 0.8125rem;
+  }
 
-.dl-confirmation--destructive {
-  border-color: color-mix(in oklch, var(--destructive) 38%, var(--border));
-  background-color: color-mix(in oklch, var(--destructive) 5%, var(--card));
-}
+  .dl-confirmation--destructive {
+    border-color: color-mix(in oklch, var(--destructive) 38%, var(--border));
+    background-color: color-mix(in oklch, var(--destructive) 5%, var(--card));
+  }
 
-.dl-confirmation--accepted {
-  border-color: color-mix(in oklch, var(--success) 38%, var(--border));
-  background-color: color-mix(in oklch, var(--success) 5%, var(--card));
-}
+  .dl-confirmation--accepted {
+    border-color: color-mix(in oklch, var(--success) 38%, var(--border));
+    background-color: color-mix(in oklch, var(--success) 5%, var(--card));
+  }
 
-.dl-confirmation__body {
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 0.75rem 0.875rem;
-  width: 100%;
-  min-width: 0;
-}
+  .dl-confirmation__body {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.75rem 0.875rem;
+    width: 100%;
+    min-width: 0;
+  }
 
-.dl-confirmation__media {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 2rem;
-  height: 2rem;
-  border-radius: var(--radius-md, 0.375rem);
-  background-color: color-mix(in oklch, var(--primary) 10%, var(--secondary));
-  color: var(--primary);
-  flex-shrink: 0;
-}
+  .dl-confirmation__media {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2rem;
+    height: 2rem;
+    border-radius: var(--radius-md, 0.375rem);
+    background-color: color-mix(in oklch, var(--primary) 10%, var(--secondary));
+    color: var(--primary);
+    flex-shrink: 0;
+  }
 
-.dl-confirmation__media svg {
-  width: 1rem;
-  height: 1rem;
-  flex-shrink: 0;
-}
+  .dl-confirmation__media svg {
+    width: 1rem;
+    height: 1rem;
+    flex-shrink: 0;
+  }
 
-.dl-confirmation--destructive .dl-confirmation__media {
-  background-color: color-mix(in oklch, var(--destructive) 14%, transparent);
-  color: var(--destructive);
-}
+  .dl-confirmation--destructive .dl-confirmation__media {
+    background-color: color-mix(in oklch, var(--destructive) 14%, transparent);
+    color: var(--destructive);
+  }
 
-.dl-confirmation--accepted .dl-confirmation__media {
-  background-color: color-mix(in oklch, var(--success) 14%, transparent);
-  color: var(--success);
-}
+  .dl-confirmation--accepted .dl-confirmation__media {
+    background-color: color-mix(in oklch, var(--success) 14%, transparent);
+    color: var(--success);
+  }
 
-.dl-confirmation__content {
-  display: flex;
-  flex-direction: column;
-  gap: 0.1875rem;
-  flex: 1 1 13rem;
-  min-width: 0;
-}
+  .dl-confirmation__content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.1875rem;
+    flex: 1 1 13rem;
+    min-width: 0;
+  }
 
-.dl-confirmation__title {
-  margin: 0;
-  font-size: 0.875rem;
-  font-weight: 600;
-  line-height: 1.3;
-  color: var(--foreground);
-}
+  .dl-confirmation__title {
+    margin: 0;
+    font-size: 0.875rem;
+    font-weight: 600;
+    line-height: 1.3;
+    color: var(--foreground);
+  }
 
-.dl-confirmation__description {
-  margin: 0;
-  font-size: 0.75rem;
-  color: var(--muted-foreground);
-  line-height: 1.45;
-}
+  .dl-confirmation__description {
+    margin: 0;
+    font-size: 0.75rem;
+    color: var(--muted-foreground);
+    line-height: 1.45;
+  }
 
-.dl-confirmation__actions {
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  gap: 0.5rem;
-  margin-left: auto;
-  flex-shrink: 0;
-}
+  .dl-confirmation__actions {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 0.5rem;
+    margin-left: auto;
+    flex-shrink: 0;
+  }
 
-.dl-confirmation__status-note {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.375rem;
-  font-size: 0.75rem;
-  font-weight: 500;
-  color: var(--muted-foreground);
-}
+  .dl-confirmation__status-note {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: var(--muted-foreground);
+  }
 
-.dl-confirmation__status-note svg {
-  width: 0.875rem;
-  height: 0.875rem;
-  flex-shrink: 0;
-}
+  .dl-confirmation__status-note svg {
+    width: 0.875rem;
+    height: 0.875rem;
+    flex-shrink: 0;
+  }
 
-.dl-confirmation__status-note--accepted {
-  color: var(--success);
-}
+  .dl-confirmation__status-note--accepted {
+    color: var(--success);
+  }
 
-.dl-confirmation__status-note--rejected {
-  color: var(--destructive);
+  .dl-confirmation__status-note--rejected {
+    color: var(--destructive);
+  }
 }
