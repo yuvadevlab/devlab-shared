@@ -3,9 +3,14 @@ import { getInstallationStepsByBrand } from "@/services/docs-service";
 import { InstallationView } from "@/components/installation-view";
 
 export const metadata: Metadata = {
-  title: "Installation & Setup — DevLab UI",
+  title: "Installation & Setup",
   description:
-    "Complete guide to installing and configuring @yuva-devlab/ui and @yuva-devlab/tokens in React and Next.js.",
+    "Complete guide to installing and configuring @yuva-devlab/ui and @yuva-devlab/tokens in React and Next.js projects with pure CSS Cascade Layers.",
+  openGraph: {
+    title: "Installation & Setup — DevLab UI",
+    description:
+      "Complete guide to installing and configuring @yuva-devlab/ui and @yuva-devlab/tokens in React and Next.js projects with pure CSS Cascade Layers.",
+  },
 };
 
 /**

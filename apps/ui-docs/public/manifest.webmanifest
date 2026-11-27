@@ -1,0 +1,19 @@
+{
+  "name": "DevLab UI Documentation",
+  "short_name": "DevLab UI",
+  "description": "Pure CSS, multi-brand design system with modular W3C Cascade Layers, accessible Radix primitives, and comprehensive API reference.",
+  "start_url": "/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#0e1118",
+  "theme_color": "#38c4d4",
+  "icons": [
+    {
+      "src": "/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["developer tools", "design", "productivity"]
+}
