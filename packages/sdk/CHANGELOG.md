@@ -1,5 +1,11 @@
 # @yuva-devlab/sdk
 
+## 0.2.17
+
+### Patch Changes
+
+- @yuva-devlab/agent-core@0.3.1
+
 ## 0.2.16
 
 ### Patch Changes
