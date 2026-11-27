@@ -1,5 +1,12 @@
 # @yuva-devlab/agent-core
 
+## 0.3.1
+
+### Patch Changes
+
+- Updated dependencies [521a95c]
+  - @yuva-devlab/agent-protocol@0.3.0
+
 ## 0.3.0
 
 ### Minor Changes
