@@ -1,5 +1,12 @@
 # @yuva-devlab/sdk
 
+## 0.2.14
+
+### Patch Changes
+
+- Updated dependencies [443f1da]
+  - @yuva-devlab/agent-core@0.3.0
+
 ## 0.2.13
 
 ### Patch Changes
