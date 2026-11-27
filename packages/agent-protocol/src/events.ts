@@ -27,6 +27,36 @@ export interface AgentCard {
   data?: Record<string, unknown>;
 }
 
+/** Individual step within a streamed execution plan. */
+export interface AgentPlanStep {
+  /** Unique step identifier. */
+  id: string;
+  /** Human-readable step title. */
+  title: string;
+  /** Optional step detail. */
+  description?: string;
+  /** Current step lifecycle status. */
+  status: "pending" | "running" | "completed" | "failed";
+}
+
+/** Grounded source citation emitted during RAG or tool lookup. */
+export interface AgentSourceReference {
+  /** Unique source identifier. */
+  id: string;
+  /** 1-based inline citation index. */
+  index: number;
+  /** Human-readable document or page title. */
+  title: string;
+  /** Canonical link URL. */
+  url: string;
+  /** Optional hostname or origin label. */
+  domain?: string;
+  /** Optional short excerpt or snippet. */
+  snippet?: string;
+  /** Optional source badge (e.g., "DB", "WEB", "DOC"). */
+  badge?: string;
+}
+
 /** Discriminated union of every Server-Sent Event pushed during an agent run. */
 export type AgentStreamEvent =
   | { type: typeof AgentStreamEventType.CONVERSATION; conversationId: string }
@@ -42,13 +72,22 @@ export type AgentStreamEvent =
   | { type: typeof AgentStreamEventType.TOKEN; content: string }
   | { type: typeof AgentStreamEventType.REASONING; content: string }
   | { type: typeof AgentStreamEventType.TOKEN_REPLACE; content: string }
-  | { type: typeof AgentStreamEventType.TOOL_CALL; tool: string; runId: string }
+  | {
+      type: typeof AgentStreamEventType.TOOL_CALL;
+      tool: string;
+      runId: string;
+      callId?: string;
+      args?: Record<string, unknown> | string;
+    }
   | {
       type: typeof AgentStreamEventType.TOOL_RESULT;
       tool: string;
+      callId?: string;
       ok: boolean;
       summary?: string;
       label?: string;
+      result?: string;
+      durationMs?: number;
     }
   | {
       type: typeof AgentStreamEventType.PHASE;
@@ -57,6 +96,16 @@ export type AgentStreamEvent =
       turn?: number;
       pendingAction?: boolean;
       toolCalls?: number;
+    }
+  | {
+      type: typeof AgentStreamEventType.PLAN;
+      title?: string;
+      description?: string;
+      steps: AgentPlanStep[];
+    }
+  | {
+      type: typeof AgentStreamEventType.SOURCES;
+      items: AgentSourceReference[];
     }
   | { type: typeof AgentStreamEventType.CARD; card: AgentCard }
   | {
@@ -88,6 +137,10 @@ export type AgentStreamEvent =
       type: typeof AgentStreamEventType.USAGE;
       tokensIn: number;
       tokensOut: number;
+      costUsd?: number;
+      latencyMs?: number;
+      modelId?: string;
+      provider?: string;
     }
   | { type: typeof AgentStreamEventType.ERROR; error: string; code?: string }
   | { type: typeof AgentStreamEventType.DONE };
