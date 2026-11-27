@@ -1,5 +1,11 @@
 # @yuva-devlab/regex
 
+## 0.4.1
+
+### Patch Changes
+
+- 4cdb4fe: fix(regex): remove literal SQLi and path-traversal examples from README that triggered npm Cloudflare WAF 403
+
 ## 0.4.0
 
 ### Minor Changes
