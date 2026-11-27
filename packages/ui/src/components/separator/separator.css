@@ -1,14 +1,16 @@
-.dl-separator {
-  background-color: var(--border);
-  flex-shrink: 0;
-}
-.dl-separator[data-orientation="horizontal"] {
-  height: 1px;
-  width: 100%;
-  margin: 0.25rem 0;
-}
-.dl-separator[data-orientation="vertical"] {
-  width: 1px;
-  height: 100%;
-  margin: 0 0.25rem;
+@layer dl-components {
+  .dl-separator {
+    background-color: var(--border);
+    flex-shrink: 0;
+  }
+  .dl-separator[data-orientation="horizontal"] {
+    height: 1px;
+    width: 100%;
+    margin: 0.25rem 0;
+  }
+  .dl-separator[data-orientation="vertical"] {
+    width: 1px;
+    height: 100%;
+    margin: 0 0.25rem;
+  }
 }

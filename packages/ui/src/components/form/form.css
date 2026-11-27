@@ -1,17 +1,19 @@
-.dl-form-item {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-}
-.dl-form-label--error {
-  color: var(--destructive);
-}
-.dl-form-desc {
-  font-size: var(--text-caption, 0.75rem);
-  color: var(--muted-foreground);
-}
-.dl-form-error {
-  font-size: var(--text-caption, 0.75rem);
-  font-weight: 500;
-  color: var(--destructive);
+@layer dl-components {
+  .dl-form-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  .dl-form-label--error {
+    color: var(--destructive);
+  }
+  .dl-form-desc {
+    font-size: var(--text-caption, 0.75rem);
+    color: var(--muted-foreground);
+  }
+  .dl-form-error {
+    font-size: var(--text-caption, 0.75rem);
+    font-weight: 500;
+    color: var(--destructive);
+  }
 }

@@ -17,6 +17,10 @@ export interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> 
    * Scales height, spacing, and font sizes responsively across mobile, tablet, and desktop.
    */
   inputSize?: "sm" | "md" | "lg";
+  /**
+   * Optional class name applied to the outer `.dl-input-wrapper` when icons are present.
+   */
+  wrapperClassName?: string;
 }
 
 /**
@@ -48,7 +52,18 @@ export interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> 
  * ```
  */
 const Input = React.forwardRef<HTMLInputElement, InputProps>(
-  ({ className, type, startIcon, endIcon, inputSize, ...props }, ref) => {
+  (
+    {
+      className,
+      wrapperClassName,
+      type,
+      startIcon,
+      endIcon,
+      inputSize,
+      ...props
+    },
+    ref,
+  ) => {
     const inputEl = (
       <input
         type={type}
@@ -69,7 +84,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
     }
 
     return (
-      <div className="dl-input-wrapper">
+      <div className={cn("dl-input-wrapper", wrapperClassName)}>
         {startIcon && (
           <span className="dl-input-icon dl-input-icon--start">
             {startIcon}

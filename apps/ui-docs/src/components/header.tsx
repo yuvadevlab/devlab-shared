@@ -20,33 +20,16 @@ import {
   Switch,
   Flex,
 } from "@yuva-devlab/ui";
+import { ALL_BRANDS } from "@yuva-devlab/tokens";
 import { useTheme, type Brand } from "@/components/theme-provider";
 import { SearchTrigger } from "@/components/search-trigger";
 import { resolveStorybookUrl } from "@/config/site.constants";
 import uiPackage from "@yuva-devlab/ui/package.json";
 
-const BRANDS = [
-  {
-    value: "orchestrai",
-    label: "⚡ OrchestrAI (Emerald Precision)",
-  },
-  {
-    value: "finai",
-    label: "💎 FinAI (Cyberpunk Neon)",
-  },
-  {
-    value: "portal",
-    label: "🔮 DevLab Portal (Deep Indigo)",
-  },
-  {
-    value: "logs",
-    label: "📊 DevLab Logs (Matrix Phosphor)",
-  },
-  {
-    value: "vitalai",
-    label: "💪 VitalAI (Volt Kinetic)",
-  },
-] as const;
+const BRANDS = ALL_BRANDS.map((b) => ({
+  value: b.name,
+  label: b.label,
+}));
 
 export function Header() {
   const { brand, setBrand, mode, toggleMode, fullTheme, setFullTheme } =

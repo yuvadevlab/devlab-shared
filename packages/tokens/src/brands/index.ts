@@ -3,6 +3,7 @@
  * @description Central export index for all DevLab brand specifications.
  */
 
+import { AI_STUDIO_BRAND } from "./ai-studio.tokens";
 import { FINAI_BRAND } from "./finai.tokens";
 import { LOGS_BRAND } from "./logs.tokens";
 import { ORCHESTRAI_BRAND } from "./orchestrai.tokens";
@@ -10,6 +11,7 @@ import { PORTAL_BRAND } from "./portal.tokens";
 import { QUANTAI_BRAND } from "./quantai.tokens";
 import { VITALAI_BRAND } from "./vitalai.tokens";
 
+export { AI_STUDIO_BRAND } from "./ai-studio.tokens";
 export { FINAI_BRAND } from "./finai.tokens";
 export { LOGS_BRAND } from "./logs.tokens";
 export { ORCHESTRAI_BRAND } from "./orchestrai.tokens";
@@ -18,6 +20,7 @@ export { QUANTAI_BRAND } from "./quantai.tokens";
 export { VITALAI_BRAND } from "./vitalai.tokens";
 
 export const ALL_BRANDS = [
+  AI_STUDIO_BRAND,
   FINAI_BRAND,
   LOGS_BRAND,
   ORCHESTRAI_BRAND,
@@ -27,6 +30,7 @@ export const ALL_BRANDS = [
 ] as const;
 
 export const BRAND_MAP = {
+  "ai-studio": AI_STUDIO_BRAND,
   finai: FINAI_BRAND,
   logs: LOGS_BRAND,
   orchestrai: ORCHESTRAI_BRAND,
