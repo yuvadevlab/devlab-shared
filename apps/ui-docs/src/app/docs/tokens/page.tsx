@@ -3,9 +3,14 @@ import { getTokensCatalog } from "@/services/tokens-service";
 import { TokensView } from "@/components/tokens-view";
 
 export const metadata: Metadata = {
-  title: "Design Tokens & Architecture — DevLab UI",
+  title: "Design Tokens & Architecture",
   description:
     "Explore OKLCH semantic palettes, typographic scales, spacing grids, and isolated brand extensions across DevLab themes.",
+  openGraph: {
+    title: "Design Tokens & Architecture — DevLab UI",
+    description:
+      "Explore OKLCH semantic palettes, typographic scales, spacing grids, and isolated brand extensions across DevLab themes.",
+  },
 };
 
 /**

@@ -6,6 +6,8 @@ const config: StorybookConfig = {
     "../../../packages/ui/src/**/*.mdx",
     "../../../packages/ui/src/**/*.stories.@(js|jsx|mjs|ts|tsx)",
   ],
+  /** Copies .storybook/public/* into the storybook-static output directory. */
+  staticDirs: ["./public"],
   addons: [
     "@storybook/addon-links",
     "@storybook/addon-essentials",

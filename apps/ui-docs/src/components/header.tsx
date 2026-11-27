@@ -3,7 +3,7 @@
 import React from "react";
 import Link from "next/link";
 import {
-  Layers,
+  BookOpenText,
   Moon,
   Sun,
   Sparkles,
@@ -58,7 +58,7 @@ export function Header() {
       <Flex align="center" gap={3}>
         <Link href="/" className="dl-docs-header__brand-link">
           <div className="dl-docs-header__logo">
-            <Layers className="dl-docs-header__logo-icon" />
+            <BookOpenText className="dl-docs-header__logo-icon" />
           </div>
           <span className="dl-docs-header__brand-name">DevLab UI</span>
           <span className="dl-docs-header__version-pill">

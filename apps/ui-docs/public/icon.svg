@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="none">
+  <rect width="32" height="32" rx="8" fill="url(#dl-gradient)"/>
+  <svg x="6" y="6" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M12 5v16"/>
+    <path d="M16 13h2"/>
+    <path d="M16 9h2"/>
+    <path d="M20.001 19A2 2 0 0022 17V5a2 2 0 00-1.999-2L16 3.002A5 5 0 0012 5a5 5 0 00-4-2H4a2 2 0 00-2 2v12a2 2 0 001.999 2H8a5 5 0 014 2 5 5 0 014-2z"/>
+    <path d="M6 13h2"/>
+    <path d="M6 9h2"/>
+  </svg>
+  <defs>
+    <linearGradient id="dl-gradient" x1="0" y1="0" x2="32" y2="32" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#38c4d4"/>
+      <stop offset="100%" stop-color="#0d8a9e"/>
+    </linearGradient>
+  </defs>
+</svg>

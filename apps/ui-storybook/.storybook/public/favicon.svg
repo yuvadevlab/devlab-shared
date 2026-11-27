@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="none">
+  <rect width="32" height="32" rx="8" fill="url(#dl-sb-gradient)"/>
+  <text
+    x="16"
+    y="22"
+    text-anchor="middle"
+    font-family="system-ui, -apple-system, sans-serif"
+    font-size="14"
+    font-weight="900"
+    letter-spacing="-0.5"
+    fill="#ffffff"
+  >DL</text>
+  <defs>
+    <linearGradient id="dl-sb-gradient" x1="0" y1="0" x2="32" y2="32" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#38c4d4"/>
+      <stop offset="100%" stop-color="#0d8a9e"/>
+    </linearGradient>
+  </defs>
+</svg>
