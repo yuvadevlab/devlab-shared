@@ -94,6 +94,8 @@ export const AgentStreamEventType = {
   ACTION_UPDATED: "action_updated",
   ACTION_RESULT: "action_result",
   STATUS: "status",
+  PLAN: "plan",
+  SOURCES: "sources",
   SUGGESTIONS: "suggestions",
   USAGE: "usage",
   ERROR: "error",
