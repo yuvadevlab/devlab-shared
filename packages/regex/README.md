@@ -80,15 +80,16 @@ console.log(cleanLog);
 Detect malicious patterns in user inputs or agent-generated SQL queries:
 
 ```typescript
-import { hasSqlInjectionPattern, hasPathTraversal } from "@yuva-devlab/regex";
+import {
+  SQL_INJECTION_INDICATORS_REGEX,
+  PATH_TRAVERSAL_REGEX,
+} from "@yuva-devlab/regex";
 
-const unsafeInput = "admin' OR 1=1 --";
-if (hasSqlInjectionPattern(unsafeInput)) {
+if (SQL_INJECTION_INDICATORS_REGEX.test(userSqlInput)) {
   throw new Error("Malicious SQL syntax detected");
 }
 
-const maliciousPath = "../../etc/passwd";
-if (hasPathTraversal(maliciousPath)) {
+if (PATH_TRAVERSAL_REGEX.test(requestedPath)) {
   throw new Error("Directory traversal detected");
 }
 ```
