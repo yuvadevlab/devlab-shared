@@ -1,5 +1,12 @@
 # @yuva-devlab/supervisor
 
+## 0.3.7
+
+### Patch Changes
+
+- Updated dependencies [23db019]
+  - @yuva-devlab/regex@0.4.0
+
 ## 0.3.6
 
 ### Patch Changes

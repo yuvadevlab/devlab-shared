@@ -1,5 +1,11 @@
 # @yuva-devlab/sdk
 
+## 0.2.15
+
+### Patch Changes
+
+- @yuva-devlab/events@0.2.6
+
 ## 0.2.14
 
 ### Patch Changes

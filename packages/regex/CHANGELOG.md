@@ -1,5 +1,11 @@
 # @yuva-devlab/regex
 
+## 0.4.0
+
+### Minor Changes
+
+- 23db019: feat(regex): add `KEBAB_SLUG_REGEX` and `HEX_64_REGEX` shared patterns
+
 ## 0.3.0
 
 ### Minor Changes

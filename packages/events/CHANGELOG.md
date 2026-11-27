@@ -1,5 +1,12 @@
 # @yuva-devlab/events
 
+## 0.2.6
+
+### Patch Changes
+
+- Updated dependencies [23db019]
+  - @yuva-devlab/regex@0.4.0
+
 ## 0.2.5
 
 ### Patch Changes
