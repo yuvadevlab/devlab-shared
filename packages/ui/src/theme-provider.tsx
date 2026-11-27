@@ -1,9 +1,9 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
+import type { ThemeName } from "@yuva-devlab/tokens";
 
 export type Theme = "dark" | "light" | "system" | string;
 export type ThemeMode = "light" | "dark" | "system";
-export type Brand =
-  "ai-studio" | "finai" | "orchestrai" | "logs" | "vitalai" | "portal" | string;
+export type Brand = ThemeName | (string & {});
 
 export interface ThemeProviderProps {
   children: React.ReactNode;
