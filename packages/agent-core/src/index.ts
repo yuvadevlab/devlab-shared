@@ -12,3 +12,4 @@ export * from "./constants";
 export * from "./types";
 export * from "./tool";
 export * from "./compiler";
+export * from "./harness";

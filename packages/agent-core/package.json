@@ -32,9 +32,11 @@
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "typecheck": "tsc --noEmit",
+    "test": "vitest run",
     "clean": "rm -rf dist node_modules .turbo"
   },
   "dependencies": {
+    "@yuva-devlab/agent-protocol": "workspace:*",
     "@yuva-devlab/errors": "workspace:*",
     "@yuva-devlab/logger": "workspace:*",
     "zod": "^3.25.76"
@@ -47,6 +49,7 @@
     "eslint": "^9.39.1",
     "prettier": "^3.9.8",
     "tsup": "^8.5.1",
-    "typescript": "^6.0.3"
+    "typescript": "^6.0.3",
+    "vitest": "^4.0.18"
   }
 }
