@@ -31,6 +31,16 @@ export const LOCALHOST_REGEX: RegExp =
 export const TOOL_NAME_REGEX: RegExp = /^[a-zA-Z0-9_-]+$/;
 
 /**
+ * Lowercase kebab-case identifier pattern for service, app, provider, and profile slugs.
+ */
+export const KEBAB_SLUG_REGEX: RegExp = /^[a-z0-9-]+$/;
+
+/**
+ * 64-character hexadecimal pattern (e.g., 256-bit AES master keys and SHA-256 digests).
+ */
+export const HEX_64_REGEX: RegExp = /^[0-9a-fA-F]{64}$/;
+
+/**
  * Canonical channel or pub/sub topic prefix pattern across DevLab realtime buses.
  */
 export const REALTIME_CHANNEL_PREFIX_REGEX: RegExp =
