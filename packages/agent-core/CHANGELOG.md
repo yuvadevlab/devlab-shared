@@ -1,5 +1,15 @@
 # @yuva-devlab/agent-core
 
+## 0.3.0
+
+### Minor Changes
+
+- 443f1da: feat(agent-core): add Cloud Run-safe SSE emitter, ToolPlanStreamFilter, parallel tool batching, and AppAiPolicy schema
+
+  - Add `createAgentSseEmitter` enforcing HTTP `200 OK` before `flushHeaders()`, unbuffered headers, and `AbortSignal` disconnect propagation.
+  - Extract `ToolPlanStreamFilter` and `executeToolBatch` for parallel read-only tool execution.
+  - Add `AppAiPolicySchema`, `AgentCreativityPreset`, and `resolveEffectivePolicy` for `devlab-ai-studio` profile controls.
+
 ## 0.2.4
 
 ### Patch Changes
