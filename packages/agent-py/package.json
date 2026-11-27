@@ -1,0 +1,16 @@
+{
+  "name": "@yuva-devlab/agent-py",
+  "version": "0.1.0",
+  "description": "Canonical SSE wire protocol, Pydantic event models, and FastAPI streaming helpers for DevLab AI agents",
+  "private": true,
+  "scripts": {
+    "build": "uv build",
+    "lint": "uv run --with ruff ruff check .",
+    "lint:fix": "uv run --with ruff ruff check --fix .",
+    "format": "uv run --with ruff ruff format .",
+    "format:check": "uv run --with ruff ruff format --check .",
+    "typecheck": "uv run --with mypy --with pydantic --with fastapi mypy src",
+    "test": "uv run --with pytest --with pytest-asyncio --with pydantic --with fastapi pytest -q",
+    "clean": "rm -rf dist .venv .ruff_cache .mypy_cache .pytest_cache"
+  }
+}
