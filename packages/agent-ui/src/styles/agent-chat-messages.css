@@ -1,0 +1,210 @@
+/**
+ * @file packages/agent-ui/src/styles/agent-chat-messages.css
+ * @description Message viewport, empty state, transparent turn details, and trace inspector styles.
+ */
+
+@layer dl-components {
+  .dl-agent-chat__viewport-wrap {
+    flex: 1;
+    min-height: 0;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .dl-agent-chat__viewport {
+    flex: 1;
+    min-height: 0;
+    overflow-y: auto;
+    padding: 20px 16px;
+  }
+
+  .dl-agent-chat__stream {
+    width: 100%;
+    max-width: var(--dl-chat-content-max-width);
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+
+  .dl-agent-chat__msg-body {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .dl-agent-chat__turn-details {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .dl-agent-chat__markdown {
+    white-space: pre-wrap;
+    word-break: break-word;
+    line-height: 1.6;
+  }
+
+  .dl-agent-chat__shimmer {
+    height: 18px;
+    width: 180px;
+  }
+
+  .dl-agent-chat__card {
+    padding: 12px 14px;
+    border: 1px solid var(--dl-chat-border);
+    border-radius: 10px;
+    background: var(--dl-chat-surface);
+    display: grid;
+    gap: 8px;
+  }
+
+  .dl-agent-chat__card-title {
+    font-size: 13px;
+    font-weight: 600;
+  }
+
+  .dl-agent-chat__card-rows {
+    margin: 0;
+    display: grid;
+    gap: 4px;
+  }
+
+  .dl-agent-chat__card-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    font-size: 12px;
+  }
+
+  .dl-agent-chat__card-row dt {
+    color: var(--muted-foreground);
+  }
+
+  .dl-agent-chat__card-row dd {
+    margin: 0;
+    font-weight: 500;
+  }
+
+  .dl-agent-chat__usage {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    font-size: 11px;
+    color: var(--muted-foreground);
+  }
+
+  .dl-agent-chat__empty {
+    height: 100%;
+    max-width: 640px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    gap: 12px;
+    padding: 24px;
+  }
+
+  .dl-agent-chat__empty-badge {
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    display: grid;
+    place-items: center;
+    background: color-mix(in oklab, var(--dl-chat-accent) 14%, transparent);
+    color: var(--dl-chat-accent);
+  }
+
+  .dl-agent-chat__empty h3 {
+    margin: 0;
+    font-size: 20px;
+    font-weight: 650;
+  }
+
+  .dl-agent-chat__empty p {
+    margin: 0;
+    font-size: 14px;
+    color: var(--muted-foreground);
+    line-height: 1.55;
+  }
+
+  .dl-agent-chat__starters {
+    justify-content: center;
+    margin-top: 6px;
+  }
+
+  .dl-agent-chat__jump-btn {
+    position: absolute;
+    bottom: 12px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.16);
+  }
+
+  .dl-agent-chat__inspector {
+    width: var(--dl-chat-inspector-width);
+    flex-shrink: 0;
+    border-left: 1px solid var(--dl-chat-border);
+    background: var(--dl-chat-surface);
+    display: flex;
+    flex-direction: column;
+  }
+
+  .dl-agent-chat__inspector-head {
+    height: 52px;
+    padding-inline: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid var(--dl-chat-border);
+  }
+
+  .dl-agent-chat__inspector-head h3 {
+    margin: 0;
+    font-size: 13px;
+    font-weight: 600;
+  }
+
+  .dl-agent-chat__inspector-head button {
+    border: none;
+    background: transparent;
+    color: var(--muted-foreground);
+    cursor: pointer;
+  }
+
+  .dl-agent-chat__inspector-body {
+    flex: 1;
+    overflow-y: auto;
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .dl-agent-chat__trace-item {
+    display: flex;
+    gap: 8px;
+    font-size: 12px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--dl-chat-border);
+  }
+
+  .dl-agent-chat__trace-level {
+    font-weight: 600;
+    color: var(--dl-chat-accent);
+    text-transform: uppercase;
+    font-size: 10px;
+  }
+
+  .dl-agent-chat__trace-detail,
+  .dl-agent-chat__trace-empty {
+    color: var(--muted-foreground);
+    font-size: 11px;
+  }
+}
