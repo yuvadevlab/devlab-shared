@@ -1,84 +1,86 @@
-.dl-alert-dialog-overlay {
-  position: fixed;
-  inset: 0;
-  z-index: 50;
-  background-color: rgb(0 0 0 / 0.8);
-}
+@layer dl-components {
+  .dl-alert-dialog-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 50;
+    background-color: rgb(0 0 0 / 0.8);
+  }
 
-.dl-alert-dialog-overlay[data-state="open"] {
-  animation: dl-fade-in 150ms ease;
-}
+  .dl-alert-dialog-overlay[data-state="open"] {
+    animation: dl-fade-in 150ms ease;
+  }
 
-.dl-alert-dialog-overlay[data-state="closed"] {
-  animation: dl-fade-out 150ms ease;
-}
+  .dl-alert-dialog-overlay[data-state="closed"] {
+    animation: dl-fade-out 150ms ease;
+  }
 
-.dl-alert-dialog-content {
-  position: fixed;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 50;
-  display: flex;
-  flex-direction: column;
-  width: calc(100% - 2rem);
-  max-width: var(--dl-dialog-max-width, 32rem);
-  max-height: calc(100dvh - 3rem);
-  gap: 1rem;
-  border: 1px solid var(--border);
-  background-color: var(--background);
-  padding: 1.5rem;
-  box-shadow: 0 8px 32px rgb(0 0 0 / 0.2);
-  border-radius: var(--radius-lg, 0.5rem);
-  overflow-y: auto;
-  overscroll-behavior: contain;
-}
+  .dl-alert-dialog-content {
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 50;
+    display: flex;
+    flex-direction: column;
+    width: calc(100% - 2rem);
+    max-width: var(--dl-dialog-max-width, 32rem);
+    max-height: calc(100dvh - 3rem);
+    gap: 1rem;
+    border: 1px solid var(--border);
+    background-color: var(--background);
+    padding: 1.5rem;
+    box-shadow: 0 8px 32px rgb(0 0 0 / 0.2);
+    border-radius: var(--radius-lg, 0.5rem);
+    overflow-y: auto;
+    overscroll-behavior: contain;
+  }
 
-.dl-alert-dialog-content[data-state="open"] {
-  animation: dl-zoom-in 150ms ease;
-}
+  .dl-alert-dialog-content[data-state="open"] {
+    animation: dl-zoom-in 150ms ease;
+  }
 
-.dl-alert-dialog-content[data-state="closed"] {
-  animation: dl-zoom-out 150ms ease;
-}
+  .dl-alert-dialog-content[data-state="closed"] {
+    animation: dl-zoom-out 150ms ease;
+  }
 
-.dl-alert-dialog-header {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-  text-align: center;
-  flex-shrink: 0;
-}
-
-@media (min-width: 640px) {
   .dl-alert-dialog-header {
-    text-align: left;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    text-align: center;
+    flex-shrink: 0;
   }
-}
 
-.dl-alert-dialog-footer {
-  display: flex;
-  flex-direction: column-reverse;
-  gap: 0.5rem;
-  flex-shrink: 0;
-}
+  @media (min-width: 640px) {
+    .dl-alert-dialog-header {
+      text-align: left;
+    }
+  }
 
-@media (min-width: 640px) {
   .dl-alert-dialog-footer {
-    flex-direction: row;
-    justify-content: flex-end;
+    display: flex;
+    flex-direction: column-reverse;
+    gap: 0.5rem;
+    flex-shrink: 0;
   }
-}
 
-.dl-alert-dialog-title {
-  font-size: 1.125rem;
-  font-weight: 600;
-  line-height: 1.25;
-  color: var(--foreground);
-}
+  @media (min-width: 640px) {
+    .dl-alert-dialog-footer {
+      flex-direction: row;
+      justify-content: flex-end;
+    }
+  }
 
-.dl-alert-dialog-desc {
-  font-size: 0.875rem;
-  color: var(--muted-foreground);
-  line-height: 1.5;
+  .dl-alert-dialog-title {
+    font-size: 1.125rem;
+    font-weight: 600;
+    line-height: 1.25;
+    color: var(--foreground);
+  }
+
+  .dl-alert-dialog-desc {
+    font-size: 0.875rem;
+    color: var(--muted-foreground);
+    line-height: 1.5;
+  }
 }

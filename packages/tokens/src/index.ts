@@ -4,6 +4,7 @@
  */
 
 export const THEMES = [
+  "ai-studio",
   "orchestrai",
   "finai",
   "portal",
@@ -39,6 +40,16 @@ export interface ThemeConfig {
 }
 
 export const THEME_CONFIGS: Record<ThemeName, ThemeConfig> = {
+  "ai-studio": {
+    name: "ai-studio",
+    defaultMode: "dark",
+    label: "DevLab AI Studio",
+    fontSans: '"Inter", sans-serif',
+    fontDisplay: '"Inter", sans-serif',
+    fontMono: '"JetBrains Mono", monospace',
+    radius: "0.5rem",
+    density: "high",
+  },
   orchestrai: {
     name: "orchestrai",
     defaultMode: "dark",

@@ -1,49 +1,51 @@
-.dl-accordion-item {
-  border-bottom: 1px solid var(--border);
-}
-.dl-accordion-header {
-  display: flex;
-}
-.dl-accordion-trigger {
-  display: flex;
-  flex: 1;
-  width: 100%;
-  align-items: center;
-  justify-content: space-between;
-  padding: 1rem 0;
-  font-size: 0.875rem;
-  font-weight: 500;
-  cursor: pointer;
-  background: transparent;
-  border: none;
-  text-align: left;
-  font-family: inherit;
-  transition: color 0.15s ease;
-}
-.dl-accordion-trigger:hover {
-  text-decoration: underline;
-}
-.dl-accordion-trigger svg {
-  height: 1rem;
-  width: 1rem;
-  flex-shrink: 0;
-  color: var(--muted-foreground);
-  transition: transform 0.2s ease;
-}
-.dl-accordion-trigger[data-state="open"] svg {
-  transform: rotate(180deg);
-}
-.dl-accordion-content {
-  overflow: hidden;
-  font-size: 0.875rem;
-}
-.dl-accordion-content[data-state="open"] {
-  animation: dl-accordion-down 200ms ease;
-}
-.dl-accordion-content[data-state="closed"] {
-  animation: dl-accordion-up 200ms ease;
-}
-.dl-accordion-content__inner {
-  padding-bottom: 1rem;
-  padding-top: 0;
+@layer dl-components {
+  .dl-accordion-item {
+    border-bottom: 1px solid var(--border);
+  }
+  .dl-accordion-header {
+    display: flex;
+  }
+  .dl-accordion-trigger {
+    display: flex;
+    flex: 1;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 0;
+    font-size: 0.875rem;
+    font-weight: 500;
+    cursor: pointer;
+    background: transparent;
+    border: none;
+    text-align: left;
+    font-family: inherit;
+    transition: color 0.15s ease;
+  }
+  .dl-accordion-trigger:hover {
+    text-decoration: underline;
+  }
+  .dl-accordion-trigger svg {
+    height: 1rem;
+    width: 1rem;
+    flex-shrink: 0;
+    color: var(--muted-foreground);
+    transition: transform 0.2s ease;
+  }
+  .dl-accordion-trigger[data-state="open"] svg {
+    transform: rotate(180deg);
+  }
+  .dl-accordion-content {
+    overflow: hidden;
+    font-size: 0.875rem;
+  }
+  .dl-accordion-content[data-state="open"] {
+    animation: dl-accordion-down 200ms ease;
+  }
+  .dl-accordion-content[data-state="closed"] {
+    animation: dl-accordion-up 200ms ease;
+  }
+  .dl-accordion-content__inner {
+    padding-bottom: 1rem;
+    padding-top: 0;
+  }
 }

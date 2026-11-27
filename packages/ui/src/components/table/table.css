@@ -1,70 +1,74 @@
-.dl-table-wrapper {
-  position: relative;
-  width: 100%;
-  overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
-}
+@layer dl-components {
+  .dl-table-wrapper {
+    position: relative;
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
 
-.dl-table {
-  width: 100%;
-  caption-side: bottom;
-  font-size: var(--text-body, 0.875rem);
-  border-collapse: collapse;
-}
+  .dl-table {
+    width: 100%;
+    caption-side: bottom;
+    font-size: var(--text-body, 0.875rem);
+    border-collapse: collapse;
+  }
 
-.dl-table__head tr {
-  border-bottom: 1px solid var(--border);
-}
+  .dl-table__head tr {
+    border-bottom: 1px solid var(--border);
+  }
 
-.dl-table__body tr:last-child {
-  border-bottom: none;
-}
+  .dl-table__body tr:last-child {
+    border-bottom: none;
+  }
 
-.dl-table__foot {
-  border-top: 1px solid var(--border);
-  font-weight: 500;
-}
+  .dl-table__foot {
+    border-top: 1px solid var(--border);
+    font-weight: 500;
+  }
 
-.dl-table__row {
-  border-bottom: 1px solid var(--border);
-  transition:
-    background-color 0.15s ease,
-    color 0.15s ease;
-}
+  .dl-table__row {
+    border-bottom: 1px solid var(--border);
+    transition:
+      background-color 0.15s ease,
+      color 0.15s ease;
+  }
 
-/* Base subtle row hover */
-.dl-table__body tr:hover {
-  background-color: color-mix(in oklch, var(--muted) 40%, transparent);
-}
+  /* Base subtle row hover */
+  .dl-table__body tr:hover {
+    background-color: color-mix(in oklch, var(--muted) 40%, transparent);
+  }
 
-/* Theme-Aware Enhanced Row Hover Highlighting */
-.dl-table--hoverable .dl-table__body tr:hover,
-.dl-table--hoverable .dl-table__row:hover,
-.dl-table__row--hoverable:hover {
-  background-color: var(
-    --table-row-hover,
-    color-mix(in oklch, var(--primary) 8%, transparent)
-  );
-}
+  /* Theme-Aware Enhanced Row Hover Highlighting */
+  .dl-table--hoverable .dl-table__body tr:hover,
+  .dl-table--hoverable .dl-table__row:hover,
+  .dl-table__row--hoverable:hover {
+    background-color: var(
+      --table-row-hover,
+      color-mix(in oklch, var(--primary) 8%, transparent)
+    );
+  }
 
-.dl-table__head-cell {
-  height: var(--control-height-md, 2.5rem);
-  padding: var(--table-row-padding-y, 0.5rem)
-    var(--table-row-padding-x, 0.75rem);
-  text-align: left;
-  font-weight: 500;
-  color: var(--muted-foreground);
-  white-space: nowrap;
-}
+  .dl-table__head-cell {
+    height: var(--control-height-md, 2.5rem);
+    padding: var(--table-row-padding-y, 0.5rem)
+      var(--table-row-padding-x, 0.75rem);
+    font-size: var(--table-head-font-size, var(--text-caption, 0.75rem));
+    text-align: left;
+    font-weight: 500;
+    color: var(--muted-foreground);
+    white-space: nowrap;
+  }
 
-.dl-table__cell {
-  padding: var(--table-row-padding-y, 0.75rem)
-    var(--table-row-padding-x, 0.75rem);
-  vertical-align: middle;
-}
+  .dl-table__cell {
+    padding: var(--table-row-padding-y, 0.75rem)
+      var(--table-row-padding-x, 0.75rem);
+    font-size: var(--table-cell-font-size, var(--text-body-sm, 0.875rem));
+    vertical-align: middle;
+  }
 
-.dl-table__caption {
-  margin-top: 1rem;
-  font-size: var(--text-body-sm, 0.875rem);
-  color: var(--muted-foreground);
+  .dl-table__caption {
+    margin-top: 1rem;
+    font-size: var(--text-body-sm, 0.875rem);
+    color: var(--muted-foreground);
+  }
 }

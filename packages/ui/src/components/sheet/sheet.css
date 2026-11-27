@@ -1,87 +1,89 @@
-/* ═══════════════════════════════════════════════════════════════════════
-   SHEET (side drawer)
-   ═══════════════════════════════════════════════════════════════════════ */
-.dl-sheet-content {
-  position: fixed;
-  z-index: 50;
-  gap: 1rem;
-  background-color: var(--background);
-  padding: var(--dialog-padding, 1.5rem);
-  box-shadow: 0 8px 40px rgb(0 0 0/0.2);
-}
-.dl-sheet-content--right {
-  inset: 0 0 0 auto;
-  height: 100%;
-  width: 75%;
-  max-width: 30rem;
-  border-left: 1px solid var(--border);
-}
-.dl-sheet-content--left {
-  inset: 0 auto 0 0;
-  height: 100%;
-  width: 75%;
-  max-width: 30rem;
-  border-right: 1px solid var(--border);
-}
-.dl-sheet-content--top {
-  inset: 0 0 auto 0;
-  border-bottom: 1px solid var(--border);
-}
-.dl-sheet-content--bottom {
-  inset: auto 0 0 0;
-  border-top: 1px solid var(--border);
-}
-.dl-sheet-content[data-state="open"][data-side="right"] {
-  animation: dl-slide-in-right 200ms ease;
-}
-.dl-sheet-content[data-state="closed"][data-side="right"] {
-  animation: dl-slide-out-right 200ms ease;
-}
-.dl-sheet-content[data-state="open"][data-side="left"] {
-  animation: dl-slide-in-left 200ms ease;
-}
-.dl-sheet-content[data-state="closed"][data-side="left"] {
-  animation: dl-slide-out-left 200ms ease;
-}
-.dl-sheet-close {
-  position: absolute;
-  right: 1rem;
-  top: 1rem;
-  border-radius: var(--radius-sm, 0.25rem);
-  opacity: 0.7;
-  cursor: pointer;
-  background: transparent;
-  border: none;
-  padding: 0.25rem;
-  transition: opacity 0.15s ease;
-  color: var(--foreground);
-}
-.dl-sheet-close:hover {
-  opacity: 1;
-}
-.dl-sheet-close:focus-visible {
-  outline: 2px solid var(--ring);
-  outline-offset: 2px;
-}
-.dl-sheet-close svg {
-  width: 1rem;
-  height: 1rem;
-}
-.dl-sheet__header {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-}
-.dl-sheet__footer {
-  display: flex;
-  flex-direction: column-reverse;
-  gap: 0.5rem;
-}
-.dl-sheet__title {
-  font-size: 1.125rem;
-  font-weight: 600;
-}
-.dl-sheet__desc {
-  font-size: 0.875rem;
-  color: var(--muted-foreground);
+@layer dl-components {
+  /* ═══════════════════════════════════════════════════════════════════════
+     SHEET (side drawer)
+     ═══════════════════════════════════════════════════════════════════════ */
+  .dl-sheet-content {
+    position: fixed;
+    z-index: 50;
+    gap: 1rem;
+    background-color: var(--background);
+    padding: var(--dialog-padding, 1.5rem);
+    box-shadow: 0 8px 40px rgb(0 0 0/0.2);
+  }
+  .dl-sheet-content--right {
+    inset: 0 0 0 auto;
+    height: 100%;
+    width: 75%;
+    max-width: 30rem;
+    border-left: 1px solid var(--border);
+  }
+  .dl-sheet-content--left {
+    inset: 0 auto 0 0;
+    height: 100%;
+    width: 75%;
+    max-width: 30rem;
+    border-right: 1px solid var(--border);
+  }
+  .dl-sheet-content--top {
+    inset: 0 0 auto 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .dl-sheet-content--bottom {
+    inset: auto 0 0 0;
+    border-top: 1px solid var(--border);
+  }
+  .dl-sheet-content[data-state="open"][data-side="right"] {
+    animation: dl-slide-in-right 200ms ease;
+  }
+  .dl-sheet-content[data-state="closed"][data-side="right"] {
+    animation: dl-slide-out-right 200ms ease;
+  }
+  .dl-sheet-content[data-state="open"][data-side="left"] {
+    animation: dl-slide-in-left 200ms ease;
+  }
+  .dl-sheet-content[data-state="closed"][data-side="left"] {
+    animation: dl-slide-out-left 200ms ease;
+  }
+  .dl-sheet-close {
+    position: absolute;
+    right: 1rem;
+    top: 1rem;
+    border-radius: var(--radius-sm, 0.25rem);
+    opacity: 0.7;
+    cursor: pointer;
+    background: transparent;
+    border: none;
+    padding: 0.25rem;
+    transition: opacity 0.15s ease;
+    color: var(--foreground);
+  }
+  .dl-sheet-close:hover {
+    opacity: 1;
+  }
+  .dl-sheet-close:focus-visible {
+    outline: 2px solid var(--ring);
+    outline-offset: 2px;
+  }
+  .dl-sheet-close svg {
+    width: 1rem;
+    height: 1rem;
+  }
+  .dl-sheet__header {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  .dl-sheet__footer {
+    display: flex;
+    flex-direction: column-reverse;
+    gap: 0.5rem;
+  }
+  .dl-sheet__title {
+    font-size: 1.125rem;
+    font-weight: 600;
+  }
+  .dl-sheet__desc {
+    font-size: 0.875rem;
+    color: var(--muted-foreground);
+  }
 }

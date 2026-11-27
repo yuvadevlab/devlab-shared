@@ -89,7 +89,7 @@ export function generateTsConstants(): string {
   const brandExports = ALL_BRANDS.map((b) => {
     const rawJson = JSON.stringify(b.extensions ?? {}, null, 2);
     const cleanObj = rawJson.replace(/"([a-zA-Z_$][a-zA-Z0-9_$]*)":/g, "$1:");
-    return `export const ${b.name.toUpperCase()}_EXTENSIONS = ${cleanObj} as const;`;
+    return `export const ${b.name.toUpperCase().replace(/-/g, "_")}_EXTENSIONS = ${cleanObj} as const;`;
   });
 
   return `/**

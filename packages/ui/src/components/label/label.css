@@ -1,13 +1,15 @@
-.dl-label {
-  font-size: var(--text-label, var(--text-body-sm, 0.75rem));
-  font-weight: 500;
-  line-height: 1;
-  color: var(--foreground);
-}
-.dl-label--error {
-  color: var(--destructive);
-}
-.dl-label-required {
-  color: var(--destructive);
-  margin-inline-start: 0.25rem;
+@layer dl-components {
+  .dl-label {
+    font-size: var(--text-label, var(--text-body-sm, 0.75rem));
+    font-weight: 500;
+    line-height: 1;
+    color: var(--foreground);
+  }
+  .dl-label--error {
+    color: var(--destructive);
+  }
+  .dl-label-required {
+    color: var(--destructive);
+    margin-inline-start: 0.25rem;
+  }
 }

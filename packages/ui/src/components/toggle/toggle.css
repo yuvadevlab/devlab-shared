@@ -1,91 +1,93 @@
-.dl-toggle {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-  border-radius: var(--radius-md, 0.375rem);
-  font-size: var(--input-font-size, 0.8125rem);
-  font-weight: 500;
-  cursor: pointer;
-  background-color: transparent;
-  color: inherit;
-  border: 1px solid transparent;
-  outline: none;
-  transition:
-    background-color 0.15s ease,
-    color 0.15s ease,
-    border-color 0.15s ease;
-}
+@layer dl-components {
+  .dl-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    border-radius: var(--radius-md, 0.375rem);
+    font-size: var(--input-font-size, 0.8125rem);
+    font-weight: 500;
+    cursor: pointer;
+    background-color: transparent;
+    color: inherit;
+    border: 1px solid transparent;
+    outline: none;
+    transition:
+      background-color 0.15s ease,
+      color 0.15s ease,
+      border-color 0.15s ease;
+  }
 
-.dl-toggle:hover {
-  background-color: var(--muted);
-  color: var(--muted-foreground);
-}
+  .dl-toggle:hover {
+    background-color: var(--muted);
+    color: var(--muted-foreground);
+  }
 
-.dl-toggle:focus,
-.dl-toggle:focus-visible {
-  outline: 2px solid var(--ring);
-  outline-offset: 2px;
-}
+  .dl-toggle:focus,
+  .dl-toggle:focus-visible {
+    outline: 2px solid var(--ring);
+    outline-offset: 2px;
+  }
 
-.dl-toggle:disabled,
-.dl-toggle[data-disabled] {
-  pointer-events: none;
-  opacity: 0.5;
-  cursor: not-allowed;
-}
+  .dl-toggle:disabled,
+  .dl-toggle[data-disabled] {
+    pointer-events: none;
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
 
-.dl-toggle[data-state="on"] {
-  background-color: var(--accent);
-  color: var(--accent-foreground);
-}
+  .dl-toggle[data-state="on"] {
+    background-color: var(--accent);
+    color: var(--accent-foreground);
+  }
 
-.dl-toggle svg {
-  pointer-events: none;
-  width: 1rem;
-  height: 1rem;
-  flex-shrink: 0;
-}
+  .dl-toggle svg {
+    pointer-events: none;
+    width: 1rem;
+    height: 1rem;
+    flex-shrink: 0;
+  }
 
-/* ── Variants ────────────────────────────────────────────── */
-.dl-toggle--variant-default {
-  background-color: transparent;
-}
+  /* ── Variants ────────────────────────────────────────────── */
+  .dl-toggle--variant-default {
+    background-color: transparent;
+  }
 
-.dl-toggle--variant-outline {
-  border-color: var(--input);
-  background-color: transparent;
-  box-shadow: 0 1px 2px rgb(0 0 0 / 0.05);
-}
+  .dl-toggle--variant-outline {
+    border-color: var(--input);
+    background-color: transparent;
+    box-shadow: 0 1px 2px rgb(0 0 0 / 0.05);
+  }
 
-.dl-toggle--variant-outline:hover {
-  background-color: var(--accent);
-  color: var(--accent-foreground);
-}
+  .dl-toggle--variant-outline:hover {
+    background-color: var(--accent);
+    color: var(--accent-foreground);
+  }
 
-/* ── Sizes (use control-height tokens) ───────────────────── */
-.dl-toggle--size-default {
-  height: var(--control-height-md, 2.125rem);
-  padding-inline: var(--control-px, 0.625rem);
-  min-width: var(--control-height-md, 2.125rem);
-}
+  /* ── Sizes (use control-height tokens) ───────────────────── */
+  .dl-toggle--size-default {
+    height: var(--control-height-md, 2.125rem);
+    padding-inline: var(--control-px, 0.625rem);
+    min-width: var(--control-height-md, 2.125rem);
+  }
 
-.dl-toggle--size-sm {
-  height: var(--control-height-sm, 2rem);
-  padding-inline: calc(var(--control-px, 0.625rem) - 2px);
-  min-width: var(--control-height-sm, 2rem);
-}
+  .dl-toggle--size-sm {
+    height: var(--control-height-sm, 2rem);
+    padding-inline: calc(var(--control-px, 0.625rem) - 2px);
+    min-width: var(--control-height-sm, 2rem);
+  }
 
-.dl-toggle--size-lg {
-  height: var(--control-height-lg, 2.5rem);
-  padding-inline: var(--control-px, 0.625rem);
-  min-width: var(--control-height-lg, 2.5rem);
-}
+  .dl-toggle--size-lg {
+    height: var(--control-height-lg, 2.5rem);
+    padding-inline: var(--control-px, 0.625rem);
+    min-width: var(--control-height-lg, 2.5rem);
+  }
 
-/* ── Group ───────────────────────────────────────────────── */
-.dl-toggle-group {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.25rem;
+  /* ── Group ───────────────────────────────────────────────── */
+  .dl-toggle-group {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.25rem;
+  }
 }

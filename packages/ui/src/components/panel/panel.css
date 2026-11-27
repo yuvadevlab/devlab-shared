@@ -1,24 +1,26 @@
-.dl-panel {
-  border-radius: var(--radius-lg, 0.5rem);
-  border: 1px solid var(--border);
-  background-color: var(--card);
-  padding: 1rem;
-}
-.dl-panel__header {
-  margin-bottom: 0.75rem;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-.dl-panel__title {
-  font-family: inherit;
-  font-size: 0.875rem;
-  font-weight: 600;
-  margin: 0;
-}
-.dl-panel__meta {
-  margin-left: auto;
-  font-family: monospace;
-  font-size: 0.625rem;
-  color: var(--muted-foreground);
+@layer dl-components {
+  .dl-panel {
+    border-radius: var(--radius-lg, 0.5rem);
+    border: 1px solid var(--border);
+    background-color: var(--card);
+    padding: 1rem;
+  }
+  .dl-panel__header {
+    margin-bottom: 0.75rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .dl-panel__title {
+    font-family: inherit;
+    font-size: 0.875rem;
+    font-weight: 600;
+    margin: 0;
+  }
+  .dl-panel__meta {
+    margin-left: auto;
+    font-family: monospace;
+    font-size: 0.625rem;
+    color: var(--muted-foreground);
+  }
 }

@@ -1,5 +1,7 @@
-.dl-skeleton {
-  border-radius: var(--radius-md, 0.375rem);
-  background-color: color-mix(in oklch, var(--primary) 10%, var(--muted));
-  animation: dl-pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+@layer dl-components {
+  .dl-skeleton {
+    border-radius: var(--radius-md, 0.375rem);
+    background-color: color-mix(in oklch, var(--primary) 10%, var(--muted));
+    animation: dl-pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
 }

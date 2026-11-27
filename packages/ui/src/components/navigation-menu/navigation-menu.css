@@ -1,137 +1,139 @@
-.dl-navigation-menu {
-  position: relative;
-  z-index: 10;
-  display: flex;
-  max-width: max-content;
-  flex: 1;
-  align-items: center;
-  justify-content: center;
-}
+@layer dl-components {
+  .dl-navigation-menu {
+    position: relative;
+    z-index: 10;
+    display: flex;
+    max-width: max-content;
+    flex: 1;
+    align-items: center;
+    justify-content: center;
+  }
 
-.dl-navigation-menu-list {
-  display: flex;
-  flex: 1;
-  list-style: none;
-  align-items: center;
-  justify-content: center;
-  gap: 0.25rem;
-  margin: 0;
-  padding: 0;
-}
+  .dl-navigation-menu-list {
+    display: flex;
+    flex: 1;
+    list-style: none;
+    align-items: center;
+    justify-content: center;
+    gap: 0.25rem;
+    margin: 0;
+    padding: 0;
+  }
 
-.dl-navigation-menu-trigger {
-  display: inline-flex;
-  height: var(--control-height-md, 2.25rem);
-  width: max-content;
-  align-items: center;
-  justify-content: center;
-  border-radius: var(--radius-md, 0.375rem);
-  background-color: var(--background);
-  padding: var(--space-2, 0.5rem) var(--space-4, 1rem);
-  font-size: 0.875rem;
-  font-weight: 500;
-  cursor: pointer;
-  border: none;
-  color: inherit;
-  font-family: inherit;
-  transition:
-    background-color 0.15s ease,
-    color 0.15s ease;
-  outline: none;
-}
+  .dl-navigation-menu-trigger {
+    display: inline-flex;
+    height: var(--control-height-md, 2.25rem);
+    width: max-content;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--radius-md, 0.375rem);
+    background-color: var(--background);
+    padding: var(--space-2, 0.5rem) var(--space-4, 1rem);
+    font-size: 0.875rem;
+    font-weight: 500;
+    cursor: pointer;
+    border: none;
+    color: inherit;
+    font-family: inherit;
+    transition:
+      background-color 0.15s ease,
+      color 0.15s ease;
+    outline: none;
+  }
 
-.dl-navigation-menu-trigger:hover,
-.dl-navigation-menu-trigger:focus,
-.dl-navigation-menu-trigger[data-state="open"] {
-  background-color: var(--accent);
-  color: var(--accent-foreground);
-}
+  .dl-navigation-menu-trigger:hover,
+  .dl-navigation-menu-trigger:focus,
+  .dl-navigation-menu-trigger[data-state="open"] {
+    background-color: var(--accent);
+    color: var(--accent-foreground);
+  }
 
-.dl-navigation-menu-trigger:disabled {
-  pointer-events: none;
-  opacity: 0.5;
-  cursor: not-allowed;
-}
+  .dl-navigation-menu-trigger:disabled {
+    pointer-events: none;
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
 
-.dl-navigation-menu-chevron {
-  position: relative;
-  top: 1px;
-  margin-left: 0.25rem;
-  width: 0.75rem;
-  height: 0.75rem;
-  transition: transform 0.2s ease;
-}
+  .dl-navigation-menu-chevron {
+    position: relative;
+    top: 1px;
+    margin-left: 0.25rem;
+    width: 0.75rem;
+    height: 0.75rem;
+    transition: transform 0.2s ease;
+  }
 
-.dl-navigation-menu-trigger[data-state="open"] .dl-navigation-menu-chevron {
-  transform: rotate(180deg);
-}
+  .dl-navigation-menu-trigger[data-state="open"] .dl-navigation-menu-chevron {
+    transform: rotate(180deg);
+  }
 
-.dl-navigation-menu-content {
-  left: 0;
-  top: 0;
-  width: 100%;
-}
-
-@media (min-width: 768px) {
   .dl-navigation-menu-content {
+    left: 0;
+    top: 0;
+    width: 100%;
+  }
+
+  @media (min-width: 768px) {
+    .dl-navigation-menu-content {
+      position: absolute;
+      width: auto;
+    }
+  }
+
+  .dl-navigation-menu-viewport-wrapper {
     position: absolute;
-    width: auto;
+    left: 0;
+    top: 100%;
+    display: flex;
+    justify-content: center;
   }
-}
 
-.dl-navigation-menu-viewport-wrapper {
-  position: absolute;
-  left: 0;
-  top: 100%;
-  display: flex;
-  justify-content: center;
-}
-
-.dl-navigation-menu-viewport {
-  position: relative;
-  margin-top: 0.375rem;
-  height: var(--radix-navigation-menu-viewport-height);
-  width: 100%;
-  overflow: hidden;
-  border-radius: var(--radius-md, 0.375rem);
-  border: 1px solid var(--border);
-  background-color: var(--popover);
-  color: var(--popover-foreground);
-  box-shadow: 0 4px 20px rgb(0 0 0 / 0.12);
-  transform-origin: top center;
-}
-
-@media (min-width: 768px) {
   .dl-navigation-menu-viewport {
-    width: var(--radix-navigation-menu-viewport-width);
+    position: relative;
+    margin-top: 0.375rem;
+    height: var(--radix-navigation-menu-viewport-height);
+    width: 100%;
+    overflow: hidden;
+    border-radius: var(--radius-md, 0.375rem);
+    border: 1px solid var(--border);
+    background-color: var(--popover);
+    color: var(--popover-foreground);
+    box-shadow: 0 4px 20px rgb(0 0 0 / 0.12);
+    transform-origin: top center;
   }
-}
 
-.dl-navigation-menu-viewport[data-state="open"] {
-  animation: dl-zoom-in 150ms ease;
-}
+  @media (min-width: 768px) {
+    .dl-navigation-menu-viewport {
+      width: var(--radix-navigation-menu-viewport-width);
+    }
+  }
 
-.dl-navigation-menu-viewport[data-state="closed"] {
-  animation: dl-zoom-out 150ms ease;
-}
+  .dl-navigation-menu-viewport[data-state="open"] {
+    animation: dl-zoom-in 150ms ease;
+  }
 
-.dl-navigation-menu-indicator {
-  top: 100%;
-  z-index: 1;
-  display: flex;
-  height: 0.375rem;
-  align-items: flex-end;
-  justify-content: center;
-  overflow: hidden;
-}
+  .dl-navigation-menu-viewport[data-state="closed"] {
+    animation: dl-zoom-out 150ms ease;
+  }
 
-.dl-navigation-menu-indicator__arrow {
-  position: relative;
-  top: 60%;
-  width: 0.5rem;
-  height: 0.5rem;
-  transform: rotate(45deg);
-  border-top-left-radius: 0.125rem;
-  background-color: var(--border);
-  box-shadow: 0 2px 4px rgb(0 0 0 / 0.1);
+  .dl-navigation-menu-indicator {
+    top: 100%;
+    z-index: 1;
+    display: flex;
+    height: 0.375rem;
+    align-items: flex-end;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  .dl-navigation-menu-indicator__arrow {
+    position: relative;
+    top: 60%;
+    width: 0.5rem;
+    height: 0.5rem;
+    transform: rotate(45deg);
+    border-top-left-radius: 0.125rem;
+    background-color: var(--border);
+    box-shadow: 0 2px 4px rgb(0 0 0 / 0.1);
+  }
 }

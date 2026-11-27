@@ -44,6 +44,7 @@
     "./utilities.css": "./styles/utilities.css",
     "./typography.css": "./styles/typography.css",
     "./root.css": "./styles/root.css",
+    "./themes/ai-studio.css": "./styles/themes/ai-studio.css",
     "./themes/finai.css": "./styles/themes/finai.css",
     "./themes/orchestrai.css": "./styles/themes/orchestrai.css",
     "./themes/portal.css": "./styles/themes/portal.css",
