@@ -1,6 +1,6 @@
 {
   "name": "@yuva-devlab/agent-ui",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Reusable, customizable, theme-adaptive Agentic Chat UI composite built on @yuva-devlab/ui and @yuva-devlab/agent-protocol",
   "repository": {
     "type": "git",
