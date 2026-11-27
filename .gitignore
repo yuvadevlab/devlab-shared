@@ -11,4 +11,12 @@ packages/tokens/styles
 packages/tokens/css-data.json
 packages/ui/src/styles/components.css
 .vercel
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+
 
