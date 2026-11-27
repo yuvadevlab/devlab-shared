@@ -6,14 +6,12 @@ on:
       - dev
       - main
     paths-ignore:
-      - "**/*.md"
       - ".vscode/**"
   push:
     branches:
       - dev
       - main
     paths-ignore:
-      - "**/*.md"
       - ".vscode/**"
 
 permissions:
