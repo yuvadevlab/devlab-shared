@@ -1,5 +1,11 @@
 # @yuva-devlab/tokens
 
+## 2.3.0
+
+### Minor Changes
+
+- e60b12a: Add `ai-studio` brand theme with compact developer typography/density tokens, wrap core component CSS (`card`, `table`, `button`, `input`, `select`, `textarea`, `label`, `search-input`) in `@layer dl-components`, and add `wrapperClassName` to `Input` / `SearchInput`.
+
 ## 2.2.0
 
 ### Minor Changes
