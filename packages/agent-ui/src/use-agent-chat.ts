@@ -11,9 +11,17 @@ import {
   type PhaseStatus,
 } from "@yuva-devlab/agent-protocol";
 import type { PromptInputAttachmentItem } from "@yuva-devlab/ui";
-import { AgentMessageRole, AgentStreamStatus } from "./enums";
+import {
+  AgentApprovalState,
+  AgentMessageRole,
+  AgentStreamStatus,
+} from "./enums";
 import { reduceAssistantMessageEvent } from "./sse-parser";
-import { streamAgentGateway } from "./stream-client";
+import {
+  buildGatewayRequestBody,
+  postAgentConfirmation,
+  streamAgentGateway,
+} from "./stream-client";
 import type {
   AgentChatMessageItem,
   AgentChatThread,
@@ -124,24 +132,14 @@ export function useAgentChat({
 
       try {
         const headers = await resolveHeaders();
-        const body = transport.buildBody
-          ? transport.buildBody({
-              prompt: trimmed,
-              messages: historyPayload,
-              threadId: activeThreadId,
-              modelId: selectedModelId,
-              attachments,
-            })
-          : {
-              appSlug: transport.appSlug,
-              profileSlug: transport.profileSlug,
-              prompt: trimmed,
-              messages: historyPayload,
-              threadId: activeThreadId,
-              overrides: selectedModelId
-                ? { modelId: selectedModelId }
-                : undefined,
-            };
+        const body = buildGatewayRequestBody({
+          transport,
+          prompt: trimmed,
+          messages: historyPayload,
+          threadId: activeThreadId,
+          modelId: selectedModelId,
+          attachments,
+        });
 
         setStatus(AgentStreamStatus.STREAMING);
         await streamAgentGateway({
@@ -202,27 +200,28 @@ export function useAgentChat({
             conf.actionId === actionId
               ? {
                   ...conf,
-                  state: approved ? "approval-accepted" : "approval-rejected",
+                  state: approved
+                    ? AgentApprovalState.ACCEPTED
+                    : AgentApprovalState.REJECTED,
                 }
               : conf,
           ),
         })),
       );
-      if (transport.confirmUrl) {
-        const headers = await resolveHeaders();
-        await fetch(transport.confirmUrl, {
-          method: "POST",
-          headers,
-          body: JSON.stringify({
-            actionId,
-            approved,
-            threadId: activeThreadId,
-          }),
+      if (transport.onConfirmAction) {
+        await transport.onConfirmAction(actionId, approved);
+      } else if (transport.confirmUrl) {
+        await postAgentConfirmation({
+          url: transport.confirmUrl,
+          headers: await resolveHeaders(),
+          actionId,
+          approved,
+          threadId: activeThreadId,
         });
       }
       setStatus(AgentStreamStatus.IDLE);
     },
-    [activeThreadId, resolveHeaders, transport.confirmUrl],
+    [activeThreadId, resolveHeaders, transport],
   );
 
   const createThread = useCallback(() => {

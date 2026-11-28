@@ -1,0 +1,103 @@
+/**
+ * @file packages/agent-ui/src/styles/agent-chat-markdown.css
+ * @description GFM Markdown prose typography for assistant message responses.
+ */
+
+@layer dl-components {
+  .dl-agent-chat__plain {
+    white-space: pre-wrap;
+    word-break: break-word;
+    line-height: 1.6;
+  }
+
+  .dl-agent-chat__markdown {
+    word-break: break-word;
+    line-height: 1.65;
+  }
+
+  .dl-agent-chat__markdown > :first-child {
+    margin-top: 0;
+  }
+
+  .dl-agent-chat__markdown > :last-child {
+    margin-bottom: 0;
+  }
+
+  .dl-agent-chat__markdown h1,
+  .dl-agent-chat__markdown h2,
+  .dl-agent-chat__markdown h3,
+  .dl-agent-chat__markdown h4 {
+    margin: 1em 0 0.4em;
+    font-weight: 650;
+    line-height: 1.3;
+  }
+
+  .dl-agent-chat__markdown h1 {
+    font-size: 1.25rem;
+  }
+
+  .dl-agent-chat__markdown h2 {
+    font-size: 1.1rem;
+  }
+
+  .dl-agent-chat__markdown h3 {
+    font-size: 1rem;
+  }
+
+  .dl-agent-chat__markdown p,
+  .dl-agent-chat__markdown ul,
+  .dl-agent-chat__markdown ol,
+  .dl-agent-chat__markdown pre,
+  .dl-agent-chat__markdown blockquote,
+  .dl-agent-chat__markdown table {
+    margin: 0.55em 0;
+  }
+
+  .dl-agent-chat__markdown ul,
+  .dl-agent-chat__markdown ol {
+    padding-left: 1.35rem;
+  }
+
+  .dl-agent-chat__markdown li + li {
+    margin-top: 0.25em;
+  }
+
+  .dl-agent-chat__markdown code {
+    font-family: var(--font-mono, ui-monospace, monospace);
+    font-size: 0.88em;
+    padding: 0.12em 0.36em;
+    border-radius: 5px;
+    background: color-mix(in oklab, var(--muted) 75%, transparent);
+  }
+
+  .dl-agent-chat__markdown pre {
+    padding: 10px 12px;
+    border-radius: 8px;
+    border: 1px solid var(--dl-chat-border);
+    background: color-mix(in oklab, var(--muted) 55%, var(--dl-chat-bg));
+    overflow-x: auto;
+  }
+
+  .dl-agent-chat__markdown pre code {
+    padding: 0;
+    background: transparent;
+  }
+
+  .dl-agent-chat__markdown table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+  }
+
+  .dl-agent-chat__markdown th,
+  .dl-agent-chat__markdown td {
+    border: 1px solid var(--dl-chat-border);
+    padding: 6px 10px;
+    text-align: left;
+  }
+
+  .dl-agent-chat__markdown th {
+    background: color-mix(in oklab, var(--muted) 55%, transparent);
+    font-weight: 600;
+  }
+}
