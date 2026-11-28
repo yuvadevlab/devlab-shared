@@ -46,20 +46,24 @@
     "clean": "rm -rf dist node_modules .turbo"
   },
   "peerDependencies": {
+    "@yuva-devlab/agent-protocol": "^0.3.0",
+    "@yuva-devlab/ui": "^5.0.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
   },
   "dependencies": {
-    "@yuva-devlab/agent-protocol": "workspace:*",
-    "@yuva-devlab/ui": "workspace:*",
-    "lucide-react": "^0.575.0"
+    "lucide-react": "^0.575.0",
+    "react-markdown": "^10.1.0",
+    "remark-gfm": "^4.0.0"
   },
   "devDependencies": {
     "@types/react": "^19.1.0",
     "@types/react-dom": "^19.1.0",
+    "@yuva-devlab/agent-protocol": "workspace:*",
     "@yuva-devlab/eslint-config": "workspace:*",
     "@yuva-devlab/prettier-config": "workspace:*",
     "@yuva-devlab/typescript-config": "workspace:*",
+    "@yuva-devlab/ui": "workspace:*",
     "eslint": "^9.39.1",
     "prettier": "^3.9.8",
     "tsup": "^8.5.1",

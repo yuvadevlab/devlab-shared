@@ -8,6 +8,7 @@ import {
   AgentStreamEventType,
   type AgentStreamEvent,
 } from "@yuva-devlab/agent-protocol";
+import { AgentApprovalState } from "./enums";
 import type { AgentChatMessageItem, AgentTraceLogItem } from "./types";
 
 /**
@@ -191,7 +192,7 @@ export function reduceAssistantMessageEvent(
               actionId: event.actionId,
               tool: event.tool,
               card: event.card,
-              state: "approval-requested",
+              state: AgentApprovalState.REQUESTED,
             },
           ],
         },

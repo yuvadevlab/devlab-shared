@@ -124,7 +124,13 @@
     cursor: pointer;
   }
 
+  .dl-agent-chat__thread-btn svg {
+    flex-shrink: 0;
+  }
+
   .dl-agent-chat__thread-btn span {
+    flex: 1;
+    min-width: 0;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;

@@ -25,6 +25,7 @@ import {
   ToolCall,
 } from "@yuva-devlab/ui";
 import type { AgentChatCopy } from "../constants";
+import { AgentApprovalState } from "../enums";
 import type { AgentChatMessageItem, AgentChatRenderers } from "../types";
 
 export interface AgentChatTurnDetailsProps {
@@ -109,7 +110,7 @@ export function AgentChatTurnDetails({
             )}
           </ConfirmationContent>
           <ConfirmationActions>
-            {conf.state === "approval-requested" ? (
+            {conf.state === AgentApprovalState.REQUESTED ? (
               <>
                 <Button
                   type="button"
@@ -130,10 +131,12 @@ export function AgentChatTurnDetails({
             ) : (
               <Badge
                 variant={
-                  conf.state === "approval-accepted" ? "default" : "secondary"
+                  conf.state === AgentApprovalState.ACCEPTED
+                    ? "default"
+                    : "secondary"
                 }
               >
-                {conf.state === "approval-accepted"
+                {conf.state === AgentApprovalState.ACCEPTED
                   ? copy.approvedLabel
                   : copy.rejectedLabel}
               </Badge>

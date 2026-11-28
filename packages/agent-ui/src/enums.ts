@@ -55,3 +55,14 @@ export const AgentMessageRole = {
 /** Union type of {@link AgentMessageRole} values. */
 export type AgentMessageRole =
   (typeof AgentMessageRole)[keyof typeof AgentMessageRole];
+
+/** Human-in-the-loop confirmation approval lifecycle states. */
+export const AgentApprovalState = {
+  REQUESTED: "approval-requested",
+  ACCEPTED: "approval-accepted",
+  REJECTED: "approval-rejected",
+} as const;
+
+/** Union type of {@link AgentApprovalState} values. */
+export type AgentApprovalState =
+  (typeof AgentApprovalState)[keyof typeof AgentApprovalState];

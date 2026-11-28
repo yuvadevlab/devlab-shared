@@ -42,12 +42,6 @@
     gap: 8px;
   }
 
-  .dl-agent-chat__markdown {
-    white-space: pre-wrap;
-    word-break: break-word;
-    line-height: 1.6;
-  }
-
   .dl-agent-chat__shimmer {
     height: 18px;
     width: 180px;
