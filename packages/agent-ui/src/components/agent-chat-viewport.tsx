@@ -6,6 +6,8 @@
 
 import { useEffect, useRef, useState } from "react";
 import { ArrowDown, Bot, Sparkles, User } from "lucide-react";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 import {
   Button,
   Message,
@@ -147,10 +149,18 @@ export function AgentChatViewport({
                     }
                   >
                     {msg.content ? (
-                      <div className="dl-agent-chat__markdown">
-                        {msg.content}
-                      </div>
-                    ) : isLast && isStreaming ? (
+                      isUser ? (
+                        <div className="dl-agent-chat__plain">
+                          {msg.content}
+                        </div>
+                      ) : (
+                        <div className="dl-agent-chat__markdown">
+                          <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                            {msg.content}
+                          </ReactMarkdown>
+                        </div>
+                      )
+                    ) : isLast && isStreaming && !msg.reasoning ? (
                       <Shimmer className="dl-agent-chat__shimmer">
                         {copy.thinkingLabel}
                       </Shimmer>

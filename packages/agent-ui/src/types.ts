@@ -15,6 +15,7 @@ import type {
 import type { PromptInputAttachmentItem } from "@yuva-devlab/ui";
 import type { AgentChatCopy } from "./constants";
 import type {
+  AgentApprovalState,
   AgentChatLayout,
   AgentChatSlot,
   AgentMessageRole,
@@ -48,7 +49,7 @@ export interface AgentConfirmationState {
   /** Structured card describing the pending action. */
   card: AgentCard;
   /** Approval lifecycle state. */
-  state: "approval-requested" | "approval-accepted" | "approval-rejected";
+  state: AgentApprovalState;
   /** Optional outcome message after resolution. */
   message?: string;
 }
@@ -116,6 +117,14 @@ export interface AgentChatTransportConfig {
   streamUrl: string;
   /** Optional URL for HITL confirmation approval/rejection. */
   confirmUrl?: string;
+  /** Optional custom handler for HITL confirmation approval/rejection. */
+  onConfirmAction?: (actionId: string, approved: boolean) => Promise<void>;
+  /** Optional custom HITL confirmation handler overriding `confirmUrl`. */
+  resolveConfirmation?: (
+    actionId: string,
+    approved: boolean,
+    threadId?: string,
+  ) => Promise<void>;
   /** Consumer app slug forwarded to the Gateway. */
   appSlug: string;
   /** Default agent profile slug. */

@@ -5,7 +5,37 @@
  */
 
 import type { AgentStreamEvent } from "@yuva-devlab/agent-protocol";
+import type { PromptInputAttachmentItem } from "@yuva-devlab/ui";
 import { parseAgentSseChunk } from "./sse-parser";
+import type { AgentChatTransportConfig } from "./types";
+
+/** Builds the POST JSON body for a Gateway run, honoring consumer `buildBody` overrides. */
+export function buildGatewayRequestBody(params: {
+  transport: AgentChatTransportConfig;
+  prompt: string;
+  messages: Array<{ role: string; content: string }>;
+  threadId?: string;
+  modelId?: string;
+  attachments: PromptInputAttachmentItem[];
+}): Record<string, unknown> {
+  if (params.transport.buildBody) {
+    return params.transport.buildBody({
+      prompt: params.prompt,
+      messages: params.messages,
+      threadId: params.threadId,
+      modelId: params.modelId,
+      attachments: params.attachments,
+    });
+  }
+  return {
+    appSlug: params.transport.appSlug,
+    profileSlug: params.transport.profileSlug,
+    prompt: params.prompt,
+    messages: params.messages,
+    threadId: params.threadId,
+    overrides: params.modelId ? { modelId: params.modelId } : undefined,
+  };
+}
 
 /** Parameters for {@link streamAgentGateway}. */
 export interface StreamAgentGatewayParams {
@@ -51,4 +81,23 @@ export async function streamAgentGateway({
       onEvent(event);
     }
   }
+}
+
+/** Sends a confirmation decision to a Gateway HITL endpoint. */
+export async function postAgentConfirmation(params: {
+  url: string;
+  headers: Record<string, string>;
+  actionId: string;
+  approved: boolean;
+  threadId?: string;
+}): Promise<void> {
+  await fetch(params.url, {
+    method: "POST",
+    headers: params.headers,
+    body: JSON.stringify({
+      actionId: params.actionId,
+      approved: params.approved,
+      threadId: params.threadId,
+    }),
+  });
 }
